@@ -8,13 +8,14 @@ const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const DATA_DIR = path.join(__dirname, '.data');
 const CACHE_FILE = path.join(DATA_DIR, 'cache.json');
-const PORT = Number(process.env.PORT || 8787);
 const API_BASE = 'https://searchapi.api.cloud.yandex.net/v2/wordstat';
 const REQUEST_DELAY_MS = 400;
 const MAX_SEEDS = 40;
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
 await loadEnvFile();
+await loadLegacyCredentialsFile();
+const PORT = Number(process.env.PORT || 8787);
 
 let cache = await loadCache();
 
@@ -35,6 +36,22 @@ async function loadEnvFile() {
     }
   } catch (error) {
     if (error.code !== 'ENOENT') console.warn('Could not read .env:', error.message);
+  }
+}
+
+async function loadLegacyCredentialsFile() {
+  const credentialsPath = process.env.YANDEX_CREDENTIALS_FILE
+    ? path.resolve(process.env.YANDEX_CREDENTIALS_FILE)
+    : path.join(__dirname, 'я.txt');
+  try {
+    const text = await fs.readFile(credentialsPath, 'utf8');
+    const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    if (!process.env.YANDEX_API_KEY && lines[0]) process.env.YANDEX_API_KEY = lines[0];
+    if (!process.env.YANDEX_KEY_ID && lines[1]) process.env.YANDEX_KEY_ID = lines[1];
+    if (!process.env.YANDEX_FOLDER_ID && lines[2]) process.env.YANDEX_FOLDER_ID = lines[2];
+    console.log('Loaded Yandex credentials from local credentials file (values hidden).');
+  } catch (error) {
+    if (error.code !== 'ENOENT') console.warn('Could not read credentials file:', error.message);
   }
 }
 
