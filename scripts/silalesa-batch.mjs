@@ -111,6 +111,12 @@ function writeCsv(rows, headers, projector) {
   return '\ufeff' + [headers.join(','), ...rows.map((row) => projector(row).map(csvCell).join(','))].join('\n');
 }
 
+function actionLabel(action) {
+  if (action === 'landing') return 'landing';
+  if (action === 'guide') return 'guide';
+  return 'hold';
+}
+
 const tree = await call('/getRegionsTree', { folderId });
 const regions = [...extractRegions(tree).values()];
 console.log(`Region records discovered: ${regions.length}`);
@@ -179,7 +185,7 @@ rawMd.push('');
 rawMd.push(`Собрано: ${generatedAt}`);
 rawMd.push(`Seed-фраз: ${seeds.length}; регионов: ${targets.length}; API-вызовов: ${calls.length}; уникальных строк: ${rows.length}.`);
 rawMd.push('');
-rawMd.push('> В raw-слое есть Associations, поэтому верхние строки могут содержать шум. Для редакционных решений используйте intent-сводку ниже/отдельный intent snapshot.');
+rawMd.push('> В raw-слое есть Associations, поэтому верхние строки могут содержать шум. Для редакционных решений используйте intent/action snapshot.');
 rawMd.push('');
 for (const region of targets) {
   rawMd.push(`## ${region.name}`);
@@ -201,6 +207,10 @@ const analysis = analyzeRows(rows, preset, {
 });
 
 const intentRows = analysis.summary.filter((item) => item.phraseCount > 0);
+const actionRows = (analysis.classifiedRows || [])
+  .filter((row) => (row.types || []).includes('top'))
+  .sort((a, b) => Number(b.count || 0) - Number(a.count || 0) || String(a.phrase || '').localeCompare(String(b.phrase || ''), 'ru'));
+
 await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.json'), JSON.stringify({
   ...analysis,
   source: {
@@ -214,51 +224,75 @@ await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.json'), JSON.stri
 
 await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.csv'), writeCsv(
   intentRows,
-  ['intent_id','intent_title','cluster','region_id','region_name','business_priority','relative_demand_band','relative_rank','phrase_count','max_count','strongest_phrase','top_phrases'],
+  ['intent_id','intent_title','cluster','region_id','region_name','business_priority','relative_demand_band','relative_rank','phrase_count','max_count','strongest_phrase','dominant_query_type','next_action','commercial_phrases','informational_phrases','unmapped_phrases','top_phrases'],
   (x) => [
     x.intentId,x.intentTitle,x.cluster,x.regionId,x.regionName,x.businessPriority,
     x.relativeDemandBand,x.relativeRank ?? '',x.phraseCount,x.maxCount,x.strongestPhrase,
-    (x.topPhrases || []).map((p) => `${p.phrase}:${p.count}`).join('|')
+    x.dominantQueryType,x.nextAction,x.queryTypeCounts?.commercial || 0,
+    x.queryTypeCounts?.informational || 0,x.queryTypeCounts?.unmapped || 0,
+    (x.topPhrases || []).map((p) => `${p.phrase}:${p.count}:${p.queryType}:${p.nextAction}`).join('|')
+  ]
+), 'utf8');
+
+await fs.writeFile(path.join(OUT_DIR, 'silalesa-query-actions-latest.csv'), writeCsv(
+  actionRows,
+  ['phrase','region_id','region_name','count','types','seeds','analysis_status','query_type','query_confidence','query_source','next_action','intent_id','intent_title','intent_score','matched_keywords'],
+  (r) => [
+    r.phrase,r.regionId,r.regionName,r.count,(r.types || []).join('|'),(r.seeds || []).join('|'),
+    r.analysisStatus,r.queryType,r.queryConfidence,r.querySource,r.nextAction,
+    r.intentId || '',r.intentTitle || '',r.score || '',(r.matchedKeywords || []).join('|')
   ]
 ), 'utf8');
 
 const intentMd = [];
-intentMd.push('# Сила Леса — intent validation');
+intentMd.push('# Сила Леса — intent + query action validation');
 intentMd.push('');
 intentMd.push(`Собрано: ${analysis.meta.generatedAt}`);
 intentMd.push(`Источник: ${rows.length} уникальных Wordstat-строк, ${seeds.length} seed × ${targets.length} региона.`);
-intentMd.push(`Для количественной сводки учитывается только **Top**: eligible ${analysis.meta.eligibleRows}, распределено ${analysis.meta.assignedRows}, не распознано ${analysis.meta.unassignedRows}.`);
+intentMd.push(`Для количественной сводки учитывается только **Top**: eligible ${analysis.meta.eligibleRows}, распределено по intent ${analysis.meta.assignedRows}, без intent ${analysis.meta.unassignedRows}.`);
+intentMd.push(`Тип спроса: commercial ${analysis.meta.queryTypeCounts?.commercial || 0}; informational ${analysis.meta.queryTypeCounts?.informational || 0}; unmapped ${analysis.meta.queryTypeCounts?.unmapped || 0}; noise ${analysis.meta.queryTypeCounts?.noise || 0}.`);
+intentMd.push(`Маршрутизация: landing ${analysis.meta.nextActionCounts?.landing || 0}; guide ${analysis.meta.nextActionCounts?.guide || 0}; hold ${analysis.meta.nextActionCounts?.hold || 0}.`);
 intentMd.push('');
-intentMd.push('> `maxCount`, `relativeRank` и `relativeDemandBand` — сравнительные сигналы внутри этой выборки. Частотности связанных запросов не суммируются в «объём рынка».');
+intentMd.push('> `maxCount`, `relativeRank` и `relativeDemandBand` — сравнительные сигналы внутри этой выборки. Query type / action — эвристическая маршрутизация контента, а не гарантия SEO-результата. Частотности связанных запросов не суммируются в «объём рынка».');
 intentMd.push('');
+
 for (const region of targets) {
   const ranked = intentRows.filter((x) => x.regionId === region.id).sort((a,b) => (a.relativeRank || 9999) - (b.relativeRank || 9999));
   intentMd.push(`## ${region.name}`);
   intentMd.push('');
-  intentMd.push('| Rank | ID | Приоритет | Intent | Сигнал | Max | Сильнейшая фраза | Фраз |');
-  intentMd.push('|---:|---|---|---|---|---:|---|---:|');
+  intentMd.push('| Rank | ID | Приоритет | Intent | Сигнал | Тип спроса | Действие | Max | Сильнейшая фраза | Фраз |');
+  intentMd.push('|---:|---|---|---|---|---|---|---:|---|---:|');
   for (const x of ranked) {
-    intentMd.push(`| ${x.relativeRank ?? '—'} | ${x.intentId} | ${x.businessPriority || '—'} | ${x.intentTitle.replaceAll('|','\\|')} | ${x.relativeDemandBand} | ${x.maxCount} | ${String(x.strongestPhrase || '').replaceAll('|','\\|')} | ${x.phraseCount} |`);
+    intentMd.push(`| ${x.relativeRank ?? '—'} | ${x.intentId} | ${x.businessPriority || '—'} | ${x.intentTitle.replaceAll('|','\\|')} | ${x.relativeDemandBand} | ${x.dominantQueryType} | ${actionLabel(x.nextAction)} | ${x.maxCount} | ${String(x.strongestPhrase || '').replaceAll('|','\\|')} | ${x.phraseCount} |`);
   }
   intentMd.push('');
 }
 
-const unassigned = (analysis.reviewRows || [])
-  .filter((row) => row.analysisStatus === 'unassigned' && (row.types || []).includes('top'))
-  .sort((a,b) => Number(b.count || 0) - Number(a.count || 0))
+intentMd.push('## Очередь действий по фактическим Top-запросам');
+intentMd.push('');
+intentMd.push('| Запрос | Регион | Count | Тип спроса | Действие | Intent | Уверенность |');
+intentMd.push('|---|---|---:|---|---|---|---|');
+for (const row of actionRows.slice(0, 80)) {
+  const intent = row.intentId ? `${row.intentId} ${row.intentTitle || ''}` : '—';
+  intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${String(intent).replaceAll('|','\\|')} | ${row.queryConfidence || '—'} |`);
+}
+intentMd.push('');
+
+const unassigned = actionRows
+  .filter((row) => row.analysisStatus === 'unassigned')
   .slice(0, 40);
-intentMd.push('## Нераспознанные Top-запросы для улучшения preset');
+intentMd.push('## Top-запросы без intent для улучшения preset');
 intentMd.push('');
 if (!unassigned.length) {
   intentMd.push('Нет.');
 } else {
-  intentMd.push('| Запрос | Регион | Count | Seed |');
-  intentMd.push('|---|---|---:|---|');
+  intentMd.push('| Запрос | Регион | Count | Тип спроса | Действие | Seed |');
+  intentMd.push('|---|---|---:|---|---|---|');
   for (const row of unassigned) {
-    intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${(row.seeds || []).join(', ').replaceAll('|','\\|')} |`);
+    intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${(row.seeds || []).join(', ').replaceAll('|','\\|')} |`);
   }
 }
 intentMd.push('');
 await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-summary.md'), intentMd.join('\n'), 'utf8');
 
-console.log(`DONE: ${rows.length} raw rows; ${analysis.meta.assignedRows}/${analysis.meta.eligibleRows} Top rows assigned; ${intentRows.length} intent-region signals written.`);
+console.log(`DONE: ${rows.length} raw rows; ${analysis.meta.assignedRows}/${analysis.meta.eligibleRows} Top rows assigned; ${intentRows.length} intent-region signals; ${actionRows.length} query actions.`);
