@@ -26,7 +26,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Collect Wordstat batch and analyze intents
+      - name: Collect Wordstat batch and analyze query actions
         run: node scripts/silalesa-batch.mjs
       - name: Upload results artifact
         uses: actions/upload-artifact@v4
@@ -44,10 +44,11 @@ jobs:
             results/silalesa-wordstat-summary.md \
             results/silalesa-intents-latest.csv \
             results/silalesa-intents-latest.json \
-            results/silalesa-intents-summary.md
+            results/silalesa-intents-summary.md \
+            results/silalesa-query-actions-latest.csv
           if git diff --cached --quiet; then
             echo "No result changes to commit"
             exit 0
           fi
-          git commit -m "data: refresh Sila Lesa Wordstat + intent snapshots"
+          git commit -m "data: refresh Sila Lesa Wordstat + query action snapshots"
           git push
