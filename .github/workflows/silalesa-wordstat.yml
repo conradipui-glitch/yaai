@@ -1,0 +1,45 @@
+name: Sila Lesa Wordstat batch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/silalesa-wordstat.yml'
+      - 'scripts/silalesa-batch.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
+      YANDEX_FOLDER_ID: b1gfllt28aev9insu589
+      NUM_PHRASES: '200'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect Wordstat batch
+        run: node scripts/silalesa-batch.mjs
+      - name: Upload results artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: silalesa-wordstat
+          path: results/
+          retention-days: 30
+      - name: Commit latest public research snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/silalesa-wordstat-latest.csv results/silalesa-wordstat-latest.json results/silalesa-wordstat-summary.md
+          if git diff --cached --quiet; then
+            echo "No result changes to commit"
+            exit 0
+          fi
+          git commit -m "data: refresh Sila Lesa Wordstat snapshot"
+          git push
