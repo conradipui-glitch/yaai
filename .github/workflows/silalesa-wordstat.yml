@@ -6,7 +6,10 @@ on:
     paths:
       - '.github/workflows/silalesa-wordstat.yml'
       - 'scripts/silalesa-batch.mjs'
+      - 'scripts/build-page-plan.mjs'
       - 'lib/analyze.mjs'
+      - 'public/page-planner.js'
+      - 'public/planner-silalesa.json'
       - 'presets/silalesa.json'
   workflow_dispatch:
 
@@ -28,6 +31,8 @@ jobs:
           node-version: 22
       - name: Collect Wordstat batch and analyze query actions
         run: node scripts/silalesa-batch.mjs
+      - name: Build Page Planner snapshot
+        run: node scripts/build-page-plan.mjs
       - name: Upload results artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,10 +50,13 @@ jobs:
             results/silalesa-intents-latest.csv \
             results/silalesa-intents-latest.json \
             results/silalesa-intents-summary.md \
-            results/silalesa-query-actions-latest.csv
+            results/silalesa-query-actions-latest.csv \
+            results/silalesa-page-plan-latest.csv \
+            results/silalesa-page-plan-latest.json \
+            results/silalesa-page-plan-summary.md
           if git diff --cached --quiet; then
             echo "No result changes to commit"
             exit 0
           fi
-          git commit -m "data: refresh Sila Lesa Wordstat + query action snapshots"
+          git commit -m "data: refresh Sila Lesa Wordstat + Page Planner snapshots"
           git push
