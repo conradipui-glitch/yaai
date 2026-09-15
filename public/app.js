@@ -1,7 +1,10 @@
+import { buildPagePlan } from './page-planner.js';
+
 const $ = (id) => document.getElementById(id);
 let allRegions = [];
 let lastRows = [];
 let lastAnalysis = null;
+let lastPagePlan = null;
 
 const TYPE_LABEL = {
   commercial: 'Commercial',
@@ -14,6 +17,19 @@ const ACTION_LABEL = {
   landing: 'Делать landing',
   guide: 'Делать guide',
   hold: 'Пока не делать',
+};
+
+const PLAN_LABEL = {
+  expand: 'EXPAND',
+  create: 'CREATE',
+  merge: 'MERGE',
+  hold: 'HOLD',
+};
+
+const PRIORITY_LABEL = {
+  now: 'Сейчас',
+  next: 'Следом',
+  later: 'Позже',
 };
 
 function setStatus(el, text, kind = '') {
@@ -125,6 +141,50 @@ function renderAnalysis(data) {
   $('queryCsvBtn').disabled = !classified.length;
 }
 
+function renderPagePlan(data) {
+  const counts = data.meta.decisionCounts || {};
+  $('pagePlanMetrics').innerHTML = [
+    metric('Страниц в плане', data.meta.pageCandidates || 0),
+    metric('Сейчас', data.meta.nowCount || 0),
+    metric('EXPAND', counts.expand || 0, 'усилить существующую'),
+    metric('CREATE', counts.create || 0, 'создать новую'),
+    metric('MERGE', counts.merge || 0, 'встроить в существующую'),
+    metric('HOLD', counts.hold || 0, 'не публиковать пока'),
+  ].join('');
+
+  const pages = data.pages || [];
+  $('pagePlanBody').innerHTML = pages.length ? pages.map((page) => {
+    const regions = (page.regions || []).map((region) => `${region.regionName}: ${Number(region.maxCount || 0).toLocaleString('ru-RU')}`).join('<br>');
+    const top = (page.topQueries || []).slice(0, 4).map((q) => `${esc(q.phrase)} <b>${Number(q.count || 0).toLocaleString('ru-RU')}</b>`).join('<br>');
+    return `<tr>
+      <td><b>#${page.priorityRank}</b><br>${pill(PRIORITY_LABEL[page.priorityBand] || page.priorityBand, page.priorityBand)}</td>
+      <td>${pill(PLAN_LABEL[page.decision] || page.decision, page.decision)}<br><span class="muted">${esc(page.pageKind)}</span></td>
+      <td><b>${esc(page.title)}</b><br><code>${esc(page.path)}</code>${page.generated ? '<br><span class="muted">auto target</span>' : ''}</td>
+      <td>${esc(page.businessPriority || '—')}<br><span class="muted">score ${esc(page.plannerScore)}</span></td>
+      <td><b>${esc(page.strongestPhrase)}</b> — ${Number(page.maxCount || 0).toLocaleString('ru-RU')}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
+      <td>${regions || '—'}</td>
+      <td>${(page.intentIds || []).map((id) => pill(id)).join('') || '<span class="muted">без intent</span>'}</td>
+      <td>${top || '—'}${page.note ? `<br><span class="muted">${esc(page.note)}</span>` : ''}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="8" class="muted">Page Planner не нашёл кандидатов.</td></tr>';
+
+  $('pagePlanCsvBtn').disabled = !pages.length;
+  setStatus($('pagePlanStatus'), `Готово: ${pages.length} страниц-кандидатов; ${counts.hold || 0} строк оставлены в HOLD.`, 'ok');
+}
+
+async function buildPlannerFromAnalysis() {
+  if (!lastAnalysis) return;
+  const presetId = $('presetSelect').value || 'silalesa';
+  let plannerProfile = {};
+  try {
+    plannerProfile = await api(`/planner-${encodeURIComponent(presetId)}.json`);
+  } catch {
+    plannerProfile = {};
+  }
+  lastPagePlan = buildPagePlan(lastAnalysis, { id: presetId, pagePlanner: plannerProfile });
+  renderPagePlan(lastPagePlan);
+}
+
 async function init() {
   try {
     const [config, presets] = await Promise.all([api('/api/config'), api('/api/presets')]);
@@ -186,11 +246,16 @@ $('runBtn').onclick = async () => {
     });
     lastRows = data.rows || [];
     lastAnalysis = null;
+    lastPagePlan = null;
     renderRaw(data);
     $('csvBtn').disabled = !lastRows.length;
     $('analyzeBtn').disabled = !lastRows.length;
     $('intentCsvBtn').disabled = true;
     $('queryCsvBtn').disabled = true;
+    $('pagePlanCsvBtn').disabled = true;
+    $('pagePlanMetrics').innerHTML = '';
+    $('pagePlanBody').innerHTML = '<tr><td colspan="8" class="muted">Сначала постройте карту действий.</td></tr>';
+    setStatus($('pagePlanStatus'), 'Page Planner ждёт анализа.');
     setStatus($('runStatus'), `Готово: ${data.meta.rows} уникальных фраз.`, 'ok');
     setStatus($('analysisStatus'), 'Данные готовы к анализу.');
   } catch (error) {
@@ -210,6 +275,7 @@ $('analyzeBtn').onclick = async () => {
   if (!lastRows.length) return;
   $('analyzeBtn').disabled = true;
   setStatus($('analysisStatus'), 'Классифицирую спрос и строю очередь действий…');
+  setStatus($('pagePlanStatus'), 'После intent-карты автоматически соберу план страниц…');
   try {
     const data = await api('/api/analyze', {
       method: 'POST',
@@ -227,8 +293,10 @@ $('analyzeBtn').onclick = async () => {
     lastAnalysis = data;
     renderAnalysis(data);
     setStatus($('analysisStatus'), `Готово: Commercial ${data.meta.queryTypeCounts?.commercial || 0}, Informational ${data.meta.queryTypeCounts?.informational || 0}, Unmapped ${data.meta.queryTypeCounts?.unmapped || 0}.`, 'ok');
+    await buildPlannerFromAnalysis();
   } catch (error) {
     setStatus($('analysisStatus'), error.message, 'err');
+    setStatus($('pagePlanStatus'), 'Page Planner не запущен из-за ошибки анализа.', 'err');
   } finally {
     $('analyzeBtn').disabled = false;
   }
@@ -257,6 +325,22 @@ $('queryCsvBtn').onclick = () => {
       row.phrase, row.regionId, row.regionName, row.count, (row.types || []).join('|'), (row.seeds || []).join('|'),
       row.analysisStatus, row.queryType, row.queryConfidence, row.querySource, row.nextAction,
       row.intentId || '', row.intentTitle || '', row.score || '', (row.matchedKeywords || []).join('|'),
+    ]),
+  );
+};
+
+$('pagePlanCsvBtn').onclick = () => {
+  const pages = lastPagePlan?.pages || [];
+  downloadCsv(
+    `page-plan-${new Date().toISOString().slice(0, 10)}.csv`,
+    ['rank', 'priority_band', 'decision', 'page_kind', 'title', 'path', 'business_priority', 'planner_score', 'phrase_count', 'max_count', 'strongest_phrase', 'strongest_region', 'regions', 'intent_ids', 'top_queries', 'note'],
+    pages.map((page) => [
+      page.priorityRank, page.priorityBand, page.decision, page.pageKind, page.title, page.path,
+      page.businessPriority, page.plannerScore, page.phraseCount, page.maxCount, page.strongestPhrase, page.strongestRegion,
+      (page.regions || []).map((r) => `${r.regionName}:${r.maxCount}`).join('|'),
+      (page.intentIds || []).join('|'),
+      (page.topQueries || []).map((q) => `${q.phrase}:${q.count}`).join('|'),
+      page.note || '',
     ]),
   );
 };
