@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/silalesa-wordstat.yml'
       - 'scripts/silalesa-batch.mjs'
+      - 'lib/analyze.mjs'
+      - 'presets/silalesa.json'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +26,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Collect Wordstat batch
+      - name: Collect Wordstat batch and analyze intents
         run: node scripts/silalesa-batch.mjs
       - name: Upload results artifact
         uses: actions/upload-artifact@v4
@@ -36,10 +38,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add results/silalesa-wordstat-latest.csv results/silalesa-wordstat-latest.json results/silalesa-wordstat-summary.md
+          git add \
+            results/silalesa-wordstat-latest.csv \
+            results/silalesa-wordstat-latest.json \
+            results/silalesa-wordstat-summary.md \
+            results/silalesa-intents-latest.csv \
+            results/silalesa-intents-latest.json \
+            results/silalesa-intents-summary.md
           if git diff --cached --quiet; then
             echo "No result changes to commit"
             exit 0
           fi
-          git commit -m "data: refresh Sila Lesa Wordstat snapshot"
+          git commit -m "data: refresh Sila Lesa Wordstat + intent snapshots"
           git push
