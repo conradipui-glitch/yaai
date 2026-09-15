@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>yaai — Wordstat batch</title>
+  <title>yaai — Wordstat research</title>
   <style>
-    :root{font-family:Inter,system-ui,sans-serif;color:#171717;background:#f5f5f3}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:28px}.card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 8px 30px rgba(0,0,0,.04)}h1{margin:0 0 8px;font-size:34px}h2{font-size:20px;margin:0 0 14px}.muted{color:#666}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;box-sizing:border-box;border:1px solid #ccc;border-radius:10px;padding:10px 12px;background:#fff}textarea{min-height:190px;resize:vertical}button{border:0;border-radius:10px;padding:10px 15px;background:#111;color:#fff;cursor:pointer}button.secondary{background:#ececea;color:#111}button:disabled{opacity:.5;cursor:not-allowed}.status{padding:10px 12px;border-radius:10px;background:#f0f0ef}.status.ok{background:#e8f6ec}.status.err{background:#fdeaea;color:#8a1c1c}.regions{max-height:240px;overflow:auto;border:1px solid #ddd;border-radius:10px;padding:8px}.region{display:flex;gap:8px;align-items:flex-start;padding:6px}.region input{width:auto;margin-top:3px}.metric{padding:12px;border-radius:12px;background:#f3f3f1;min-width:120px}.metric b{display:block;font-size:24px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid #eee;vertical-align:top}th{position:sticky;top:0;background:#fff}.table-wrap{max-height:560px;overflow:auto}.pill{display:inline-block;padding:2px 7px;border-radius:999px;background:#eee;margin:1px;font-size:12px}@media(max-width:800px){.grid{grid-template-columns:1fr}.wrap{padding:14px}}
+    :root{font-family:Inter,system-ui,sans-serif;color:#171717;background:#f5f5f3}body{margin:0}.wrap{max-width:1240px;margin:0 auto;padding:28px}.card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 8px 30px rgba(0,0,0,.04)}h1{margin:0 0 8px;font-size:34px}h2{font-size:20px;margin:0 0 14px}h3{font-size:16px;margin:14px 0 8px}.muted{color:#666}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;box-sizing:border-box;border:1px solid #ccc;border-radius:10px;padding:10px 12px;background:#fff}textarea{min-height:190px;resize:vertical}button{border:0;border-radius:10px;padding:10px 15px;background:#111;color:#fff;cursor:pointer}button.secondary{background:#ececea;color:#111}button:disabled{opacity:.5;cursor:not-allowed}.status{padding:10px 12px;border-radius:10px;background:#f0f0ef}.status.ok{background:#e8f6ec}.status.err{background:#fdeaea;color:#8a1c1c}.regions{max-height:240px;overflow:auto;border:1px solid #ddd;border-radius:10px;padding:8px}.region{display:flex;gap:8px;align-items:flex-start;padding:6px}.region input{width:auto;margin-top:3px}.metric{padding:12px;border-radius:12px;background:#f3f3f1;min-width:120px}.metric b{display:block;font-size:24px}.metric small{display:block;color:#666;margin-top:3px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid #eee;vertical-align:top}th{position:sticky;top:0;background:#fff}.table-wrap{max-height:560px;overflow:auto}.pill{display:inline-block;padding:2px 7px;border-radius:999px;background:#eee;margin:1px;font-size:12px}.pill.high{background:#dff3e4}.pill.medium{background:#fff0c9}.pill.low{background:#f1f1f1}.intent-table td:first-child{white-space:nowrap}.note{padding:12px;border-left:3px solid #aaa;background:#f7f7f5;border-radius:8px}.checks{display:flex;gap:16px;flex-wrap:wrap}.checks label{font-weight:600;margin:0}.checks input{width:auto;margin-right:5px}@media(max-width:850px){.grid,.grid3{grid-template-columns:1fr}.wrap{padding:14px}}
   </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
-    <h1>yaai · Wordstat batch</h1>
-    <div class="muted">Пачка seed → Wordstat → регионы → дедупликация → CSV. API-ключ остаётся на сервере.</div>
+    <h1>yaai · Wordstat research</h1>
+    <div class="muted">Пачка seed → Wordstat → регионы → дедупликация → очистка → intent-кластеры → CSV. API-ключ остаётся на сервере.</div>
   </div>
 
   <div class="card">
@@ -39,15 +39,18 @@
 фундамент под баню
 баня зимой
 доставка бани
-баня на участок</textarea>
+баня на участок
+бурение скважин
+полусухая стяжка
+механизированная штукатурка</textarea>
       </div>
       <div>
         <div class="grid">
-          <div><label>Фраз на один seed</label><select id="numPhrases"><option>100</option><option>200</option><option>500</option><option>1000</option><option>2000</option></select></div>
+          <div><label>Фраз на один seed</label><select id="numPhrases"><option>100</option><option selected>200</option><option>500</option><option>1000</option><option>2000</option></select></div>
           <div><label>Устройства</label><select id="device"><option value="DEVICE_ALL">Все</option><option value="DEVICE_DESKTOP">Desktop</option><option value="DEVICE_PHONE">Телефоны</option><option value="DEVICE_TABLET">Планшеты</option></select></div>
         </div>
         <div style="margin-top:12px"><label><input id="useCache" type="checkbox" checked style="width:auto"> Использовать кэш 24 часа</label></div>
-        <div class="muted" style="margin-top:10px">MVP ограничивает запуск 40 seed-фразами и максимум 100 API-вызовами за один прогон.</div>
+        <div class="muted" style="margin-top:10px">До 40 seed-фраз и максимум 100 Wordstat-вызовов за один прогон.</div>
       </div>
     </div>
   </div>
@@ -59,19 +62,41 @@
   </div>
 
   <div class="card">
-    <div class="row"><button id="runBtn">Собрать пачку</button><button id="csvBtn" class="secondary" disabled>Скачать CSV</button><span id="runStatus" class="status">Готово к запуску.</span></div>
+    <div class="row"><button id="runBtn">Собрать пачку</button><button id="csvBtn" class="secondary" disabled>Скачать raw CSV</button><span id="runStatus" class="status">Готово к запуску.</span></div>
   </div>
 
   <div class="card">
-    <h2>Результат</h2>
+    <h2>4. Сырые результаты</h2>
     <div id="metrics" class="row" style="margin-bottom:12px"></div>
     <div class="table-wrap"><table><thead><tr><th>Запрос</th><th>Регион</th><th>Count</th><th>Тип</th><th>Seed-источники</th></tr></thead><tbody id="tbody"></tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h2>5. Очистка и раскладка по intent</h2>
+    <div class="grid3">
+      <div><label>Preset</label><select id="presetSelect"><option value="">Загрузка…</option></select></div>
+      <div><label>Минимальный count</label><input id="minCount" type="number" min="0" value="0" /></div>
+      <div><label>Порог association</label><select id="associationScore"><option value="4" selected>4 — умеренный</option><option value="6">6 — строгий</option><option value="2">2 — широкий</option></select></div>
+    </div>
+    <div class="checks" style="margin:14px 0">
+      <label><input id="includeTop" type="checkbox" checked> учитывать Top</label>
+      <label><input id="includeAssociations" type="checkbox"> учитывать Associations</label>
+    </div>
+    <div class="note">По умолчанию считаем спрос по <b>Top</b>. Associations полезны как источник формулировок, но там много шума. Сумму частотностей инструмент специально не выдаёт как «рынок», потому что запросы пересекаются.</div>
+    <div class="row" style="margin-top:14px"><button id="analyzeBtn" disabled>Разложить по intent</button><button id="intentCsvBtn" class="secondary" disabled>Скачать intent CSV</button><button id="assignedCsvBtn" class="secondary" disabled>Скачать очищенные фразы</button><span id="analysisStatus" class="status">Сначала соберите Wordstat.</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Intent-карта</h2>
+    <div id="analysisMetrics" class="row" style="margin-bottom:12px"></div>
+    <div class="table-wrap"><table class="intent-table"><thead><tr><th>ID</th><th>Тема</th><th>Регион</th><th>Приоритет</th><th>Сигнал</th><th>Фраз</th><th>Сильнейшая фраза</th><th>Top формулировки</th></tr></thead><tbody id="intentBody"></tbody></table></div>
   </div>
 </div>
 <script>
 const $ = (id) => document.getElementById(id);
 let allRegions = [];
 let lastRows = [];
+let lastAnalysis = null;
 
 function setStatus(el, text, kind='') { el.textContent = text; el.className = 'status ' + kind; }
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
@@ -89,12 +114,20 @@ async function api(url, options={}){
   return data;
 }
 
+function downloadCsv(filename, headers, rows){
+  const quote=v=>'"'+String(v??'').replaceAll('"','""')+'"';
+  const lines=[headers.join(','),...rows.map(row=>row.map(quote).join(','))];
+  const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); URL.revokeObjectURL(a.href);
+}
+
 async function init(){
   try{
-    const c = await api('/api/config');
+    const [c,p]=await Promise.all([api('/api/config'),api('/api/presets')]);
     if(c.defaultFolderId){$('folderId').value=c.defaultFolderId;localStorage.setItem('folderId',c.defaultFolderId)}
     else $('folderId').value=localStorage.getItem('folderId')||'';
     setStatus($('configStatus'), `API key: ${c.hasApiKey?'есть':'нет'} · folderId: ${c.hasFolderId?'есть':'нет'}`, c.hasApiKey?'ok':'err');
+    $('presetSelect').innerHTML=(p.presets||[]).map(x=>`<option value="${esc(x.id)}">${esc(x.name)} (${x.intents})</option>`).join('')||'<option value="">Нет preset</option>';
   }catch(e){setStatus($('configStatus'),e.message,'err')}
 }
 
@@ -120,19 +153,40 @@ $('runBtn').onclick = async()=>{
   $('runBtn').disabled=true;
   try{
     const d=await api('/api/batch',{method:'POST',body:JSON.stringify({folderId:$('folderId').value.trim(),seeds,regions,numPhrases:Number($('numPhrases').value),device:$('device').value,useCache:$('useCache').checked})});
-    lastRows=d.rows||[];
+    lastRows=d.rows||[]; lastAnalysis=null;
     $('metrics').innerHTML = [['Строк',d.meta.rows],['API вызовов',d.meta.apiCalls],['Из кэша',d.meta.cachedCalls],['Seed',d.meta.seeds]].map(([a,b])=>`<div class="metric"><span class="muted">${a}</span><b>${b}</b></div>`).join('');
     $('tbody').innerHTML=lastRows.slice(0,5000).map(r=>`<tr><td><b>${esc(r.phrase)}</b></td><td>${esc(r.regionName)} <span class="muted">(${esc(r.regionId)})</span></td><td>${Number(r.count).toLocaleString('ru-RU')}</td><td>${r.types.map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</td><td>${r.seeds.map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</td></tr>`).join('');
-    $('csvBtn').disabled=!lastRows.length;
+    $('csvBtn').disabled=!lastRows.length; $('analyzeBtn').disabled=!lastRows.length; $('intentCsvBtn').disabled=true; $('assignedCsvBtn').disabled=true;
     setStatus($('runStatus'),`Готово: ${d.meta.rows} уникальных фраз.`,'ok');
+    setStatus($('analysisStatus'),'Данные готовы к анализу.');
   }catch(e){setStatus($('runStatus'),e.message,'err')}
   finally{$('runBtn').disabled=false}
 };
-$('csvBtn').onclick=()=>{
-  const headers=['phrase','region_id','region_name','count','types','seeds'];
-  const quote=v=>'"'+String(v??'').replaceAll('"','""')+'"';
-  const lines=[headers.join(','),...lastRows.map(r=>[r.phrase,r.regionId,r.regionName,r.count,r.types.join('|'),r.seeds.join('|')].map(quote).join(','))];
-  const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`wordstat-${new Date().toISOString().slice(0,10)}.csv`; a.click(); URL.revokeObjectURL(a.href);
+$('csvBtn').onclick=()=>downloadCsv(`wordstat-${new Date().toISOString().slice(0,10)}.csv`,['phrase','region_id','region_name','count','types','seeds'],lastRows.map(r=>[r.phrase,r.regionId,r.regionName,r.count,r.types.join('|'),r.seeds.join('|')]));
+
+$('analyzeBtn').onclick=async()=>{
+  if(!lastRows.length)return;
+  $('analyzeBtn').disabled=true; setStatus($('analysisStatus'),'Очищаю и раскладываю по intent…');
+  try{
+    const d=await api('/api/analyze',{method:'POST',body:JSON.stringify({rows:lastRows,presetId:$('presetSelect').value||'silalesa',options:{includeTop:$('includeTop').checked,includeAssociations:$('includeAssociations').checked,minCount:Number($('minCount').value||0),associationMinScore:Number($('associationScore').value)}})});
+    lastAnalysis=d;
+    const m=d.meta;
+    $('analysisMetrics').innerHTML=[['Подошло',m.eligibleRows,'после фильтра'],['Разложено',m.assignedRows,'по intent'],['Не распознано',m.unassignedRows,'на ручную проверку'],['Шум',m.negativeRows,'отсечено']].map(([a,b,c])=>`<div class="metric"><span class="muted">${a}</span><b>${b}</b><small>${c}</small></div>`).join('');
+    const rows=(d.summary||[]).filter(x=>x.phraseCount>0);
+    $('intentBody').innerHTML=rows.map(x=>`<tr><td><b>${esc(x.intentId)}</b></td><td><b>${esc(x.intentTitle)}</b><br><span class="muted">${esc(x.cluster)}</span></td><td>${esc(x.regionName)}</td><td>${esc(x.businessPriority)}</td><td><span class="pill ${esc(x.relativeDemandBand)}">${esc(x.relativeDemandBand)}</span> #${x.relativeRank??'—'}<br><span class="muted">max ${Number(x.maxCount).toLocaleString('ru-RU')}</span></td><td>${x.phraseCount}</td><td>${esc(x.strongestPhrase)}${x.strongestPhrase?` — <b>${Number(x.maxCount).toLocaleString('ru-RU')}</b>`:''}</td><td>${(x.topPhrases||[]).slice(0,5).map(p=>`<span class="pill">${esc(p.phrase)} · ${Number(p.count).toLocaleString('ru-RU')}</span>`).join('')}</td></tr>`).join('')||'<tr><td colspan="8" class="muted">Подходящих intent-кластеров не найдено.</td></tr>';
+    $('intentCsvBtn').disabled=!rows.length; $('assignedCsvBtn').disabled=!(d.assignedRows||[]).length;
+    setStatus($('analysisStatus'),`Готово: ${m.assignedRows} фраз распределено. ${m.unassignedRows} оставлено на проверку.`,'ok');
+  }catch(e){setStatus($('analysisStatus'),e.message,'err')}
+  finally{$('analyzeBtn').disabled=false}
+};
+
+$('intentCsvBtn').onclick=()=>{
+  const rows=(lastAnalysis?.summary||[]).filter(x=>x.phraseCount>0);
+  downloadCsv(`intent-map-${new Date().toISOString().slice(0,10)}.csv`,['intent_id','intent_title','cluster','region_id','region_name','business_priority','relative_demand_band','relative_rank','phrase_count','max_count','strongest_phrase','top_phrases'],rows.map(x=>[x.intentId,x.intentTitle,x.cluster,x.regionId,x.regionName,x.businessPriority,x.relativeDemandBand,x.relativeRank??'',x.phraseCount,x.maxCount,x.strongestPhrase,(x.topPhrases||[]).map(p=>`${p.phrase}:${p.count}`).join('|')]));
+};
+$('assignedCsvBtn').onclick=()=>{
+  const rows=lastAnalysis?.assignedRows||[];
+  downloadCsv(`clean-keywords-${new Date().toISOString().slice(0,10)}.csv`,['phrase','region_id','region_name','count','types','seeds','intent_id','intent_title','intent_score','confidence','matched_keywords'],rows.map(x=>[x.phrase,x.regionId,x.regionName,x.count,(x.types||[]).join('|'),(x.seeds||[]).join('|'),x.intentId,x.intentTitle,x.score,x.confidence,(x.matchedKeywords||[]).join('|')]));
 };
 init();
 </script>
