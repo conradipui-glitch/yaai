@@ -1,0 +1,25 @@
+name: Wordstat smoke
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wordstat-smoke.yml'
+      - 'scripts/wordstat-smoke.mjs'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Wordstat credentials without printing secrets
+        run: node scripts/wordstat-smoke.mjs
