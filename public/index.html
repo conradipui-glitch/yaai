@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>yaai — Wordstat batch</title>
+  <style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#171717;background:#f5f5f3}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:28px}.card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 8px 30px rgba(0,0,0,.04)}h1{margin:0 0 8px;font-size:34px}h2{font-size:20px;margin:0 0 14px}.muted{color:#666}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;box-sizing:border-box;border:1px solid #ccc;border-radius:10px;padding:10px 12px;background:#fff}textarea{min-height:190px;resize:vertical}button{border:0;border-radius:10px;padding:10px 15px;background:#111;color:#fff;cursor:pointer}button.secondary{background:#ececea;color:#111}button:disabled{opacity:.5;cursor:not-allowed}.status{padding:10px 12px;border-radius:10px;background:#f0f0ef}.status.ok{background:#e8f6ec}.status.err{background:#fdeaea;color:#8a1c1c}.regions{max-height:240px;overflow:auto;border:1px solid #ddd;border-radius:10px;padding:8px}.region{display:flex;gap:8px;align-items:flex-start;padding:6px}.region input{width:auto;margin-top:3px}.metric{padding:12px;border-radius:12px;background:#f3f3f1;min-width:120px}.metric b{display:block;font-size:24px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid #eee;vertical-align:top}th{position:sticky;top:0;background:#fff}.table-wrap{max-height:560px;overflow:auto}.pill{display:inline-block;padding:2px 7px;border-radius:999px;background:#eee;margin:1px;font-size:12px}@media(max-width:800px){.grid{grid-template-columns:1fr}.wrap{padding:14px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>yaai · Wordstat batch</h1>
+    <div class="muted">Пачка seed → Wordstat → регионы → дедупликация → CSV. API-ключ остаётся на сервере.</div>
+  </div>
+
+  <div class="card">
+    <h2>1. Доступ к Yandex</h2>
+    <div class="grid">
+      <div><label>Folder ID</label><input id="folderId" placeholder="b1g..." /></div>
+      <div class="row" style="align-items:flex-end"><button id="testBtn">Проверить доступ</button><span id="configStatus" class="status">Проверяю конфигурацию…</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. Seed-запросы</h2>
+    <div class="grid">
+      <div>
+        <label>По одной фразе на строку</label>
+        <textarea id="seeds">готовая баня
+мобильная баня
+баня под ключ
+каркасная баня
+кедровая баня
+баня 2х2
+баня 3х2
+баня 4х2
+фундамент под баню
+баня зимой
+доставка бани
+баня на участок</textarea>
+      </div>
+      <div>
+        <div class="grid">
+          <div><label>Фраз на один seed</label><select id="numPhrases"><option>100</option><option>200</option><option>500</option><option>1000</option><option>2000</option></select></div>
+          <div><label>Устройства</label><select id="device"><option value="DEVICE_ALL">Все</option><option value="DEVICE_DESKTOP">Desktop</option><option value="DEVICE_PHONE">Телефоны</option><option value="DEVICE_TABLET">Планшеты</option></select></div>
+        </div>
+        <div style="margin-top:12px"><label><input id="useCache" type="checkbox" checked style="width:auto"> Использовать кэш 24 часа</label></div>
+        <div class="muted" style="margin-top:10px">MVP ограничивает запуск 40 seed-фразами и максимум 100 API-вызовами за один прогон.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3. Регионы</h2>
+    <div class="row" style="margin-bottom:10px"><button id="regionsBtn" class="secondary">Загрузить регионы</button><input id="regionSearch" placeholder="Поиск региона, например Омск" style="max-width:340px" /></div>
+    <div id="regions" class="regions"><div class="muted">Сначала загрузите дерево регионов.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><button id="runBtn">Собрать пачку</button><button id="csvBtn" class="secondary" disabled>Скачать CSV</button><span id="runStatus" class="status">Готово к запуску.</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Результат</h2>
+    <div id="metrics" class="row" style="margin-bottom:12px"></div>
+    <div class="table-wrap"><table><thead><tr><th>Запрос</th><th>Регион</th><th>Count</th><th>Тип</th><th>Seed-источники</th></tr></thead><tbody id="tbody"></tbody></table></div>
+  </div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+let allRegions = [];
+let lastRows = [];
+
+function setStatus(el, text, kind='') { el.textContent = text; el.className = 'status ' + kind; }
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function selectedRegions(){return [...document.querySelectorAll('.region input:checked')].map(x=>({id:x.dataset.id,name:x.dataset.name}));}
+function renderRegions(){
+  const q = $('regionSearch').value.trim().toLowerCase();
+  const items = allRegions.filter(r => !q || r.path.toLowerCase().includes(q)).slice(0,300);
+  $('regions').innerHTML = items.length ? items.map(r=>`<label class="region"><input type="checkbox" data-id="${esc(r.id)}" data-name="${esc(r.name)}"><span><b>${esc(r.name)}</b><br><span class="muted">${esc(r.path)} · ID ${esc(r.id)}</span></span></label>`).join('') : '<div class="muted">Ничего не найдено.</div>';
+}
+
+async function api(url, options={}){
+  const r = await fetch(url,{headers:{'content-type':'application/json'},...options});
+  const data = await r.json().catch(()=>({error:'Некорректный ответ сервера'}));
+  if(!r.ok) throw new Error(data.error || `HTTP ${r.status}`);
+  return data;
+}
+
+async function init(){
+  try{
+    const c = await api('/api/config');
+    if(c.defaultFolderId){$('folderId').value=c.defaultFolderId;localStorage.setItem('folderId',c.defaultFolderId)}
+    else $('folderId').value=localStorage.getItem('folderId')||'';
+    setStatus($('configStatus'), `API key: ${c.hasApiKey?'есть':'нет'} · folderId: ${c.hasFolderId?'есть':'нет'}`, c.hasApiKey?'ok':'err');
+  }catch(e){setStatus($('configStatus'),e.message,'err')}
+}
+
+$('folderId').addEventListener('change',()=>localStorage.setItem('folderId',$('folderId').value.trim()));
+$('regionSearch').addEventListener('input',renderRegions);
+$('testBtn').onclick = async()=>{
+  setStatus($('configStatus'),'Проверяю…');
+  try{const d=await api('/api/test',{method:'POST',body:JSON.stringify({folderId:$('folderId').value.trim()})});setStatus($('configStatus'),`Доступ есть · корневых регионов: ${d.regionRoots}`,'ok')}
+  catch(e){setStatus($('configStatus'),e.message,'err')}
+};
+$('regionsBtn').onclick = async()=>{
+  setStatus($('runStatus'),'Загружаю дерево регионов…');
+  try{
+    const d=await api('/api/regions',{method:'POST',body:JSON.stringify({folderId:$('folderId').value.trim()})});
+    allRegions=d.regions||[]; $('regionSearch').value='Омск'; renderRegions();
+    setStatus($('runStatus'),`Загружено регионов: ${allRegions.length}. Отфильтровано по «Омск».`,'ok');
+  }catch(e){setStatus($('runStatus'),e.message,'err')}
+};
+$('runBtn').onclick = async()=>{
+  const seeds=$('seeds').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  const regions=selectedRegions();
+  setStatus($('runStatus'),`Запуск: ${seeds.length} seed × ${regions.length} регион(а/ов)…`);
+  $('runBtn').disabled=true;
+  try{
+    const d=await api('/api/batch',{method:'POST',body:JSON.stringify({folderId:$('folderId').value.trim(),seeds,regions,numPhrases:Number($('numPhrases').value),device:$('device').value,useCache:$('useCache').checked})});
+    lastRows=d.rows||[];
+    $('metrics').innerHTML = [['Строк',d.meta.rows],['API вызовов',d.meta.apiCalls],['Из кэша',d.meta.cachedCalls],['Seed',d.meta.seeds]].map(([a,b])=>`<div class="metric"><span class="muted">${a}</span><b>${b}</b></div>`).join('');
+    $('tbody').innerHTML=lastRows.slice(0,5000).map(r=>`<tr><td><b>${esc(r.phrase)}</b></td><td>${esc(r.regionName)} <span class="muted">(${esc(r.regionId)})</span></td><td>${Number(r.count).toLocaleString('ru-RU')}</td><td>${r.types.map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</td><td>${r.seeds.map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</td></tr>`).join('');
+    $('csvBtn').disabled=!lastRows.length;
+    setStatus($('runStatus'),`Готово: ${d.meta.rows} уникальных фраз.`,'ok');
+  }catch(e){setStatus($('runStatus'),e.message,'err')}
+  finally{$('runBtn').disabled=false}
+};
+$('csvBtn').onclick=()=>{
+  const headers=['phrase','region_id','region_name','count','types','seeds'];
+  const quote=v=>'"'+String(v??'').replaceAll('"','""')+'"';
+  const lines=[headers.join(','),...lastRows.map(r=>[r.phrase,r.regionId,r.regionName,r.count,r.types.join('|'),r.seeds.join('|')].map(quote).join(','))];
+  const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`wordstat-${new Date().toISOString().slice(0,10)}.csv`; a.click(); URL.revokeObjectURL(a.href);
+};
+init();
+</script>
+</body>
+</html>
