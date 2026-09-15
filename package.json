@@ -1,13 +1,13 @@
 {
   "name": "yaai-wordstat-batch",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
-  "description": "Local Wordstat research UI with intent clustering, query type classification and content actions",
+  "description": "Local Wordstat research UI with intent clustering, query actions and Page Planner",
   "scripts": {
     "start": "node server.mjs",
     "dev": "node --watch server.mjs",
-    "check": "node --check server.mjs && node --check lib/analyze.mjs && node --check public/app.js && node --check scripts/selftest.mjs && node scripts/selftest.mjs"
+    "check": "node --check server.mjs && node --check lib/analyze.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/build-page-plan.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs"
   },
   "engines": {
     "node": ">=20"
