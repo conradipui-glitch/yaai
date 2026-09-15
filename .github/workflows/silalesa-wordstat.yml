@@ -5,9 +5,13 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/silalesa-wordstat.yml'
+      - 'cases/silalesa-seo.json'
       - 'scripts/silalesa-batch.mjs'
       - 'scripts/build-page-plan.mjs'
+      - 'scripts/snapshot-results.mjs'
+      - 'scripts/compare-snapshots.mjs'
       - 'lib/analyze.mjs'
+      - 'lib/snapshots.mjs'
       - 'public/page-planner.js'
       - 'public/planner-silalesa.json'
       - 'presets/silalesa.json'
@@ -24,6 +28,7 @@ jobs:
       YAIS_ID: ${{ secrets.YAIS_ID }}
       YANDEX_FOLDER_ID: b1gfllt28aev9insu589
       NUM_PHRASES: '200'
+      CASE_ID: silalesa-seo
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,11 +38,17 @@ jobs:
         run: node scripts/silalesa-batch.mjs
       - name: Build Page Planner snapshot
         run: node scripts/build-page-plan.mjs
+      - name: Archive dated case snapshot
+        run: node scripts/snapshot-results.mjs
+      - name: Compare with previous case snapshot
+        run: node scripts/compare-snapshots.mjs
       - name: Upload results artifact
         uses: actions/upload-artifact@v4
         with:
           name: silalesa-wordstat
-          path: results/
+          path: |
+            results/
+            research/cases/silalesa-seo/
           retention-days: 30
       - name: Commit latest public research snapshot
         run: |
@@ -53,10 +64,11 @@ jobs:
             results/silalesa-query-actions-latest.csv \
             results/silalesa-page-plan-latest.csv \
             results/silalesa-page-plan-latest.json \
-            results/silalesa-page-plan-summary.md
+            results/silalesa-page-plan-summary.md \
+            research/cases/silalesa-seo
           if git diff --cached --quiet; then
             echo "No result changes to commit"
             exit 0
           fi
-          git commit -m "data: refresh Sila Lesa Wordstat + Page Planner snapshots"
+          git commit -m "data: refresh Sila Lesa research case snapshot"
           git push
