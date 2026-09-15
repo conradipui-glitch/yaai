@@ -5,7 +5,7 @@
     "includeTop": true,
     "includeAssociations": false,
     "minCount": 0,
-    "generatedAt": "2026-09-15T10:44:45.028Z",
+    "generatedAt": "2026-09-15T11:12:13.841Z",
     "note": "Query type и nextAction — рабочая классификация для контентной архитектуры. maxCount и relativeDemandBand — сигналы внутри текущей выборки; частотности связанных запросов не суммируются в рынок.",
     "inputRows": 3312,
     "eligibleRows": 2995,
@@ -205535,7 +205535,7 @@
     }
   ],
   "source": {
-    "generatedAt": "2026-09-15T10:44:42.973Z",
+    "generatedAt": "2026-09-15T11:12:11.168Z",
     "numPhrases": 200,
     "seeds": [
       "готовая баня",

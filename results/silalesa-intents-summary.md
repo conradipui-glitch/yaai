@@ -1,6 +1,6 @@
 # Сила Леса — intent + query action validation
 
-Собрано: 2026-09-15T10:44:45.028Z
+Собрано: 2026-09-15T11:12:13.841Z
 Источник: 3312 уникальных Wordstat-строк, 15 seed × 2 региона.
 Для количественной сводки учитывается только **Top**: eligible 2995, распределено по intent 1790, без intent 1204.
 Тип спроса: commercial 1774; informational 686; unmapped 534; noise 1.
