@@ -2,16 +2,19 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { analyzeRows } from './lib/analyze.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, 'public');
+const PRESETS_DIR = path.join(__dirname, 'presets');
 const DATA_DIR = path.join(__dirname, '.data');
 const CACHE_FILE = path.join(DATA_DIR, 'cache.json');
 const API_BASE = 'https://searchapi.api.cloud.yandex.net/v2/wordstat';
 const REQUEST_DELAY_MS = 400;
 const MAX_SEEDS = 40;
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const MAX_BODY_BYTES = 10_000_000;
 
 await loadEnvFile();
 await loadLegacyCredentialsFile();
@@ -46,9 +49,9 @@ async function loadLegacyCredentialsFile() {
   try {
     const text = await fs.readFile(credentialsPath, 'utf8');
     const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-    if (!process.env.YANDEX_API_KEY && lines[0]) process.env.YANDEX_API_KEY = lines[0];
-    if (!process.env.YANDEX_KEY_ID && lines[1]) process.env.YANDEX_KEY_ID = lines[1];
-    if (!process.env.YANDEX_FOLDER_ID && lines[2]) process.env.YANDEX_FOLDER_ID = lines[2];
+    if (!process.env.YANDEX_API_KEY && !process.env.YAIS_API && lines[0]) process.env.YANDEX_API_KEY = lines[0];
+    if (!process.env.YANDEX_KEY_ID && !process.env.YAIS_ID && lines[1]) process.env.YANDEX_KEY_ID = lines[1];
+    if (!process.env.YANDEX_FOLDER_ID && !process.env.YAIS_FOLDER_ID && lines[2]) process.env.YANDEX_FOLDER_ID = lines[2];
     console.log('Loaded Yandex credentials from local credentials file (values hidden).');
   } catch (error) {
     if (error.code !== 'ENOENT') console.warn('Could not read credentials file:', error.message);
@@ -106,7 +109,11 @@ async function readJsonBody(req) {
   let size = 0;
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > 1_000_000) throw new Error('Request body is too large');
+    if (size > MAX_BODY_BYTES) {
+      const error = new Error('Request body is too large');
+      error.status = 413;
+      throw error;
+    }
     chunks.push(chunk);
   }
   const text = Buffer.concat(chunks).toString('utf8') || '{}';
@@ -114,17 +121,17 @@ async function readJsonBody(req) {
 }
 
 function getApiKey() {
-  return process.env.YANDEX_API_KEY?.trim() || '';
+  return String(process.env.YANDEX_API_KEY || process.env.YAIS_API || '').trim();
 }
 
 function getFolderId(requestFolderId) {
-  return String(requestFolderId || process.env.YANDEX_FOLDER_ID || '').trim();
+  return String(requestFolderId || process.env.YANDEX_FOLDER_ID || process.env.YAIS_FOLDER_ID || '').trim();
 }
 
 async function yandexRequest(endpoint, payload = {}) {
   const apiKey = getApiKey();
   if (!apiKey) {
-    const error = new Error('YANDEX_API_KEY is not configured on the server');
+    const error = new Error('Yandex API key is not configured on the server');
     error.status = 503;
     throw error;
   }
@@ -225,15 +232,63 @@ function mergeWordstatRows(calls) {
 
 function flattenRegions(nodes, parents = [], out = []) {
   for (const node of nodes || []) {
-    const currentParents = [...parents, node.name].filter(Boolean);
+    const name = String(node.name || node.label || '').trim();
+    if (!name || node.id == null) {
+      flattenRegions(node.children || [], parents, out);
+      continue;
+    }
+    const currentParents = [...parents, name].filter(Boolean);
     out.push({
       id: String(node.id),
-      name: node.name,
+      name,
       path: currentParents.join(' → '),
     });
     flattenRegions(node.children || [], currentParents, out);
   }
   return out;
+}
+
+async function listPresets() {
+  try {
+    const names = (await fs.readdir(PRESETS_DIR)).filter((name) => name.endsWith('.json'));
+    const items = [];
+    for (const fileName of names) {
+      try {
+        const preset = JSON.parse(await fs.readFile(path.join(PRESETS_DIR, fileName), 'utf8'));
+        items.push({
+          id: preset.id || path.basename(fileName, '.json'),
+          name: preset.name || fileName,
+          description: preset.description || '',
+          intents: Array.isArray(preset.intents) ? preset.intents.length : 0,
+        });
+      } catch (error) {
+        console.warn(`Could not load preset ${fileName}:`, error.message);
+      }
+    }
+    return items.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  } catch (error) {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  }
+}
+
+async function loadPreset(presetId) {
+  const id = String(presetId || '').trim();
+  if (!/^[a-z0-9_-]+$/i.test(id)) {
+    const error = new Error('Invalid presetId');
+    error.status = 400;
+    throw error;
+  }
+  try {
+    return JSON.parse(await fs.readFile(path.join(PRESETS_DIR, `${id}.json`), 'utf8'));
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      const notFound = new Error(`Preset not found: ${id}`);
+      notFound.status = 404;
+      throw notFound;
+    }
+    throw error;
+  }
 }
 
 async function serveStatic(req, res) {
@@ -273,6 +328,15 @@ const server = http.createServer(async (req, res) => {
         maxSeeds: MAX_SEEDS,
         cacheTtlHours: CACHE_TTL_MS / 3_600_000,
       });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/api/presets') {
+      return json(res, 200, { presets: await listPresets() });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/api/preset') {
+      const preset = await loadPreset(url.searchParams.get('id'));
+      return json(res, 200, { preset });
     }
 
     if (req.method === 'POST' && url.pathname === '/api/test') {
@@ -340,6 +404,20 @@ const server = http.createServer(async (req, res) => {
         },
         rows,
       });
+    }
+
+    if (req.method === 'POST' && url.pathname === '/api/analyze') {
+      const body = await readJsonBody(req);
+      const rows = Array.isArray(body.rows) ? body.rows : [];
+      if (!rows.length) return json(res, 400, { error: 'rows are required' });
+      const preset = body.preset && typeof body.preset === 'object'
+        ? body.preset
+        : await loadPreset(body.presetId || 'silalesa');
+      if (!Array.isArray(preset.intents) || !preset.intents.length) {
+        return json(res, 400, { error: 'Preset must contain intents' });
+      }
+      const result = analyzeRows(rows, preset, body.options || {});
+      return json(res, 200, result);
     }
 
     if (req.method === 'GET' && !url.pathname.startsWith('/api/')) {
