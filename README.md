@@ -1,240 +1,103 @@
-# yaai — Wordstat research workbench
+# yaai — reusable Wordstat research engine
 
-Локальный инструмент для пакетного исследования спроса через официальный Wordstat API в Yandex Search API.
+`yaai` is the engine only. Client cases, presets, planner profiles, result files and dated snapshots live in an external project workspace.
 
-## Что умеет v0.4
+The engine provides:
 
-- принимает пачку seed-запросов;
-- опрашивает один или несколько регионов;
-- собирает `results` и `associations` из Wordstat GetTop;
-- объединяет дубли без суммирования одной и той же частотности;
-- сохраняет, из каких seed пришла каждая фраза;
-- показывает сырые результаты в браузере и выгружает CSV;
-- отдельно фильтрует `Top` и `Associations`;
-- убирает preset-специфичный шум;
-- раскладывает фразы по intent-кластерам;
-- классифицирует фактические запросы как `commercial`, `informational`, `unmapped` или `noise`;
-- предлагает рабочее следующее действие: `landing`, `guide` или `hold`;
-- строит **Page Planner**: объединяет похожий спрос в страницы и говорит `EXPAND`, `CREATE`, `MERGE` или `HOLD`;
-- знает уже существующие страницы проекта и не предлагает делать SEO-дубль там, где тему лучше встроить в текущую страницу;
-- показывает приоритет `Сейчас / Следом / Позже`;
-- выгружает raw CSV, `intent CSV`, `query actions CSV` и `page plan CSV`;
-- не отправляет API-ключ в браузер.
+- Yandex Wordstat batch collection;
+- intent clustering and query classification;
+- Commercial / Informational / Noise / Unmapped labels;
+- Landing / Guide / Hold recommendations;
+- Page Planner;
+- dated snapshots and comparisons between runs;
+- a small local web UI.
 
-В репозитории есть preset `presets/silalesa.json` с 36 intent'ами для проекта «Сила Леса» и отдельный профиль Page Planner `public/planner-silalesa.json`. Для другого проекта можно добавить свою карту тем и свой список существующих/планируемых страниц без переписывания движка.
+## Workspace boundary
 
-## Как читать query actions
-
-`commercial` — запрос ближе к выбору/покупке услуги или продукта. Для него инструмент предлагает `landing`.
-
-`informational` — запрос преимущественно про сравнение, выбор, условия, процесс или ответ на вопрос. Для него инструмент предлагает `guide`.
-
-`unmapped` — сигнала пока недостаточно. Инструмент предлагает `hold`, то есть не создавать страницу только ради того, чтобы куда-то пристроить запрос.
-
-`noise` — запрос отсечён отрицательными правилами preset. Для него также `hold`.
-
-Это **эвристическая маршрутизация контента**, а не гарантия ранжирования и не замена ручной проверки. У классификации есть `queryConfidence` и `querySource`, чтобы было видно, насколько уверенно принято решение и откуда оно взялось.
-
-## Что делает Page Planner
-
-Page Planner работает уже не с отдельными ключами, а с будущими страницами сайта.
-
-Он принимает классифицированные Top-запросы и пытается ответить на более практичный вопрос: **что конкретно менять на сайте?**
-
-Решения:
-
-- `EXPAND` — страница уже существует, её надо усилить под подтверждённый спрос;
-- `CREATE` — нужна одна новая страница под группу похожих запросов;
-- `MERGE` — отдельная страница создаст дубль, поэтому тему лучше встроить сильным блоком в существующую;
-- `HOLD` — пока ничего не публиковать: запрос шумный, неясный или не привязан к понятной странице.
-
-Для каждой страницы Planner показывает:
-
-- целевой URL;
-- тип страницы — landing или guide;
-- strongest query и его Wordstat count;
-- сигналы по регионам;
-- связанные intent'ы;
-- несколько главных запросов, которые должна покрывать страница;
-- рабочий приоритет `Сейчас / Следом / Позже`.
-
-Важно: Page Planner **не суммирует частотности похожих запросов**. Один человек и одна сессия могут попадать в несколько связанных формулировок, поэтому сумма была бы ложной точностью. Приоритет строится на strongest query, бизнес-приоритете, фокусе проекта и типе работы.
-
-## Важное про частотности
-
-Для intent показываются:
-
-- `maxCount` — частотность сильнейшей найденной фразы;
-- `phraseCount` — сколько релевантных формулировок попало в кластер;
-- `relativeDemandBand` — high / medium / low относительно других intent'ов в этом же регионе и текущем прогоне;
-- `relativeRank` — относительное место внутри этого прогона;
-- `dominantQueryType` — какой тип спроса преобладает среди фраз этого intent;
-- `nextAction` — `landing`, `guide` или `hold`.
-
-По умолчанию количественный анализ идёт только по `Top`. `Associations` можно включить отдельно как источник дополнительных формулировок; для них действует более строгий порог соответствия intent.
-
-## Почему официальный API
-
-Используется REST endpoint Yandex Search API:
-
-`POST https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests`
-
-Для работы нужны:
-
-- API-ключ Yandex AI Studio / Yandex Cloud с доступом к Search API;
-- область действия ключа `yc.search-api.execute`;
-- роль сервисного аккаунта `search-api.webSearch.user`;
-- `folderId` каталога Yandex Cloud.
-
-Ключ хранится только на серверной стороне. Не коммитьте `.env`, `я.txt` и любые секреты в GitHub.
-
-## Запуск
-
-Требование: Node.js 20+ (рекомендуется 22+).
-
-Вариант A — `.env`:
-
-```bash
-cp .env.example .env
-# заполнить YANDEX_API_KEY и YANDEX_FOLDER_ID
-npm start
-```
-
-Также поддерживаются переменные `YAIS_API` и `YAIS_FOLDER_ID`.
-
-Вариант B — локальный `я.txt` в корне проекта:
+A workspace is any directory with this structure:
 
 ```text
-<API KEY>
-<KEY ID>
-<FOLDER ID>
+workspace/
+  cases/
+    <case-id>.json
+  presets/
+    <result-prefix>.json
+  planners/
+    <result-prefix>.json
+  results/
+  snapshots/
+    <case-id>/
+```
+The repository contains only `examples/workspace/`, a neutral fixture used for documentation and self-tests. Real client data must not be committed to the engine repository.
+
+## Selecting a workspace
+
+Use either a CLI flag or an environment variable:
+
+```bash
+node server.mjs --workspace ../my-project/research/yaai
+YAAI_WORKSPACE=../my-project/research/yaai node server.mjs
 ```
 
-Открыть:
+Batch scripts use the same workspace resolver. A case is selected explicitly:
 
-`http://localhost:8787`
+```bash
+node scripts/batch.mjs --workspace ../my-project/research/yaai --case my-project-seo
+node scripts/build-page-plan.mjs --workspace ../my-project/research/yaai --case my-project-seo
+node scripts/snapshot-results.mjs --workspace ../my-project/research/yaai --case my-project-seo
+node scripts/compare-snapshots.mjs --workspace ../my-project/research/yaai --case my-project-seo
+```
 
-Зависимостей нет: используется встроенный `fetch` Node.js.
+Equivalent environment variables are `YAAI_WORKSPACE` and `CASE_ID` / `YAAI_CASE_ID`.
 
-## Как пользоваться
+For an unusual layout, only the case configuration directory can be overridden separately with `--case-root` or `YAAI_CASE_ROOT`. Presets, planners, results and snapshots continue to resolve from the workspace root.
+## Case contract
 
-1. Вставить seed-фразы, по одной на строку.
-2. Загрузить дерево регионов и отметить нужные регионы.
-3. Нажать **«Собрать пачку»**.
-4. При необходимости скачать raw CSV.
-5. В блоке **«Intent + тип спроса + действие»** выбрать preset.
-6. Для базового количественного прохода оставить `Top` включённым, а `Associations` выключенными.
-7. Нажать **«Построить карту действий»**.
-8. Инструмент автоматически построит intent-карту, query actions и Page Planner.
-9. В Page Planner идти сверху вниз: сначала `Сейчас`, потом `Следом`, затем `Позже`.
-10. При необходимости скачать `page plan CSV` и использовать его как backlog сайта.
-
-## Профиль Page Planner
-
-Отдельный JSON описывает уже существующие и планируемые страницы проекта.
-
-Минимальный пример:
+`cases/<case-id>.json` controls collection and names the result prefix:
 
 ```json
 {
-  "nowCount": 5,
-  "nextCount": 10,
-  "targets": [
-    {
-      "id": "product-main",
-      "title": "Основной продукт",
-      "kind": "landing",
-      "status": "existing",
-      "mode": "primary",
-      "path": "/product/",
-      "priority": "P1",
-      "intentIds": ["I01"],
-      "keywords": ["купит* продукт*"]
-    },
-    {
-      "id": "price-section",
-      "title": "Цена и комплектация",
-      "kind": "landing",
-      "status": "existing",
-      "mode": "section",
-      "path": "/product/",
-      "intentIds": ["I02"]
-    },
-    {
-      "id": "guide-choice",
-      "title": "Как выбрать продукт",
-      "kind": "guide",
-      "status": "planned",
-      "mode": "primary",
-      "path": "/guides/how-to-choose/",
-      "intentIds": ["I03"]
-    }
-  ]
+  "id": "example-seo",
+  "name": "Example SEO case",
+  "resultPrefix": "example",
+  "regions": ["Example Region"],
+  "devices": ["DEVICE_ALL"],
+  "numPhrases": 100,
+  "seeds": ["buy widget", "how to choose widget"]
 }
 ```
 
-`status: existing + mode: primary` → `EXPAND`.
+The engine then loads:
 
-`status: planned` → `CREATE`.
+- `presets/example.json` for intent/query classification;
+- `planners/example.json` for page targets and Page Planner settings;
+- `results/example-*-latest.*` for current run outputs;
+- `snapshots/example-seo/...` for dated history and comparisons.
 
-`mode: section` → `MERGE` в указанный URL.
+The result prefix is deliberately independent from the case id so a project can keep stable output filenames while changing case variants.
+## Credentials
 
-## Автоматические snapshot'ы кейсов
+The engine reads Yandex credentials from environment variables:
 
-Скрипты `scripts/batch.mjs` и `scripts/build-page-plan.mjs` работают от кейса: `CASE_ID` выбирает файл `cases/<id>.json`, а префикс файлов результатов и профиль Page Planner берутся из его `resultPrefix`.
+```text
+YANDEX_API_KEY=...
+YANDEX_FOLDER_ID=...
+```
 
-Workflow `Sila Lesa Wordstat batch` (`CASE_ID=silalesa-seo`) собирает Омск и Омскую область и сохраняет:
+Legacy aliases `YAIS_API` and `YAIS_FOLDER_ID` remain supported. Secrets belong in the project/repository that runs the client workflow, not in `yaai`.
 
-- `results/silalesa-wordstat-latest.json`
-- `results/silalesa-wordstat-latest.csv`
-- `results/silalesa-wordstat-summary.md`
-- `results/silalesa-intents-latest.json`
-- `results/silalesa-intents-latest.csv`
-- `results/silalesa-intents-summary.md`
-- `results/silalesa-query-actions-latest.csv`
-- `results/silalesa-page-plan-latest.json`
-- `results/silalesa-page-plan-latest.csv`
-- `results/silalesa-page-plan-summary.md`
+## Local UI
 
-`silalesa-page-plan-summary.md` — уже человеческая очередь работ по сайту: какие страницы усиливать, какие создавать, а какие темы не размножать отдельными URL.
+```bash
+npm start -- --workspace ../my-project/research/yaai
+```
 
-Workflow `TOHARO Wordstat batch` (`CASE_ID=totharo-seo`) собирает спрос по России для блога TOHARO LAB (вайб-кодинг, AI-агенты, кодинг-инструменты, модели, инфраструктура, безопасность) и сохраняет те же файлы с префиксом `totharo-`. Запускается вручную (`workflow_dispatch`) и раз в месяц по расписанию.
+Open `http://127.0.0.1:8787`. Presets and planner profiles are loaded from the selected workspace. There is no built-in client default.
 
-## Ограничения
-
-- до 40 seed-фраз за один запуск;
-- максимум 100 Wordstat-вызовов за один прогон;
-- запросы выполняются последовательно с паузой, чтобы не упираться в квоты;
-- кэш локальный, в `.data/cache.json`, TTL 24 часа;
-- GetTop собирается отдельно по каждому выбранному региону;
-- одинаковая фраза из нескольких seed не суммируется: сохраняется максимальный `count` и список источников-seed;
-- intent-, query- и page-классификация детерминированные по правилам, без LLM;
-- автоматически сгенерированный Page Planner target имеет меньшую надёжность, чем явно описанный target проекта;
-- короткий коммерческий head-запрос — отдельная эвристика, поэтому перед публикацией страницы решение нужно сверять с реальным предложением бизнеса;
-- относительный band и planner score нельзя трактовать как абсолютный объём рынка.
-
-## Проверка
+## Validation
 
 ```bash
 npm run check
 ```
 
-Команда проверяет синтаксис сервера, анализатора, Page Planner, браузерного приложения и запускает self-test. Тесты проверяют intent, query type, action routing, `EXPAND / CREATE / HOLD` и отсечение очевидного шума.
-
-## Что дальше
-
-Следующие разумные слои:
-
-1. GetDynamics — сезонность и динамика.
-2. GetRegionsDistribution — сравнение регионов.
-3. Импорт/экспорт собственных preset и Page Planner profile через UI.
-4. Ручная корректировка классификации и сохранение таких правок как правил проекта.
-5. Полуавтоматическая проверка низкой уверенности через LLM.
-6. Экспорт XLSX и синхронизация с editorial backlog проекта.
-7. Опциональный деплой на VPS/Cloudflare с server-side secret storage.
-
-## Безопасность
-
-Инструмент server-side: API-ключ не попадает в HTML/JS и не должен храниться в `localStorage`.
-
-Если ключ когда-либо оказался в публичном репозитории или логе, его нужно перевыпустить.
+CI runs syntax checks plus a neutral end-to-end self-test against `examples/workspace/`. The self-test verifies external workspace resolution, intent classification, query actions and Page Planner without depending on any real client case.

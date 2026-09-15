@@ -2,26 +2,30 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { analyzeRows } from '../lib/analyze.mjs';
 import { loadCase } from '../lib/snapshots.mjs';
+import { requireCaseId, resolveCaseId, resolveWorkspaceRoot, workspacePaths } from '../lib/workspace.mjs';
 
 const API_BASE = 'https://searchapi.api.cloud.yandex.net/v2/wordstat';
 const apiKey = String(process.env.YAIS_API || process.env.YANDEX_API_KEY || '').trim();
-const folderId = String(process.env.YAIS_FOLDER_ID || process.env.YANDEX_FOLDER_ID || 'b1gfllt28aev9insu589').trim();
+const folderId = String(process.env.YAIS_FOLDER_ID || process.env.YANDEX_FOLDER_ID || '').trim();
 const REQUEST_DELAY_MS = Number(process.env.REQUEST_DELAY_MS || 450);
-const OUT_DIR = path.resolve('results');
+const WORKSPACE_ROOT = resolveWorkspaceRoot();
+const PATHS = workspacePaths(WORKSPACE_ROOT);
+const OUT_DIR = PATHS.results;
 
-const CASE_ID = String(process.env.CASE_ID || 'silalesa-seo').trim();
-const caseConfig = await loadCase(CASE_ID);
+const CASE_ID = requireCaseId(resolveCaseId());
+const caseConfig = await loadCase(CASE_ID, WORKSPACE_ROOT);
 const PREFIX = caseConfig.resultPrefix;
 const CASE_NAME = caseConfig.name;
 const NUM_PHRASES = Math.min(2000, Math.max(1, Number(process.env.NUM_PHRASES || caseConfig.numPhrases || 200)));
 const DEVICES = Array.isArray(caseConfig.devices) && caseConfig.devices.length ? caseConfig.devices : ['DEVICE_ALL'];
-const PRESET_PATH = path.resolve('presets', `${PREFIX}.json`);
+const PRESET_PATH = path.join(PATHS.presets, `${PREFIX}.json`);
 
-console.log(`Case: ${caseConfig.id} — ${CASE_NAME} (prefix ${PREFIX}; seeds ${caseConfig.seeds.length}; regions ${caseConfig.regions.length})`);
+console.log(`Case: ${caseConfig.id} РІР‚вЂќ ${CASE_NAME} (prefix ${PREFIX}; seeds ${caseConfig.seeds.length}; regions ${caseConfig.regions.length})`);
 
 const seeds = caseConfig.seeds;
 
-if (!apiKey) throw new Error('YAIS_API secret is missing');
+if (!apiKey) throw new Error('YAIS_API/YANDEX_API_KEY secret is missing');
+if (!folderId) throw new Error('YAIS_FOLDER_ID/YANDEX_FOLDER_ID is missing');
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const norm = (s) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -119,7 +123,7 @@ console.log(`Region records discovered: ${regions.length}`);
 const targets = caseConfig.regions.map((name) => pickRegion(regions, name));
 
 console.log(`Regions: ${targets.map((r) => `${r.name} (${r.id})`).join(', ')}`);
-console.log(`Batch: ${seeds.length} seeds × ${targets.length} regions = ${seeds.length * targets.length} calls`);
+console.log(`Batch: ${seeds.length} seeds Р“вЂ” ${targets.length} regions = ${seeds.length * targets.length} calls`);
 
 const merged = new Map();
 const calls = [];
@@ -127,7 +131,7 @@ let n = 0;
 for (const seed of seeds) {
   for (const region of targets) {
     n += 1;
-    console.log(`[${n}/${seeds.length * targets.length}] ${seed} — ${region.name}`);
+    console.log(`[${n}/${seeds.length * targets.length}] ${seed} РІР‚вЂќ ${region.name}`);
     const data = await call('/topRequests', {
       phrase: seed,
       numPhrases: NUM_PHRASES,
@@ -176,17 +180,17 @@ await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-latest.csv`), writeCsv
 ), 'utf8');
 
 const rawMd = [];
-rawMd.push(`# ${CASE_NAME} — Wordstat batch`);
+rawMd.push(`# ${CASE_NAME} РІР‚вЂќ Wordstat batch`);
 rawMd.push('');
-rawMd.push(`Собрано: ${generatedAt}`);
-rawMd.push(`Seed-фраз: ${seeds.length}; регионов: ${targets.length}; API-вызовов: ${calls.length}; уникальных строк: ${rows.length}.`);
+rawMd.push(`Р РЋР С•Р В±РЎР‚Р В°Р Р…Р С•: ${generatedAt}`);
+rawMd.push(`Seed-РЎвЂћРЎР‚Р В°Р В·: ${seeds.length}; РЎР‚Р ВµР С–Р С‘Р С•Р Р…Р С•Р Р†: ${targets.length}; API-Р Р†РЎвЂ№Р В·Р С•Р Р†Р С•Р Р†: ${calls.length}; РЎС“Р Р…Р С‘Р С”Р В°Р В»РЎРЉР Р…РЎвЂ№РЎвЂ¦ РЎРѓРЎвЂљРЎР‚Р С•Р С”: ${rows.length}.`);
 rawMd.push('');
-rawMd.push('> В raw-слое есть Associations, поэтому верхние строки могут содержать шум. Для редакционных решений используйте intent/action snapshot.');
+rawMd.push('> Р вЂ™ raw-РЎРѓР В»Р С•Р Вµ Р ВµРЎРѓРЎвЂљРЎРЉ Associations, Р С—Р С•РЎРЊРЎвЂљР С•Р СРЎС“ Р Р†Р ВµРЎР‚РЎвЂ¦Р Р…Р С‘Р Вµ РЎРѓРЎвЂљРЎР‚Р С•Р С”Р С‘ Р СР С•Р С–РЎС“РЎвЂљ РЎРѓР С•Р Т‘Р ВµРЎР‚Р В¶Р В°РЎвЂљРЎРЉ РЎв‚¬РЎС“Р С. Р вЂќР В»РЎРЏ РЎР‚Р ВµР Т‘Р В°Р С”РЎвЂ Р С‘Р С•Р Р…Р Р…РЎвЂ№РЎвЂ¦ РЎР‚Р ВµРЎв‚¬Р ВµР Р…Р С‘Р в„– Р С‘РЎРѓР С—Р С•Р В»РЎРЉР В·РЎС“Р в„–РЎвЂљР Вµ intent/action snapshot.');
 rawMd.push('');
 for (const region of targets) {
   rawMd.push(`## ${region.name}`);
   rawMd.push('');
-  rawMd.push('| # | Запрос | Частотность | Тип | Seed |');
+  rawMd.push('| # | Р вЂ”Р В°Р С—РЎР‚Р С•РЎРѓ | Р В§Р В°РЎРѓРЎвЂљР С•РЎвЂљР Р…Р С•РЎРѓРЎвЂљРЎРЉ | Р СћР С‘Р С— | Seed |');
   rawMd.push('|---:|---|---:|---|---|');
   const top = rows.filter((r) => r.regionId === region.id).slice(0, 60);
   top.forEach((r, i) => rawMd.push(`| ${i + 1} | ${r.phrase.replaceAll('|','\\|')} | ${r.count} | ${r.types.join(', ')} | ${r.seeds.join(', ').replaceAll('|','\\|')} |`));
@@ -241,48 +245,48 @@ await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-query-actions-latest.csv`), wri
 ), 'utf8');
 
 const intentMd = [];
-intentMd.push(`# ${CASE_NAME} — intent + query action validation`);
+intentMd.push(`# ${CASE_NAME} РІР‚вЂќ intent + query action validation`);
 intentMd.push('');
-intentMd.push(`Собрано: ${analysis.meta.generatedAt}`);
-intentMd.push(`Источник: ${rows.length} уникальных Wordstat-строк, ${seeds.length} seed × ${targets.length} региона.`);
-intentMd.push(`Для количественной сводки учитывается только **Top**: eligible ${analysis.meta.eligibleRows}, распределено по intent ${analysis.meta.assignedRows}, без intent ${analysis.meta.unassignedRows}.`);
-intentMd.push(`Тип спроса: commercial ${analysis.meta.queryTypeCounts?.commercial || 0}; informational ${analysis.meta.queryTypeCounts?.informational || 0}; unmapped ${analysis.meta.queryTypeCounts?.unmapped || 0}; noise ${analysis.meta.queryTypeCounts?.noise || 0}.`);
-intentMd.push(`Маршрутизация: landing ${analysis.meta.nextActionCounts?.landing || 0}; guide ${analysis.meta.nextActionCounts?.guide || 0}; hold ${analysis.meta.nextActionCounts?.hold || 0}.`);
+intentMd.push(`Р РЋР С•Р В±РЎР‚Р В°Р Р…Р С•: ${analysis.meta.generatedAt}`);
+intentMd.push(`Р ВРЎРѓРЎвЂљР С•РЎвЂЎР Р…Р С‘Р С”: ${rows.length} РЎС“Р Р…Р С‘Р С”Р В°Р В»РЎРЉР Р…РЎвЂ№РЎвЂ¦ Wordstat-РЎРѓРЎвЂљРЎР‚Р С•Р С”, ${seeds.length} seed Р“вЂ” ${targets.length} РЎР‚Р ВµР С–Р С‘Р С•Р Р…Р В°.`);
+intentMd.push(`Р вЂќР В»РЎРЏ Р С”Р С•Р В»Р С‘РЎвЂЎР ВµРЎРѓРЎвЂљР Р†Р ВµР Р…Р Р…Р С•Р в„– РЎРѓР Р†Р С•Р Т‘Р С”Р С‘ РЎС“РЎвЂЎР С‘РЎвЂљРЎвЂ№Р Р†Р В°Р ВµРЎвЂљРЎРѓРЎРЏ РЎвЂљР С•Р В»РЎРЉР С”Р С• **Top**: eligible ${analysis.meta.eligibleRows}, РЎР‚Р В°РЎРѓР С—РЎР‚Р ВµР Т‘Р ВµР В»Р ВµР Р…Р С• Р С—Р С• intent ${analysis.meta.assignedRows}, Р В±Р ВµР В· intent ${analysis.meta.unassignedRows}.`);
+intentMd.push(`Р СћР С‘Р С— РЎРѓР С—РЎР‚Р С•РЎРѓР В°: commercial ${analysis.meta.queryTypeCounts?.commercial || 0}; informational ${analysis.meta.queryTypeCounts?.informational || 0}; unmapped ${analysis.meta.queryTypeCounts?.unmapped || 0}; noise ${analysis.meta.queryTypeCounts?.noise || 0}.`);
+intentMd.push(`Р СљР В°РЎР‚РЎв‚¬РЎР‚РЎС“РЎвЂљР С‘Р В·Р В°РЎвЂ Р С‘РЎРЏ: landing ${analysis.meta.nextActionCounts?.landing || 0}; guide ${analysis.meta.nextActionCounts?.guide || 0}; hold ${analysis.meta.nextActionCounts?.hold || 0}.`);
 intentMd.push('');
-intentMd.push('> `maxCount`, `relativeRank` и `relativeDemandBand` — сравнительные сигналы внутри этой выборки. Query type / action — эвристическая маршрутизация контента, а не гарантия SEO-результата. Частотности связанных запросов не суммируются в «объём рынка».');
+intentMd.push('> `maxCount`, `relativeRank` Р С‘ `relativeDemandBand` РІР‚вЂќ РЎРѓРЎР‚Р В°Р Р†Р Р…Р С‘РЎвЂљР ВµР В»РЎРЉР Р…РЎвЂ№Р Вµ РЎРѓР С‘Р С–Р Р…Р В°Р В»РЎвЂ№ Р Р†Р Р…РЎС“РЎвЂљРЎР‚Р С‘ РЎРЊРЎвЂљР С•Р в„– Р Р†РЎвЂ№Р В±Р С•РЎР‚Р С”Р С‘. Query type / action РІР‚вЂќ РЎРЊР Р†РЎР‚Р С‘РЎРѓРЎвЂљР С‘РЎвЂЎР ВµРЎРѓР С”Р В°РЎРЏ Р СР В°РЎР‚РЎв‚¬РЎР‚РЎС“РЎвЂљР С‘Р В·Р В°РЎвЂ Р С‘РЎРЏ Р С”Р С•Р Р…РЎвЂљР ВµР Р…РЎвЂљР В°, Р В° Р Р…Р Вµ Р С–Р В°РЎР‚Р В°Р Р…РЎвЂљР С‘РЎРЏ SEO-РЎР‚Р ВµР В·РЎС“Р В»РЎРЉРЎвЂљР В°РЎвЂљР В°. Р В§Р В°РЎРѓРЎвЂљР С•РЎвЂљР Р…Р С•РЎРѓРЎвЂљР С‘ РЎРѓР Р†РЎРЏР В·Р В°Р Р…Р Р…РЎвЂ№РЎвЂ¦ Р В·Р В°Р С—РЎР‚Р С•РЎРѓР С•Р Р† Р Р…Р Вµ РЎРѓРЎС“Р СР СР С‘РЎР‚РЎС“РЎР‹РЎвЂљРЎРѓРЎРЏ Р Р† Р’В«Р С•Р В±РЎР‰РЎвЂР С РЎР‚РЎвЂ№Р Р…Р С”Р В°Р’В».');
 intentMd.push('');
 
 for (const region of targets) {
   const ranked = intentRows.filter((x) => x.regionId === region.id).sort((a,b) => (a.relativeRank || 9999) - (b.relativeRank || 9999));
   intentMd.push(`## ${region.name}`);
   intentMd.push('');
-  intentMd.push('| Rank | ID | Приоритет | Intent | Сигнал | Тип спроса | Действие | Max | Сильнейшая фраза | Фраз |');
+  intentMd.push('| Rank | ID | Р СџРЎР‚Р С‘Р С•РЎР‚Р С‘РЎвЂљР ВµРЎвЂљ | Intent | Р РЋР С‘Р С–Р Р…Р В°Р В» | Р СћР С‘Р С— РЎРѓР С—РЎР‚Р С•РЎРѓР В° | Р вЂќР ВµР в„–РЎРѓРЎвЂљР Р†Р С‘Р Вµ | Max | Р РЋР С‘Р В»РЎРЉР Р…Р ВµР в„–РЎв‚¬Р В°РЎРЏ РЎвЂћРЎР‚Р В°Р В·Р В° | Р В¤РЎР‚Р В°Р В· |');
   intentMd.push('|---:|---|---|---|---|---|---|---:|---|---:|');
   for (const x of ranked) {
-    intentMd.push(`| ${x.relativeRank ?? '—'} | ${x.intentId} | ${x.businessPriority || '—'} | ${x.intentTitle.replaceAll('|','\\|')} | ${x.relativeDemandBand} | ${x.dominantQueryType} | ${actionLabel(x.nextAction)} | ${x.maxCount} | ${String(x.strongestPhrase || '').replaceAll('|','\\|')} | ${x.phraseCount} |`);
+    intentMd.push(`| ${x.relativeRank ?? 'РІР‚вЂќ'} | ${x.intentId} | ${x.businessPriority || 'РІР‚вЂќ'} | ${x.intentTitle.replaceAll('|','\\|')} | ${x.relativeDemandBand} | ${x.dominantQueryType} | ${actionLabel(x.nextAction)} | ${x.maxCount} | ${String(x.strongestPhrase || '').replaceAll('|','\\|')} | ${x.phraseCount} |`);
   }
   intentMd.push('');
 }
 
-intentMd.push('## Очередь действий по фактическим Top-запросам');
+intentMd.push('## Р С›РЎвЂЎР ВµРЎР‚Р ВµР Т‘РЎРЉ Р Т‘Р ВµР в„–РЎРѓРЎвЂљР Р†Р С‘Р в„– Р С—Р С• РЎвЂћР В°Р С”РЎвЂљР С‘РЎвЂЎР ВµРЎРѓР С”Р С‘Р С Top-Р В·Р В°Р С—РЎР‚Р С•РЎРѓР В°Р С');
 intentMd.push('');
-intentMd.push('| Запрос | Регион | Count | Тип спроса | Действие | Intent | Уверенность |');
+intentMd.push('| Р вЂ”Р В°Р С—РЎР‚Р С•РЎРѓ | Р В Р ВµР С–Р С‘Р С•Р Р… | Count | Р СћР С‘Р С— РЎРѓР С—РЎР‚Р С•РЎРѓР В° | Р вЂќР ВµР в„–РЎРѓРЎвЂљР Р†Р С‘Р Вµ | Intent | Р Р€Р Р†Р ВµРЎР‚Р ВµР Р…Р Р…Р С•РЎРѓРЎвЂљРЎРЉ |');
 intentMd.push('|---|---|---:|---|---|---|---|');
 for (const row of actionRows.slice(0, 80)) {
-  const intent = row.intentId ? `${row.intentId} ${row.intentTitle || ''}` : '—';
-  intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${String(intent).replaceAll('|','\\|')} | ${row.queryConfidence || '—'} |`);
+  const intent = row.intentId ? `${row.intentId} ${row.intentTitle || ''}` : 'РІР‚вЂќ';
+  intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${String(intent).replaceAll('|','\\|')} | ${row.queryConfidence || 'РІР‚вЂќ'} |`);
 }
 intentMd.push('');
 
 const unassigned = actionRows
   .filter((row) => row.analysisStatus === 'unassigned')
   .slice(0, 40);
-intentMd.push('## Top-запросы без intent для улучшения preset');
+intentMd.push('## Top-Р В·Р В°Р С—РЎР‚Р С•РЎРѓРЎвЂ№ Р В±Р ВµР В· intent Р Т‘Р В»РЎРЏ РЎС“Р В»РЎС“РЎвЂЎРЎв‚¬Р ВµР Р…Р С‘РЎРЏ preset');
 intentMd.push('');
 if (!unassigned.length) {
-  intentMd.push('Нет.');
+  intentMd.push('Р СњР ВµРЎвЂљ.');
 } else {
-  intentMd.push('| Запрос | Регион | Count | Тип спроса | Действие | Seed |');
+  intentMd.push('| Р вЂ”Р В°Р С—РЎР‚Р С•РЎРѓ | Р В Р ВµР С–Р С‘Р С•Р Р… | Count | Р СћР С‘Р С— РЎРѓР С—РЎР‚Р С•РЎРѓР В° | Р вЂќР ВµР в„–РЎРѓРЎвЂљР Р†Р С‘Р Вµ | Seed |');
   intentMd.push('|---|---|---:|---|---|---|');
   for (const row of unassigned) {
     intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${(row.seeds || []).join(', ').replaceAll('|','\\|')} |`);

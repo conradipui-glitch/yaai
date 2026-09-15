@@ -1,0 +1,33 @@
+{
+  "defaultFocusWeight": 1,
+  "nowCount": 2,
+  "nextCount": 4,
+  "genericGuidePath": "/guides/{slug}/",
+  "genericLandingPath": "/{slug}/",
+  "targets": [
+    {
+      "id": "example-main",
+      "title": "Widgets",
+      "kind": "landing",
+      "status": "existing",
+      "mode": "primary",
+      "path": "/widgets/",
+      "priority": "P1",
+      "focusWeight": 3,
+      "intentIds": ["EX01"],
+      "keywords": ["buy widget*", "widget price*"]
+    },
+    {
+      "id": "example-guide",
+      "title": "How to choose a widget",
+      "kind": "guide",
+      "status": "planned",
+      "mode": "primary",
+      "path": "/guides/how-to-choose-a-widget/",
+      "priority": "P2",
+      "focusWeight": 2,
+      "intentIds": ["EX02"],
+      "keywords": ["how to choose widget*", "choose widget*"]
+    }
+  ]
+}

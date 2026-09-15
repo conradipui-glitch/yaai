@@ -1,0 +1,13 @@
+{
+  "id": "example-seo",
+  "name": "Example SEO case",
+  "description": "Neutral example workspace used by yaai self-tests and documentation.",
+  "resultPrefix": "example",
+  "regions": ["Example Region"],
+  "devices": ["DEVICE_ALL"],
+  "numPhrases": 20,
+  "seeds": [
+    "buy widget",
+    "how to choose widget"
+  ]
+}

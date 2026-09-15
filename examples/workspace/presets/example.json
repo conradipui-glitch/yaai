@@ -1,0 +1,30 @@
+{
+  "id": "example",
+  "name": "Example preset",
+  "description": "Neutral intent classification example for the yaai engine.",
+  "negativeKeywords": ["free template", "jobs"],
+  "queryClassification": {
+    "commercialHeadMaxWords": 4,
+    "commercialKeywords": ["buy*", "price*", "order*"],
+    "informationalKeywords": ["how", "guide", "choose*"],
+    "commercialHeadKeywords": ["buy widget*", "widget price*"]
+  },
+  "intents": [
+    {
+      "id": "EX01",
+      "cluster": "Products",
+      "title": "Buy a widget",
+      "priority": "P1",
+      "queryType": "commercial",
+      "keywords": ["buy widget*", "widget price*"]
+    },
+    {
+      "id": "EX02",
+      "cluster": "Guides",
+      "title": "How to choose a widget",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["how to choose widget*", "choose widget*"]
+    }
+  ]
+}

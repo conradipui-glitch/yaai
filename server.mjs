@@ -3,11 +3,11 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyzeRows } from './lib/analyze.mjs';
+import { resolveWorkspaceRoot, safeConfigId, workspacePaths } from './lib/workspace.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const PRESETS_DIR = path.join(__dirname, 'presets');
 const DATA_DIR = path.join(__dirname, '.data');
 const CACHE_FILE = path.join(DATA_DIR, 'cache.json');
 const API_BASE = 'https://searchapi.api.cloud.yandex.net/v2/wordstat';
@@ -18,6 +18,10 @@ const MAX_BODY_BYTES = 10_000_000;
 
 await loadEnvFile();
 await loadLegacyCredentialsFile();
+const WORKSPACE_ROOT = resolveWorkspaceRoot();
+const WORKSPACE = workspacePaths(WORKSPACE_ROOT);
+const PRESETS_DIR = WORKSPACE.presets;
+const PLANNERS_DIR = WORKSPACE.planners;
 const PORT = Number(process.env.PORT || 8787);
 
 let cache = await loadCache();
@@ -45,7 +49,7 @@ async function loadEnvFile() {
 async function loadLegacyCredentialsFile() {
   const credentialsPath = process.env.YANDEX_CREDENTIALS_FILE
     ? path.resolve(process.env.YANDEX_CREDENTIALS_FILE)
-    : path.join(__dirname, 'я.txt');
+    : path.join(__dirname, 'Р В Р Р‹Р В Р РЏ.txt');
   try {
     const text = await fs.readFile(credentialsPath, 'utf8');
     const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
@@ -241,7 +245,7 @@ function flattenRegions(nodes, parents = [], out = []) {
     out.push({
       id: String(node.id),
       name,
-      path: currentParents.join(' → '),
+      path: currentParents.join(' Р В Р вЂ Р Р†Р вЂљР’В Р Р†Р вЂљРІвЂћСћ '),
     });
     flattenRegions(node.children || [], currentParents, out);
   }
@@ -291,6 +295,21 @@ async function loadPreset(presetId) {
   }
 }
 
+async function loadPlanner(presetId) {
+  let id;
+  try {
+    id = safeConfigId(presetId, 'planner id');
+  } catch (error) {
+    error.status = 400;
+    throw error;
+  }
+  try {
+    return JSON.parse(await fs.readFile(path.join(PLANNERS_DIR, id + '.json'), 'utf8'));
+  } catch (error) {
+    if (error.code === 'ENOENT') return {};
+    throw error;
+  }
+}
 async function serveStatic(req, res) {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname === '/' ? '/index.html' : url.pathname;
@@ -327,6 +346,7 @@ const server = http.createServer(async (req, res) => {
         defaultFolderId: getFolderId() || null,
         maxSeeds: MAX_SEEDS,
         cacheTtlHours: CACHE_TTL_MS / 3_600_000,
+        workspaceRoot: WORKSPACE_ROOT,
       });
     }
 
@@ -337,6 +357,11 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/api/preset') {
       const preset = await loadPreset(url.searchParams.get('id'));
       return json(res, 200, { preset });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/api/planner') {
+      const planner = await loadPlanner(url.searchParams.get('id'));
+      return json(res, 200, { planner });
     }
 
     if (req.method === 'POST' && url.pathname === '/api/test') {
@@ -412,7 +437,8 @@ const server = http.createServer(async (req, res) => {
       if (!rows.length) return json(res, 400, { error: 'rows are required' });
       const preset = body.preset && typeof body.preset === 'object'
         ? body.preset
-        : await loadPreset(body.presetId || 'silalesa');
+        : body.presetId ? await loadPreset(body.presetId) : null;
+      if (!preset) return json(res, 400, { error: 'presetId or preset is required' });
       if (!Array.isArray(preset.intents) || !preset.intents.length) {
         return json(res, 400, { error: 'Preset must contain intents' });
       }

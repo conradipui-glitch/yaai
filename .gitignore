@@ -6,3 +6,8 @@ node_modules/
 .DS_Store
 я.txt
 *.log
+/cases/
+/presets/
+/planners/
+/results/
+/snapshots/

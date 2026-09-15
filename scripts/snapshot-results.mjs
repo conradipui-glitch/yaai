@@ -1,9 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { caseFingerprint, ensureCaseMetadata, loadCase, snapshotParts } from '../lib/snapshots.mjs';
+import { requireCaseId, resolveCaseId, resolveWorkspaceRoot, workspacePaths } from '../lib/workspace.mjs';
 
-const CASE_ID = process.env.CASE_ID || 'silalesa-seo';
-const caseConfig = await loadCase(CASE_ID);
+const WORKSPACE_ROOT = resolveWorkspaceRoot();
+const PATHS = workspacePaths(WORKSPACE_ROOT);
+const CASE_ID = requireCaseId(resolveCaseId());
+const caseConfig = await loadCase(CASE_ID, WORKSPACE_ROOT);
 const prefix = String(caseConfig.resultPrefix || '').trim();
 if (!prefix) throw new Error(`Case ${CASE_ID} is missing resultPrefix`);
 
@@ -20,11 +23,11 @@ const resultFiles = {
   pagePlanSummary: `${prefix}-page-plan-summary.md`,
 };
 
-const sourceDir = path.resolve('results');
+const sourceDir = PATHS.results;
 const raw = JSON.parse(await fs.readFile(path.join(sourceDir, resultFiles.wordstatJson), 'utf8'));
 const generated = new Date(raw.generatedAt || Date.now());
 const stamp = snapshotParts(generated);
-const caseDir = await ensureCaseMetadata(caseConfig);
+const caseDir = await ensureCaseMetadata(caseConfig, WORKSPACE_ROOT);
 const snapshotDir = path.join(caseDir, 'snapshots', stamp.date, stamp.time);
 await fs.mkdir(snapshotDir, { recursive: true });
 
@@ -60,7 +63,7 @@ const manifest = {
   generatedAt: stamp.iso,
   date: stamp.date,
   run: stamp.time,
-  engineVersion: '0.5.0',
+  engineVersion: '0.6.0',
   caseFingerprint: caseFingerprint(caseConfig),
   source: {
     resultPrefix: prefix,
@@ -80,4 +83,4 @@ await fs.writeFile(path.join(caseDir, 'latest.json'), JSON.stringify({
   caseFingerprint: manifest.caseFingerprint,
 }, null, 2), 'utf8');
 
-console.log(`snapshot: ${caseConfig.id} -> ${path.relative(process.cwd(), snapshotDir)}`);
+console.log(`snapshot: ${caseConfig.id} -> ${path.relative(WORKSPACE_ROOT, snapshotDir)}`);

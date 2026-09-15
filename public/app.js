@@ -14,9 +14,9 @@ const TYPE_LABEL = {
 };
 
 const ACTION_LABEL = {
-  landing: 'Делать landing',
-  guide: 'Делать guide',
-  hold: 'Пока не делать',
+  landing: 'Р В РІР‚СњР В Р’ВµР В Р’В»Р В Р’В°Р РЋРІР‚С™Р РЋР Р‰ landing',
+  guide: 'Р В РІР‚СњР В Р’ВµР В Р’В»Р В Р’В°Р РЋРІР‚С™Р РЋР Р‰ guide',
+  hold: 'Р В РЎСџР В РЎвЂўР В РЎвЂќР В Р’В° Р В Р вЂ¦Р В Р’Вµ Р В РўвЂР В Р’ВµР В Р’В»Р В Р’В°Р РЋРІР‚С™Р РЋР Р‰',
 };
 
 const PLAN_LABEL = {
@@ -27,9 +27,9 @@ const PLAN_LABEL = {
 };
 
 const PRIORITY_LABEL = {
-  now: 'Сейчас',
-  next: 'Следом',
-  later: 'Позже',
+  now: 'Р В Р Р‹Р В Р’ВµР В РІвЂћвЂ“Р РЋРІР‚РЋР В Р’В°Р РЋР С“',
+  next: 'Р В Р Р‹Р В Р’В»Р В Р’ВµР В РўвЂР В РЎвЂўР В РЎВ',
+  later: 'Р В РЎСџР В РЎвЂўР В Р’В·Р В Р’В¶Р В Р’Вµ',
 };
 
 function setStatus(el, text, kind = '') {
@@ -52,13 +52,13 @@ function renderRegions() {
   const query = $('regionSearch').value.trim().toLowerCase();
   const items = allRegions.filter((region) => !query || region.path.toLowerCase().includes(query)).slice(0, 300);
   $('regions').innerHTML = items.length
-    ? items.map((region) => `<label class="region"><input type="checkbox" data-id="${esc(region.id)}" data-name="${esc(region.name)}"><span><b>${esc(region.name)}</b><br><span class="muted">${esc(region.path)} · ID ${esc(region.id)}</span></span></label>`).join('')
-    : '<div class="muted">Ничего не найдено.</div>';
+    ? items.map((region) => `<label class="region"><input type="checkbox" data-id="${esc(region.id)}" data-name="${esc(region.name)}"><span><b>${esc(region.name)}</b><br><span class="muted">${esc(region.path)} Р вЂ™Р’В· ID ${esc(region.id)}</span></span></label>`).join('')
+    : '<div class="muted">Р В РЎСљР В РЎвЂР РЋРІР‚РЋР В Р’ВµР В РЎвЂ“Р В РЎвЂў Р В Р вЂ¦Р В Р’Вµ Р В Р вЂ¦Р В Р’В°Р В РІвЂћвЂ“Р В РўвЂР В Р’ВµР В Р вЂ¦Р В РЎвЂў.</div>';
 }
 
 async function api(url, options = {}) {
   const response = await fetch(url, { headers: { 'content-type': 'application/json' }, ...options });
-  const data = await response.json().catch(() => ({ error: 'Некорректный ответ сервера' }));
+  const data = await response.json().catch(() => ({ error: 'Р В РЎСљР В Р’ВµР В РЎвЂќР В РЎвЂўР РЋР вЂљР РЋР вЂљР В Р’ВµР В РЎвЂќР РЋРІР‚С™Р В Р вЂ¦Р РЋРІР‚в„–Р В РІвЂћвЂ“ Р В РЎвЂўР РЋРІР‚С™Р В Р вЂ Р В Р’ВµР РЋРІР‚С™ Р РЋР С“Р В Р’ВµР РЋР вЂљР В Р вЂ Р В Р’ВµР РЋР вЂљР В Р’В°' }));
   if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
   return data;
 }
@@ -85,9 +85,9 @@ function metric(title, value, note = '') {
 function renderRaw(data) {
   const meta = data.meta;
   $('metrics').innerHTML = [
-    metric('Строк', meta.rows),
-    metric('API вызовов', meta.apiCalls),
-    metric('Из кэша', meta.cachedCalls),
+    metric('Р В Р Р‹Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В РЎвЂќ', meta.rows),
+    metric('API Р В Р вЂ Р РЋРІР‚в„–Р В Р’В·Р В РЎвЂўР В Р вЂ Р В РЎвЂўР В Р вЂ ', meta.apiCalls),
+    metric('Р В Р’ВР В Р’В· Р В РЎвЂќР РЋР РЉР РЋРІвЂљВ¬Р В Р’В°', meta.cachedCalls),
     metric('Seed', meta.seeds),
   ].join('');
 
@@ -106,12 +106,12 @@ function renderAnalysis(data) {
   const a = meta.nextActionCounts || {};
 
   $('analysisMetrics').innerHTML = [
-    metric('Подошло', meta.eligibleRows, 'после фильтра'),
-    metric('Разложено', meta.assignedRows, 'по intent'),
+    metric('Р В РЎСџР В РЎвЂўР В РўвЂР В РЎвЂўР РЋРІвЂљВ¬Р В Р’В»Р В РЎвЂў', meta.eligibleRows, 'Р В РЎвЂ”Р В РЎвЂўР РЋР С“Р В Р’В»Р В Р’Вµ Р РЋРІР‚С›Р В РЎвЂР В Р’В»Р РЋР Р‰Р РЋРІР‚С™Р РЋР вЂљР В Р’В°'),
+    metric('Р В Р’В Р В Р’В°Р В Р’В·Р В Р’В»Р В РЎвЂўР В Р’В¶Р В Р’ВµР В Р вЂ¦Р В РЎвЂў', meta.assignedRows, 'Р В РЎвЂ”Р В РЎвЂў intent'),
     metric('Commercial', q.commercial || 0, `landing: ${a.landing || 0}`),
     metric('Informational', q.informational || 0, `guide: ${a.guide || 0}`),
-    metric('Unmapped', q.unmapped || 0, 'нужна проверка'),
-    metric('Noise', q.noise || 0, 'отсечено'),
+    metric('Unmapped', q.unmapped || 0, 'Р В Р вЂ¦Р РЋРЎвЂњР В Р’В¶Р В Р вЂ¦Р В Р’В° Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР В Р вЂ Р В Р’ВµР РЋР вЂљР В РЎвЂќР В Р’В°'),
+    metric('Noise', q.noise || 0, 'Р В РЎвЂўР РЋРІР‚С™Р РЋР С“Р В Р’ВµР РЋРІР‚РЋР В Р’ВµР В Р вЂ¦Р В РЎвЂў'),
   ].join('');
 
   const intentRows = (data.summary || []).filter((item) => item.phraseCount > 0);
@@ -119,12 +119,12 @@ function renderAnalysis(data) {
     <td><b>${esc(item.intentId)}</b></td>
     <td><b>${esc(item.intentTitle)}</b><br><span class="muted">${esc(item.cluster)}</span></td>
     <td>${esc(item.regionName)}</td>
-    <td>${esc(item.businessPriority || '—')}</td>
-    <td>${pill(item.relativeDemandBand, item.relativeDemandBand)} #${item.relativeRank ?? '—'}<br><span class="muted">max ${Number(item.maxCount).toLocaleString('ru-RU')}</span></td>
+    <td>${esc(item.businessPriority || 'Р Р†Р вЂљРІР‚Сњ')}</td>
+    <td>${pill(item.relativeDemandBand, item.relativeDemandBand)} #${item.relativeRank ?? 'Р Р†Р вЂљРІР‚Сњ'}<br><span class="muted">max ${Number(item.maxCount).toLocaleString('ru-RU')}</span></td>
     <td>${pill(TYPE_LABEL[item.dominantQueryType] || item.dominantQueryType, item.dominantQueryType)}</td>
     <td>${pill(ACTION_LABEL[item.nextAction] || item.nextAction, item.nextAction)}</td>
-    <td>${esc(item.strongestPhrase)}${item.strongestPhrase ? ` — <b>${Number(item.maxCount).toLocaleString('ru-RU')}</b>` : ''}</td>
-  </tr>`).join('') : '<tr><td colspan="8" class="muted">Подходящих intent-кластеров не найдено.</td></tr>';
+    <td>${esc(item.strongestPhrase)}${item.strongestPhrase ? ` Р Р†Р вЂљРІР‚Сњ <b>${Number(item.maxCount).toLocaleString('ru-RU')}</b>` : ''}</td>
+  </tr>`).join('') : '<tr><td colspan="8" class="muted">Р В РЎСџР В РЎвЂўР В РўвЂР РЋРІР‚В¦Р В РЎвЂўР В РўвЂР РЋР РЏР РЋРІР‚В°Р В РЎвЂР РЋРІР‚В¦ intent-Р В РЎвЂќР В Р’В»Р В Р’В°Р РЋР С“Р РЋРІР‚С™Р В Р’ВµР РЋР вЂљР В РЎвЂўР В Р вЂ  Р В Р вЂ¦Р В Р’Вµ Р В Р вЂ¦Р В Р’В°Р В РІвЂћвЂ“Р В РўвЂР В Р’ВµР В Р вЂ¦Р В РЎвЂў.</td></tr>';
 
   const classified = data.classifiedRows || [];
   $('actionBody').innerHTML = classified.slice(0, 1000).map((row) => `<tr>
@@ -132,10 +132,10 @@ function renderAnalysis(data) {
     <td>${esc(row.regionName)}</td>
     <td>${Number(row.count || 0).toLocaleString('ru-RU')}</td>
     <td>${pill(TYPE_LABEL[row.queryType] || row.queryType, row.queryType)}</td>
-    <td>${row.intentId ? `<b>${esc(row.intentId)}</b> · ${esc(row.intentTitle)}` : '<span class="muted">не привязан</span>'}</td>
+    <td>${row.intentId ? `<b>${esc(row.intentId)}</b> Р вЂ™Р’В· ${esc(row.intentTitle)}` : '<span class="muted">Р В Р вЂ¦Р В Р’Вµ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР В Р вЂ Р РЋР РЏР В Р’В·Р В Р’В°Р В Р вЂ¦</span>'}</td>
     <td>${pill(ACTION_LABEL[row.nextAction] || row.nextAction, row.nextAction)}</td>
-    <td>${esc(row.queryConfidence || '—')}<br><span class="muted">${esc(row.querySource || '')}</span></td>
-  </tr>`).join('') || '<tr><td colspan="7" class="muted">Нет классифицированных строк.</td></tr>';
+    <td>${esc(row.queryConfidence || 'Р Р†Р вЂљРІР‚Сњ')}<br><span class="muted">${esc(row.querySource || '')}</span></td>
+  </tr>`).join('') || '<tr><td colspan="7" class="muted">Р В РЎСљР В Р’ВµР РЋРІР‚С™ Р В РЎвЂќР В Р’В»Р В Р’В°Р РЋР С“Р РЋР С“Р В РЎвЂР РЋРІР‚С›Р В РЎвЂР РЋРІР‚В Р В РЎвЂР РЋР вЂљР В РЎвЂўР В Р вЂ Р В Р’В°Р В Р вЂ¦Р В Р вЂ¦Р РЋРІР‚в„–Р РЋРІР‚В¦ Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В РЎвЂќ.</td></tr>';
 
   $('intentCsvBtn').disabled = !intentRows.length;
   $('queryCsvBtn').disabled = !classified.length;
@@ -144,12 +144,12 @@ function renderAnalysis(data) {
 function renderPagePlan(data) {
   const counts = data.meta.decisionCounts || {};
   $('pagePlanMetrics').innerHTML = [
-    metric('Страниц в плане', data.meta.pageCandidates || 0),
-    metric('Сейчас', data.meta.nowCount || 0),
-    metric('EXPAND', counts.expand || 0, 'усилить существующую'),
-    metric('CREATE', counts.create || 0, 'создать новую'),
-    metric('MERGE', counts.merge || 0, 'встроить в существующую'),
-    metric('HOLD', counts.hold || 0, 'не публиковать пока'),
+    metric('Р В Р Р‹Р РЋРІР‚С™Р РЋР вЂљР В Р’В°Р В Р вЂ¦Р В РЎвЂР РЋРІР‚В  Р В Р вЂ  Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В Р вЂ¦Р В Р’Вµ', data.meta.pageCandidates || 0),
+    metric('Р В Р Р‹Р В Р’ВµР В РІвЂћвЂ“Р РЋРІР‚РЋР В Р’В°Р РЋР С“', data.meta.nowCount || 0),
+    metric('EXPAND', counts.expand || 0, 'Р РЋРЎвЂњР РЋР С“Р В РЎвЂР В Р’В»Р В РЎвЂР РЋРІР‚С™Р РЋР Р‰ Р РЋР С“Р РЋРЎвЂњР РЋРІР‚В°Р В Р’ВµР РЋР С“Р РЋРІР‚С™Р В Р вЂ Р РЋРЎвЂњР РЋР вЂ№Р РЋРІР‚В°Р РЋРЎвЂњР РЋР вЂ№'),
+    metric('CREATE', counts.create || 0, 'Р РЋР С“Р В РЎвЂўР В Р’В·Р В РўвЂР В Р’В°Р РЋРІР‚С™Р РЋР Р‰ Р В Р вЂ¦Р В РЎвЂўР В Р вЂ Р РЋРЎвЂњР РЋР вЂ№'),
+    metric('MERGE', counts.merge || 0, 'Р В Р вЂ Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В РЎвЂР РЋРІР‚С™Р РЋР Р‰ Р В Р вЂ  Р РЋР С“Р РЋРЎвЂњР РЋРІР‚В°Р В Р’ВµР РЋР С“Р РЋРІР‚С™Р В Р вЂ Р РЋРЎвЂњР РЋР вЂ№Р РЋРІР‚В°Р РЋРЎвЂњР РЋР вЂ№'),
+    metric('HOLD', counts.hold || 0, 'Р В Р вЂ¦Р В Р’Вµ Р В РЎвЂ”Р РЋРЎвЂњР В Р’В±Р В Р’В»Р В РЎвЂР В РЎвЂќР В РЎвЂўР В Р вЂ Р В Р’В°Р РЋРІР‚С™Р РЋР Р‰ Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В Р’В°'),
   ].join('');
 
   const pages = data.pages || [];
@@ -160,24 +160,25 @@ function renderPagePlan(data) {
       <td><b>#${page.priorityRank}</b><br>${pill(PRIORITY_LABEL[page.priorityBand] || page.priorityBand, page.priorityBand)}</td>
       <td>${pill(PLAN_LABEL[page.decision] || page.decision, page.decision)}<br><span class="muted">${esc(page.pageKind)}</span></td>
       <td><b>${esc(page.title)}</b><br><code>${esc(page.path)}</code>${page.generated ? '<br><span class="muted">auto target</span>' : ''}</td>
-      <td>${esc(page.businessPriority || '—')}<br><span class="muted">score ${esc(page.plannerScore)}</span></td>
-      <td><b>${esc(page.strongestPhrase)}</b> — ${Number(page.maxCount || 0).toLocaleString('ru-RU')}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
-      <td>${regions || '—'}</td>
-      <td>${(page.intentIds || []).map((id) => pill(id)).join('') || '<span class="muted">без intent</span>'}</td>
-      <td>${top || '—'}${page.note ? `<br><span class="muted">${esc(page.note)}</span>` : ''}</td>
+      <td>${esc(page.businessPriority || 'Р Р†Р вЂљРІР‚Сњ')}<br><span class="muted">score ${esc(page.plannerScore)}</span></td>
+      <td><b>${esc(page.strongestPhrase)}</b> Р Р†Р вЂљРІР‚Сњ ${Number(page.maxCount || 0).toLocaleString('ru-RU')}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
+      <td>${regions || 'Р Р†Р вЂљРІР‚Сњ'}</td>
+      <td>${(page.intentIds || []).map((id) => pill(id)).join('') || '<span class="muted">Р В Р’В±Р В Р’ВµР В Р’В· intent</span>'}</td>
+      <td>${top || 'Р Р†Р вЂљРІР‚Сњ'}${page.note ? `<br><span class="muted">${esc(page.note)}</span>` : ''}</td>
     </tr>`;
-  }).join('') : '<tr><td colspan="8" class="muted">Page Planner не нашёл кандидатов.</td></tr>';
+  }).join('') : '<tr><td colspan="8" class="muted">Page Planner Р В Р вЂ¦Р В Р’Вµ Р В Р вЂ¦Р В Р’В°Р РЋРІвЂљВ¬Р РЋРІР‚ВР В Р’В» Р В РЎвЂќР В Р’В°Р В Р вЂ¦Р В РўвЂР В РЎвЂР В РўвЂР В Р’В°Р РЋРІР‚С™Р В РЎвЂўР В Р вЂ .</td></tr>';
 
   $('pagePlanCsvBtn').disabled = !pages.length;
-  setStatus($('pagePlanStatus'), `Готово: ${pages.length} страниц-кандидатов; ${counts.hold || 0} строк оставлены в HOLD.`, 'ok');
+  setStatus($('pagePlanStatus'), `Р В РІР‚СљР В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў: ${pages.length} Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В Р’В°Р В Р вЂ¦Р В РЎвЂР РЋРІР‚В -Р В РЎвЂќР В Р’В°Р В Р вЂ¦Р В РўвЂР В РЎвЂР В РўвЂР В Р’В°Р РЋРІР‚С™Р В РЎвЂўР В Р вЂ ; ${counts.hold || 0} Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В РЎвЂќ Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ Р В Р’В»Р В Р’ВµР В Р вЂ¦Р РЋРІР‚в„– Р В Р вЂ  HOLD.`, 'ok');
 }
 
 async function buildPlannerFromAnalysis() {
   if (!lastAnalysis) return;
-  const presetId = $('presetSelect').value || 'silalesa';
+  const presetId = $('presetSelect').value;
+  if (!presetId) throw new Error('Choose a preset first.');
   let plannerProfile = {};
   try {
-    plannerProfile = await api(`/planner-${encodeURIComponent(presetId)}.json`);
+    plannerProfile = (await api(`/api/planner?id=${encodeURIComponent(presetId)}`)).planner || {};
   } catch {
     plannerProfile = {};
   }
@@ -194,8 +195,8 @@ async function init() {
     } else {
       $('folderId').value = localStorage.getItem('folderId') || '';
     }
-    setStatus($('configStatus'), `API key: ${config.hasApiKey ? 'есть' : 'нет'} · folderId: ${config.hasFolderId ? 'есть' : 'нет'}`, config.hasApiKey ? 'ok' : 'err');
-    $('presetSelect').innerHTML = (presets.presets || []).map((item) => `<option value="${esc(item.id)}">${esc(item.name)} (${item.intents})</option>`).join('') || '<option value="">Нет preset</option>';
+    setStatus($('configStatus'), `API key: ${config.hasApiKey ? 'Р В Р’ВµР РЋР С“Р РЋРІР‚С™Р РЋР Р‰' : 'Р В Р вЂ¦Р В Р’ВµР РЋРІР‚С™'} Р вЂ™Р’В· folderId: ${config.hasFolderId ? 'Р В Р’ВµР РЋР С“Р РЋРІР‚С™Р РЋР Р‰' : 'Р В Р вЂ¦Р В Р’ВµР РЋРІР‚С™'}`, config.hasApiKey ? 'ok' : 'err');
+    $('presetSelect').innerHTML = (presets.presets || []).map((item) => `<option value="${esc(item.id)}">${esc(item.name)} (${item.intents})</option>`).join('') || '<option value="">Р В РЎСљР В Р’ВµР РЋРІР‚С™ preset</option>';
   } catch (error) {
     setStatus($('configStatus'), error.message, 'err');
   }
@@ -205,23 +206,23 @@ $('folderId').addEventListener('change', () => localStorage.setItem('folderId', 
 $('regionSearch').addEventListener('input', renderRegions);
 
 $('testBtn').onclick = async () => {
-  setStatus($('configStatus'), 'Проверяю…');
+  setStatus($('configStatus'), 'Р В РЎСџР РЋР вЂљР В РЎвЂўР В Р вЂ Р В Р’ВµР РЋР вЂљР РЋР РЏР РЋР вЂ№Р Р†Р вЂљР’В¦');
   try {
     const data = await api('/api/test', { method: 'POST', body: JSON.stringify({ folderId: $('folderId').value.trim() }) });
-    setStatus($('configStatus'), `Доступ есть · корневых регионов: ${data.regionRoots}`, 'ok');
+    setStatus($('configStatus'), `Р В РІР‚СњР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРЎвЂњР В РЎвЂ” Р В Р’ВµР РЋР С“Р РЋРІР‚С™Р РЋР Р‰ Р вЂ™Р’В· Р В РЎвЂќР В РЎвЂўР РЋР вЂљР В Р вЂ¦Р В Р’ВµР В Р вЂ Р РЋРІР‚в„–Р РЋРІР‚В¦ Р РЋР вЂљР В Р’ВµР В РЎвЂ“Р В РЎвЂР В РЎвЂўР В Р вЂ¦Р В РЎвЂўР В Р вЂ : ${data.regionRoots}`, 'ok');
   } catch (error) {
     setStatus($('configStatus'), error.message, 'err');
   }
 };
 
 $('regionsBtn').onclick = async () => {
-  setStatus($('runStatus'), 'Загружаю дерево регионов…');
+  setStatus($('runStatus'), 'Р В РІР‚вЂќР В Р’В°Р В РЎвЂ“Р РЋР вЂљР РЋРЎвЂњР В Р’В¶Р В Р’В°Р РЋР вЂ№ Р В РўвЂР В Р’ВµР РЋР вЂљР В Р’ВµР В Р вЂ Р В РЎвЂў Р РЋР вЂљР В Р’ВµР В РЎвЂ“Р В РЎвЂР В РЎвЂўР В Р вЂ¦Р В РЎвЂўР В Р вЂ Р Р†Р вЂљР’В¦');
   try {
     const data = await api('/api/regions', { method: 'POST', body: JSON.stringify({ folderId: $('folderId').value.trim() }) });
     allRegions = data.regions || [];
-    $('regionSearch').value = 'Омск';
+    $('regionSearch').value = 'Р В РЎвЂєР В РЎВР РЋР С“Р В РЎвЂќ';
     renderRegions();
-    setStatus($('runStatus'), `Загружено регионов: ${allRegions.length}. Отфильтровано по «Омск».`, 'ok');
+    setStatus($('runStatus'), `Р В РІР‚вЂќР В Р’В°Р В РЎвЂ“Р РЋР вЂљР РЋРЎвЂњР В Р’В¶Р В Р’ВµР В Р вЂ¦Р В РЎвЂў Р РЋР вЂљР В Р’ВµР В РЎвЂ“Р В РЎвЂР В РЎвЂўР В Р вЂ¦Р В РЎвЂўР В Р вЂ : ${allRegions.length}. Р В РЎвЂєР РЋРІР‚С™Р РЋРІР‚С›Р В РЎвЂР В Р’В»Р РЋР Р‰Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В Р вЂ Р В Р’В°Р В Р вЂ¦Р В РЎвЂў Р В РЎвЂ”Р В РЎвЂў Р вЂ™Р’В«Р В РЎвЂєР В РЎВР РЋР С“Р В РЎвЂќР вЂ™Р’В».`, 'ok');
   } catch (error) {
     setStatus($('runStatus'), error.message, 'err');
   }
@@ -230,7 +231,7 @@ $('regionsBtn').onclick = async () => {
 $('runBtn').onclick = async () => {
   const seeds = $('seeds').value.split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
   const regions = selectedRegions();
-  setStatus($('runStatus'), `Запуск: ${seeds.length} seed × ${regions.length} регион(а/ов)…`);
+  setStatus($('runStatus'), `Р В РІР‚вЂќР В Р’В°Р В РЎвЂ”Р РЋРЎвЂњР РЋР С“Р В РЎвЂќ: ${seeds.length} seed Р вЂњРІР‚вЂќ ${regions.length} Р РЋР вЂљР В Р’ВµР В РЎвЂ“Р В РЎвЂР В РЎвЂўР В Р вЂ¦(Р В Р’В°/Р В РЎвЂўР В Р вЂ )Р Р†Р вЂљР’В¦`);
   $('runBtn').disabled = true;
   try {
     const data = await api('/api/batch', {
@@ -254,10 +255,10 @@ $('runBtn').onclick = async () => {
     $('queryCsvBtn').disabled = true;
     $('pagePlanCsvBtn').disabled = true;
     $('pagePlanMetrics').innerHTML = '';
-    $('pagePlanBody').innerHTML = '<tr><td colspan="8" class="muted">Сначала постройте карту действий.</td></tr>';
-    setStatus($('pagePlanStatus'), 'Page Planner ждёт анализа.');
-    setStatus($('runStatus'), `Готово: ${data.meta.rows} уникальных фраз.`, 'ok');
-    setStatus($('analysisStatus'), 'Данные готовы к анализу.');
+    $('pagePlanBody').innerHTML = '<tr><td colspan="8" class="muted">Р В Р Р‹Р В Р вЂ¦Р В Р’В°Р РЋРІР‚РЋР В Р’В°Р В Р’В»Р В Р’В° Р В РЎвЂ”Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В РІвЂћвЂ“Р РЋРІР‚С™Р В Р’Вµ Р В РЎвЂќР В Р’В°Р РЋР вЂљР РЋРІР‚С™Р РЋРЎвЂњ Р В РўвЂР В Р’ВµР В РІвЂћвЂ“Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂР В РІвЂћвЂ“.</td></tr>';
+    setStatus($('pagePlanStatus'), 'Page Planner Р В Р’В¶Р В РўвЂР РЋРІР‚ВР РЋРІР‚С™ Р В Р’В°Р В Р вЂ¦Р В Р’В°Р В Р’В»Р В РЎвЂР В Р’В·Р В Р’В°.');
+    setStatus($('runStatus'), `Р В РІР‚СљР В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў: ${data.meta.rows} Р РЋРЎвЂњР В Р вЂ¦Р В РЎвЂР В РЎвЂќР В Р’В°Р В Р’В»Р РЋР Р‰Р В Р вЂ¦Р РЋРІР‚в„–Р РЋРІР‚В¦ Р РЋРІР‚С›Р РЋР вЂљР В Р’В°Р В Р’В·.`, 'ok');
+    setStatus($('analysisStatus'), 'Р В РІР‚СњР В Р’В°Р В Р вЂ¦Р В Р вЂ¦Р РЋРІР‚в„–Р В Р’Вµ Р В РЎвЂ“Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р РЋРІР‚в„– Р В РЎвЂќ Р В Р’В°Р В Р вЂ¦Р В Р’В°Р В Р’В»Р В РЎвЂР В Р’В·Р РЋРЎвЂњ.');
   } catch (error) {
     setStatus($('runStatus'), error.message, 'err');
   } finally {
@@ -274,14 +275,14 @@ $('csvBtn').onclick = () => downloadCsv(
 $('analyzeBtn').onclick = async () => {
   if (!lastRows.length) return;
   $('analyzeBtn').disabled = true;
-  setStatus($('analysisStatus'), 'Классифицирую спрос и строю очередь действий…');
-  setStatus($('pagePlanStatus'), 'После intent-карты автоматически соберу план страниц…');
+  setStatus($('analysisStatus'), 'Р В РЎв„ўР В Р’В»Р В Р’В°Р РЋР С“Р РЋР С“Р В РЎвЂР РЋРІР‚С›Р В РЎвЂР РЋРІР‚В Р В РЎвЂР РЋР вЂљР РЋРЎвЂњР РЋР вЂ№ Р РЋР С“Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋР С“ Р В РЎвЂ Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋР вЂ№ Р В РЎвЂўР РЋРІР‚РЋР В Р’ВµР РЋР вЂљР В Р’ВµР В РўвЂР РЋР Р‰ Р В РўвЂР В Р’ВµР В РІвЂћвЂ“Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂР В РІвЂћвЂ“Р Р†Р вЂљР’В¦');
+  setStatus($('pagePlanStatus'), 'Р В РЎСџР В РЎвЂўР РЋР С“Р В Р’В»Р В Р’Вµ intent-Р В РЎвЂќР В Р’В°Р РЋР вЂљР РЋРІР‚С™Р РЋРІР‚в„– Р В Р’В°Р В Р вЂ Р РЋРІР‚С™Р В РЎвЂўР В РЎВР В Р’В°Р РЋРІР‚С™Р В РЎвЂР РЋРІР‚РЋР В Р’ВµР РЋР С“Р В РЎвЂќР В РЎвЂ Р РЋР С“Р В РЎвЂўР В Р’В±Р В Р’ВµР РЋР вЂљР РЋРЎвЂњ Р В РЎвЂ”Р В Р’В»Р В Р’В°Р В Р вЂ¦ Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В Р’В°Р В Р вЂ¦Р В РЎвЂР РЋРІР‚В Р Р†Р вЂљР’В¦');
   try {
     const data = await api('/api/analyze', {
       method: 'POST',
       body: JSON.stringify({
         rows: lastRows,
-        presetId: $('presetSelect').value || 'silalesa',
+        presetId: $('presetSelect').value,
         options: {
           includeTop: $('includeTop').checked,
           includeAssociations: $('includeAssociations').checked,
@@ -292,11 +293,11 @@ $('analyzeBtn').onclick = async () => {
     });
     lastAnalysis = data;
     renderAnalysis(data);
-    setStatus($('analysisStatus'), `Готово: Commercial ${data.meta.queryTypeCounts?.commercial || 0}, Informational ${data.meta.queryTypeCounts?.informational || 0}, Unmapped ${data.meta.queryTypeCounts?.unmapped || 0}.`, 'ok');
+    setStatus($('analysisStatus'), `Р В РІР‚СљР В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂў: Commercial ${data.meta.queryTypeCounts?.commercial || 0}, Informational ${data.meta.queryTypeCounts?.informational || 0}, Unmapped ${data.meta.queryTypeCounts?.unmapped || 0}.`, 'ok');
     await buildPlannerFromAnalysis();
   } catch (error) {
     setStatus($('analysisStatus'), error.message, 'err');
-    setStatus($('pagePlanStatus'), 'Page Planner не запущен из-за ошибки анализа.', 'err');
+    setStatus($('pagePlanStatus'), 'Page Planner Р В Р вЂ¦Р В Р’Вµ Р В Р’В·Р В Р’В°Р В РЎвЂ”Р РЋРЎвЂњР РЋРІР‚В°Р В Р’ВµР В Р вЂ¦ Р В РЎвЂР В Р’В·-Р В Р’В·Р В Р’В° Р В РЎвЂўР РЋРІвЂљВ¬Р В РЎвЂР В Р’В±Р В РЎвЂќР В РЎвЂ Р В Р’В°Р В Р вЂ¦Р В Р’В°Р В Р’В»Р В РЎвЂР В Р’В·Р В Р’В°.', 'err');
   } finally {
     $('analyzeBtn').disabled = false;
   }

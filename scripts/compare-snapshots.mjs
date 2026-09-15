@@ -1,11 +1,13 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { caseRoot, listSnapshotManifests, loadCase, pctChange } from '../lib/snapshots.mjs';
+import { requireCaseId, resolveCaseId, resolveWorkspaceRoot } from '../lib/workspace.mjs';
 
-const CASE_ID = process.env.CASE_ID || 'silalesa-seo';
-const caseConfig = await loadCase(CASE_ID);
-const snapshots = await listSnapshotManifests(CASE_ID);
-const outDir = caseRoot(CASE_ID);
+const WORKSPACE_ROOT = resolveWorkspaceRoot();
+const CASE_ID = requireCaseId(resolveCaseId());
+const caseConfig = await loadCase(CASE_ID, WORKSPACE_ROOT);
+const snapshots = await listSnapshotManifests(CASE_ID, WORKSPACE_ROOT);
+const outDir = caseRoot(CASE_ID, WORKSPACE_ROOT);
 await fs.mkdir(outDir, { recursive: true });
 
 function isTop(row) {
@@ -38,7 +40,7 @@ if (snapshots.length < 2) {
     current: current?.generatedAt || null,
   };
   await fs.writeFile(path.join(outDir, 'latest-comparison.json'), JSON.stringify(result, null, 2), 'utf8');
-  await fs.writeFile(path.join(outDir, 'latest-comparison.md'), `# ${caseConfig.name} — динамика\n\nПока есть только один снимок. После следующего запуска появится сравнение с предыдущим.\n`, 'utf8');
+  await fs.writeFile(path.join(outDir, 'latest-comparison.md'), `# ${caseConfig.name} вЂ” РґРёРЅР°РјРёРєР°\n\nРџРѕРєР° РµСЃС‚СЊ С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЃРЅРёРјРѕРє. РџРѕСЃР»Рµ СЃР»РµРґСѓСЋС‰РµРіРѕ Р·Р°РїСѓСЃРєР° РїРѕСЏРІРёС‚СЃСЏ СЃСЂР°РІРЅРµРЅРёРµ СЃ РїСЂРµРґС‹РґСѓС‰РёРј.\n`, 'utf8');
   console.log('compare: first snapshot, nothing to compare yet');
   process.exit(0);
 }
@@ -112,41 +114,41 @@ const result = {
 await fs.writeFile(path.join(outDir, 'latest-comparison.json'), JSON.stringify(result, null, 2), 'utf8');
 
 const md = [];
-md.push(`# ${caseConfig.name} — динамика`);
+md.push(`# ${caseConfig.name} вЂ” РґРёРЅР°РјРёРєР°`);
 md.push('');
-md.push(`Предыдущий снимок: ${previous.manifest.generatedAt}`);
-md.push(`Текущий снимок: ${current.manifest.generatedAt}`);
+md.push(`РџСЂРµРґС‹РґСѓС‰РёР№ СЃРЅРёРјРѕРє: ${previous.manifest.generatedAt}`);
+md.push(`РўРµРєСѓС‰РёР№ СЃРЅРёРјРѕРє: ${current.manifest.generatedAt}`);
 md.push('');
 if (!sameCaseDefinition) {
-  md.push('> ⚠️ Настройки кейса изменились между снимками. Сравнение показано как диагностическое, но проценты нельзя считать чистой динамикой спроса.');
+  md.push('> вљ пёЏ РќР°СЃС‚СЂРѕР№РєРё РєРµР№СЃР° РёР·РјРµРЅРёР»РёСЃСЊ РјРµР¶РґСѓ СЃРЅРёРјРєР°РјРё. РЎСЂР°РІРЅРµРЅРёРµ РїРѕРєР°Р·Р°РЅРѕ РєР°Рє РґРёР°РіРЅРѕСЃС‚РёС‡РµСЃРєРѕРµ, РЅРѕ РїСЂРѕС†РµРЅС‚С‹ РЅРµР»СЊР·СЏ СЃС‡РёС‚Р°С‚СЊ С‡РёСЃС‚РѕР№ РґРёРЅР°РјРёРєРѕР№ СЃРїСЂРѕСЃР°.');
   md.push('');
 }
-md.push('Сравниваются только одинаковые Top-запросы в одинаковом регионе. Частотности не суммируются в «объём рынка».');
+md.push('РЎСЂР°РІРЅРёРІР°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ РѕРґРёРЅР°РєРѕРІС‹Рµ Top-Р·Р°РїСЂРѕСЃС‹ РІ РѕРґРёРЅР°РєРѕРІРѕРј СЂРµРіРёРѕРЅРµ. Р§Р°СЃС‚РѕС‚РЅРѕСЃС‚Рё РЅРµ СЃСѓРјРјРёСЂСѓСЋС‚СЃСЏ РІ В«РѕР±СЉС‘Рј СЂС‹РЅРєР°В».');
 md.push('');
 
 function table(title, rows, mode) {
   md.push(`## ${title}`);
   md.push('');
   if (!rows.length) {
-    md.push('Нет заметных изменений.');
+    md.push('РќРµС‚ Р·Р°РјРµС‚РЅС‹С… РёР·РјРµРЅРµРЅРёР№.');
     md.push('');
     return;
   }
-  md.push('| Запрос | Регион | Было | Стало | Изменение |');
+  md.push('| Р—Р°РїСЂРѕСЃ | Р РµРіРёРѕРЅ | Р‘С‹Р»Рѕ | РЎС‚Р°Р»Рѕ | РР·РјРµРЅРµРЅРёРµ |');
   md.push('|---|---|---:|---:|---:|');
   for (const row of rows) {
     const before = mode === 'new' ? 0 : Number(row.previousCount || 0);
     const after = mode === 'lost' ? 0 : Number(row.currentCount || 0);
-    const percent = row.percent == null ? (mode === 'new' ? 'NEW' : mode === 'lost' ? 'LOST' : '—') : `${row.percent > 0 ? '+' : ''}${row.percent.toFixed(1)}%`;
+    const percent = row.percent == null ? (mode === 'new' ? 'NEW' : mode === 'lost' ? 'LOST' : 'вЂ”') : `${row.percent > 0 ? '+' : ''}${row.percent.toFixed(1)}%`;
     md.push(`| ${escapeMd(row.phrase)} | ${escapeMd(row.regionName)} | ${before} | ${after} | ${percent} |`);
   }
   md.push('');
 }
 
-table('Растущие запросы', growth, 'change');
-table('Снижающиеся запросы', decline, 'change');
-table('Новые в текущей выдаче', newQueries, 'new');
-table('Исчезли из текущей выдачи', lostQueries, 'lost');
+table('Р Р°СЃС‚СѓС‰РёРµ Р·Р°РїСЂРѕСЃС‹', growth, 'change');
+table('РЎРЅРёР¶Р°СЋС‰РёРµСЃСЏ Р·Р°РїСЂРѕСЃС‹', decline, 'change');
+table('РќРѕРІС‹Рµ РІ С‚РµРєСѓС‰РµР№ РІС‹РґР°С‡Рµ', newQueries, 'new');
+table('РСЃС‡РµР·Р»Рё РёР· С‚РµРєСѓС‰РµР№ РІС‹РґР°С‡Рё', lostQueries, 'lost');
 
 await fs.writeFile(path.join(outDir, 'latest-comparison.md'), md.join('\n'), 'utf8');
 console.log(`compare: shared=${shared.length}, new=${added.length}, lost=${removed.length}, comparable=${sameCaseDefinition}`);
