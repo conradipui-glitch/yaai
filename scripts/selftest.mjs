@@ -77,4 +77,41 @@ assert.ok(plan.holdRows.some((row) => row.phrase === 'совсем непоня�
 assert.ok(plan.pages.every((page) => Number.isFinite(page.plannerScore)));
 assert.equal(plan.pages[0].priorityRank, 1);
 
+// --- TOHARO case (generic pipeline smoke) ---
+const totharoPreset = JSON.parse(await fs.readFile(new URL('../presets/totharo.json', import.meta.url), 'utf8'));
+const totharoPlanner = JSON.parse(await fs.readFile(new URL('../public/planner-totharo.json', import.meta.url), 'utf8'));
+const totharoRows = [
+  { phrase: 'вайб кодинг что это', regionId: '225', regionName: 'Россия', count: 1500, types: ['top'], seeds: ['вайб кодинг'] },
+  { phrase: 'claude code skills как настроить', regionId: '225', regionName: 'Россия', count: 400, types: ['top'], seeds: ['claude code skills'] },
+  { phrase: 'как выбрать нейросеть для кода', regionId: '225', regionName: 'Россия', count: 700, types: ['top'], seeds: ['нейросеть для кода'] },
+  { phrase: 'нейросеть раздеть фото', regionId: '225', regionName: 'Россия', count: 900, types: ['top'], seeds: ['нейросети'] },
+  { phrase: 'квантовый телепорт для кота', regionId: '225', regionName: 'Россия', count: 12, types: ['top'], seeds: ['нейросети'] },
+];
+
+const totharoAnalysis = analyzeRows(totharoRows, totharoPreset, { includeTop: true, includeAssociations: false });
+assert.equal(totharoAnalysis.meta.negativeRows, 1);
+assert.equal(totharoAnalysis.meta.unassignedRows, 1);
+const vaybRow = totharoAnalysis.assignedRows.find((row) => row.phrase === 'вайб кодинг что это');
+assert.ok(vaybRow);
+assert.equal(vaybRow.intentId, 'VC01');
+assert.equal(vaybRow.nextAction, 'guide');
+const skillsRow = totharoAnalysis.assignedRows.find((row) => row.phrase === 'claude code skills как настроить');
+assert.ok(skillsRow);
+assert.equal(skillsRow.intentId, 'TL02');
+const modelRow = totharoAnalysis.assignedRows.find((row) => row.phrase === 'как выбрать нейросеть для кода');
+assert.ok(modelRow);
+assert.equal(modelRow.intentId, 'MD01');
+
+const totharoPlan = buildPagePlan(totharoAnalysis, { id: 'totharo', pagePlanner: totharoPlanner });
+const vaybPlan = totharoPlan.pages.find((page) => page.planId === 'plan-vayb');
+assert.ok(vaybPlan);
+assert.equal(vaybPlan.decision, 'create');
+assert.equal(vaybPlan.path, '/blog/chto-takoe-vayb-koding/');
+assert.equal(vaybPlan.pageKind, 'guide');
+const skillsPlan = totharoPlan.pages.find((page) => page.planId === 'post-skills');
+assert.ok(skillsPlan);
+assert.equal(skillsPlan.decision, 'expand');
+assert.ok(totharoPlan.holdRows.some((row) => row.phrase === 'нейросеть раздеть фото'));
+assert.ok(totharoPlan.holdRows.some((row) => row.phrase === 'квантовый телепорт для кота'));
+
 console.log('selftest: ok');

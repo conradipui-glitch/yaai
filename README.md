@@ -179,9 +179,11 @@ npm start
 
 `mode: section` → `MERGE` в указанный URL.
 
-## Автоматический snapshot для «Силы Леса»
+## Автоматические snapshot'ы кейсов
 
-Workflow `Sila Lesa Wordstat batch` собирает Омск и Омскую область и сохраняет:
+Скрипты `scripts/batch.mjs` и `scripts/build-page-plan.mjs` работают от кейса: `CASE_ID` выбирает файл `cases/<id>.json`, а префикс файлов результатов и профиль Page Planner берутся из его `resultPrefix`.
+
+Workflow `Sila Lesa Wordstat batch` (`CASE_ID=silalesa-seo`) собирает Омск и Омскую область и сохраняет:
 
 - `results/silalesa-wordstat-latest.json`
 - `results/silalesa-wordstat-latest.csv`
@@ -195,6 +197,8 @@ Workflow `Sila Lesa Wordstat batch` собирает Омск и Омскую о
 - `results/silalesa-page-plan-summary.md`
 
 `silalesa-page-plan-summary.md` — уже человеческая очередь работ по сайту: какие страницы усиливать, какие создавать, а какие темы не размножать отдельными URL.
+
+Workflow `TOHARO Wordstat batch` (`CASE_ID=totharo-seo`) собирает спрос по России для блога TOHARO LAB (вайб-кодинг, AI-агенты, кодинг-инструменты, модели, инфраструктура, безопасность) и сохраняет те же файлы с префиксом `totharo-`. Запускается вручную (`workflow_dispatch`) и раз в месяц по расписанию.
 
 ## Ограничения
 

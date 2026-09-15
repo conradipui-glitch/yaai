@@ -1,0 +1,286 @@
+{
+  "id": "totharo",
+  "name": "TOHARO LAB — вайб-кодинг и AI-агенты",
+  "description": "Карта тем блога TOHARO LAB: вайб-кодинг, устройство агентов, кодинг-инструменты, модели, инфраструктура, безопасность. Классификация спроса для контентной архитектуры, а не для продаж.",
+  "negativeKeywords": ["порно*", "раздет*", "ххх", "синайск*", "манускрипт*", "рукопис*", "css", "мышь", "мыши", "мышк*", "pointer", "зодиак*", "гороскоп*", "близнец*", "взлом*", "кряк*", "торрент*"],
+  "queryClassification": {
+    "commercialHeadMaxWords": 4,
+    "commercialKeywords": ["купит*", "покупк*", "цен*", "стоимост*", "подписк*", "тариф*", "оплат*", "оплатить", "промокод*", "аренд*", "прайс", "заказать", "заказ*", "сколько стоит"],
+    "informationalKeywords": ["как", "какой", "какая", "какие", "какое", "каким", "что", "чем", "почему", "зачем", "где", "когда", "можно ли", "нужно ли", "стоит ли", "или", "выбрать", "выбор", "сравн*", "лучше", "лучший", "лучш*", "обзор", "разбор", "инструкция", "пример*", "настроить", "настройк*", "установить", "установк*", "подключить", "подключени*", "ошибк*", "проблем*", "не работает", "разниц*", "отличи*", "vs", "против"],
+    "commercialHeadKeywords": ["claude pro", "claude max", "cursor pro", "api ключ*", "подписк* claude*", "подписк* cursor*"]
+  },
+  "intents": [
+    {
+      "id": "VC01",
+      "cluster": "вайб-кодинг",
+      "title": "Вайб-кодинг: что это",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["вайб кодинг*", "вайб-кодинг*", "вайбкодинг*", "vibe coding*"]
+    },
+    {
+      "id": "VC02",
+      "cluster": "вайб-кодинг",
+      "title": "Первый AI-агент: с чего начать",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["первый агент*", "первого агент*", "первый ии агент*", "первый ai агент*", "первый нейросет* агент*"]
+    },
+    {
+      "id": "VC03",
+      "cluster": "вайб-кодинг",
+      "title": "Промпты и спецификации",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["промпт инжиниринг*", "промпт* для нейросет*", "промпт* для ии", "промпт* для код*"]
+    },
+    {
+      "id": "AG01",
+      "cluster": "агенты",
+      "title": "Что такое AI-агент",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["ии агент*", "ai агент*", "ии-агент*", "ai-агент*", "нейросет* агент*"]
+    },
+    {
+      "id": "AG02",
+      "cluster": "агенты",
+      "title": "Архитектура и надёжность агентов",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["архитектур* агент*", "надежн* агент*", "агент* надежност*", "отказоустойчив* агент*"]
+    },
+    {
+      "id": "AG03",
+      "cluster": "агенты",
+      "title": "Контекст агента",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["контекст* окн*", "контекст* агент*", "контекст нейросет*", "переполн* контекст*", "контекст* ии"]
+    },
+    {
+      "id": "AG04",
+      "cluster": "агенты",
+      "title": "Память агента",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["память агент*", "память ии", "память нейросет*", "долговременн* память*", "memory агент*"]
+    },
+    {
+      "id": "AG05",
+      "cluster": "агенты",
+      "title": "Мультиагентные системы",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["мультиагент*", "параллельн* агент*", "оркестрац* агент*", "субагент*"]
+    },
+    {
+      "id": "AG06",
+      "cluster": "агенты",
+      "title": "Отладка и зависания агентов",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["агент* зацикл*", "агент* завис*", "агент* повторя*", "отладк* агент*", "агент* ошибк*"]
+    },
+    {
+      "id": "TL01",
+      "cluster": "инструменты",
+      "title": "Claude Code",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["claude code*", "клод код*", "claude-code*"]
+    },
+    {
+      "id": "TL02",
+      "cluster": "инструменты",
+      "title": "Skills в Claude Code",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["skills claude*", "claude code skills*", "claude* skills*", "skills code*", "скилл* claude*", "навык* claude*", "claude* навык*", "claude* скилл*"]
+    },
+    {
+      "id": "TL03",
+      "cluster": "инструменты",
+      "title": "AGENTS.md — файл правил",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["agents.md*", "agents md*", "агентс мд*", "файл правил* агент*", "agents.md файл*"]
+    },
+    {
+      "id": "TL04",
+      "cluster": "инструменты",
+      "title": "OpenAI Codex",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["codex*", "openai codex*"]
+    },
+    {
+      "id": "TL05",
+      "cluster": "инструменты",
+      "title": "Cursor",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["cursor ai*", "курсор аи*", "cursor* ide*", "cursor* редактор*", "cursor* для код*"]
+    },
+    {
+      "id": "TL06",
+      "cluster": "инструменты",
+      "title": "MCP — протокол и серверы",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["mcp", "mcp сервер*", "mcp протокол*", "model context protocol*", "mcp* сервер*", "mcp для*"]
+    },
+    {
+      "id": "TL07",
+      "cluster": "инструменты",
+      "title": "Как выбрать кодинг-агента",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["какой агент*", "выбрать агент*", "лучший агент*", "какой ии агент*", "какой ai агент*", "лучший ии агент*", "лучший ai агент*", "сравнени* ии агент*", "сравнени* ai агент*", "claude code* или*", "cursor* или*", "codex* или*", "claude* или* cursor*", "сравнени* агент*", "сравнени* claude*", "claude* vs*", "cursor* vs*", "codex* vs*"]
+    },
+    {
+      "id": "TL08",
+      "cluster": "инструменты",
+      "title": "Прочие кодинг-агенты",
+      "priority": "P3",
+      "queryType": "informational",
+      "keywords": ["antigravity*", "opencode*", "windsurf*", "aider*"]
+    },
+    {
+      "id": "TL09",
+      "cluster": "инструменты",
+      "title": "Плагины и расширения агентов",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["плагин* агент*", "плагин* claude*", "плагин* codex*", "dsh*", "расширени* агент*"]
+    },
+    {
+      "id": "MD01",
+      "cluster": "модели",
+      "title": "Как выбрать модель для кода",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["нейросет* для программирован*", "нейросет* для код*", "ии для программирован*", "нейросет* написать код*", "какая нейросет* лучше*", "лучшая нейросет*", "нейросет* для разработк*"]
+    },
+    {
+      "id": "MD02",
+      "cluster": "модели",
+      "title": "Сравнения и бенчмарки моделей",
+      "priority": "P1",
+      "queryType": "informational",
+      "keywords": ["сравнени* нейросет*", "сравнени* модел*", "бенчмарк* нейросет*", "бенчмарк* модел*", "тест* нейросет*", "тест* модел*", "бенчмарк* llm*", "тест* llm*"]
+    },
+    {
+      "id": "MD03",
+      "cluster": "модели",
+      "title": "DeepSeek",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["deepseek*", "дипсик*"]
+    },
+    {
+      "id": "MD04",
+      "cluster": "модели",
+      "title": "Gemini",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["gemini*", "джемини*"]
+    },
+    {
+      "id": "MD05",
+      "cluster": "модели",
+      "title": "Qwen и китайские модели",
+      "priority": "P3",
+      "queryType": "informational",
+      "keywords": ["qwen*", "кьювен*", "китайск* нейросет*", "китайск* модел*"]
+    },
+    {
+      "id": "MD06",
+      "cluster": "модели",
+      "title": "GLM / Zhipu",
+      "priority": "P3",
+      "queryType": "informational",
+      "keywords": ["glm*", "zhipu*", "z.ai*"]
+    },
+    {
+      "id": "MD07",
+      "cluster": "модели",
+      "title": "GigaChat",
+      "priority": "P3",
+      "queryType": "informational",
+      "keywords": ["gigachat*", "гигачат*"]
+    },
+    {
+      "id": "MD08",
+      "cluster": "модели",
+      "title": "Локальные модели и Ollama",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["локальн* нейросет*", "локальн* модел*", "ollama*", "llama*", "запустить нейросет* на компьютер*", "нейросет* на компьютер*"]
+    },
+    {
+      "id": "MD09",
+      "cluster": "модели",
+      "title": "Бесплатные модели",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["бесплатн* нейросет*", "бесплатн* модел*", "бесплатн* ии", "free нейросет*", "нейросет* бесплатно*"]
+    },
+    {
+      "id": "IN01",
+      "cluster": "инфраструктура",
+      "title": "VPS и серверы для агентов",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["vps для нейросет*", "vps для ии", "vps для ai", "vps* нейросет*", "сервер* для нейросет*", "нейросет* на сервер*", "нейросет* на vps*"]
+    },
+    {
+      "id": "IN02",
+      "cluster": "инфраструктура",
+      "title": "API нейросетей и ключи",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["api нейросет*", "api ии", "api для нейросет*", "api ключ*", "openrouter*"]
+    },
+    {
+      "id": "IN03",
+      "cluster": "инфраструктура",
+      "title": "Автоматизация и боты",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["n8n*", "телеграм бот* нейросет*", "телеграм бот* ии", "бот* нейросет*", "бот* с нейросет*", "нейросет* для автоматизац*", "автоматизац* с нейросет*", "автоматизац* с ии"]
+    },
+    {
+      "id": "IN04",
+      "cluster": "инфраструктура",
+      "title": "Генерация изображений",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["нейросет* для генерации изображени*", "генераци* изображени* нейросет*", "нейросет* для картинок*", "сгенерировать картинк*", "midjourney*", "генераци* картинок*"]
+    },
+    {
+      "id": "IN05",
+      "cluster": "инфраструктура",
+      "title": "Обложки для каналов и статей",
+      "priority": "P3",
+      "queryType": "informational",
+      "keywords": ["обложк* нейросет*", "обложк* для ютуб*", "обложк* для стать*", "обложк* для канала*"]
+    },
+    {
+      "id": "SC01",
+      "cluster": "безопасность",
+      "title": "Безопасность агентов и серверов",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["безопасност* нейросет*", "безопасност* ии", "безопасност* агент*", "защит* сервер*", "открыт* порт*", "закрыть порт*"]
+    },
+    {
+      "id": "SC02",
+      "cluster": "безопасность",
+      "title": "Скам и поддельные нейросети",
+      "priority": "P2",
+      "queryType": "informational",
+      "keywords": ["мошенничеств* нейросет*", "мошенничеств* с нейросет*", "скам* нейросет*", "фейков* нейросет*", "поддельн* нейросет*", "фейков* gpt*", "поддельн* gpt*", "скам* репозитори*"]
+    }
+  ]
+}

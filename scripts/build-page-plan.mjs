@@ -1,10 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { buildPagePlan } from '../public/page-planner.js';
+import { loadCase } from '../lib/snapshots.mjs';
 
 const OUT_DIR = path.resolve('results');
-const ANALYSIS_PATH = path.join(OUT_DIR, 'silalesa-intents-latest.json');
-const PROFILE_PATH = path.resolve('public/planner-silalesa.json');
+const CASE_ID = String(process.env.CASE_ID || 'silalesa-seo').trim();
+const caseConfig = await loadCase(CASE_ID);
+const PREFIX = caseConfig.resultPrefix;
+const ANALYSIS_PATH = path.join(OUT_DIR, `${PREFIX}-intents-latest.json`);
+const PROFILE_PATH = path.resolve('public', `planner-${PREFIX}.json`);
 
 function csvCell(value) {
   return `"${String(value ?? '').replaceAll('"', '""')}"`;
@@ -16,11 +20,11 @@ function writeCsv(rows, headers, projector) {
 
 const analysis = JSON.parse(await fs.readFile(ANALYSIS_PATH, 'utf8'));
 const pagePlanner = JSON.parse(await fs.readFile(PROFILE_PATH, 'utf8'));
-const plan = buildPagePlan(analysis, { id: 'silalesa', pagePlanner });
+const plan = buildPagePlan(analysis, { id: PREFIX, pagePlanner });
 
 await fs.mkdir(OUT_DIR, { recursive: true });
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-page-plan-latest.json'), JSON.stringify(plan, null, 2), 'utf8');
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-page-plan-latest.csv'), writeCsv(
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-page-plan-latest.json`), JSON.stringify(plan, null, 2), 'utf8');
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-page-plan-latest.csv`), writeCsv(
   plan.pages,
   ['rank','priority_band','decision','page_kind','title','path','business_priority','planner_score','phrase_count','max_count','strongest_phrase','strongest_region','regions','intent_ids','top_queries','note'],
   (page) => [
@@ -44,7 +48,7 @@ await fs.writeFile(path.join(OUT_DIR, 'silalesa-page-plan-latest.csv'), writeCsv
 ), 'utf8');
 
 const md = [];
-md.push('# Сила Леса — Page Planner');
+md.push(`# ${caseConfig.name} — Page Planner`);
 md.push('');
 md.push(`Собрано: ${plan.meta.generatedAt}`);
 md.push(`Кандидатов страниц: ${plan.meta.pageCandidates}; EXPAND ${plan.meta.decisionCounts.expand || 0}; CREATE ${plan.meta.decisionCounts.create || 0}; MERGE ${plan.meta.decisionCounts.merge || 0}; HOLD ${plan.meta.decisionCounts.hold || 0}.`);
@@ -76,6 +80,6 @@ else {
   }
 }
 md.push('');
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-page-plan-summary.md'), md.join('\n'), 'utf8');
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-page-plan-summary.md`), md.join('\n'), 'utf8');
 
-console.log(`page-plan: ${plan.pages.length} page candidates; ${plan.meta.decisionCounts.hold || 0} rows on hold`);
+console.log(`page-plan [${PREFIX}]: ${plan.pages.length} page candidates; ${plan.meta.decisionCounts.hold || 0} rows on hold`);

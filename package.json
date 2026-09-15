@@ -9,7 +9,7 @@
     "dev": "node --watch server.mjs",
     "snapshot": "node scripts/snapshot-results.mjs",
     "compare": "node scripts/compare-snapshots.mjs",
-    "check": "node --check server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs"
+    "check": "node --check server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs"
   },
   "engines": {
     "node": ">=20"

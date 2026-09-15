@@ -1,32 +1,25 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { analyzeRows } from '../lib/analyze.mjs';
+import { loadCase } from '../lib/snapshots.mjs';
 
 const API_BASE = 'https://searchapi.api.cloud.yandex.net/v2/wordstat';
 const apiKey = String(process.env.YAIS_API || process.env.YANDEX_API_KEY || '').trim();
 const folderId = String(process.env.YAIS_FOLDER_ID || process.env.YANDEX_FOLDER_ID || 'b1gfllt28aev9insu589').trim();
-const NUM_PHRASES = Math.min(2000, Math.max(1, Number(process.env.NUM_PHRASES || 200)));
 const REQUEST_DELAY_MS = Number(process.env.REQUEST_DELAY_MS || 450);
 const OUT_DIR = path.resolve('results');
-const PRESET_PATH = path.resolve('presets/silalesa.json');
 
-const seeds = [
-  'готовая баня',
-  'мобильная баня',
-  'баня под ключ',
-  'каркасная баня',
-  'кедровая баня',
-  'баня 2х2',
-  'баня 3х2',
-  'баня 4х2',
-  'фундамент под баню',
-  'баня зимой',
-  'доставка бани',
-  'баня на участок',
-  'бурение скважин',
-  'полусухая стяжка',
-  'механизированная штукатурка',
-];
+const CASE_ID = String(process.env.CASE_ID || 'silalesa-seo').trim();
+const caseConfig = await loadCase(CASE_ID);
+const PREFIX = caseConfig.resultPrefix;
+const CASE_NAME = caseConfig.name;
+const NUM_PHRASES = Math.min(2000, Math.max(1, Number(process.env.NUM_PHRASES || caseConfig.numPhrases || 200)));
+const DEVICES = Array.isArray(caseConfig.devices) && caseConfig.devices.length ? caseConfig.devices : ['DEVICE_ALL'];
+const PRESET_PATH = path.resolve('presets', `${PREFIX}.json`);
+
+console.log(`Case: ${caseConfig.id} — ${CASE_NAME} (prefix ${PREFIX}; seeds ${caseConfig.seeds.length}; regions ${caseConfig.regions.length})`);
+
+const seeds = caseConfig.seeds;
 
 if (!apiKey) throw new Error('YAIS_API secret is missing');
 
@@ -78,8 +71,11 @@ function pickRegion(regions, exactName) {
   if (exact.length) return exact[0];
   const fuzzy = regions.filter((r) => norm(r.name).includes(norm(exactName)) || norm(exactName).includes(norm(r.name)));
   if (fuzzy.length === 1) return fuzzy[0];
-  const nearby = regions.filter((r) => /омск/i.test(r.name)).slice(0, 20);
-  throw new Error(`Region not found: ${exactName}. Omsk-like candidates: ${nearby.map((r) => `${r.name}(${r.id})`).join(', ') || 'none'}`);
+  const prefix = norm(exactName).slice(0, 6);
+  const starts = regions.filter((r) => norm(r.name).startsWith(prefix)).sort((a, b) => a.name.length - b.name.length);
+  if (starts.length) return starts[0];
+  const candidates = regions.slice(0, 40);
+  throw new Error(`Region not found: ${exactName}. Candidates: ${candidates.map((r) => `${r.name}(${r.id})`).join(', ') || 'none'}`);
 }
 
 function addRows(map, callMeta, items, type) {
@@ -120,7 +116,7 @@ function actionLabel(action) {
 const tree = await call('/getRegionsTree', { folderId });
 const regions = [...extractRegions(tree).values()];
 console.log(`Region records discovered: ${regions.length}`);
-const targets = [pickRegion(regions, 'Омск'), pickRegion(regions, 'Омская область')];
+const targets = caseConfig.regions.map((name) => pickRegion(regions, name));
 
 console.log(`Regions: ${targets.map((r) => `${r.name} (${r.id})`).join(', ')}`);
 console.log(`Batch: ${seeds.length} seeds × ${targets.length} regions = ${seeds.length * targets.length} calls`);
@@ -135,7 +131,7 @@ for (const seed of seeds) {
     const data = await call('/topRequests', {
       phrase: seed,
       numPhrases: NUM_PHRASES,
-      devices: ['DEVICE_ALL'],
+      devices: DEVICES,
       regions: [region.id],
       folderId,
     });
@@ -172,15 +168,15 @@ const rawJson = {
   rowCount: rows.length,
   rows,
 };
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-wordstat-latest.json'), JSON.stringify(rawJson, null, 2), 'utf8');
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-wordstat-latest.csv'), writeCsv(
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-latest.json`), JSON.stringify(rawJson, null, 2), 'utf8');
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-latest.csv`), writeCsv(
   rows,
   ['phrase','region_id','region_name','count','types','seeds'],
   (r) => [r.phrase,r.regionId,r.regionName,r.count,r.types.join('|'),r.seeds.join('|')]
 ), 'utf8');
 
 const rawMd = [];
-rawMd.push('# Сила Леса — Wordstat batch');
+rawMd.push(`# ${CASE_NAME} — Wordstat batch`);
 rawMd.push('');
 rawMd.push(`Собрано: ${generatedAt}`);
 rawMd.push(`Seed-фраз: ${seeds.length}; регионов: ${targets.length}; API-вызовов: ${calls.length}; уникальных строк: ${rows.length}.`);
@@ -196,7 +192,7 @@ for (const region of targets) {
   top.forEach((r, i) => rawMd.push(`| ${i + 1} | ${r.phrase.replaceAll('|','\\|')} | ${r.count} | ${r.types.join(', ')} | ${r.seeds.join(', ').replaceAll('|','\\|')} |`));
   rawMd.push('');
 }
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-wordstat-summary.md'), rawMd.join('\n'), 'utf8');
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-summary.md`), rawMd.join('\n'), 'utf8');
 
 // Quantitative editorial layer: Top only by default. Associations stay in raw data for discovery.
 const preset = JSON.parse(await fs.readFile(PRESET_PATH, 'utf8'));
@@ -211,7 +207,7 @@ const actionRows = (analysis.classifiedRows || [])
   .filter((row) => (row.types || []).includes('top'))
   .sort((a, b) => Number(b.count || 0) - Number(a.count || 0) || String(a.phrase || '').localeCompare(String(b.phrase || ''), 'ru'));
 
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.json'), JSON.stringify({
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-intents-latest.json`), JSON.stringify({
   ...analysis,
   source: {
     generatedAt,
@@ -222,7 +218,7 @@ await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.json'), JSON.stri
   },
 }, null, 2), 'utf8');
 
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.csv'), writeCsv(
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-intents-latest.csv`), writeCsv(
   intentRows,
   ['intent_id','intent_title','cluster','region_id','region_name','business_priority','relative_demand_band','relative_rank','phrase_count','max_count','strongest_phrase','dominant_query_type','next_action','commercial_phrases','informational_phrases','unmapped_phrases','top_phrases'],
   (x) => [
@@ -234,7 +230,7 @@ await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-latest.csv'), writeCsv(
   ]
 ), 'utf8');
 
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-query-actions-latest.csv'), writeCsv(
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-query-actions-latest.csv`), writeCsv(
   actionRows,
   ['phrase','region_id','region_name','count','types','seeds','analysis_status','query_type','query_confidence','query_source','next_action','intent_id','intent_title','intent_score','matched_keywords'],
   (r) => [
@@ -245,7 +241,7 @@ await fs.writeFile(path.join(OUT_DIR, 'silalesa-query-actions-latest.csv'), writ
 ), 'utf8');
 
 const intentMd = [];
-intentMd.push('# Сила Леса — intent + query action validation');
+intentMd.push(`# ${CASE_NAME} — intent + query action validation`);
 intentMd.push('');
 intentMd.push(`Собрано: ${analysis.meta.generatedAt}`);
 intentMd.push(`Источник: ${rows.length} уникальных Wordstat-строк, ${seeds.length} seed × ${targets.length} региона.`);
@@ -293,6 +289,6 @@ if (!unassigned.length) {
   }
 }
 intentMd.push('');
-await fs.writeFile(path.join(OUT_DIR, 'silalesa-intents-summary.md'), intentMd.join('\n'), 'utf8');
+await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-intents-summary.md`), intentMd.join('\n'), 'utf8');
 
 console.log(`DONE: ${rows.length} raw rows; ${analysis.meta.assignedRows}/${analysis.meta.eligibleRows} Top rows assigned; ${intentRows.length} intent-region signals; ${actionRows.length} query actions.`);

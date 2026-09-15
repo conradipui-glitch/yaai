@@ -1,21 +1,9 @@
-name: Sila Lesa Wordstat batch
+name: TOHARO Wordstat batch
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/silalesa-wordstat.yml'
-      - 'cases/silalesa-seo.json'
-      - 'scripts/batch.mjs'
-      - 'scripts/build-page-plan.mjs'
-      - 'scripts/snapshot-results.mjs'
-      - 'scripts/compare-snapshots.mjs'
-      - 'lib/analyze.mjs'
-      - 'lib/snapshots.mjs'
-      - 'public/page-planner.js'
-      - 'public/planner-silalesa.json'
-      - 'presets/silalesa.json'
   workflow_dispatch:
+  schedule:
+    - cron: '0 5 1 * *'
 
 permissions:
   contents: write
@@ -31,8 +19,7 @@ jobs:
       YAIS_API: ${{ secrets.YAIS_API }}
       YAIS_ID: ${{ secrets.YAIS_ID }}
       YANDEX_FOLDER_ID: b1gfllt28aev9insu589
-      NUM_PHRASES: '200'
-      CASE_ID: silalesa-seo
+      CASE_ID: totharo-seo
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -49,30 +36,30 @@ jobs:
       - name: Upload results artifact
         uses: actions/upload-artifact@v4
         with:
-          name: silalesa-wordstat
+          name: totharo-wordstat
           path: |
             results/
-            research/cases/silalesa-seo/
+            research/cases/totharo-seo/
           retention-days: 30
       - name: Commit latest public research snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
-            results/silalesa-wordstat-latest.csv \
-            results/silalesa-wordstat-latest.json \
-            results/silalesa-wordstat-summary.md \
-            results/silalesa-intents-latest.csv \
-            results/silalesa-intents-latest.json \
-            results/silalesa-intents-summary.md \
-            results/silalesa-query-actions-latest.csv \
-            results/silalesa-page-plan-latest.csv \
-            results/silalesa-page-plan-latest.json \
-            results/silalesa-page-plan-summary.md \
-            research/cases/silalesa-seo
+            results/totharo-wordstat-latest.csv \
+            results/totharo-wordstat-latest.json \
+            results/totharo-wordstat-summary.md \
+            results/totharo-intents-latest.csv \
+            results/totharo-intents-latest.json \
+            results/totharo-intents-summary.md \
+            results/totharo-query-actions-latest.csv \
+            results/totharo-page-plan-latest.csv \
+            results/totharo-page-plan-latest.json \
+            results/totharo-page-plan-summary.md \
+            research/cases/totharo-seo
           if git diff --cached --quiet; then
             echo "No result changes to commit"
             exit 0
           fi
-          git commit -m "data: refresh Sila Lesa research case snapshot"
+          git commit -m "data: refresh TOHARO research case snapshot"
           git push

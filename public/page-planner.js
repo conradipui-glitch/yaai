@@ -70,7 +70,7 @@ function decisionForTarget(target) {
   return 'create';
 }
 
-function makeGenericTarget(row) {
+function makeGenericTarget(row, config = {}) {
   if (row.nextAction === 'guide' && row.intentId) {
     return {
       id: `generated-guide-${row.intentId}`,
@@ -78,7 +78,7 @@ function makeGenericTarget(row) {
       kind: 'guide',
       status: 'planned',
       mode: 'primary',
-      path: `/guides/${transliterate(row.intentTitle || row.phrase)}/`,
+      path: String(config.genericGuidePath || '/guides/{slug}/').replaceAll('{slug}', transliterate(row.intentTitle || row.phrase)),
       priority: row.businessPriority || 'P3',
       focusWeight: 1,
       generated: true,
@@ -92,7 +92,7 @@ function makeGenericTarget(row) {
       kind: 'landing',
       status: 'planned',
       mode: 'primary',
-      path: `/${transliterate(row.intentTitle || row.phrase)}-omsk/`,
+      path: String(config.genericLandingPath || '/{slug}-omsk/').replaceAll('{slug}', transliterate(row.intentTitle || row.phrase)),
       priority: row.businessPriority || 'P3',
       focusWeight: 1,
       generated: true,
@@ -214,7 +214,7 @@ export function buildPagePlan(analysis, preset, options = {}) {
       .sort((a, b) => b.score - a.score || String(a.target.id).localeCompare(String(b.target.id)));
 
     let target = candidates[0]?.target || null;
-    if (!target) target = makeGenericTarget(row);
+    if (!target) target = makeGenericTarget(row, config);
 
     if (!target) {
       holdRows.push({ ...row, plannerReason: row.queryType === 'commercial' ? 'commercial-unmapped-needs-target' : 'no-page-target' });
