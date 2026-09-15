@@ -1,14 +1,14 @@
 {
   "meta": {
     "presetId": "totharo",
-    "generatedAt": "2026-09-15T12:31:19.643Z",
+    "generatedAt": "2026-09-15T12:33:59.057Z",
     "inputClassifiedRows": 4476,
-    "pageCandidates": 40,
+    "pageCandidates": 39,
     "decisionCounts": {
-      "expand": 9,
+      "expand": 8,
       "create": 31,
       "merge": 0,
-      "hold": 495
+      "hold": 537
     },
     "nowCount": 5,
     "nextCount": 10,
@@ -27,8 +27,8 @@
       "businessPriority": "P2",
       "focusWeight": 1,
       "plannerScore": 143.6,
-      "phraseCount": 380,
-      "rowCount": 380,
+      "phraseCount": 382,
+      "rowCount": 382,
       "maxCount": 2406813,
       "strongestPhrase": "дипсик",
       "strongestRegion": "Россия",
@@ -36,7 +36,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 380,
+          "phraseCount": 382,
           "maxCount": 2406813,
           "strongestPhrase": "дипсик"
         }
@@ -46,7 +46,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 380,
+        "informational": 382,
         "unmapped": 0,
         "noise": 0
       },
@@ -101,6 +101,13 @@
           "intentId": "MD03"
         },
         {
+          "phrase": "deepseek нейросеть",
+          "count": 25784,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD03"
+        },
+        {
           "phrase": "дипсик бесплатно",
           "count": 25605,
           "regionName": "Россия",
@@ -110,13 +117,6 @@
         {
           "phrase": "дипсик онлайн",
           "count": 19286,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD03"
-        },
-        {
-          "phrase": "дипсик на русском бесплатно",
-          "count": 17662,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD03"
@@ -254,8 +254,8 @@
       "businessPriority": "P2",
       "focusWeight": 1,
       "plannerScore": 135.6,
-      "phraseCount": 98,
-      "rowCount": 98,
+      "phraseCount": 106,
+      "rowCount": 106,
       "maxCount": 959873,
       "strongestPhrase": "нейросеть бесплатно",
       "strongestRegion": "Россия",
@@ -263,7 +263,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 98,
+          "phraseCount": 106,
           "maxCount": 959873,
           "strongestPhrase": "нейросеть бесплатно"
         }
@@ -273,7 +273,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 98,
+        "informational": 106,
         "unmapped": 0,
         "noise": 0
       },
@@ -314,6 +314,13 @@
           "intentId": "MD09"
         },
         {
+          "phrase": "ии нейросеть бесплатно",
+          "count": 78206,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD09"
+        },
+        {
           "phrase": "сгенерировать нейросетью бесплатно",
           "count": 50554,
           "regionName": "Россия",
@@ -340,13 +347,6 @@
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD09"
-        },
-        {
-          "phrase": "ии фото нейросеть бесплатно",
-          "count": 38019,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD09"
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
@@ -365,8 +365,8 @@
       "businessPriority": "P3",
       "focusWeight": 1,
       "plannerScore": 122.8,
-      "phraseCount": 335,
-      "rowCount": 335,
+      "phraseCount": 338,
+      "rowCount": 338,
       "maxCount": 345732,
       "strongestPhrase": "qwen",
       "strongestRegion": "Россия",
@@ -374,7 +374,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 335,
+          "phraseCount": 338,
           "maxCount": 345732,
           "strongestPhrase": "qwen"
         }
@@ -384,7 +384,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 335,
+        "informational": 338,
         "unmapped": 0,
         "noise": 0
       },
@@ -406,6 +406,13 @@
         {
           "phrase": "qwen 3.8",
           "count": 32681,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD05"
+        },
+        {
+          "phrase": "qwen нейросеть",
+          "count": 29501,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD05"
@@ -448,13 +455,6 @@
         {
           "phrase": "qwen ai",
           "count": 16539,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD05"
-        },
-        {
-          "phrase": "qwen chat",
-          "count": 15844,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD05"
@@ -585,77 +585,6 @@
       "priorityBand": "now"
     },
     {
-      "planId": "plan-agent-vps",
-      "title": "Агент на VPS",
-      "path": "/blog/agent-na-vps/",
-      "pageKind": "guide",
-      "decision": "create",
-      "status": "planned",
-      "mode": "primary",
-      "generated": false,
-      "businessPriority": "P2",
-      "focusWeight": 2,
-      "plannerScore": 121.9,
-      "phraseCount": 4,
-      "rowCount": 4,
-      "maxCount": 78206,
-      "strongestPhrase": "ии нейросеть бесплатно",
-      "strongestRegion": "Россия",
-      "regions": [
-        {
-          "regionId": "225",
-          "regionName": "Россия",
-          "phraseCount": 4,
-          "maxCount": 78206,
-          "strongestPhrase": "ии нейросеть бесплатно"
-        }
-      ],
-      "intentIds": [
-        "IN01",
-        "MD05",
-        "MD09"
-      ],
-      "queryTypeCounts": {
-        "commercial": 0,
-        "informational": 4,
-        "unmapped": 0,
-        "noise": 0
-      },
-      "topQueries": [
-        {
-          "phrase": "ии нейросеть бесплатно",
-          "count": 78206,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD09"
-        },
-        {
-          "phrase": "qwen нейросеть",
-          "count": 29501,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD05"
-        },
-        {
-          "phrase": "локальные нейросети на серверах",
-          "count": 37,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "IN01"
-        },
-        {
-          "phrase": "vps для нейросетей",
-          "count": 31,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "IN01"
-        }
-      ],
-      "note": "",
-      "priorityRank": 6,
-      "priorityBand": "next"
-    },
-    {
       "planId": "plan-vayb",
       "title": "Что такое вайб-кодинг",
       "path": "/blog/chto-takoe-vayb-koding/",
@@ -667,8 +596,8 @@
       "businessPriority": "P1",
       "focusWeight": 3,
       "plannerScore": 118.6,
-      "phraseCount": 175,
-      "rowCount": 175,
+      "phraseCount": 174,
+      "rowCount": 174,
       "maxCount": 13426,
       "strongestPhrase": "вайб кодинг",
       "strongestRegion": "Россия",
@@ -676,7 +605,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 175,
+          "phraseCount": 174,
           "maxCount": 13426,
           "strongestPhrase": "вайб кодинг"
         }
@@ -689,7 +618,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 175,
+        "informational": 174,
         "unmapped": 0,
         "noise": 0
       },
@@ -766,7 +695,7 @@
         }
       ],
       "note": "Черновик в репозитории — дописать и опубликовать.",
-      "priorityRank": 7,
+      "priorityRank": 6,
       "priorityBand": "next"
     },
     {
@@ -878,13 +807,13 @@
         }
       ],
       "note": "",
-      "priorityRank": 8,
+      "priorityRank": 7,
       "priorityBand": "next"
     },
     {
       "planId": "generated-guide-TL04",
       "title": "OpenAI Codex",
-      "path": "/blog/openai-codeh/",
+      "path": "/blog/openai-codex/",
       "pageKind": "guide",
       "decision": "create",
       "status": "planned",
@@ -989,7 +918,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 9,
+      "priorityRank": 8,
       "priorityBand": "next"
     },
     {
@@ -1004,8 +933,8 @@
       "businessPriority": "P1",
       "focusWeight": 1,
       "plannerScore": 115.6,
-      "phraseCount": 176,
-      "rowCount": 176,
+      "phraseCount": 183,
+      "rowCount": 183,
       "maxCount": 60518,
       "strongestPhrase": "claude code",
       "strongestRegion": "Россия",
@@ -1013,7 +942,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 176,
+          "phraseCount": 183,
           "maxCount": 60518,
           "strongestPhrase": "claude code"
         }
@@ -1023,7 +952,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 176,
+        "informational": 183,
         "unmapped": 0,
         "noise": 0
       },
@@ -1100,7 +1029,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 10,
+      "priorityRank": 9,
       "priorityBand": "next"
     },
     {
@@ -1211,176 +1140,8 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 11,
-      "priorityBand": "later"
-    },
-    {
-      "planId": "post-tri-sloya",
-      "title": "Три слоя надёжного агента",
-      "path": "/blog/tri-sloya-nadezhnogo-agenta/",
-      "pageKind": "guide",
-      "decision": "expand",
-      "status": "existing",
-      "mode": "primary",
-      "generated": false,
-      "businessPriority": "P1",
-      "focusWeight": 3,
-      "plannerScore": 110.4,
-      "phraseCount": 189,
-      "rowCount": 189,
-      "maxCount": 3298,
-      "strongestPhrase": "создание ии агентов",
-      "strongestRegion": "Россия",
-      "regions": [
-        {
-          "regionId": "225",
-          "regionName": "Россия",
-          "phraseCount": 189,
-          "maxCount": 3298,
-          "strongestPhrase": "создание ии агентов"
-        }
-      ],
-      "intentIds": [
-        "AG01",
-        "VC03"
-      ],
-      "queryTypeCounts": {
-        "commercial": 4,
-        "informational": 185,
-        "unmapped": 0,
-        "noise": 0
-      },
-      "topQueries": [
-        {
-          "phrase": "создание ии агентов",
-          "count": 3298,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "как создать ии агента",
-          "count": 2841,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "бесплатные ии агенты",
-          "count": 2622,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "что такое ии агент",
-          "count": 2485,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "лучшие ии агенты",
-          "count": 1424,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "ии агенты для бизнеса",
-          "count": 1333,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "разработка ии агентов",
-          "count": 1329,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "локальный ии агент",
-          "count": 1188,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "как сделать ии агента",
-          "count": 1133,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "система ии агентов",
-          "count": 1046,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        }
-      ],
-      "note": "Ядро кластера надёжности — точка входа для перелинковки.",
-      "priorityRank": 12,
-      "priorityBand": "later"
-    },
-    {
-      "planId": "post-scam",
-      "title": "«Claude AI Ultimate» — скам-репозиторий",
-      "path": "/blog/claude-ai-ultimate-scam/",
-      "pageKind": "guide",
-      "decision": "expand",
-      "status": "existing",
-      "mode": "primary",
-      "generated": false,
-      "businessPriority": "P2",
-      "focusWeight": 1,
-      "plannerScore": 108.2,
-      "phraseCount": 2,
-      "rowCount": 2,
-      "maxCount": 25784,
-      "strongestPhrase": "deepseek нейросеть",
-      "strongestRegion": "Россия",
-      "regions": [
-        {
-          "regionId": "225",
-          "regionName": "Россия",
-          "phraseCount": 2,
-          "maxCount": 25784,
-          "strongestPhrase": "deepseek нейросеть"
-        }
-      ],
-      "intentIds": [
-        "MD03",
-        "SC02"
-      ],
-      "queryTypeCounts": {
-        "commercial": 0,
-        "informational": 2,
-        "unmapped": 0,
-        "noise": 0
-      },
-      "topQueries": [
-        {
-          "phrase": "deepseek нейросеть",
-          "count": 25784,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD03"
-        },
-        {
-          "phrase": "мошенничество с нейросетью",
-          "count": 38,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "SC02"
-        }
-      ],
-      "note": "",
-      "priorityRank": 13,
-      "priorityBand": "later"
+      "priorityRank": 10,
+      "priorityBand": "next"
     },
     {
       "planId": "generated-guide-IN02",
@@ -1490,7 +1251,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 14,
+      "priorityRank": 11,
       "priorityBand": "later"
     },
     {
@@ -1601,7 +1362,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 15,
+      "priorityRank": 12,
       "priorityBand": "later"
     },
     {
@@ -1712,7 +1473,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 16,
+      "priorityRank": 13,
       "priorityBand": "later"
     },
     {
@@ -1727,8 +1488,8 @@
       "businessPriority": "P1",
       "focusWeight": 2,
       "plannerScore": 103.9,
-      "phraseCount": 99,
-      "rowCount": 99,
+      "phraseCount": 83,
+      "rowCount": 83,
       "maxCount": 6260,
       "strongestPhrase": "фото лучшая нейросеть бесплатно онлайн",
       "strongestRegion": "Россия",
@@ -1736,19 +1497,17 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 99,
+          "phraseCount": 83,
           "maxCount": 6260,
           "strongestPhrase": "фото лучшая нейросеть бесплатно онлайн"
         }
       ],
       "intentIds": [
-        "MD01",
-        "MD05",
-        "MD09"
+        "MD01"
       ],
       "queryTypeCounts": {
-        "commercial": 1,
-        "informational": 98,
+        "commercial": 0,
+        "informational": 83,
         "unmapped": 0,
         "noise": 0
       },
@@ -1773,13 +1532,6 @@
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD01"
-        },
-        {
-          "phrase": "qwen studio нейросеть",
-          "count": 1730,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "MD05"
         },
         {
           "phrase": "лучшая нейросеть для программирования",
@@ -1822,10 +1574,17 @@
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD01"
+        },
+        {
+          "phrase": "лучшая нейросеть для написания кода",
+          "count": 293,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD01"
         }
       ],
       "note": "",
-      "priorityRank": 17,
+      "priorityRank": 14,
       "priorityBand": "later"
     },
     {
@@ -1936,7 +1695,7 @@
         }
       ],
       "note": "Сюда же встроить черновик «Файл правил проекта» (каннибализация по аудиту).",
-      "priorityRank": 18,
+      "priorityRank": 15,
       "priorityBand": "later"
     },
     {
@@ -1951,8 +1710,8 @@
       "businessPriority": "P1",
       "focusWeight": 1,
       "plannerScore": 100.1,
-      "phraseCount": 157,
-      "rowCount": 157,
+      "phraseCount": 342,
+      "rowCount": 342,
       "maxCount": 10110,
       "strongestPhrase": "ai агент",
       "strongestRegion": "Россия",
@@ -1960,7 +1719,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 157,
+          "phraseCount": 342,
           "maxCount": 10110,
           "strongestPhrase": "ai агент"
         }
@@ -1970,7 +1729,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 157,
+        "informational": 342,
         "unmapped": 0,
         "noise": 0
       },
@@ -1983,71 +1742,71 @@
           "intentId": "AG01"
         },
         {
-          "phrase": "создание ai агентов",
-          "count": 578,
+          "phrase": "создание ии агентов",
+          "count": 3298,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "как создать ai агента",
-          "count": 392,
+          "phrase": "как создать ии агента",
+          "count": 2841,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "бесплатные ai агенты",
-          "count": 327,
+          "phrase": "бесплатные ии агенты",
+          "count": 2622,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "разработка ai агентов",
-          "count": 293,
+          "phrase": "что такое ии агент",
+          "count": 2485,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "яндекс ai агенты",
-          "count": 223,
+          "phrase": "лучшие ии агенты",
+          "count": 1424,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "лучшие ai агенты",
-          "count": 199,
+          "phrase": "ии агенты для бизнеса",
+          "count": 1333,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "локальные ai агенты",
-          "count": 194,
+          "phrase": "разработка ии агентов",
+          "count": 1329,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "алиса ai агент",
-          "count": 193,
+          "phrase": "локальный ии агент",
+          "count": 1188,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         },
         {
-          "phrase": "работа с ai агентами",
-          "count": 189,
+          "phrase": "как сделать ии агента",
+          "count": 1133,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "AG01"
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 19,
+      "priorityRank": 16,
       "priorityBand": "later"
     },
     {
@@ -2158,7 +1917,7 @@
         }
       ],
       "note": "Планируемая страница под кластер выбора инструмента.",
-      "priorityRank": 20,
+      "priorityRank": 17,
       "priorityBand": "later"
     },
     {
@@ -2269,119 +2028,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 21,
-      "priorityBand": "later"
-    },
-    {
-      "planId": "post-skills",
-      "title": "Skills в Claude Code: свой навык",
-      "path": "/blog/skills-claude-code-svoi-navyk/",
-      "pageKind": "guide",
-      "decision": "expand",
-      "status": "existing",
-      "mode": "primary",
-      "generated": false,
-      "businessPriority": "P1",
-      "focusWeight": 3,
-      "plannerScore": 97.8,
-      "phraseCount": 10,
-      "rowCount": 10,
-      "maxCount": 773,
-      "strongestPhrase": "skill claude code",
-      "strongestRegion": "Россия",
-      "regions": [
-        {
-          "regionId": "225",
-          "regionName": "Россия",
-          "phraseCount": 10,
-          "maxCount": 773,
-          "strongestPhrase": "skill claude code"
-        }
-      ],
-      "intentIds": [
-        "TL01",
-        "TL02"
-      ],
-      "queryTypeCounts": {
-        "commercial": 0,
-        "informational": 10,
-        "unmapped": 0,
-        "noise": 0
-      },
-      "topQueries": [
-        {
-          "phrase": "skill claude code",
-          "count": 773,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "скиллы claude code",
-          "count": 375,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "claude code skills github",
-          "count": 68,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL02"
-        },
-        {
-          "phrase": "claude code design skill",
-          "count": 32,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "claude code skills marketplace",
-          "count": 16,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL02"
-        },
-        {
-          "phrase": "claude code best skills",
-          "count": 12,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "remotion skill claude code",
-          "count": 9,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "seo skill for claude code",
-          "count": 7,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "grill me skill claude code",
-          "count": 5,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        },
-        {
-          "phrase": "banana skill claude code",
-          "count": 4,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "TL01"
-        }
-      ],
-      "note": "",
-      "priorityRank": 22,
+      "priorityRank": 18,
       "priorityBand": "later"
     },
     {
@@ -2492,7 +2139,70 @@
         }
       ],
       "note": "Черновик — связать с три-слоя и skills.",
-      "priorityRank": 23,
+      "priorityRank": 19,
+      "priorityBand": "later"
+    },
+    {
+      "planId": "post-skills",
+      "title": "Skills в Claude Code: свой навык",
+      "path": "/blog/skills-claude-code-svoi-navyk/",
+      "pageKind": "guide",
+      "decision": "expand",
+      "status": "existing",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P1",
+      "focusWeight": 3,
+      "plannerScore": 91.5,
+      "phraseCount": 3,
+      "rowCount": 3,
+      "maxCount": 375,
+      "strongestPhrase": "скиллы claude code",
+      "strongestRegion": "Россия",
+      "regions": [
+        {
+          "regionId": "225",
+          "regionName": "Россия",
+          "phraseCount": 3,
+          "maxCount": 375,
+          "strongestPhrase": "скиллы claude code"
+        }
+      ],
+      "intentIds": [
+        "TL01",
+        "TL02"
+      ],
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 3,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "скиллы claude code",
+          "count": 375,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "TL01"
+        },
+        {
+          "phrase": "claude code skills github",
+          "count": 68,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "TL02"
+        },
+        {
+          "phrase": "claude code skills marketplace",
+          "count": 16,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "TL02"
+        }
+      ],
+      "note": "",
+      "priorityRank": 20,
       "priorityBand": "later"
     },
     {
@@ -2507,8 +2217,8 @@
       "businessPriority": "P1",
       "focusWeight": 1,
       "plannerScore": 90,
-      "phraseCount": 43,
-      "rowCount": 43,
+      "phraseCount": 11,
+      "rowCount": 11,
       "maxCount": 1993,
       "strongestPhrase": "сравнение нейросетей",
       "strongestRegion": "Россия",
@@ -2516,19 +2226,17 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 43,
+          "phraseCount": 11,
           "maxCount": 1993,
           "strongestPhrase": "сравнение нейросетей"
         }
       ],
       "intentIds": [
-        "MD02",
-        "MD03",
-        "MD09"
+        "MD02"
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 43,
+        "informational": 11,
         "unmapped": 0,
         "noise": 0
       },
@@ -2548,39 +2256,11 @@
           "intentId": "MD02"
         },
         {
-          "phrase": "алиса нейросеть сравнение",
-          "count": 104,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": ""
-        },
-        {
-          "phrase": "сравнение основных нейросетей",
-          "count": 76,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": ""
-        },
-        {
-          "phrase": "сравнение разных нейросетей",
-          "count": 71,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": ""
-        },
-        {
           "phrase": "сравнение нейросетей промптов",
           "count": 64,
           "regionName": "Россия",
           "queryType": "informational",
           "intentId": "MD02"
-        },
-        {
-          "phrase": "сравнение российских нейросетей",
-          "count": 62,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": ""
         },
         {
           "phrase": "сравнение моделей нейросетей",
@@ -2590,22 +2270,50 @@
           "intentId": "MD02"
         },
         {
-          "phrase": "deepseek нейросеть сравнение",
-          "count": 57,
+          "phrase": "сравнение нейросетей таблица",
+          "count": 46,
           "regionName": "Россия",
           "queryType": "informational",
-          "intentId": "MD03"
+          "intentId": "MD02"
         },
         {
-          "phrase": "уилл смит ест спагетти нейросеть сравнение",
-          "count": 56,
+          "phrase": "сравнение нейросети алисы с другими нейросетями",
+          "count": 43,
           "regionName": "Россия",
           "queryType": "informational",
-          "intentId": ""
+          "intentId": "MD02"
+        },
+        {
+          "phrase": "сравнение нейросетей какая лучше",
+          "count": 35,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD02"
+        },
+        {
+          "phrase": "сравнение нейросетей для видео",
+          "count": 27,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD02"
+        },
+        {
+          "phrase": "сравнение нейросетей сайт",
+          "count": 24,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD02"
+        },
+        {
+          "phrase": "сравнение нейросетей яндекс",
+          "count": 16,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "MD02"
         }
       ],
       "note": "",
-      "priorityRank": 24,
+      "priorityRank": 21,
       "priorityBand": "later"
     },
     {
@@ -2716,7 +2424,7 @@
         }
       ],
       "note": "",
-      "priorityRank": 25,
+      "priorityRank": 22,
       "priorityBand": "later"
     },
     {
@@ -2827,7 +2535,7 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 26,
+      "priorityRank": 23,
       "priorityBand": "later"
     },
     {
@@ -2842,8 +2550,8 @@
       "businessPriority": "P2",
       "focusWeight": 1,
       "plannerScore": 87.2,
-      "phraseCount": 54,
-      "rowCount": 54,
+      "phraseCount": 55,
+      "rowCount": 55,
       "maxCount": 3624,
       "strongestPhrase": "промпт инжиниринг",
       "strongestRegion": "Россия",
@@ -2851,7 +2559,7 @@
         {
           "regionId": "225",
           "regionName": "Россия",
-          "phraseCount": 54,
+          "phraseCount": 55,
           "maxCount": 3624,
           "strongestPhrase": "промпт инжиниринг"
         }
@@ -2861,7 +2569,7 @@
       ],
       "queryTypeCounts": {
         "commercial": 0,
-        "informational": 54,
+        "informational": 55,
         "unmapped": 0,
         "noise": 0
       },
@@ -2938,7 +2646,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 27,
+      "priorityRank": 24,
       "priorityBand": "later"
     },
     {
@@ -3049,7 +2757,7 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 28,
+      "priorityRank": 25,
       "priorityBand": "later"
     },
     {
@@ -3132,13 +2840,13 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 29,
+      "priorityRank": 26,
       "priorityBand": "later"
     },
     {
       "planId": "generated-landing-TL04",
       "title": "OpenAI Codex",
-      "path": "/blog/openai-codeh/",
+      "path": "/blog/openai-codex/",
       "pageKind": "landing",
       "decision": "create",
       "status": "planned",
@@ -3215,7 +2923,7 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 30,
+      "priorityRank": 27,
       "priorityBand": "later"
     },
     {
@@ -3326,7 +3034,7 @@
         }
       ],
       "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
-      "priorityRank": 31,
+      "priorityRank": 28,
       "priorityBand": "later"
     },
     {
@@ -3374,84 +3082,7 @@
         }
       ],
       "note": "Черновик — публикация открывает верх воронки.",
-      "priorityRank": 32,
-      "priorityBand": "later"
-    },
-    {
-      "planId": "plan-pamyat",
-      "title": "Память агента",
-      "path": "/blog/pamyat-agenta/",
-      "pageKind": "guide",
-      "decision": "create",
-      "status": "planned",
-      "mode": "primary",
-      "generated": false,
-      "businessPriority": "P1",
-      "focusWeight": 1,
-      "plannerScore": 78.7,
-      "phraseCount": 5,
-      "rowCount": 5,
-      "maxCount": 860,
-      "strongestPhrase": "память агента",
-      "strongestRegion": "Россия",
-      "regions": [
-        {
-          "regionId": "225",
-          "regionName": "Россия",
-          "phraseCount": 5,
-          "maxCount": 860,
-          "strongestPhrase": "память агента"
-        }
-      ],
-      "intentIds": [
-        "AG01",
-        "AG04"
-      ],
-      "queryTypeCounts": {
-        "commercial": 0,
-        "informational": 5,
-        "unmapped": 0,
-        "noise": 0
-      },
-      "topQueries": [
-        {
-          "phrase": "память агента",
-          "count": 860,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG04"
-        },
-        {
-          "phrase": "ии агент память",
-          "count": 108,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "фильм где агент потерял память",
-          "count": 22,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": ""
-        },
-        {
-          "phrase": "память ai агентов",
-          "count": 17,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": "AG01"
-        },
-        {
-          "phrase": "как называется у агентов стирающая память",
-          "count": 6,
-          "regionName": "Россия",
-          "queryType": "informational",
-          "intentId": ""
-        }
-      ],
-      "note": "",
-      "priorityRank": 33,
+      "priorityRank": 29,
       "priorityBand": "later"
     },
     {
@@ -3513,7 +3144,131 @@
         }
       ],
       "note": "",
-      "priorityRank": 34,
+      "priorityRank": 30,
+      "priorityBand": "later"
+    },
+    {
+      "planId": "plan-pamyat",
+      "title": "Память агента",
+      "path": "/blog/pamyat-agenta/",
+      "pageKind": "guide",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P2",
+      "focusWeight": 1,
+      "plannerScore": 74.7,
+      "phraseCount": 1,
+      "rowCount": 1,
+      "maxCount": 860,
+      "strongestPhrase": "память агента",
+      "strongestRegion": "Россия",
+      "regions": [
+        {
+          "regionId": "225",
+          "regionName": "Россия",
+          "phraseCount": 1,
+          "maxCount": 860,
+          "strongestPhrase": "память агента"
+        }
+      ],
+      "intentIds": [
+        "AG04"
+      ],
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 1,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "память агента",
+          "count": 860,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "AG04"
+        }
+      ],
+      "note": "",
+      "priorityRank": 31,
+      "priorityBand": "later"
+    },
+    {
+      "planId": "generated-landing-AG01",
+      "title": "Что такое AI-агент",
+      "path": "/blog/chto-takoe-ai-agent/",
+      "pageKind": "landing",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": true,
+      "businessPriority": "P1",
+      "focusWeight": 1,
+      "plannerScore": 72.2,
+      "phraseCount": 5,
+      "rowCount": 5,
+      "maxCount": 408,
+      "strongestPhrase": "ии агенты купить",
+      "strongestRegion": "Россия",
+      "regions": [
+        {
+          "regionId": "225",
+          "regionName": "Россия",
+          "phraseCount": 5,
+          "maxCount": 408,
+          "strongestPhrase": "ии агенты купить"
+        }
+      ],
+      "intentIds": [
+        "AG01"
+      ],
+      "queryTypeCounts": {
+        "commercial": 5,
+        "informational": 0,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "ии агенты купить",
+          "count": 408,
+          "regionName": "Россия",
+          "queryType": "commercial",
+          "intentId": "AG01"
+        },
+        {
+          "phrase": "сколько стоит ии агент",
+          "count": 244,
+          "regionName": "Россия",
+          "queryType": "commercial",
+          "intentId": "AG01"
+        },
+        {
+          "phrase": "ии агент цена",
+          "count": 236,
+          "regionName": "Россия",
+          "queryType": "commercial",
+          "intentId": "AG01"
+        },
+        {
+          "phrase": "стоимость ии агентов",
+          "count": 175,
+          "regionName": "Россия",
+          "queryType": "commercial",
+          "intentId": "AG01"
+        },
+        {
+          "phrase": "купить ai агента",
+          "count": 46,
+          "regionName": "Россия",
+          "queryType": "commercial",
+          "intentId": "AG01"
+        }
+      ],
+      "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
+      "priorityRank": 32,
       "priorityBand": "later"
     },
     {
@@ -3589,7 +3344,7 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 35,
+      "priorityRank": 33,
       "priorityBand": "later"
     },
     {
@@ -3700,7 +3455,7 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 36,
+      "priorityRank": 34,
       "priorityBand": "later"
     },
     {
@@ -3811,7 +3566,7 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 37,
+      "priorityRank": 35,
       "priorityBand": "later"
     },
     {
@@ -3894,7 +3649,62 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 38,
+      "priorityRank": 36,
+      "priorityBand": "later"
+    },
+    {
+      "planId": "plan-agent-vps",
+      "title": "Агент на VPS",
+      "path": "/blog/agent-na-vps/",
+      "pageKind": "guide",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P2",
+      "focusWeight": 2,
+      "plannerScore": 55.6,
+      "phraseCount": 2,
+      "rowCount": 2,
+      "maxCount": 37,
+      "strongestPhrase": "локальные нейросети на серверах",
+      "strongestRegion": "Россия",
+      "regions": [
+        {
+          "regionId": "225",
+          "regionName": "Россия",
+          "phraseCount": 2,
+          "maxCount": 37,
+          "strongestPhrase": "локальные нейросети на серверах"
+        }
+      ],
+      "intentIds": [
+        "IN01"
+      ],
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 2,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "локальные нейросети на серверах",
+          "count": 37,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "IN01"
+        },
+        {
+          "phrase": "vps для нейросетей",
+          "count": 31,
+          "regionName": "Россия",
+          "queryType": "informational",
+          "intentId": "IN01"
+        }
+      ],
+      "note": "",
+      "priorityRank": 37,
       "priorityBand": "later"
     },
     {
@@ -3970,55 +3780,55 @@
         }
       ],
       "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 39,
+      "priorityRank": 38,
       "priorityBand": "later"
     },
     {
-      "planId": "generated-landing-AG01",
-      "title": "Что такое AI-агент",
-      "path": "/blog/chto-takoe-ai-agent/",
-      "pageKind": "landing",
-      "decision": "create",
-      "status": "planned",
+      "planId": "post-scam",
+      "title": "«Claude AI Ultimate» — скам-репозиторий",
+      "path": "/blog/claude-ai-ultimate-scam/",
+      "pageKind": "guide",
+      "decision": "expand",
+      "status": "existing",
       "mode": "primary",
-      "generated": true,
-      "businessPriority": "P1",
+      "generated": false,
+      "businessPriority": "P2",
       "focusWeight": 1,
-      "plannerScore": 53.4,
+      "plannerScore": 51.8,
       "phraseCount": 1,
       "rowCount": 1,
-      "maxCount": 46,
-      "strongestPhrase": "купить ai агента",
+      "maxCount": 38,
+      "strongestPhrase": "мошенничество с нейросетью",
       "strongestRegion": "Россия",
       "regions": [
         {
           "regionId": "225",
           "regionName": "Россия",
           "phraseCount": 1,
-          "maxCount": 46,
-          "strongestPhrase": "купить ai агента"
+          "maxCount": 38,
+          "strongestPhrase": "мошенничество с нейросетью"
         }
       ],
       "intentIds": [
-        "AG01"
+        "SC02"
       ],
       "queryTypeCounts": {
-        "commercial": 1,
-        "informational": 0,
+        "commercial": 0,
+        "informational": 1,
         "unmapped": 0,
         "noise": 0
       },
       "topQueries": [
         {
-          "phrase": "купить ai агента",
-          "count": 46,
+          "phrase": "мошенничество с нейросетью",
+          "count": 38,
           "regionName": "Россия",
-          "queryType": "commercial",
-          "intentId": "AG01"
+          "queryType": "informational",
+          "intentId": "SC02"
         }
       ],
-      "note": "Автоматический кандидат: коммерческий intent не привязан к существующей странице.",
-      "priorityRank": 40,
+      "note": "",
+      "priorityRank": 39,
       "priorityBand": "later"
     }
   ],
@@ -12483,6 +12293,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "отличие ии от агента ии",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 121,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ии агент"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "отличи*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "3д модель по фото нейросеть китайская",
       "regionId": "225",
       "regionName": "Россия",
@@ -12649,6 +12489,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "алиса нейросеть сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 104,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "китайский аналог нейросети",
@@ -13215,6 +13085,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение основных нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 76,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "использование нейросетей локально",
       "regionId": "225",
       "regionName": "Россия",
@@ -13243,6 +13143,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение разных нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 71,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "нейросети для создания кода бесплатно",
       "regionId": "225",
       "regionName": "Россия",
@@ -13269,6 +13199,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сравнение российских нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 62,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "исходный код для нейросети",
@@ -13353,6 +13313,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "уилл смит ест спагетти нейросеть сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 56,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "код для обучения нейросети",
@@ -13493,6 +13483,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "лучшие нейросети для генерации кода",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 52,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "лучш*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "нейросети для обработки и генерации изображений",
@@ -13661,6 +13681,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сравнение двух нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 51,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "api keys нейросеть",
@@ -13861,6 +13911,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение картинок нейросетью",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 45,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "локальная порно нейросеть",
       "regionId": "225",
       "regionName": "Россия",
@@ -13915,6 +13995,66 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сравнение ответов нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 44,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "сравнение фото нейросеть",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 43,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "локальные версии нейросетей",
@@ -14227,6 +14367,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "нейросеть сравнения изображений",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 37,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "нейросеть для генерации и изменения изображений",
       "regionId": "225",
       "regionName": "Россия",
@@ -14313,6 +14483,66 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "нейросеть для сравнения документов",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 34,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "нейросеть сравнение текстов",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 33,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "нейросеть для точных генерации изображений",
       "regionId": "225",
       "regionName": "Россия",
@@ -14339,6 +14569,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "пример кода для нейросети",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 32,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "пример*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "языки программирования для ии и нейросетей",
@@ -14479,6 +14739,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "коды для ошибки нейросети",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 30,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "ошибк*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "нейросеть для генерации фотореалистичных изображений",
@@ -15209,6 +15499,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение возможностей нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 23,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "агент без памяти",
       "regionId": "225",
       "regionName": "Россия",
@@ -15377,6 +15697,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "фильм где агент потерял память",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "память агента"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 3
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "где"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "нейросеть для генерации кода python",
       "regionId": "225",
       "regionName": "Россия",
@@ -15487,6 +15837,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "самые лучшие нейросети для написания кода",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 20,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "лучш*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "google vibe code",
@@ -15631,6 +16011,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение мощностей нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "hermes agent soul md",
       "regionId": "225",
       "regionName": "Россия",
@@ -15657,6 +16067,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "какая нейросеть подходит для написания кода",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 3
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "какая"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "китайский фильм про нейросеть",
@@ -15743,6 +16183,66 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сравнение агрегаторов нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "сравнение российских нейросетей с зарубежными",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "vibe code i dj landlord",
@@ -15971,6 +16471,36 @@
       "plannerReason": "no-page-target"
     },
     {
+      "phrase": "grok нейросеть сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "агент марта ai",
       "regionId": "225",
       "regionName": "Россия",
@@ -15997,6 +16527,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "алиса ai сравнение с другими нейросетями",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "написать код для сайта нейросеть",
@@ -16137,6 +16697,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сравнение коэффициентов букмекерских контор нейросеть",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "какие нейросети можно установить локально",
@@ -16312,6 +16902,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение популярных нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "фильм про супер агента потерявшего память",
       "regionId": "225",
       "regionName": "Россия",
@@ -16424,6 +17044,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "нейросеть сравнение фотографий бесплатное приложение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "промты для нейросети программирование",
       "regionId": "225",
       "regionName": "Россия",
@@ -16452,6 +17102,66 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "vs code vibe",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "vibe coding"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 3
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "vs"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "какую нейросеть выбрать для написания кода",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 3
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "выбрать"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "какую нейросеть лучше использовать для программирования",
       "regionId": "225",
       "regionName": "Россия",
@@ -16476,6 +17186,36 @@
         "informational": [
           "лучше",
           "лучш*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "нейросеть для сравнения лиц",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
         ],
         "commercialHead": []
       },
@@ -16537,6 +17277,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "noise"
+    },
+    {
+      "phrase": "kimi нейросеть сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "source vibe code",
@@ -16623,6 +17393,36 @@
       },
       "nextAction": "guide",
       "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "нейросеть без цензуры для кода",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "commercial",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 2,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [
+          "цен*"
+        ],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "plannerReason": "commercial-unmapped-needs-target"
     },
     {
       "phrase": "нейросеть для написания кода для сайта",
@@ -16903,6 +17703,36 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "квен по сравнению с другими нейросетями",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "китайская ии нейросеть дип",
@@ -17192,6 +18022,36 @@
       "plannerReason": "no-page-target"
     },
     {
+      "phrase": "нейросеть для сравнения товаров",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "нейросеть тысяча вопросов китайские",
       "regionId": "225",
       "regionName": "Россия",
@@ -17248,6 +18108,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "сравнение видеокарт для нейросетей",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "цифровой этикет и безопасность с нейросетями логотип",
       "regionId": "225",
       "regionName": "Россия",
@@ -17274,6 +18164,38 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "api vs нейросети сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "api нейросети",
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 5
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*",
+          "vs"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "cursor pro ai ggsel",
@@ -17390,6 +18312,37 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "блокчейн vs нейросети сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 5
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*",
+          "vs"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "для чего используются нейросети в системах безопасности",
       "regionId": "225",
       "regionName": "Россия",
@@ -17416,6 +18369,67 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "как называется у агентов стирающая память",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "память агента"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 3
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "как"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "какую нейросеть лучше использовать для генерации кода",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "нейросеть для кода"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 5
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "лучше",
+          "лучш*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "квинн нейросеть китайская",
@@ -17614,6 +18628,36 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
+      "phrase": "адам кадыров нейросеть сравнение после аварии",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
       "phrase": "вызов ритуального агента память невьянск",
       "regionId": "225",
       "regionName": "Россия",
@@ -17780,6 +18824,37 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "нейросети vs kubernetes сравнение",
+      "regionId": "225",
+      "regionName": "Россия",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сравнение нейросетей"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 5
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "сравн*",
+          "vs"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "отзыва и безопасность с нейросетью мультитул",

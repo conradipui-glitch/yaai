@@ -1,6 +1,6 @@
 {
   "id": "totharo",
-  "description": "Карта страниц блога TOHARO LAB: 9 опубликованных материалов, черновики под публикацию и запланированные страницы под пробелы спроса. kind у целей не задаётся: для блога и коммерческий, и информационный спрос ведут на контентные страницы. Авто-кандидаты получают путь /blog/{slug}/.",
+  "description": "Карта страниц блога TOHARO LAB: 9 опубликованных материалов, черновики под публикацию и запланированные страницы под пробелы спроса. kind у целей не задаётся: для блога и коммерческий, и информационный спрос ведут на контентные страницы. Привязка запросов — через intentIds и keywords; seeds у целей не используются: широкие seed-хвосты притягивают чужие запросы (проверено на первом прогоне).",
   "defaultFocusWeight": 1,
   "nowCount": 5,
   "nextCount": 10,
@@ -15,9 +15,15 @@
       "path": "/blog/falshivye-gpt-4o-na-vps/",
       "priority": "P1",
       "focusWeight": 2,
-      "intentIds": ["SC01", "MD08"],
-      "keywords": ["ollama*", "открыт* порт*", "фальшив* gpt*"],
-      "seeds": ["ollama"],
+      "intentIds": [
+        "SC01",
+        "MD08"
+      ],
+      "keywords": [
+        "ollama*",
+        "открыт* порт*",
+        "фальшив* gpt*"
+      ],
       "note": "Флагман: уникальный инцидент. Усилить чек-листом безопасности и связкой с локальными моделями."
     },
     {
@@ -28,9 +34,14 @@
       "path": "/blog/oblozhki-neyrosetyu-razmer-i-kachestvo/",
       "priority": "P2",
       "focusWeight": 1,
-      "intentIds": ["IN04", "IN05"],
-      "keywords": ["обложк*", "генераци* изображени*"],
-      "seeds": ["нейросеть для генерации изображений"],
+      "intentIds": [
+        "IN04",
+        "IN05"
+      ],
+      "keywords": [
+        "обложк*",
+        "генераци* изображени*"
+      ],
       "note": ""
     },
     {
@@ -41,9 +52,13 @@
       "path": "/blog/dsh-vision-router/",
       "priority": "P2",
       "focusWeight": 1,
-      "intentIds": ["TL09"],
-      "keywords": ["dsh*", "плагин* агент*"],
-      "seeds": [],
+      "intentIds": [
+        "TL09"
+      ],
+      "keywords": [
+        "dsh*",
+        "плагин* агент*"
+      ],
       "note": ""
     },
     {
@@ -54,9 +69,14 @@
       "path": "/blog/gemini-3-7-flash-bench/",
       "priority": "P2",
       "focusWeight": 1,
-      "intentIds": ["MD02", "MD04"],
-      "keywords": ["gemini*", "бенчмарк*"],
-      "seeds": ["gemini"],
+      "intentIds": [
+        "MD02",
+        "MD04"
+      ],
+      "keywords": [
+        "gemini*",
+        "бенчмарк*"
+      ],
       "note": ""
     },
     {
@@ -67,9 +87,13 @@
       "path": "/blog/claude-ai-ultimate-scam/",
       "priority": "P2",
       "focusWeight": 1,
-      "intentIds": ["SC02"],
-      "keywords": ["скам*", "фейков* gpt*"],
-      "seeds": ["мошенничество с нейросетями"],
+      "intentIds": [
+        "SC02"
+      ],
+      "keywords": [
+        "скам*",
+        "фейков* gpt*"
+      ],
       "note": ""
     },
     {
@@ -80,9 +104,13 @@
       "path": "/blog/tri-sloya-nadezhnogo-agenta/",
       "priority": "P1",
       "focusWeight": 3,
-      "intentIds": ["AG02"],
-      "keywords": ["надежн* агент*", "архитектур* агент*"],
-      "seeds": ["ии агент"],
+      "intentIds": [
+        "AG02"
+      ],
+      "keywords": [
+        "надежн* агент*",
+        "архитектур* агент*"
+      ],
       "note": "Ядро кластера надёжности — точка входа для перелинковки."
     },
     {
@@ -93,9 +121,13 @@
       "path": "/blog/skills-claude-code-svoi-navyk/",
       "priority": "P1",
       "focusWeight": 3,
-      "intentIds": ["TL02"],
-      "keywords": ["skills claude*", "скилл* claude*"],
-      "seeds": ["claude code skills"],
+      "intentIds": [
+        "TL02"
+      ],
+      "keywords": [
+        "skills claude*",
+        "скилл* claude*"
+      ],
       "note": ""
     },
     {
@@ -106,9 +138,13 @@
       "path": "/blog/shest-modeley-odna-zadacha/",
       "priority": "P3",
       "focusWeight": 1,
-      "intentIds": ["MD02"],
-      "keywords": ["сравнени* нейросет*", "сравнени* модел*"],
-      "seeds": ["сравнение нейросетей"],
+      "intentIds": [
+        "MD02"
+      ],
+      "keywords": [
+        "сравнени* нейросет*",
+        "сравнени* модел*"
+      ],
       "note": ""
     },
     {
@@ -119,9 +155,13 @@
       "path": "/blog/agents-md-pravila-dlya-agentov/",
       "priority": "P1",
       "focusWeight": 3,
-      "intentIds": ["TL03"],
-      "keywords": ["agents.md*", "agents md*"],
-      "seeds": ["agents.md"],
+      "intentIds": [
+        "TL03"
+      ],
+      "keywords": [
+        "agents.md*",
+        "agents md*"
+      ],
       "note": "Сюда же встроить черновик «Файл правил проекта» (каннибализация по аудиту)."
     },
     {
@@ -132,9 +172,13 @@
       "path": "/blog/chto-takoe-vayb-koding/",
       "priority": "P1",
       "focusWeight": 3,
-      "intentIds": ["VC01"],
-      "keywords": ["вайб кодинг*", "vibe coding*"],
-      "seeds": ["вайб кодинг", "vibe coding"],
+      "intentIds": [
+        "VC01"
+      ],
+      "keywords": [
+        "вайб кодинг*",
+        "vibe coding*"
+      ],
       "note": "Черновик в репозитории — дописать и опубликовать."
     },
     {
@@ -145,9 +189,13 @@
       "path": "/blog/pervyy-ai-agent-za-vecher/",
       "priority": "P1",
       "focusWeight": 2,
-      "intentIds": ["VC02"],
-      "keywords": ["первый агент*", "первый ии агент*"],
-      "seeds": [],
+      "intentIds": [
+        "VC02"
+      ],
+      "keywords": [
+        "первый агент*",
+        "первый ии агент*"
+      ],
       "note": "Черновик — публикация открывает верх воронки."
     },
     {
@@ -158,9 +206,13 @@
       "path": "/blog/kontekst-glavnyy-resurs/",
       "priority": "P1",
       "focusWeight": 2,
-      "intentIds": ["AG03"],
-      "keywords": ["контекстн* окн*", "контекст* агент*"],
-      "seeds": [],
+      "intentIds": [
+        "AG03"
+      ],
+      "keywords": [
+        "контекстн* окн*",
+        "контекст* агент*"
+      ],
       "note": "Черновик — связать с три-слоя и skills."
     },
     {
@@ -171,9 +223,13 @@
       "path": "/blog/kak-vybrat-koding-agenta/",
       "priority": "P1",
       "focusWeight": 3,
-      "intentIds": ["TL07"],
-      "keywords": ["какой агент*", "выбрать агент*"],
-      "seeds": [],
+      "intentIds": [
+        "TL07"
+      ],
+      "keywords": [
+        "какой агент*",
+        "выбрать агент*"
+      ],
       "note": "Планируемая страница под кластер выбора инструмента."
     },
     {
@@ -184,9 +240,13 @@
       "path": "/blog/kak-vybrat-model-dlya-koda/",
       "priority": "P1",
       "focusWeight": 2,
-      "intentIds": ["MD01"],
-      "keywords": ["нейросет* для код*", "нейросет* для программирован*"],
-      "seeds": ["нейросеть для кода"],
+      "intentIds": [
+        "MD01"
+      ],
+      "keywords": [
+        "нейросет* для код*",
+        "нейросет* для программирован*"
+      ],
       "note": ""
     },
     {
@@ -197,9 +257,13 @@
       "path": "/blog/mcp-chto-eto-i-zachem/",
       "priority": "P2",
       "focusWeight": 2,
-      "intentIds": ["TL06"],
-      "keywords": ["mcp сервер*", "mcp протокол*"],
-      "seeds": ["mcp сервер", "mcp протокол"],
+      "intentIds": [
+        "TL06"
+      ],
+      "keywords": [
+        "mcp сервер*",
+        "mcp протокол*"
+      ],
       "note": ""
     },
     {
@@ -210,9 +274,13 @@
       "path": "/blog/agent-na-vps/",
       "priority": "P2",
       "focusWeight": 2,
-      "intentIds": ["IN01"],
-      "keywords": ["vps* нейросет*", "нейросет* на vps*"],
-      "seeds": ["vps для нейросети"],
+      "intentIds": [
+        "IN01"
+      ],
+      "keywords": [
+        "vps* нейросет*",
+        "нейросет* на vps*"
+      ],
       "note": ""
     },
     {
@@ -223,9 +291,13 @@
       "path": "/blog/pamyat-agenta/",
       "priority": "P2",
       "focusWeight": 1,
-      "intentIds": ["AG04"],
-      "keywords": ["память агент*", "память ии"],
-      "seeds": ["память агента"],
+      "intentIds": [
+        "AG04"
+      ],
+      "keywords": [
+        "память агент*",
+        "память ии"
+      ],
       "note": ""
     },
     {
@@ -236,9 +308,13 @@
       "path": "/blog/falshivye-gpt-4o-na-vps/",
       "priority": "P2",
       "focusWeight": 2,
-      "intentIds": ["SC01"],
-      "keywords": ["открыт* порт*", "защит* сервер*"],
-      "seeds": [],
+      "intentIds": [
+        "SC01"
+      ],
+      "keywords": [
+        "открыт* порт*",
+        "защит* сервер*"
+      ],
       "note": "Чек-лист безопасности — раздел внутри поста об инциденте."
     },
     {
@@ -249,9 +325,13 @@
       "path": "/blog/agents-md-pravila-dlya-agentov/",
       "priority": "P2",
       "focusWeight": 2,
-      "intentIds": ["TL03"],
-      "keywords": ["файл правил*", "правила проекта*"],
-      "seeds": [],
+      "intentIds": [
+        "TL03"
+      ],
+      "keywords": [
+        "файл правил*",
+        "правила проекта*"
+      ],
       "note": "Черновик «Файл правил проекта» не публиковать отдельно — встроить сюда (каннибализация)."
     }
   ]
