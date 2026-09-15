@@ -108,6 +108,7 @@ function csvCell(value) {
 const tree = await call('/getRegionsTree', { folderId });
 const regions = [...extractRegions(tree).values()];
 console.log(`Region records discovered: ${regions.length}`);
+if (!regions.length) console.log('REGION_TREE_DEBUG=' + JSON.stringify(tree).slice(0, 12000));
 const targets = [pickRegion(regions, 'Омск'), pickRegion(regions, 'Омская область')];
 
 console.log(`Regions: ${targets.map((r) => `${r.name} (${r.id})`).join(', ')}`);
