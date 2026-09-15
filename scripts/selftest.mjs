@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { analyzeRows } from '../lib/analyze.mjs';
+import { buildPagePlan } from '../public/page-planner.js';
 
 const preset = JSON.parse(await fs.readFile(new URL('../presets/silalesa.json', import.meta.url), 'utf8'));
+const pagePlanner = JSON.parse(await fs.readFile(new URL('../public/planner-silalesa.json', import.meta.url), 'utf8'));
 const rows = [
   { phrase: 'баня под ключ в омске', regionId: '66', regionName: 'Омск', count: 469, types: ['top'], seeds: ['баня под ключ'] },
   { phrase: 'фундамент под баню', regionId: '66', regionName: 'Омск', count: 116, types: ['top'], seeds: ['фундамент под баню'] },
@@ -53,5 +55,26 @@ assert.equal(withAssociations.meta.negativeRows, 2);
 assert.equal(withAssociations.meta.queryTypeCounts.noise, 2);
 assert.equal(withAssociations.meta.nextActionCounts.hold, 3);
 assert.ok(withAssociations.classifiedRows.some((row) => row.queryType === 'noise' && row.analysisStatus === 'negative'));
+
+const plan = buildPagePlan(topOnly, { id: 'silalesa', pagePlanner });
+const bathPlan = plan.pages.find((page) => page.planId === 'bath-ready-main');
+assert.ok(bathPlan);
+assert.equal(bathPlan.decision, 'expand');
+assert.equal(bathPlan.path, '/mobilnaya-banya-omsk/');
+
+const foundationPlan = plan.pages.find((page) => page.planId === 'guide-foundation');
+assert.ok(foundationPlan);
+assert.equal(foundationPlan.decision, 'create');
+assert.equal(foundationPlan.pageKind, 'guide');
+assert.equal(foundationPlan.path, '/guides/bani/fundament-dlya-mobilnoy-bani/');
+
+const drillingPlan = plan.pages.find((page) => page.planId === 'service-drilling');
+assert.ok(drillingPlan);
+assert.equal(drillingPlan.decision, 'expand');
+assert.equal(drillingPlan.path, '/burenie-skvazhiny-omsk/');
+
+assert.ok(plan.holdRows.some((row) => row.phrase === 'совсем непонятная тестовая формулировка'));
+assert.ok(plan.pages.every((page) => Number.isFinite(page.plannerScore)));
+assert.equal(plan.pages[0].priorityRank, 1);
 
 console.log('selftest: ok');
