@@ -51,29 +51,40 @@ async function call(endpoint, body) {
   return data;
 }
 
-function flattenRegions(nodes, parents = [], out = []) {
-  for (const node of nodes || []) {
-    const pathParts = [...parents, node.name].filter(Boolean);
-    out.push({ id: String(node.id), name: String(node.name || ''), path: pathParts.join(' → ') });
-    flattenRegions(node.children || [], pathParts, out);
+function extractRegions(value, out = new Map(), seen = new Set()) {
+  if (value == null || typeof value !== 'object') return out;
+  if (seen.has(value)) return out;
+  seen.add(value);
+
+  if (!Array.isArray(value)) {
+    const id = value.regionId ?? value.region_id ?? value.id ?? value.geoId ?? value.geo_id;
+    const name = value.regionName ?? value.region_name ?? value.name ?? value.title;
+    if (id != null && name != null && String(name).trim()) {
+      const key = String(id);
+      if (!out.has(key)) out.set(key, { id: key, name: String(name).trim() });
+    }
+  }
+
+  for (const child of Array.isArray(value) ? value : Object.values(value)) {
+    if (child && typeof child === 'object') extractRegions(child, out, seen);
   }
   return out;
 }
 
 function pickRegion(regions, exactName) {
   const exact = regions.filter((r) => norm(r.name) === norm(exactName));
-  if (exact.length === 1) return exact[0];
-  const ru = exact.find((r) => /россия|russia/i.test(r.path));
-  if (ru) return ru;
   if (exact.length) return exact[0];
-  throw new Error(`Region not found: ${exactName}`);
+  const fuzzy = regions.filter((r) => norm(r.name).includes(norm(exactName)) || norm(exactName).includes(norm(r.name)));
+  if (fuzzy.length === 1) return fuzzy[0];
+  const nearby = regions.filter((r) => /омск/i.test(r.name)).slice(0, 20);
+  throw new Error(`Region not found: ${exactName}. Omsk-like candidates: ${nearby.map((r) => `${r.name}(${r.id})`).join(', ') || 'none'}`);
 }
 
 function addRows(map, callMeta, items, type) {
   for (const item of items || []) {
-    const phrase = String(item.phrase || '').trim();
+    const phrase = String(item.phrase || item.query || item.request || '').trim();
     if (!phrase) continue;
-    const count = Number(item.count || 0);
+    const count = Number(item.count ?? item.shows ?? item.frequency ?? 0);
     const key = `${callMeta.region.id}|${norm(phrase)}`;
     const row = map.get(key) || {
       phrase,
@@ -95,7 +106,8 @@ function csvCell(value) {
 }
 
 const tree = await call('/getRegionsTree', { folderId });
-const regions = flattenRegions(tree.regions || []);
+const regions = [...extractRegions(tree).values()];
+console.log(`Region records discovered: ${regions.length}`);
 const targets = [pickRegion(regions, 'Омск'), pickRegion(regions, 'Омская область')];
 
 console.log(`Regions: ${targets.map((r) => `${r.name} (${r.id})`).join(', ')}`);
@@ -115,15 +127,17 @@ for (const seed of seeds) {
       regions: [region.id],
       folderId,
     });
+    const results = data.results || data.topRequests || data.top_requests || [];
+    const associations = data.associations || data.associatedRequests || data.associated_requests || [];
     const meta = {
       seed,
       region,
-      resultsCount: Array.isArray(data.results) ? data.results.length : 0,
-      associationsCount: Array.isArray(data.associations) ? data.associations.length : 0,
+      resultsCount: Array.isArray(results) ? results.length : 0,
+      associationsCount: Array.isArray(associations) ? associations.length : 0,
     };
     calls.push(meta);
-    addRows(merged, meta, data.results || [], 'top');
-    addRows(merged, meta, data.associations || [], 'association');
+    addRows(merged, meta, results, 'top');
+    addRows(merged, meta, associations, 'association');
     await sleep(REQUEST_DELAY_MS);
   }
 }
