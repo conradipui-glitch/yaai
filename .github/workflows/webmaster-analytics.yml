@@ -1,0 +1,88 @@
+name: Webmaster analytics
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'probe: access / quotas; start: export task; report: summarize ready export without public raw data'
+        required: true
+        type: choice
+        options: [probe, start, report]
+        default: probe
+      site:
+        description: 'Verified site origin, e.g. https://example.ru/'
+        required: true
+        type: string
+      dates:
+        description: 'For start: comma-separated YYYY-MM-DD dates'
+        required: false
+        type: string
+      paths:
+        description: 'For start: comma-separated URL paths from site root'
+        required: false
+        type: string
+      task_id:
+        description: 'For report: UUID returned by start'
+        required: false
+        type: string
+      use_pro_tariff:
+        description: 'Use the extended Webmaster export quota (not Yandex Cloud balance)'
+        required: true
+        type: boolean
+        default: false
+      allow_paid:
+        description: 'Explicit confirmation of potentially paid extended quota'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  webmaster:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ACTION: ${{ inputs.action }}
+      SITE: ${{ inputs.site }}
+      DATES: ${{ inputs.dates }}
+      PATHS: ${{ inputs.paths }}
+      TASK_ID: ${{ inputs.task_id }}
+      USE_PRO: ${{ inputs.use_pro_tariff }}
+      ALLOW_PAID: ${{ inputs.allow_paid }}
+      YANDEX_WEBMASTER_OAUTH_TOKEN: ${{ secrets.YANDEX_WEBMASTER_OAUTH_TOKEN }}
+      YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
+      YANDEX_OAUTH_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Query Webmaster without publishing private data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$YANDEX_WEBMASTER_OAUTH_TOKEN" && -z "$YANDEX_WEBMASTER_TOKEN" && -z "$YANDEX_OAUTH_TOKEN" ]]; then
+            echo 'No Webmaster OAuth secret was provided to this workflow; the Yandex Cloud API key is not interchangeable.'
+            exit 1
+          fi
+          if [[ "$ACTION" == probe ]]; then
+            node scripts/webmaster-export.mjs probe --site "$SITE" > "$RUNNER_TEMP/probe.json"
+            node -e 'const d=require(process.argv[1]); console.log(JSON.stringify({verified:d.verified, availableDates:d.availableDates, activePro:d.limits.some(x=>x.feature==="PRO_SERP"&&x.is_active), quotaRemaining:d.limits.filter(x=>x.feature==="PRO_SERP").map(x=>x.remaining)}))' "$RUNNER_TEMP/probe.json"
+          elif [[ "$ACTION" == start ]]; then
+            cmd=(node scripts/webmaster-export.mjs start --site "$SITE" --dates "$DATES" --paths "$PATHS" --execute)
+            if [[ "$USE_PRO" == true ]]; then
+              cmd+=(--use-pro-tariff)
+              if [[ "$ALLOW_PAID" == true ]]; then cmd+=(--allow-paid); fi
+            fi
+            "${cmd[@]}" > "$RUNNER_TEMP/started.json"
+            node -e 'const d=require(process.argv[1]); console.log(JSON.stringify(d))' "$RUNNER_TEMP/started.json"
+          elif [[ "$ACTION" == report ]]; then
+            node scripts/webmaster-export.mjs download --site "$SITE" --task "$TASK_ID" --out "$RUNNER_TEMP/queries.csv" > "$RUNNER_TEMP/download.json"
+            node scripts/analyze-webmaster-overlap.mjs --input "$RUNNER_TEMP/queries.csv" --out "$RUNNER_TEMP/overlap.json" > "$RUNNER_TEMP/analysis.json"
+            node -e 'const d=require(process.argv[1]); console.log(JSON.stringify({inputRows:d.inputRows, candidateCount:d.candidateCount, note:d.note}))' "$RUNNER_TEMP/overlap.json"
+          else
+            echo 'Unexpected action' >&2
+            exit 1
+          fi
