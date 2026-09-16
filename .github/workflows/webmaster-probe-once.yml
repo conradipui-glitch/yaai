@@ -1,0 +1,55 @@
+name: One-time Webmaster access probe
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/webmaster-probe-once.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      YANDEX_WEBMASTER_OAUTH_TOKEN: ${{ secrets.YANDEX_WEBMASTER_OAUTH_TOKEN }}
+      YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
+      YANDEX_OAUTH_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read-only OAuth and verified-site check (no export, no charges)
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { createWebmasterClient, webmasterOAuthToken } from './lib/webmaster.mjs';
+          const tokenPresent = Boolean(webmasterOAuthToken());
+          console.log(`webmaster_oauth_secret_present=${tokenPresent}`);
+          if (tokenPresent) {
+            const client = createWebmasterClient();
+            try {
+              const user = await client.user();
+              console.log('webmaster_oauth_accepted=true');
+              const hostsResponse = await client.hosts(user.user_id);
+              const hosts = hostsResponse.hosts || [];
+              const matched = hosts.filter((host) => host.verified === true && host.ascii_host_url && new URL(host.ascii_host_url).host === 'conradipui-glitch.github.io');
+              console.log(`silalesa_host_verified=${matched.length === 1}`);
+              console.log(`verified_site_count=${hosts.filter((host) => host.verified === true).length}`);
+              if (matched.length === 1) {
+                const [quotas, dates] = await Promise.all([client.limits(user.user_id, matched[0].host_id), client.dates(user.user_id, matched[0].host_id)]);
+                const available = Array.isArray(dates.dates) ? dates.dates : [];
+                console.log(`available_date_count=${available.length}`);
+                console.log(`oldest_available_date=${available.length ? [...available].sort()[0] : 'none'}`);
+                console.log(`newest_available_date=${available.length ? [...available].sort().at(-1) : 'none'}`);
+                console.log(`webmaster_limit_records=${Array.isArray(quotas.limits) ? quotas.limits.length : 0}`);
+                console.log(`pro_tariff_active=${(quotas.limits || []).some((limit) => limit.feature === 'PRO_SERP' && limit.is_active === true)}`);
+              }
+            } catch (error) {
+              console.error(`webmaster_probe_error=${String(error.message).match(/HTTP \d+/)?.[0] || 'API or access error'}`);
+              process.exitCode = 1;
+            }
+          }
+          NODE
