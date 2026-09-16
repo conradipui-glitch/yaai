@@ -10,7 +10,8 @@
     "snapshot": "node scripts/snapshot-results.mjs",
     "compare": "node scripts/compare-snapshots.mjs",
     "webmaster": "node scripts/webmaster-export.mjs",
-    "check": "node --check server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check lib/workspace.mjs && node --check lib/webmaster.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/webmaster-export.mjs && node --check scripts/webmaster-selftest.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs && node scripts/webmaster-selftest.mjs"
+    "webmaster:overlap": "node scripts/analyze-webmaster-overlap.mjs",
+    "check": "node --check server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check lib/workspace.mjs && node --check lib/webmaster.mjs && node --check lib/webmaster-overlap.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/webmaster-export.mjs && node --check scripts/webmaster-selftest.mjs && node --check scripts/analyze-webmaster-overlap.mjs && node --check scripts/webmaster-overlap-selftest.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs && node scripts/webmaster-selftest.mjs && node scripts/webmaster-overlap-selftest.mjs"
   },
   "engines": {
     "node": ">=20"
