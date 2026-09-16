@@ -1,16 +1,18 @@
-# yaai — reusable Wordstat research engine
+# yaai — reusable SEO research engine
 
-`yaai` is the engine only. Client cases, presets, planner profiles, result files and dated snapshots live in an external project workspace.
+`yaai` is a client-neutral engine. Client cases, presets, planner profiles, result files and dated snapshots live in external project workspaces.
 
 The engine provides:
 
 - Yandex Wordstat batch collection;
+- Yandex Webmaster query-to-URL exports and overlap analysis (OAuth, independent from Wordstat credentials);
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
-- Landing / Guide / Hold recommendations;
-- Page Planner;
+- Landing / Guide / Hold recommendations and Page Planner;
 - dated snapshots and comparisons between runs;
 - a small local web UI.
+
+For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
 ## Workspace boundary
 
@@ -28,6 +30,7 @@ workspace/
   snapshots/
     <case-id>/
 ```
+
 The repository contains only `examples/workspace/`, a neutral fixture used for documentation and self-tests. Real client data must not be committed to the engine repository.
 
 ## Selecting a workspace
@@ -51,6 +54,7 @@ node scripts/compare-snapshots.mjs --workspace ../my-project/research/yaai --cas
 Equivalent environment variables are `YAAI_WORKSPACE` and `CASE_ID` / `YAAI_CASE_ID`.
 
 For an unusual layout, only the case configuration directory can be overridden separately with `--case-root` or `YAAI_CASE_ROOT`. Presets, planners, results and snapshots continue to resolve from the workspace root.
+
 ## Case contract
 
 `cases/<case-id>.json` controls collection and names the result prefix:
@@ -75,16 +79,17 @@ The engine then loads:
 - `snapshots/example-seo/...` for dated history and comparisons.
 
 The result prefix is deliberately independent from the case id so a project can keep stable output filenames while changing case variants.
+
 ## Credentials
 
-The engine reads Yandex credentials from environment variables:
+Wordstat reads Yandex Cloud credentials from the environment:
 
 ```text
 YANDEX_API_KEY=...
 YANDEX_FOLDER_ID=...
 ```
 
-Legacy aliases `YAIS_API` and `YAIS_FOLDER_ID` remain supported. Secrets belong in the project/repository that runs the client workflow, not in `yaai`.
+Legacy aliases `YAIS_API` and `YAIS_FOLDER_ID` remain supported. Webmaster separately reads `YANDEX_WEBMASTER_OAUTH_TOKEN` (alternatives: `YANDEX_WEBMASTER_TOKEN`, `YANDEX_OAUTH_TOKEN`). Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
 ## Local UI
 
@@ -100,4 +105,4 @@ Open `http://127.0.0.1:8787`. Presets and planner profiles are loaded from the s
 npm run check
 ```
 
-CI runs syntax checks plus a neutral end-to-end self-test against `examples/workspace/`. The self-test verifies external workspace resolution, intent classification, query actions and Page Planner without depending on any real client case.
+CI runs syntax checks and neutral end-to-end tests using `examples/workspace/`, along with mock Webmaster API calls and synthetic query-URL CSV. No real client case, OAuth secret or paid export is needed for CI.
