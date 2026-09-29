@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { analyzeRows } from './lib/analyze.mjs';
 import { listSnapshotManifests, loadCase, pctChange } from './lib/snapshots.mjs';
+import { analyzeRankTrackerCsv } from './lib/rank-tracker.mjs';
 import { analyzeWebmasterCsv } from './lib/webmaster-overlap.mjs';
 import { resolveCaseId, resolveWorkspaceRoot, safeConfigId, workspacePaths } from './lib/workspace.mjs';
 import { buildPagePlan } from './public/page-planner.js';
@@ -17,7 +18,7 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-const SERVER_INFO = { name: 'yaai', version: '0.8.0' };
+const SERVER_INFO = { name: 'yaai', version: '0.10.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
   'The MCP surface does not call paid Yandex APIs; collect/refresh data with yaai batch/Webmaster workflows first.';
@@ -113,6 +114,37 @@ export const TOOLS = [
         minimum: 1,
         default: 1,
         description: 'Minimum impressions for a query-URL pair.',
+      },
+      limit: LIMIT,
+    }, ['relativeCsvPath']),
+  },
+  {
+    name: 'yaai_rank_tracker',
+    title: 'Yandex Rank Tracker',
+    description: 'Track Yandex Webmaster average positions across dates, including movers, striking-distance queries, and page-level movement.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      relativeCsvPath: {
+        type: 'string',
+        description: 'Path to a dated Webmaster CSV relative to the workspace root. Parent-directory escapes are rejected.',
+      },
+      minImpressions: {
+        type: 'integer',
+        minimum: 1,
+        default: 1,
+        description: 'Minimum impressions for a query or query-URL row.',
+      },
+      strikingStart: {
+        type: 'number',
+        minimum: 1,
+        default: 5,
+        description: 'Lower average-position boundary for striking-distance opportunities.',
+      },
+      strikingEnd: {
+        type: 'number',
+        minimum: 1,
+        default: 20,
+        description: 'Upper average-position boundary for striking-distance opportunities.',
       },
       limit: LIMIT,
     }, ['relativeCsvPath']),
@@ -315,6 +347,7 @@ async function workspaceOverview(context, args) {
       pagePlanner: true,
       snapshotComparison: true,
       webmasterOverlap: true,
+      rankTracker: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -504,12 +537,49 @@ async function webmasterOverlap(context, args) {
   };
 }
 
+async function rankTracker(context, args) {
+  const caseConfig = await selectedCase(context, args.caseId);
+  const csvPath = workspaceFile(context, args.relativeCsvPath);
+  const threshold = Math.max(1, Math.trunc(Number(args.minImpressions || 1)));
+  const strikingStart = Math.max(1, Number(args.strikingStart || 5));
+  const strikingEnd = Math.max(strikingStart, Number(args.strikingEnd || 20));
+  const csv = await fs.readFile(csvPath, 'utf8');
+  const result = analyzeRankTrackerCsv(csv, {
+    minImpressions: threshold,
+    strikingStart,
+    strikingEnd,
+  });
+  const limit = clampLimit(args.limit);
+
+  return {
+    caseId: caseConfig.id,
+    caseName: caseConfig.name,
+    source: path.relative(context.workspaceRoot, csvPath).replaceAll(path.sep, '/'),
+    meta: result.meta,
+    current: {
+      ...result.current,
+      queries: result.current.queries.slice(0, limit),
+      omittedQueries: Math.max(0, result.current.queries.length - limit),
+    },
+    comparison: {
+      ...result.comparison,
+      improvements: result.comparison.improvements.slice(0, limit),
+      declines: result.comparison.declines.slice(0, limit),
+      newQueries: result.comparison.newQueries.slice(0, limit),
+      lostQueries: result.comparison.lostQueries.slice(0, limit),
+      strikingDistance: result.comparison.strikingDistance.slice(0, limit),
+      pageMovements: result.comparison.pageMovements.slice(0, limit),
+    },
+  };
+}
+
 const TOOL_HANDLERS = {
   yaai_workspace_overview: workspaceOverview,
   yaai_analyze_latest: analyzeLatest,
   yaai_build_page_plan: buildLatestPagePlan,
   yaai_compare_snapshots: compareLatestSnapshots,
   yaai_webmaster_overlap: webmasterOverlap,
+  yaai_rank_tracker: rankTracker,
 };
 
 function protocolFromMessage(message, state) {
