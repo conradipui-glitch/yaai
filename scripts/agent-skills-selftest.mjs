@@ -12,6 +12,7 @@ const skillsRoot = path.join(root, '.agents', 'skills');
 const expected = [
   'yandex-keyword-research',
   'page-plan',
+  'rank-tracker',
   'seo-review',
   'content-gap',
   'seo-report',
@@ -41,6 +42,7 @@ for (const requiredTool of [
   'yaai_analyze_latest',
   'yaai_build_page_plan',
   'yaai_compare_snapshots',
+  'yaai_rank_tracker',
   'yaai_webmaster_overlap',
 ]) {
   assert.ok(referencedTools.has(requiredTool), `skills should cover MCP tool ${requiredTool}`);
