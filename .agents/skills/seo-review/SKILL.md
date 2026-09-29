@@ -1,6 +1,6 @@
 ---
 name: seo-review
-description: "Run a compact evidence-based SEO review from yaai demand, Page Planner, snapshots, and optional Webmaster overlap data."
+description: "Run a compact evidence-based SEO review from yaai demand, Page Planner, snapshots, Webmaster average-position tracking, and optional URL overlap data."
 ---
 
 # YAAI SEO Review
@@ -16,14 +16,17 @@ This is not yet a full technical crawler audit. Do not claim to have checked sta
 1. Call `yaai_workspace_overview`.
 2. Call `yaai_analyze_latest` for current demand and review candidates.
 3. Call `yaai_build_page_plan` for page-level actions.
-4. Call `yaai_compare_snapshots` when two or more snapshots exist.
-5. If the user supplies a Webmaster CSV path, call `yaai_webmaster_overlap`.
-6. Cross-check findings:
+4. Call `yaai_compare_snapshots` when two or more Wordstat snapshots exist.
+5. If the user supplies a dated Webmaster CSV path, call `yaai_rank_tracker`.
+6. Call `yaai_webmaster_overlap` when a query appears on multiple URLs or page ownership needs investigation.
+7. Cross-check findings:
    - growing demand + EXPAND/CREATE = stronger opportunity;
+   - meaningful demand + average position 5–20 + EXPAND = near-term optimization candidate;
+   - worsening average position + stable/growing demand = investigate before creating new pages;
    - declining demand = context, not automatic deletion;
    - overlap candidates = investigate, not proof of harmful cannibalization;
    - unmapped/low-confidence = configuration/research debt.
-7. Rank attention by current business priority and evidence strength, not by dramatic wording.
+8. Rank attention by current business priority and evidence strength, not by dramatic wording.
 
 ## Output
 
@@ -43,5 +46,5 @@ For every recommendation, distinguish:
 
 - An overlap candidate is not proof of cannibalization.
 - A snapshot comparison with changed case fingerprint is diagnostic, not a clean trend.
-- Do not invent rankings or traffic.
+- Use Webmaster **average position** exactly as measured; do not turn it into an exact live rank or invent traffic.
 - Do not present this as a full technical SEO audit.

@@ -8,7 +8,8 @@
 - re-run intent/query classification over the latest Wordstat result;
 - build the Page Planner recommendations;
 - compare the two latest dated snapshots;
-- inspect a Yandex Webmaster query-to-URL CSV for overlap candidates.
+- inspect a Yandex Webmaster query-to-URL CSV for overlap candidates;
+- track Yandex Webmaster average positions across dates.
 
 The MCP surface is **read-only with respect to external services**: it does not call Wordstat or Webmaster APIs and therefore cannot create paid Yandex API usage. Refresh data through the existing batch/Webmaster workflows first.
 
@@ -71,6 +72,10 @@ Builds page-level `CREATE / EXPAND / MERGE / HOLD` decisions from the latest cla
 
 Compares the two newest Wordstat snapshots for the selected case and reports growth, decline, newly observed queries and lost queries. If the case fingerprint changed, the result is marked as not directly comparable.
 
+### `yaai_rank_tracker`
+
+Reads a dated Webmaster CSV by a **workspace-relative path** and returns current average-position distribution, improvements, declines, new/lost queries, striking-distance opportunities and page-level movement. It does not start a Webmaster export.
+
 ### `yaai_webmaster_overlap`
 
 Reads a Webmaster CSV by a **workspace-relative path** and finds queries associated with multiple URLs. Paths escaping the workspace are rejected.
@@ -98,6 +103,7 @@ MCP adapter
    +--> buildPagePlan()
    +--> snapshot helpers
    +--> analyzeWebmasterCsv()
+   +--> analyzeRankTrackerCsv()
    |
    v
 yaai workspace

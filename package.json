@@ -1,9 +1,9 @@
 {
   "name": "yaai-wordstat-batch",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "type": "module",
-  "description": "Reusable Yandex-first SEO decision engine with Wordstat, Webmaster analytics, Page Planner, MCP tools and Agent Skills",
+  "description": "Reusable Yandex-first SEO decision engine with Wordstat, Webmaster analytics, rank tracking, Page Planner, MCP tools and Agent Skills",
   "scripts": {
     "start": "node server.mjs",
     "dev": "node --watch server.mjs",
@@ -11,10 +11,12 @@
     "compare": "node scripts/compare-snapshots.mjs",
     "webmaster": "node scripts/webmaster-export.mjs",
     "webmaster:overlap": "node scripts/analyze-webmaster-overlap.mjs",
-    "check": "node --check server.mjs && node --check mcp-server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check lib/workspace.mjs && node --check lib/webmaster.mjs && node --check lib/webmaster-overlap.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/webmaster-export.mjs && node --check scripts/webmaster-selftest.mjs && node --check scripts/analyze-webmaster-overlap.mjs && node --check scripts/webmaster-overlap-selftest.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs && node scripts/webmaster-selftest.mjs && node scripts/webmaster-overlap-selftest.mjs && node scripts/mcp-selftest.mjs && node scripts/agent-skills-selftest.mjs",
+    "check": "node --check server.mjs && node --check mcp-server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check lib/workspace.mjs && node --check lib/webmaster.mjs && node --check lib/webmaster-overlap.mjs && node --check lib/rank-tracker.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/webmaster-export.mjs && node --check scripts/webmaster-selftest.mjs && node --check scripts/analyze-webmaster-overlap.mjs && node --check scripts/rank-tracker.mjs && node --check scripts/rank-tracker-selftest.mjs && node --check scripts/webmaster-overlap-selftest.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs && node scripts/webmaster-selftest.mjs && node scripts/webmaster-overlap-selftest.mjs && node scripts/rank-tracker-selftest.mjs && node scripts/mcp-selftest.mjs && node scripts/agent-skills-selftest.mjs",
     "mcp": "node mcp-server.mjs",
     "mcp:selftest": "node scripts/mcp-selftest.mjs",
-    "skills:selftest": "node scripts/agent-skills-selftest.mjs"
+    "skills:selftest": "node scripts/agent-skills-selftest.mjs",
+    "rank:track": "node scripts/rank-tracker.mjs",
+    "rank:selftest": "node scripts/rank-tracker-selftest.mjs"
   },
   "engines": {
     "node": ">=20"
