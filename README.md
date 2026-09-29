@@ -11,7 +11,7 @@ The engine provides:
 - Landing / Guide / Hold recommendations and Page Planner;
 - dated snapshots and comparisons between runs;
 - a small local web UI;
-- a local MCP server for AI agents (workspace overview, analysis, Page Planner, snapshot comparison and Webmaster overlap).
+- a local MCP server for AI agents (workspace overview, analysis, Page Planner, snapshot comparison and Webmaster overlap);\n- reusable Agent Skills for Yandex keyword research, Page Planning, SEO review, content gaps and decision reports.
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
@@ -103,6 +103,18 @@ npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
 ```
 
 The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner code and does **not** call paid Yandex APIs. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
+
+## Agent Skills
+
+The repository includes reusable workflows in `.agents/skills/`:
+
+- `yandex-keyword-research` — grounded demand research from Wordstat;
+- `page-plan` — CREATE / EXPAND / MERGE / HOLD decisions;
+- `seo-review` — current demand + planner + snapshot + optional Webmaster review;
+- `content-gap` — uncovered or weakly mapped first-party demand;
+- `seo-report` — concise evidence-labeled decision reporting.
+
+Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**.
 
 ## Local UI
 
