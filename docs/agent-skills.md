@@ -43,6 +43,12 @@ The skill is intentionally anti-cannibalization: it must not turn every keyword 
 
 Primary tool: `yaai_build_page_plan`.
 
+### `rank-tracker`
+
+Tracks Yandex Webmaster average positions across dates, highlights movers and default 5–20 striking-distance queries, and keeps query-level movement separate from page-level movement.
+
+Primary tool: `yaai_rank_tracker`.
+
 ### `seo-review`
 
 Combines current demand, page decisions, snapshot movement and optional Webmaster URL overlap into a compact review: what changed, what matters, what is uncertain, and what to do next.
@@ -79,12 +85,13 @@ seo-review
   ├─ yaai_analyze_latest
   ├─ yaai_build_page_plan
   ├─ yaai_compare_snapshots
-  └─ yaai_webmaster_overlap (only when CSV is available)
+  ├─ yaai_rank_tracker (when a dated Webmaster CSV is available)
+  └─ yaai_webmaster_overlap (when URL ownership needs investigation) (only when CSV is available)
 ```
 
 ## Safety and cost boundary
 
-Agent Skills do not expand MCP permissions. The current MCP layer does not call paid Yandex APIs. A skill can analyze already collected data, but a fresh Wordstat/Webmaster collection still uses the explicit existing yaai collection workflows.
+Agent Skills do not expand MCP permissions. The current MCP layer does not call paid Yandex APIs. Rank tracking analyzes an already downloaded Webmaster CSV and does not start a new export. A skill can analyze already collected data, but a fresh Wordstat/Webmaster collection still uses the explicit existing yaai collection workflows.
 
 ## Validation
 
