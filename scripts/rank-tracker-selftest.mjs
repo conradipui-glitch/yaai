@@ -24,6 +24,9 @@ const result = analyzeRankTrackerCsv(csv, {
 assert.equal(result.meta.previousDate, '2026-09-28');
 assert.equal(result.meta.currentDate, '2026-09-29');
 assert.equal(result.current.queryCount, 4);
+assert.equal(result.current.positionBuckets.top3, 0);
+assert.equal(result.current.positionBuckets.top10, 2);
+assert.equal(result.current.positionBuckets.top20, 4);
 
 const improved = result.comparison.improvements.find((row) => row.query === 'купить баню');
 assert.ok(improved);
