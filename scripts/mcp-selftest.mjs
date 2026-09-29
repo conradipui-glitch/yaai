@@ -88,7 +88,7 @@ await fs.writeFile(path.join(root, 'planners', 'demo.json'), JSON.stringify(plan
 await fs.writeFile(path.join(root, 'results', 'demo-wordstat-latest.json'), JSON.stringify(latestWordstat));
 await fs.writeFile(
   path.join(root, 'webmaster.csv'),
-  'query,url,impressions,clicks,position\nбаня,/a,100,10,5\nбаня,/b,50,4,8\n',
+  'date,query,url,impressions,clicks,position\n2026-09-28,баня,/a,80,8,9\n2026-09-28,баня,/b,40,3,12\n2026-09-29,баня,/a,100,10,5\n2026-09-29,баня,/b,50,4,8\n',
 );
 
 async function writeSnapshot(date, run, count, fingerprint = 'same') {
@@ -176,6 +176,7 @@ async function call(name, args = {}) {
 const overview = await call('yaai_workspace_overview');
 assert.equal(overview.selectedCase.id, 'demo-seo');
 assert.equal(overview.snapshotCount, 2);
+assert.equal(overview.capabilities.rankTracker, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
 
 const analysis = await call('yaai_analyze_latest', { limit: 10 });
@@ -200,6 +201,16 @@ const overlap = await call('yaai_webmaster_overlap', {
 });
 assert.equal(overlap.candidateCount, 1);
 assert.equal(overlap.overlaps[0].pages.length, 2);
+
+const rank = await call('yaai_rank_tracker', {
+  relativeCsvPath: 'webmaster.csv',
+  minImpressions: 1,
+  limit: 10,
+});
+assert.equal(rank.meta.currentDate, '2026-09-29');
+assert.equal(rank.meta.previousDate, '2026-09-28');
+assert.equal(rank.current.queryCount, 1);
+assert.ok(rank.comparison.improvements.some((row) => row.query === 'баня'));
 
 const escapeAttempt = await handleRpcMessage({
   jsonrpc: '2.0',
