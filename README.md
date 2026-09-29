@@ -10,7 +10,8 @@ The engine provides:
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
 - dated snapshots and comparisons between runs;
-- a small local web UI.
+- a small local web UI;
+- a local MCP server for AI agents (workspace overview, analysis, Page Planner, snapshot comparison and Webmaster overlap).
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
@@ -92,6 +93,16 @@ YANDEX_FOLDER_ID=...
 `YAIS_API` is a supported alias for `YANDEX_API_KEY`; `YAIS_FOLDER_ID` is a supported alias for `YANDEX_FOLDER_ID`. The existing `YAIS_ID` identifies an API key in the legacy loader and smoke test: **it is not automatically a folder ID**. A batch export needs a real folder ID supplied through `YANDEX_FOLDER_ID` or `YAIS_FOLDER_ID`; do not substitute `YAIS_ID` merely because it is configured. The Wordstat smoke test can attempt to discover a missing folder ID, but the batch engine does not rely on that diagnostic heuristic.
 
 Webmaster separately reads `YANDEX_WEBMASTER_OAUTH_TOKEN` (alternatives: `YANDEX_WEBMASTER_TOKEN`, `YANDEX_OAUTH_TOKEN`). A Yandex Cloud API key and key ID cannot replace this user OAuth token. Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
+
+## MCP for AI agents
+
+Run the local stdio server against any yaai workspace:
+
+```bash
+npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
+```
+
+The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner code and does **not** call paid Yandex APIs. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
 
 ## Local UI
 
