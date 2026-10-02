@@ -18,15 +18,18 @@ This is not yet a full technical crawler audit. Do not claim to have checked sta
 3. Call `yaai_build_page_plan` for page-level actions.
 4. Call `yaai_compare_snapshots` when two or more Wordstat snapshots exist.
 5. If the user supplies a dated Webmaster CSV path, call `yaai_rank_tracker`.
-6. Call `yaai_webmaster_overlap` when a query appears on multiple URLs or page ownership needs investigation.
-7. Cross-check findings:
+6. If a saved SERP evidence JSON is available, call `yaai_serp_evidence` for observed competitor/result-page context.
+7. Call `yaai_webmaster_overlap` when a query appears on multiple URLs or page ownership needs investigation.
+8. Cross-check findings:
    - growing demand + EXPAND/CREATE = stronger opportunity;
    - meaningful demand + average position 5–20 + EXPAND = near-term optimization candidate;
    - worsening average position + stable/growing demand = investigate before creating new pages;
    - declining demand = context, not automatic deletion;
+   - repeated SERP competitors + own-domain absence = stronger external evidence for a coverage gap;
+   - competitor pages above our visible URL = inspect page type/content before changing architecture;
    - overlap candidates = investigate, not proof of harmful cannibalization;
    - unmapped/low-confidence = configuration/research debt.
-8. Rank attention by current business priority and evidence strength, not by dramatic wording.
+9. Rank attention by current business priority and evidence strength, not by dramatic wording.
 
 ## Output
 
@@ -47,4 +50,5 @@ For every recommendation, distinguish:
 - An overlap candidate is not proof of cannibalization.
 - A snapshot comparison with changed case fingerprint is diagnostic, not a clean trend.
 - Use Webmaster **average position** exactly as measured; do not turn it into an exact live rank or invent traffic.
+- SERP evidence is one regional/time snapshot, not competitor traffic, authority or a durable trend.
 - Do not present this as a full technical SEO audit.

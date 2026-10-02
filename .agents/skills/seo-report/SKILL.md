@@ -25,6 +25,7 @@ Use the relevant yaai tools before writing:
 - `yaai_build_page_plan` — page actions;
 - `yaai_compare_snapshots` — Wordstat demand change over time;
 - `yaai_rank_tracker` — Yandex Webmaster average-position movement;
+- `yaai_serp_evidence` — optional observed competitor/result-page evidence;
 - `yaai_webmaster_overlap` — optional URL ownership/overlap evidence.
 
 Do not call tools merely to fill sections that are irrelevant to the user's question.
@@ -74,6 +75,6 @@ Name the one next dataset/run that would reduce uncertainty most.
 - Facts from tools are **Measured**.
 - Conclusions derived from them are **Inference**.
 - Missing evidence is **Unknown**.
-- Never invent traffic, conversion, revenue, competitor, backlink, technical-audit, or SERP metrics. When rank data exists, call it Yandex Webmaster **average position**, not an exact live rank.
+- Never invent traffic, conversion, revenue, backlink, technical-audit, or SERP metrics. When rank data exists, call it Yandex Webmaster **average position**, not an exact live rank. Competitor claims must stay limited to what the collected SERP snapshot actually observed.
 - Keep the report useful to a business owner, not only an SEO specialist.
 - Prefer five well-supported actions over twenty generic recommendations.

@@ -27,7 +27,8 @@ If there is no current Wordstat/intents result, stop and say which input is miss
 4. Respect `businessPriority`, `focusWeight`, `plannerScore`, `priorityBand`, strongest query and region evidence.
 5. Treat `now / next / later` as yaai's working prioritization, not an absolute business guarantee.
 6. Before recommending a new page, check that yaai did not already route the theme to EXPAND or MERGE.
-7. If the user asks why, explain the evidence and anti-cannibalization logic in plain language.
+7. If a saved SERP evidence file is available for the important queries, call `yaai_serp_evidence` to see what page types/domains are actually ranking. Use it only as supporting evidence.
+8. If the user asks why, explain the demand, current page ownership, SERP evidence and anti-cannibalization logic in plain language.
 
 ## Output
 
@@ -44,7 +45,7 @@ Then add:
 
 ## Guardrails
 
-- Do not override CREATE / EXPAND / MERGE / HOLD without explicitly labeling your suggestion as a hypothesis.
+- Do not override CREATE / EXPAND / MERGE / HOLD from SERP evidence alone. If you disagree with the deterministic route, label that as a hypothesis and explain the evidence.
 - Do not invent target URLs.
 - Do not convert every keyword cluster into a page.
 - Do not sum Wordstat counts across variants.

@@ -9,9 +9,10 @@
 - build the Page Planner recommendations;
 - compare the two latest dated snapshots;
 - inspect a Yandex Webmaster query-to-URL CSV for overlap candidates;
-- track Yandex Webmaster average positions across dates.
+- track Yandex Webmaster average positions across dates;
+- analyze previously collected Yandex SERP competitor evidence.
 
-The MCP surface is **read-only with respect to external services**: it does not call Wordstat or Webmaster APIs and therefore cannot create paid Yandex API usage. Refresh data through the existing batch/Webmaster workflows first.
+The MCP surface is **read-only with respect to external services**: it does not call Wordstat, Webmaster or Search API endpoints and therefore cannot create paid Yandex API usage. Refresh/collect data through the explicit CLI workflows first.
 
 ## Start
 
@@ -76,6 +77,10 @@ Compares the two newest Wordstat snapshots for the selected case and reports gro
 
 Reads a dated Webmaster CSV by a **workspace-relative path** and returns current average-position distribution, improvements, declines, new/lost queries, striking-distance opportunities and page-level movement. It does not start a Webmaster export.
 
+### `yaai_serp_evidence`
+
+Reads a normalized Yandex Search API SERP evidence JSON by a **workspace-relative path** and returns own-domain presence/absence, domains above the site, repeated competitor domains and observed result pages. It never performs a live search request.
+
 ### `yaai_webmaster_overlap`
 
 Reads a Webmaster CSV by a **workspace-relative path** and finds queries associated with multiple URLs. Paths escaping the workspace are rejected.
@@ -104,6 +109,7 @@ MCP adapter
    +--> snapshot helpers
    +--> analyzeWebmasterCsv()
    +--> analyzeRankTrackerCsv()
+   +--> analyzeSerpEvidence()
    |
    v
 yaai workspace

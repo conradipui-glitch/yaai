@@ -6,6 +6,7 @@ The engine provides:
 
 - Yandex Wordstat batch collection;
 - Yandex Webmaster query-to-URL exports, average-position rank tracking and overlap analysis (OAuth, independent from Wordstat credentials);
+- guarded Yandex Search API SERP collection and competitor/result-page evidence;
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
@@ -93,6 +94,8 @@ YANDEX_FOLDER_ID=...
 
 `YAIS_API` is a supported alias for `YANDEX_API_KEY`; `YAIS_FOLDER_ID` is a supported alias for `YANDEX_FOLDER_ID`. The existing `YAIS_ID` identifies an API key in the legacy loader and smoke test: **it is not automatically a folder ID**. A batch export needs a real folder ID supplied through `YANDEX_FOLDER_ID` or `YAIS_FOLDER_ID`; do not substitute `YAIS_ID` merely because it is configured. The Wordstat smoke test can attempt to discover a missing folder ID, but the batch engine does not rely on that diagnostic heuristic.
 
+Live Yandex Search API SERP collection can use `YANDEX_SEARCH_API_KEY` + `YANDEX_SEARCH_FOLDER_ID`; when these aliases are empty it falls back to `YANDEX_API_KEY` + `YANDEX_FOLDER_ID`. The collector never runs without explicit `--execute`.
+
 Webmaster separately reads `YANDEX_WEBMASTER_OAUTH_TOKEN` (alternatives: `YANDEX_WEBMASTER_TOKEN`, `YANDEX_OAUTH_TOKEN`). A Yandex Cloud API key and key ID cannot replace this user OAuth token. Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
 ## MCP for AI agents
@@ -103,7 +106,7 @@ Run the local stdio server against any yaai workspace:
 npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
 ```
 
-The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner/rank-tracker code and does **not** call paid Yandex APIs. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
+The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner/rank-tracker/SERP-analysis code and does **not** call paid Yandex APIs. Live Search API collection is a separate CLI command that requires explicit `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
 
 ## Agent Skills
 
@@ -112,11 +115,12 @@ The repository includes reusable workflows in `.agents/skills/`:
 - `yandex-keyword-research` — grounded demand research from Wordstat;
 - `page-plan` — CREATE / EXPAND / MERGE / HOLD decisions;
 - `rank-tracker` — Yandex Webmaster average-position movement and striking-distance queries;
+- `competitor-evidence` — observed Yandex SERP domains/pages and own-domain gaps;
 - `seo-review` — current demand + planner + snapshot + optional Webmaster review;
 - `content-gap` — uncovered or weakly mapped first-party demand;
 - `seo-report` — concise evidence-labeled decision reporting.
 
-Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented separately in **[docs/rank-tracker.md](docs/rank-tracker.md)**.
+Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)** and SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**.
 
 ## Local UI
 

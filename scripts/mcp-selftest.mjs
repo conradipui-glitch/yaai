@@ -90,6 +90,31 @@ await fs.writeFile(
   path.join(root, 'webmaster.csv'),
   'date,query,url,impressions,clicks,position\n2026-09-28,баня,/a,80,8,9\n2026-09-28,баня,/b,40,3,12\n2026-09-29,баня,/a,100,10,5\n2026-09-29,баня,/b,50,4,8\n',
 );
+await fs.writeFile(
+  path.join(root, 'serp.json'),
+  JSON.stringify({
+    schemaVersion: 1,
+    generatedAt: '2026-10-02T07:00:00.000Z',
+    source: 'yandex-search-api-v2',
+    region: '66',
+    ownDomain: 'demo.example',
+    queries: [
+      {
+        query: 'купить баню',
+        results: [
+          { position: 1, url: 'https://competitor.example/bani/', domain: 'competitor.example', title: 'Бани' },
+          { position: 2, url: 'https://demo.example/bani/', domain: 'demo.example', title: 'Demo' },
+        ],
+      },
+      {
+        query: 'баня омск',
+        results: [
+          { position: 1, url: 'https://competitor.example/omsk/', domain: 'competitor.example', title: 'Бани Омск' },
+        ],
+      },
+    ],
+  }),
+);
 
 async function writeSnapshot(date, run, count, fingerprint = 'same') {
   const dir = path.join(root, 'snapshots', 'demo-seo', 'snapshots', date, run);
@@ -177,6 +202,7 @@ const overview = await call('yaai_workspace_overview');
 assert.equal(overview.selectedCase.id, 'demo-seo');
 assert.equal(overview.snapshotCount, 2);
 assert.equal(overview.capabilities.rankTracker, true);
+assert.equal(overview.capabilities.serpEvidence, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
 
 const analysis = await call('yaai_analyze_latest', { limit: 10 });
@@ -211,6 +237,16 @@ assert.equal(rank.meta.currentDate, '2026-09-29');
 assert.equal(rank.meta.previousDate, '2026-09-28');
 assert.equal(rank.current.queryCount, 1);
 assert.ok(rank.comparison.improvements.some((row) => row.query === 'баня'));
+
+const serp = await call('yaai_serp_evidence', {
+  relativeJsonPath: 'serp.json',
+  ownDomain: 'demo.example',
+  topN: 10,
+  limit: 10,
+});
+assert.equal(serp.meta.queryCount, 2);
+assert.equal(serp.own.absentQueries, 1);
+assert.equal(serp.competitors[0].domain, 'competitor.example');
 
 const escapeAttempt = await handleRpcMessage({
   jsonrpc: '2.0',
