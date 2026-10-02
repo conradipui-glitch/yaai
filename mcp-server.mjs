@@ -22,7 +22,7 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
 const SERVER_INFO = { name: 'yaai', version: '0.11.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
-  'The MCP surface does not call paid Yandex APIs; collect/refresh data with yaai batch/Webmaster workflows first.';
+  'The MCP surface does not call paid Yandex APIs; collect/refresh data with explicit yaai Wordstat/Webmaster/SERP CLI workflows first.';
 
 function objectSchema(properties = {}, required = []) {
   return {
