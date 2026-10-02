@@ -38,7 +38,7 @@ jobs:
         run: |
           QUERY='${{ github.event.inputs.query }}'
           REGION='${{ github.event.inputs.region }}'
-          if [ -z "$QUERY" ]; then QUERY='мобильная баня омск'; fi
+          if [ -z "$QUERY" ]; then QUERY='мобильная баня омск,баня под ключ омск,кедровая баня омск'; fi
           if [ -z "$REGION" ]; then REGION='66'; fi
           printf 'query=%s\n' "$QUERY" >> "$GITHUB_OUTPUT"
           printf 'region=%s\n' "$REGION" >> "$GITHUB_OUTPUT"
@@ -49,6 +49,7 @@ jobs:
             --queries "${{ steps.vars.outputs.query }}" \
             --region "${{ steps.vars.outputs.region }}" \
             --groups 10 \
+            --own-domain conradipui-glitch.github.io \
             --out .data/serp-evidence.json \
             --execute
       - name: Analyze SERP evidence
@@ -56,6 +57,7 @@ jobs:
           npm run serp:analyze -- \
             --input .data/serp-evidence.json \
             --out .data/serp-analysis.json \
+            --own-domain conradipui-glitch.github.io \
             --top 10
       - name: Print smoke summary
         run: |
@@ -66,10 +68,22 @@ jobs:
             generatedAt: data.meta.generatedAt,
             region: data.meta.region,
             queryCount: data.meta.queryCount,
+            ownDomain: data.meta.ownDomain,
+            ownPresentQueries: data.own.presentQueries,
+            ownAbsentQueries: data.own.absentQueries,
             competitorDomainsObserved: data.competitors.length,
-            topObservedDomains: data.competitors.slice(0, 5).map(x => ({
+            topObservedDomains: data.competitors.slice(0, 7).map(x => ({
               domain: x.domain,
-              bestPosition: x.bestPosition
+              queryCount: x.queryCount,
+              bestPosition: x.bestPosition,
+              top3: x.top3
+            })),
+            querySummary: data.queries.map(x => ({
+              query: x.query,
+              ownPresent: x.ownPresent,
+              ownPosition: x.ownPosition,
+              gapType: x.gapType,
+              topDomains: x.topDomains.slice(0, 3).map(y => y.domain)
             }))
           }, null, 2));
           NODE
