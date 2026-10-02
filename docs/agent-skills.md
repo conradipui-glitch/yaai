@@ -49,15 +49,19 @@ Tracks Yandex Webmaster average positions across dates, highlights movers and de
 
 Primary tool: `yaai_rank_tracker`.
 
+### `competitor-evidence`
+
+Analyzes a saved Yandex Search API SERP snapshot: repeated competitor domains, own-domain presence/absence, and pages/domains observed above the site.
+
+Primary tool: `yaai_serp_evidence`.
+
 ### `seo-review`
 
 Combines current demand, page decisions, snapshot movement and optional Webmaster URL overlap into a compact review: what changed, what matters, what is uncertain, and what to do next.
 
 ### `content-gap`
 
-Finds gaps in the site's own Yandex demand coverage: unmapped intents, missing page targets, generated planner targets and unresolved overlap.
-
-This is **not yet competitor keyword gap**. Competitor/SERP gap should be added only after yaai has a real SERP/competitor evidence source.
+Finds gaps in the site's Yandex demand coverage: unmapped intents, missing page targets, generated planner targets and unresolved overlap. When a SERP evidence file exists, it can also test whether the own domain is absent and which observed competitor pages occupy the query.
 
 ### `seo-report`
 
@@ -86,12 +90,13 @@ seo-review
   ├─ yaai_build_page_plan
   ├─ yaai_compare_snapshots
   ├─ yaai_rank_tracker (when a dated Webmaster CSV is available)
-  └─ yaai_webmaster_overlap (when URL ownership needs investigation) (only when CSV is available)
+  ├─ yaai_serp_evidence (when a saved SERP snapshot is available)
+  └─ yaai_webmaster_overlap (when URL ownership needs investigation)
 ```
 
 ## Safety and cost boundary
 
-Agent Skills do not expand MCP permissions. The current MCP layer does not call paid Yandex APIs. Rank tracking analyzes an already downloaded Webmaster CSV and does not start a new export. A skill can analyze already collected data, but a fresh Wordstat/Webmaster collection still uses the explicit existing yaai collection workflows.
+Agent Skills do not expand MCP permissions. The current MCP layer does not call paid Yandex APIs. Rank tracking analyzes an already downloaded Webmaster CSV and does not start a new export. SERP skills analyze an already collected Search API evidence JSON and do not perform live searches through MCP. Fresh Wordstat/Webmaster/SERP collection uses explicit CLI workflows.
 
 ## Validation
 
@@ -100,4 +105,4 @@ npm run skills:selftest
 npm run check
 ```
 
-The self-test verifies all five skills exist, have valid metadata, and reference only MCP tools actually exposed by `mcp-server.mjs`.
+The self-test verifies every shipped skill exists, has valid metadata, and references only MCP tools actually exposed by `mcp-server.mjs`.
