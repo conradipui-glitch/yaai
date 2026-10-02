@@ -94,6 +94,8 @@ YANDEX_FOLDER_ID=...
 
 `YAIS_API` is a supported alias for `YANDEX_API_KEY`; `YAIS_FOLDER_ID` is a supported alias for `YANDEX_FOLDER_ID`. The existing `YAIS_ID` identifies an API key in the legacy loader and smoke test: **it is not automatically a folder ID**. A batch export needs a real folder ID supplied through `YANDEX_FOLDER_ID` or `YAIS_FOLDER_ID`; do not substitute `YAIS_ID` merely because it is configured. The Wordstat smoke test can attempt to discover a missing folder ID, but the batch engine does not rely on that diagnostic heuristic.
 
+Live Yandex Search API SERP collection can use `YANDEX_SEARCH_API_KEY` + `YANDEX_SEARCH_FOLDER_ID`; when these aliases are empty it falls back to `YANDEX_API_KEY` + `YANDEX_FOLDER_ID`. The collector never runs without explicit `--execute`.
+
 Webmaster separately reads `YANDEX_WEBMASTER_OAUTH_TOKEN` (alternatives: `YANDEX_WEBMASTER_TOKEN`, `YANDEX_OAUTH_TOKEN`). A Yandex Cloud API key and key ID cannot replace this user OAuth token. Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
 ## MCP for AI agents
