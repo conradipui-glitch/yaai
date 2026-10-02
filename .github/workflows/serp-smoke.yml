@@ -25,6 +25,7 @@ jobs:
       contents: read
     env:
       YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
       YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
     steps:
       - uses: actions/checkout@v4
