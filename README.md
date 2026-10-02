@@ -6,6 +6,7 @@ The engine provides:
 
 - Yandex Wordstat batch collection;
 - Yandex Webmaster query-to-URL exports, average-position rank tracking and overlap analysis (OAuth, independent from Wordstat credentials);
+- guarded Yandex Search API SERP collection and competitor/result-page evidence;
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
@@ -103,7 +104,7 @@ Run the local stdio server against any yaai workspace:
 npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
 ```
 
-The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner/rank-tracker code and does **not** call paid Yandex APIs. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
+The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner/rank-tracker/SERP-analysis code and does **not** call paid Yandex APIs. Live Search API collection is a separate CLI command that requires explicit `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
 
 ## Agent Skills
 
@@ -112,11 +113,12 @@ The repository includes reusable workflows in `.agents/skills/`:
 - `yandex-keyword-research` — grounded demand research from Wordstat;
 - `page-plan` — CREATE / EXPAND / MERGE / HOLD decisions;
 - `rank-tracker` — Yandex Webmaster average-position movement and striking-distance queries;
+- `competitor-evidence` — observed Yandex SERP domains/pages and own-domain gaps;
 - `seo-review` — current demand + planner + snapshot + optional Webmaster review;
 - `content-gap` — uncovered or weakly mapped first-party demand;
 - `seo-report` — concise evidence-labeled decision reporting.
 
-Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented separately in **[docs/rank-tracker.md](docs/rank-tracker.md)**.
+Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)** and SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**.
 
 ## Local UI
 
