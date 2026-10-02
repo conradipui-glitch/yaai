@@ -23,3 +23,46 @@ jobs:
           node-version: 22
       - name: Check Wordstat credentials without printing secrets
         run: node scripts/wordstat-smoke.mjs
+      - name: Collect tiny live Yandex SERP sample
+        run: |
+          mkdir -p .data
+          npm run serp:collect -- \
+            --queries "мобильная баня омск,баня под ключ омск,кедровая баня омск" \
+            --region 66 \
+            --groups 10 \
+            --own-domain conradipui-glitch.github.io \
+            --out .data/serp-evidence.json \
+            --execute
+      - name: Analyze and print privacy-safe SERP summary
+        run: |
+          npm run serp:analyze -- \
+            --input .data/serp-evidence.json \
+            --out .data/serp-analysis.json \
+            --own-domain conradipui-glitch.github.io \
+            --top 10
+          node - <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('.data/serp-analysis.json', 'utf8'));
+          console.log(JSON.stringify({
+            generatedAt: data.meta.generatedAt,
+            region: data.meta.region,
+            queryCount: data.meta.queryCount,
+            ownDomain: data.meta.ownDomain,
+            ownPresentQueries: data.own.presentQueries,
+            ownAbsentQueries: data.own.absentQueries,
+            competitorCount: data.competitors.length,
+            topCompetitors: data.competitors.slice(0, 5).map(x => ({
+              domain: x.domain,
+              queryCount: x.queryCount,
+              bestPosition: x.bestPosition,
+              top3: x.top3
+            })),
+            querySummary: data.queries.map(x => ({
+              query: x.query,
+              ownPresent: x.ownPresent,
+              ownPosition: x.ownPosition,
+              gapType: x.gapType,
+              topDomains: x.topDomains.slice(0, 3).map(y => y.domain)
+            }))
+          }, null, 2));
+          NODE
