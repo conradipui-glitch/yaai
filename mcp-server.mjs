@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { analyzeRows } from './lib/analyze.mjs';
 import { listSnapshotManifests, loadCase, pctChange } from './lib/snapshots.mjs';
 import { analyzeRankTrackerCsv } from './lib/rank-tracker.mjs';
+import { analyzeSerpEvidence } from './lib/serp-evidence.mjs';
 import { analyzeWebmasterCsv } from './lib/webmaster-overlap.mjs';
 import { resolveCaseId, resolveWorkspaceRoot, safeConfigId, workspacePaths } from './lib/workspace.mjs';
 import { buildPagePlan } from './public/page-planner.js';
@@ -18,7 +19,7 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-const SERVER_INFO = { name: 'yaai', version: '0.10.0' };
+const SERVER_INFO = { name: 'yaai', version: '0.11.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
   'The MCP surface does not call paid Yandex APIs; collect/refresh data with yaai batch/Webmaster workflows first.';
@@ -148,6 +149,30 @@ export const TOOLS = [
       },
       limit: LIMIT,
     }, ['relativeCsvPath']),
+  },
+  {
+    name: 'yaai_serp_evidence',
+    title: 'Yandex SERP Competitor Evidence',
+    description: 'Analyze a previously collected Yandex Search API SERP evidence JSON for repeated competitors, own-domain visibility, and domains ranking above the site.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      relativeJsonPath: {
+        type: 'string',
+        description: 'Path to a SERP evidence JSON relative to the workspace root. Parent-directory escapes are rejected.',
+      },
+      ownDomain: {
+        type: 'string',
+        description: 'Site domain to identify in results, e.g. example.ru. Falls back to the evidence file ownDomain.',
+      },
+      topN: {
+        type: 'integer',
+        minimum: 1,
+        maximum: 100,
+        default: 10,
+        description: 'Analyze only the first N organic results per query.',
+      },
+      limit: LIMIT,
+    }, ['relativeJsonPath']),
   },
 ];
 
@@ -348,6 +373,7 @@ async function workspaceOverview(context, args) {
       snapshotComparison: true,
       webmasterOverlap: true,
       rankTracker: true,
+      serpEvidence: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -505,20 +531,20 @@ async function compareLatestSnapshots(context, args) {
   };
 }
 
-function workspaceFile(context, relativePath) {
+function workspaceFile(context, relativePath, label = 'relativePath') {
   const raw = String(relativePath || '').trim();
-  if (!raw) throw new Error('relativeCsvPath is required.');
+  if (!raw) throw new Error(`${label} is required.`);
   const absolute = path.resolve(context.workspaceRoot, raw);
   const relative = path.relative(context.workspaceRoot, absolute);
   if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) {
-    throw new Error('relativeCsvPath must resolve to a file inside the yaai workspace.');
+    throw new Error(`${label} must resolve to a file inside the yaai workspace.`);
   }
   return absolute;
 }
 
 async function webmasterOverlap(context, args) {
   const caseConfig = await selectedCase(context, args.caseId);
-  const csvPath = workspaceFile(context, args.relativeCsvPath);
+  const csvPath = workspaceFile(context, args.relativeCsvPath, 'relativeCsvPath');
   const threshold = Math.max(1, Math.trunc(Number(args.minImpressions || 1)));
   const csv = await fs.readFile(csvPath, 'utf8');
   const result = analyzeWebmasterCsv(csv, { minImpressions: threshold });
@@ -539,7 +565,7 @@ async function webmasterOverlap(context, args) {
 
 async function rankTracker(context, args) {
   const caseConfig = await selectedCase(context, args.caseId);
-  const csvPath = workspaceFile(context, args.relativeCsvPath);
+  const csvPath = workspaceFile(context, args.relativeCsvPath, 'relativeCsvPath');
   const threshold = Math.max(1, Math.trunc(Number(args.minImpressions || 1)));
   const strikingStart = Math.max(1, Number(args.strikingStart || 5));
   const strikingEnd = Math.max(strikingStart, Number(args.strikingEnd || 20));
@@ -573,6 +599,37 @@ async function rankTracker(context, args) {
   };
 }
 
+async function serpEvidence(context, args) {
+  const caseConfig = await selectedCase(context, args.caseId);
+  const jsonPath = workspaceFile(context, args.relativeJsonPath, 'relativeJsonPath');
+  const dataset = JSON.parse(await fs.readFile(jsonPath, 'utf8'));
+  const topN = Math.max(1, Math.min(100, Math.trunc(Number(args.topN || 10))));
+  const result = analyzeSerpEvidence(dataset, {
+    ownDomain: args.ownDomain || dataset.ownDomain || '',
+    topN,
+  });
+  const limit = clampLimit(args.limit);
+
+  return {
+    caseId: caseConfig.id,
+    caseName: caseConfig.name,
+    source: path.relative(context.workspaceRoot, jsonPath).replaceAll(path.sep, '/'),
+    meta: result.meta,
+    own: {
+      ...result.own,
+      absent: result.own.absent.slice(0, limit),
+      omittedAbsent: Math.max(0, result.own.absent.length - limit),
+    },
+    competitors: result.competitors.slice(0, limit).map((row) => ({
+      ...row,
+      queries: row.queries.slice(0, Math.min(limit, 20)),
+    })),
+    competitorCount: result.competitors.length,
+    queries: result.queries.slice(0, limit),
+    omittedQueries: Math.max(0, result.queries.length - limit),
+  };
+}
+
 const TOOL_HANDLERS = {
   yaai_workspace_overview: workspaceOverview,
   yaai_analyze_latest: analyzeLatest,
@@ -580,6 +637,7 @@ const TOOL_HANDLERS = {
   yaai_compare_snapshots: compareLatestSnapshots,
   yaai_webmaster_overlap: webmasterOverlap,
   yaai_rank_tracker: rankTracker,
+  yaai_serp_evidence: serpEvidence,
 };
 
 function protocolFromMessage(message, state) {
