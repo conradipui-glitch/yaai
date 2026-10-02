@@ -1,0 +1,74 @@
+name: SERP smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: Single Yandex query for a live smoke test
+        required: false
+        default: "мобильная баня омск"
+      region:
+        description: Yandex region id
+        required: false
+        default: "66"
+  push:
+    paths:
+      - '.github/workflows/serp-smoke.yml'
+      - 'scripts/serp-collect.mjs'
+      - 'scripts/serp-analyze.mjs'
+      - 'lib/serp-evidence.mjs'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Resolve smoke inputs
+        id: vars
+        shell: bash
+        run: |
+          QUERY='${{ github.event.inputs.query }}'
+          REGION='${{ github.event.inputs.region }}'
+          if [ -z "$QUERY" ]; then QUERY='мобильная баня омск'; fi
+          if [ -z "$REGION" ]; then REGION='66'; fi
+          printf 'query=%s\n' "$QUERY" >> "$GITHUB_OUTPUT"
+          printf 'region=%s\n' "$REGION" >> "$GITHUB_OUTPUT"
+      - name: Collect one live Yandex SERP
+        run: |
+          mkdir -p .data
+          npm run serp:collect -- \
+            --queries "${{ steps.vars.outputs.query }}" \
+            --region "${{ steps.vars.outputs.region }}" \
+            --groups 10 \
+            --out .data/serp-evidence.json \
+            --execute
+      - name: Analyze SERP evidence
+        run: |
+          npm run serp:analyze -- \
+            --input .data/serp-evidence.json \
+            --out .data/serp-analysis.json \
+            --top 10
+      - name: Print smoke summary
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('.data/serp-analysis.json', 'utf8'));
+          console.log(JSON.stringify({
+            generatedAt: data.meta.generatedAt,
+            region: data.meta.region,
+            queryCount: data.meta.queryCount,
+            competitorDomainsObserved: data.competitors.length,
+            topObservedDomains: data.competitors.slice(0, 5).map(x => ({
+              domain: x.domain,
+              bestPosition: x.bestPosition
+            }))
+          }, null, 2));
+          NODE
