@@ -38,7 +38,7 @@ jobs:
         run: |
           QUERY='${{ github.event.inputs.query }}'
           REGION='${{ github.event.inputs.region }}'
-          if [ -z "$QUERY" ]; then QUERY='мобильная баня омск,баня под ключ омск,кедровая баня омск'; fi
+          if [ -z "$QUERY" ]; then QUERY='баня под ключ омск,готовые бани омск,купить готовую баню омск,мобильная баня омск,каркасная баня омск,кедровая баня омск,баня с доставкой омск,баня 2х2 омск,баня 3х2 омск,баня 4х2 омск,баня под ключ омск цены,купить баню под ключ омск'; fi
           if [ -z "$REGION" ]; then REGION='66'; fi
           printf 'query=%s\n' "$QUERY" >> "$GITHUB_OUTPUT"
           printf 'region=%s\n' "$REGION" >> "$GITHUB_OUTPUT"
@@ -83,7 +83,7 @@ jobs:
               ownPresent: x.ownPresent,
               ownPosition: x.ownPosition,
               gapType: x.gapType,
-              topDomains: x.topDomains.slice(0, 3).map(y => y.domain)
+              topDomains: x.topDomains.slice(0, 5).map(y => y.domain)
             }))
           }, null, 2));
           NODE
