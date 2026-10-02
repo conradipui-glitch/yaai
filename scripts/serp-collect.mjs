@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { decodeYandexSearchResponse } from '../lib/serp-evidence.mjs';
+import { discoverYandexFolderId } from '../lib/yandex-folder.mjs';
 
 const API_URL = 'https://searchapi.api.cloud.yandex.net/v2/web/search';
 const REQUEST_DELAY_MS = 500;
@@ -52,7 +53,7 @@ function apiKey() {
   ).trim();
 }
 
-function folderId() {
+function configuredFolderId() {
   return String(
     process.env.YANDEX_SEARCH_FOLDER_ID
     || process.env.YANDEX_FOLDER_ID
@@ -65,12 +66,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function search(query, { region, groupsOnPage }) {
-  const key = apiKey();
-  const folder = folderId();
-  if (!key) throw new Error('Yandex Search API key is missing. Set YANDEX_SEARCH_API_KEY or YANDEX_API_KEY.');
-  if (!folder) throw new Error('Yandex Search folder ID is missing. Set YANDEX_SEARCH_FOLDER_ID or YANDEX_FOLDER_ID.');
-
+async function search(query, { region, groupsOnPage, key, folder }) {
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -136,10 +132,22 @@ const queries = await loadQueries();
 if (!queries.length) throw new Error('Provide --queries q1,q2 or --query-file /path/queries.txt.');
 if (queries.length > 50) throw new Error('Maximum 50 queries per run. Split larger collections.');
 
+const key = apiKey();
+if (!key) throw new Error('Yandex Search API key is missing. Set YANDEX_SEARCH_API_KEY, YANDEX_API_KEY or YAIS_API.');
+
+const folder = await discoverYandexFolderId({
+  apiKey: key,
+  keyId: String(process.env.YAIS_ID || '').trim(),
+  folderId: configuredFolderId(),
+});
+if (!folder) {
+  throw new Error('Yandex Search folder ID is missing and could not be derived. Set YANDEX_SEARCH_FOLDER_ID, YANDEX_FOLDER_ID or YAIS_FOLDER_ID.');
+}
+
 const collected = [];
 for (let index = 0; index < queries.length; index += 1) {
   const query = queries[index];
-  const result = await search(query, { region, groupsOnPage });
+  const result = await search(query, { region, groupsOnPage, key, folder });
   collected.push(result);
   console.error(`SERP ${index + 1}/${queries.length}: ${query} -> ${result.results.length} results`);
   if (index < queries.length - 1) await sleep(REQUEST_DELAY_MS);
