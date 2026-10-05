@@ -5,6 +5,7 @@ import { buildYouTubeDistributionDataset } from '../lib/adapters/youtube.mjs';
 
 const SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 const VIDEOS_URL = 'https://www.googleapis.com/youtube/v3/videos';
+const CHANNELS_URL = 'https://www.googleapis.com/youtube/v3/channels';
 const args = process.argv.slice(2);
 
 function flag(name) {
@@ -130,11 +131,26 @@ for (const batch of chunks([...discoveredVideoIds], 50)) {
   videos.push(...(Array.isArray(payload.items) ? payload.items : []));
 }
 
+const discoveredChannelIds = [...new Set(
+  videos.map((item) => String(item?.snippet?.channelId || '').trim()).filter(Boolean),
+)];
+const channels = [];
+for (const batch of chunks(discoveredChannelIds, 50)) {
+  const payload = await googleGet(CHANNELS_URL, {
+    part: 'snippet,statistics',
+    id: batch.join(','),
+    maxResults: 50,
+    key: apiKey,
+  });
+  channels.push(...(Array.isArray(payload.items) ? payload.items : []));
+}
+
 const generatedAt = new Date().toISOString();
 const dataset = buildYouTubeDistributionDataset({
   generatedAt,
   searchPages,
   videos,
+  channels,
   regionCode,
   relevanceLanguage,
 });
@@ -151,5 +167,6 @@ console.log(JSON.stringify({
   entities: dataset.entities.length,
   contentItems: dataset.contentItems.length,
   metricsSnapshots: dataset.metricsSnapshots.length,
+  entityMetricsSnapshots: dataset.entityMetricsSnapshots.length,
   note: 'This command made live YouTube Data API requests. Keep the resulting evidence file private when it contains research data.',
 }, null, 2));
