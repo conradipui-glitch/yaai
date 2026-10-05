@@ -6,7 +6,7 @@ This is **not** a social-media scheduler, CRM, ad platform, or universal cross-p
 
 ## Shared contract
 
-Every source adapter normalizes data into three reusable objects:
+Every source adapter normalizes data into four reusable objects:
 
 ```text
 Entity
@@ -73,6 +73,12 @@ The collector:
 
 The collector refuses to run without `--execute` and accepts at most 20 search queries per run.
 
+## Telegram adapter
+
+Telegram public-channel research uses the same normalized contract through Teleproto/MTProto. It captures channel subscribers plus post views, forwards, reactions, comments and outbound links, and can merge a previous evidence file for repeated snapshots.
+
+See **[telegram-evidence.md](telegram-evidence.md)** for one-time authorization and collection commands.
+
 ## Local analysis
 
 ```bash
@@ -111,6 +117,6 @@ MCP / Agent Skill
 
 ## Future adapters
 
-Telegram, X, Threads, VK, RSS/generic web and other sources should implement the same contract.
+X, Threads, VK, RSS/generic web and other future sources should implement the same contract.
 
 Do not add a new parallel analytics engine per platform. Source-specific code belongs only in the adapter/collector; shared analysis should stay platform-neutral.
