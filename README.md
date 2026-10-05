@@ -10,6 +10,7 @@ The engine provides:
 - platform-neutral distribution evidence with shared `Entity / ContentItem / MetricsSnapshot` contracts;
 - a live YouTube Data API v3 adapter for topic/channel/content research;
 - a read-only Telegram MTProto adapter for public channel/post research, repeated counter snapshots and outbound-link evidence;
+- a cheap structured Evaluation Layer using TypeSafe Jev through OpenRouter Decisions for lead/content/message classification before expensive AI work;
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
@@ -131,6 +132,24 @@ npm run telegram:collect -- \
 
 The session file is an active login credential and must never be committed or uploaded. See **[docs/telegram-evidence.md](docs/telegram-evidence.md)** and **[docs/distribution-evidence.md](docs/distribution-evidence.md)**.
 
+Jev evaluation reads the OpenRouter key from `YAIS_AI` (fallback: `OPENROUTER_API_KEY`) and uses pinned model `typesafe/jev-1.13` by default:
+
+```bash
+npm run jev:evaluate -- \
+  --input /private/items.json \
+  --profile examples/evaluation-profiles/lead-qualification.json \
+  --out /private/evaluation-results.json \
+  --execute
+
+npm run jev:distribution -- \
+  --input /private/telegram-evidence.json \
+  --profile examples/evaluation-profiles/content-intelligence.json \
+  --out /private/content-evaluations.json \
+  --execute
+```
+
+See **[docs/evaluation-layer.md](docs/evaluation-layer.md)**.
+
 Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
 ## MCP for AI agents
@@ -141,7 +160,7 @@ Run the local stdio server against any yaai workspace:
 npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
 ```
 
-The MCP layer is deliberately thin: it reuses yaai's deterministic analysis code and does **not** call live external collection APIs. Fresh Yandex SERP, YouTube or Telegram evidence is collected only through explicit CLI commands that require `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
+The MCP layer is deliberately thin: it reuses yaai's deterministic analysis code and does **not** call live external collection APIs. Fresh Yandex SERP, YouTube, Telegram, or Jev evaluation evidence is produced only through explicit CLI commands that require `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
 
 ## Agent Skills
 
@@ -152,11 +171,12 @@ The repository includes reusable workflows in `.agents/skills/`:
 - `rank-tracker` — Yandex Webmaster average-position movement and striking-distance queries;
 - `competitor-evidence` — observed Yandex SERP domains/pages and own-domain gaps;
 - `distribution-intelligence` — recurring creators/channels, topic distribution, observed content counters and metric movement from saved platform evidence;
+- `cheap-evaluation` — Jev choice/noul/score evidence as a low-cost gate before expensive reasoning or generation;
 - `seo-review` — current demand + planner + snapshot + optional Webmaster review;
 - `content-gap` — uncovered or weakly mapped first-party demand;
 - `seo-report` — concise evidence-labeled decision reporting.
 
-Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)**, SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**, platform/distribution evidence in **[docs/distribution-evidence.md](docs/distribution-evidence.md)**, and Telegram collection in **[docs/telegram-evidence.md](docs/telegram-evidence.md)**.
+Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)**, SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**, platform/distribution evidence in **[docs/distribution-evidence.md](docs/distribution-evidence.md)**, Telegram collection in **[docs/telegram-evidence.md](docs/telegram-evidence.md)**, and Jev evaluation in **[docs/evaluation-layer.md](docs/evaluation-layer.md)**.
 
 ## Local UI
 
