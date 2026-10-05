@@ -11,9 +11,10 @@
 - inspect a Yandex Webmaster query-to-URL CSV for overlap candidates;
 - track Yandex Webmaster average positions across dates;
 - analyze previously collected Yandex SERP competitor evidence;
-- analyze previously collected platform/distribution evidence.
+- analyze previously collected platform/distribution evidence;
+- summarize previously saved Jev/OpenRouter evaluation evidence.
 
-The MCP surface is **read-only with respect to external services**: it does not call Wordstat, Webmaster, Yandex Search API, YouTube, or other live collection endpoints. Refresh/collect data through explicit CLI workflows first.
+The MCP surface is **read-only with respect to external services**: it does not call Wordstat, Webmaster, Yandex Search API, YouTube, Telegram, OpenRouter, or other live collection/model endpoints. Refresh/collect data through explicit CLI workflows first.
 
 ## Start
 
@@ -85,6 +86,10 @@ Reads a normalized Yandex Search API SERP evidence JSON by a **workspace-relativ
 ### `yaai_distribution_evidence`
 
 Reads a normalized platform evidence JSON by a **workspace-relative path** and analyzes the shared `Entity / ContentItem / MetricsSnapshot` model. It returns recurring entities, content-query links, latest observed counters, and metric deltas when repeated snapshots exist. It never performs a live platform request.
+### `yaai_evaluation_evidence`
+
+Reads a saved Jev/OpenRouter Decisions evidence JSON by a **workspace-relative path**. It returns profile/model metadata, per-question outcome distributions, average certainty, review counts, and detailed evaluation rows up to the requested limit. It never calls OpenRouter.
+
 ### `yaai_webmaster_overlap`
 
 Reads a Webmaster CSV by a **workspace-relative path** and finds queries associated with multiple URLs. Paths escaping the workspace are rejected.
@@ -115,6 +120,7 @@ MCP adapter
    +--> analyzeRankTrackerCsv()
    +--> analyzeSerpEvidence()
    +--> analyzeDistributionEvidence()
+   +--> summarizeEvaluationEvidence()
    |
    v
 yaai workspace

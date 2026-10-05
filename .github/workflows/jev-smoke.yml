@@ -1,0 +1,32 @@
+name: Jev smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lib/jev.mjs"
+      - "lib/evaluation.mjs"
+      - "scripts/jev-smoke.mjs"
+      - ".github/workflows/jev-smoke.yml"
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check OpenRouter secret
+        env:
+          YAIS_AI: ${{ secrets.YAIS_AI }}
+        run: |
+          if [ -z "$YAIS_AI" ]; then
+            echo "YAIS_AI is not configured"
+            exit 1
+          fi
+      - name: Run one live Jev decision
+        env:
+          YAIS_AI: ${{ secrets.YAIS_AI }}
+        run: npm run jev:smoke
