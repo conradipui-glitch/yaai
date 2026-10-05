@@ -24,10 +24,13 @@ jobs:
             echo "youtube_secret_present=false"
           fi
       - name: Live YouTube earnings research smoke
-        if: ${{ secrets.YOUTUBE_API_KEY != '' }}
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
+          if [ -z "$YOUTUBE_API_KEY" ]; then
+            echo "Skipping live YouTube smoke: YOUTUBE_API_KEY is not configured."
+            exit 0
+          fi
           npm run youtube:collect -- \
             --queries "заработок на нейросетях 2026,AI автоматизация бизнеса заработок 2026,удаленная работа фриланс 2026,заработок на маркетплейсах 2026,заработок на Telegram канале 2026,арбитраж трафика заработок 2026" \
             --region RU \
