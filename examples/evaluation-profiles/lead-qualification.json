@@ -1,0 +1,32 @@
+{
+  "id": "lead-qualification-v1",
+  "name": "Lead qualification",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.8,
+  "questions": {
+    "fit": {
+      "type": "choice",
+      "instructions": "How well does this candidate match the target offer and customer profile described in the state?",
+      "criteria": {
+        "high_fit": "Clear target-customer match and a relevant need that the offer can address",
+        "possible_fit": "Potential match but important evidence about need, authority, scope, or relevance is missing",
+        "low_fit": "Weak match or the need is only loosely related to the offer",
+        "not_fit": "Clearly outside the target customer profile or not relevant to the offer"
+      }
+    },
+    "active_need": {
+      "type": "noul",
+      "instructions": "Does the state contain evidence of an active current need or problem that the target offer could address?"
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How urgent is the candidate's need based only on the state?",
+      "criteria": [
+        "No current need or purely informational",
+        "Possible future need without a near-term trigger",
+        "Active need but no hard near-term deadline",
+        "Near-term need, active search, deadline, or immediate operational pain"
+      ]
+    }
+  }
+}
