@@ -63,3 +63,137 @@ jobs:
             }))
           }, null, 2));
           NODE
+      - name: Real YouTube research via yt-dlp fallback
+        run: |
+          python -m pip install --disable-pip-version-check -q yt-dlp
+          mkdir -p .data/ytdlp
+          python -m yt_dlp --skip-download --dump-json --playlist-end 5 "ytsearch5:заработок на нейросетях 2026" > .data/ytdlp/ai-money.ndjson
+          python -m yt_dlp --skip-download --dump-json --playlist-end 5 "ytsearch5:AI автоматизация бизнеса 2026" > .data/ytdlp/ai-automation.ndjson
+          python -m yt_dlp --skip-download --dump-json --playlist-end 5 "ytsearch5:удаленная работа фриланс 2026" > .data/ytdlp/remote.ndjson
+          python -m yt_dlp --skip-download --dump-json --playlist-end 5 "ytsearch5:заработок на маркетплейсах 2026" > .data/ytdlp/marketplaces.ndjson
+          python -m yt_dlp --skip-download --dump-json --playlist-end 5 "ytsearch5:заработок на Telegram канале 2026" > .data/ytdlp/telegram.ndjson
+          python -m yt_dlp --skip-download --dump-json --playlist-end 5 "ytsearch5:арбитраж трафика заработок 2026" > .data/ytdlp/arbitrage.ndjson
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import {
+            createContentItem,
+            createDistributionDataset,
+            createEntity,
+            createMetricsSnapshot,
+          } from './lib/source-adapter.mjs';
+
+          const sources = [
+            ['заработок на нейросетях 2026', '.data/ytdlp/ai-money.ndjson'],
+            ['AI автоматизация бизнеса 2026', '.data/ytdlp/ai-automation.ndjson'],
+            ['удаленная работа фриланс 2026', '.data/ytdlp/remote.ndjson'],
+            ['заработок на маркетплейсах 2026', '.data/ytdlp/marketplaces.ndjson'],
+            ['заработок на Telegram канале 2026', '.data/ytdlp/telegram.ndjson'],
+            ['арбитраж трафика заработок 2026', '.data/ytdlp/arbitrage.ndjson'],
+          ];
+
+          const entities = new Map();
+          const content = new Map();
+          const snapshots = new Map();
+          const generatedAt = new Date().toISOString();
+
+          for (const [query, file] of sources) {
+            const rows = fs.readFileSync(file, 'utf8').split(/\r?\n/).filter(Boolean).map(JSON.parse);
+            for (const row of rows) {
+              const videoId = String(row.id || '').trim();
+              const channelId = String(row.channel_id || row.uploader_id || row.channel || '').trim();
+              if (!videoId || !channelId) continue;
+
+              const entity = createEntity({
+                platform: 'youtube',
+                type: 'channel',
+                externalId: channelId,
+                name: row.channel || row.uploader || channelId,
+                url: row.channel_url || row.uploader_url || '',
+                handle: row.uploader_id || '',
+                description: '',
+              });
+              entities.set(entity.id, entity);
+
+              const contentId = 'youtube:video:' + videoId;
+              const previous = content.get(contentId);
+              const discoveredBy = previous?.discoveredBy || [];
+              if (!discoveredBy.some(x => x.type === 'query' && x.value === query)) {
+                discoveredBy.push({ type: 'query', value: query });
+              }
+
+              const publishedAt = row.timestamp
+                ? new Date(Number(row.timestamp) * 1000).toISOString()
+                : row.upload_date && /^\d{8}$/.test(String(row.upload_date))
+                  ? String(row.upload_date).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3T00:00:00.000Z')
+                  : null;
+
+              content.set(contentId, createContentItem({
+                platform: 'youtube',
+                type: 'video',
+                externalId: videoId,
+                entityId: entity.id,
+                url: row.webpage_url || ('https://www.youtube.com/watch?v=' + videoId),
+                title: row.title || '',
+                text: row.description || '',
+                publishedAt,
+                discoveredBy,
+              }));
+
+              snapshots.set(contentId, createMetricsSnapshot({
+                platform: 'youtube',
+                contentId,
+                observedAt: generatedAt,
+                metrics: {
+                  views: row.view_count,
+                  likes: row.like_count,
+                  comments: row.comment_count,
+                },
+              }));
+            }
+          }
+
+          const dataset = createDistributionDataset({
+            source: 'yt-dlp-live-research',
+            platform: 'youtube',
+            generatedAt,
+            queries: sources.map(x => x[0]),
+            entities: [...entities.values()],
+            contentItems: [...content.values()],
+            metricsSnapshots: [...snapshots.values()],
+            sourceMeta: {
+              researchOnly: true,
+              collector: 'yt-dlp',
+              itemsPerQueryRequested: 5,
+            },
+          });
+          fs.writeFileSync('.data/youtube-earnings-2026-ytdlp.json', JSON.stringify(dataset, null, 2));
+          NODE
+          npm run distribution:analyze -- \
+            --input .data/youtube-earnings-2026-ytdlp.json \
+            --out .data/youtube-earnings-2026-ytdlp-analysis.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const a = JSON.parse(fs.readFileSync('.data/youtube-earnings-2026-ytdlp-analysis.json', 'utf8'));
+          console.log('REAL_YOUTUBE_RESEARCH_BEGIN');
+          console.log(JSON.stringify({
+            meta: a.meta,
+            topEntities: a.entities.slice(0, 15).map(x => ({
+              name: x.entity?.name,
+              url: x.entity?.url,
+              queryCount: x.queryCount,
+              queries: x.queries,
+              contentCount: x.contentCount,
+              sampleMedianViews: x.sampleMedianViews,
+              topContent: x.topContent.slice(0, 3)
+            })),
+            topContent: a.content.slice(0, 30).map(x => ({
+              entity: x.entity?.name,
+              title: x.title,
+              url: x.url,
+              publishedAt: x.publishedAt,
+              queries: x.queries,
+              metrics: x.latestMetrics
+            }))
+          }, null, 2));
+          console.log('REAL_YOUTUBE_RESEARCH_END');
+          NODE
