@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { analyzeRows } from './lib/analyze.mjs';
 import { analyzeDistributionEvidence } from './lib/distribution-evidence.mjs';
+import { summarizeEvaluationEvidence } from './lib/evaluation.mjs';
 import { listSnapshotManifests, loadCase, pctChange } from './lib/snapshots.mjs';
 import { analyzeRankTrackerCsv } from './lib/rank-tracker.mjs';
 import { analyzeSerpEvidence } from './lib/serp-evidence.mjs';
@@ -20,10 +21,10 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-const SERVER_INFO = { name: 'yaai', version: '0.14.0' };
+const SERVER_INFO = { name: 'yaai', version: '0.15.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
-  'The MCP surface does not call external collection APIs; collect/refresh Wordstat, Webmaster, SERP, YouTube or Telegram evidence with explicit CLI workflows first.';
+  'The MCP surface does not call live external collection or model APIs; collect/refresh Wordstat, Webmaster, SERP, YouTube, Telegram or Jev evaluation evidence with explicit CLI workflows first.';
 
 function objectSchema(properties = {}, required = []) {
   return {
@@ -184,6 +185,19 @@ export const TOOLS = [
       relativeJsonPath: {
         type: 'string',
         description: 'Path to a normalized distribution evidence JSON relative to the workspace root. Parent-directory escapes are rejected.',
+      },
+      limit: LIMIT,
+    }, ['relativeJsonPath']),
+  },
+  {
+    name: 'yaai_evaluation_evidence',
+    title: 'Jev Evaluation Evidence',
+    description: 'Summarize previously saved Jev/OpenRouter structured evaluation evidence, including outcome distributions and rows routed to review. No live model calls are made.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      relativeJsonPath: {
+        type: 'string',
+        description: 'Path to a saved Jev evaluation JSON relative to the workspace root. Parent-directory escapes are rejected.',
       },
       limit: LIMIT,
     }, ['relativeJsonPath']),
@@ -389,6 +403,7 @@ async function workspaceOverview(context, args) {
       rankTracker: true,
       serpEvidence: true,
       distributionEvidence: true,
+      evaluationEvidence: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -686,6 +701,25 @@ async function distributionEvidence(context, args) {
   };
 }
 
+async function evaluationEvidence(context, args) {
+  const caseConfig = await selectedCase(context, args.caseId);
+  const jsonPath = workspaceFile(context, args.relativeJsonPath, 'relativeJsonPath');
+  const dataset = JSON.parse(await fs.readFile(jsonPath, 'utf8'));
+  const result = summarizeEvaluationEvidence(dataset);
+  const limit = clampLimit(args.limit);
+
+  return {
+    caseId: caseConfig.id,
+    caseName: caseConfig.name,
+    source: path.relative(context.workspaceRoot, jsonPath).replaceAll(path.sep, '/'),
+    meta: result.meta,
+    questionStats: result.questionStats,
+    evaluations: result.evaluations.slice(0, limit),
+    evaluationCount: result.evaluations.length,
+    omittedEvaluations: Math.max(0, result.evaluations.length - limit),
+  };
+}
+
 const TOOL_HANDLERS = {
   yaai_workspace_overview: workspaceOverview,
   yaai_analyze_latest: analyzeLatest,
@@ -695,6 +729,7 @@ const TOOL_HANDLERS = {
   yaai_rank_tracker: rankTracker,
   yaai_serp_evidence: serpEvidence,
   yaai_distribution_evidence: distributionEvidence,
+  yaai_evaluation_evidence: evaluationEvidence,
 };
 
 function protocolFromMessage(message, state) {
