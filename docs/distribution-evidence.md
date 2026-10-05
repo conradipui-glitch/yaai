@@ -17,6 +17,9 @@ ContentItem
 
 MetricsSnapshot
   observed counters for one ContentItem at one time
+
+EntityMetricsSnapshot
+  observed counters for an Entity at one time
 ```
 
 A normalized dataset has this shape:
@@ -30,7 +33,8 @@ A normalized dataset has this shape:
   "queries": ["ai sales"],
   "entities": [],
   "contentItems": [],
-  "metricsSnapshots": []
+  "metricsSnapshots": [],
+  "entityMetricsSnapshots": []
 }
 ```
 
@@ -64,7 +68,8 @@ The collector:
 2. keeps video results only;
 3. deduplicates video IDs across queries;
 4. retrieves public `snippet` + `statistics` for the discovered videos;
-5. writes only normalized `Entity / ContentItem / MetricsSnapshot` data.
+5. retrieves public channel `snippet` + `statistics` for the discovered channel IDs;
+6. writes normalized `Entity / ContentItem / MetricsSnapshot / EntityMetricsSnapshot` data.
 
 The collector refuses to run without `--execute` and accepts at most 20 search queries per run.
 
@@ -76,13 +81,15 @@ npm run distribution:analyze -- \
   --out /private/youtube-analysis.json
 ```
 
-The analyzer returns recurring entities/channels, content-query links, latest observed metrics, metric deltas when multiple snapshots exist, `sampleMedianViews`, and `sampleRelativeReach` when at least three collected items belong to the same entity.
+The analyzer returns recurring entities/channels, content-query links, latest observed content and entity metrics, metric deltas when multiple snapshots exist, `sampleMedianViews`, `sampleRelativeReach` when at least three collected items belong to the same entity, and `viewsPerSubscriber` when a public subscriber count is available.
 
 ## Important metric boundary
 
 `sampleRelativeReach` means views for this collected item divided by the median views of the collected items for the same entity.
 
-It is **not** causal lift from a placement, audience quality, conversion rate, market share, a cross-platform score, or necessarily a representative channel baseline when the sample came from search.
+`viewsPerSubscriber` means observed content views divided by the latest public subscriber count for that entity. It is a size-normalization context signal only. YouTube public subscriber counts are rounded by the platform.
+
+Neither metric is causal lift from a placement, audience quality, conversion rate, market share, or a cross-platform score. `viewsPerSubscriber` can exceed 1 because views are not limited to subscribers, and `sampleRelativeReach` is not necessarily a representative channel baseline when the sample came from search.
 
 A search-selected YouTube sample is biased toward videos that matched the research queries. Use repeated or purpose-built collections before treating an entity baseline as durable.
 
