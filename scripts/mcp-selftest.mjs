@@ -115,6 +115,52 @@ await fs.writeFile(
     ],
   }),
 );
+await fs.writeFile(
+  path.join(root, 'distribution.json'),
+  JSON.stringify({
+    schemaVersion: 1,
+    source: 'youtube-data-api-v3',
+    platform: 'youtube',
+    generatedAt: '2026-10-05T08:00:00.000Z',
+    queries: ['баня'],
+    entities: [
+      {
+        id: 'youtube:channel:c1',
+        platform: 'youtube',
+        type: 'channel',
+        externalId: 'c1',
+        name: 'Demo Channel',
+        url: 'https://www.youtube.com/channel/c1',
+        handle: null,
+        description: null,
+      },
+    ],
+    contentItems: [
+      {
+        id: 'youtube:video:v1',
+        platform: 'youtube',
+        type: 'video',
+        externalId: 'v1',
+        entityId: 'youtube:channel:c1',
+        url: 'https://www.youtube.com/watch?v=v1',
+        title: 'Баня под ключ',
+        text: 'Видео про готовые бани',
+        publishedAt: '2026-10-01T08:00:00.000Z',
+        discoveredBy: [{ type: 'query', value: 'баня' }],
+        outboundLinks: [],
+      },
+    ],
+    metricsSnapshots: [
+      {
+        platform: 'youtube',
+        contentId: 'youtube:video:v1',
+        observedAt: '2026-10-05T08:00:00.000Z',
+        metrics: { views: 1000, likes: 50, comments: 10 },
+      },
+    ],
+    sourceMeta: {},
+  }),
+);
 
 async function writeSnapshot(date, run, count, fingerprint = 'same') {
   const dir = path.join(root, 'snapshots', 'demo-seo', 'snapshots', date, run);
@@ -203,6 +249,7 @@ assert.equal(overview.selectedCase.id, 'demo-seo');
 assert.equal(overview.snapshotCount, 2);
 assert.equal(overview.capabilities.rankTracker, true);
 assert.equal(overview.capabilities.serpEvidence, true);
+assert.equal(overview.capabilities.distributionEvidence, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
 
 const analysis = await call('yaai_analyze_latest', { limit: 10 });
@@ -247,6 +294,16 @@ const serp = await call('yaai_serp_evidence', {
 assert.equal(serp.meta.queryCount, 2);
 assert.equal(serp.own.absentQueries, 1);
 assert.equal(serp.competitors[0].domain, 'competitor.example');
+
+const distribution = await call('yaai_distribution_evidence', {
+  relativeJsonPath: 'distribution.json',
+  limit: 10,
+});
+assert.equal(distribution.meta.platform, 'youtube');
+assert.equal(distribution.entityCount, 1);
+assert.equal(distribution.contentCount, 1);
+assert.equal(distribution.entities[0].entity.name, 'Demo Channel');
+assert.equal(distribution.content[0].latestMetrics.views, 1000);
 
 const escapeAttempt = await handleRpcMessage({
   jsonrpc: '2.0',
