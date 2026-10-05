@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 
 import { buildTelegramDistributionDataset, telegramPublicUrl } from '../lib/adapters/telegram.mjs';
+import { analyzeDistributionEvidence } from '../lib/distribution-evidence.mjs';
 
 const dataset = buildTelegramDistributionDataset({
   generatedAt: '2026-10-05T12:00:00.000Z',
@@ -57,5 +58,12 @@ assert.deepEqual(
   ['AI заработок', 'автоматизация бизнеса'],
 );
 assert.equal(telegramPublicUrl('@demo_ai'), 'https://t.me/demo_ai');
+
+const analysis = analyzeDistributionEvidence(dataset);
+assert.equal(analysis.entities[0].latestMetrics.subscribers, 12000);
+assert.equal(analysis.entities[0].topContent[0].forwards, 420);
+assert.equal(analysis.entities[0].topContent[0].reactions, 1300);
+assert.equal(analysis.entities[0].topContent[0].metrics.comments, 95);
+assert.equal(analysis.entities[0].topContent[0].viewsPerSubscriber, 2.08);
 
 console.log('telegram adapter selftest: ok');
