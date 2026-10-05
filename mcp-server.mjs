@@ -4,6 +4,7 @@ import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 import { analyzeRows } from './lib/analyze.mjs';
+import { analyzeDistributionEvidence } from './lib/distribution-evidence.mjs';
 import { listSnapshotManifests, loadCase, pctChange } from './lib/snapshots.mjs';
 import { analyzeRankTrackerCsv } from './lib/rank-tracker.mjs';
 import { analyzeSerpEvidence } from './lib/serp-evidence.mjs';
@@ -19,10 +20,10 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-const SERVER_INFO = { name: 'yaai', version: '0.11.0' };
+const SERVER_INFO = { name: 'yaai', version: '0.12.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
-  'The MCP surface does not call paid Yandex APIs; collect/refresh data with explicit yaai Wordstat/Webmaster/SERP CLI workflows first.';
+  'The MCP surface does not call external collection APIs; collect/refresh Wordstat, Webmaster, SERP or platform evidence with explicit CLI workflows first.';
 
 function objectSchema(properties = {}, required = []) {
   return {
@@ -170,6 +171,19 @@ export const TOOLS = [
         maximum: 100,
         default: 10,
         description: 'Analyze only the first N organic results per query.',
+      },
+      limit: LIMIT,
+    }, ['relativeJsonPath']),
+  },
+  {
+    name: 'yaai_distribution_evidence',
+    title: 'Distribution Evidence',
+    description: 'Analyze a previously collected platform evidence JSON using the shared Entity / ContentItem / MetricsSnapshot model. No live platform API calls are made.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      relativeJsonPath: {
+        type: 'string',
+        description: 'Path to a normalized distribution evidence JSON relative to the workspace root. Parent-directory escapes are rejected.',
       },
       limit: LIMIT,
     }, ['relativeJsonPath']),
@@ -374,6 +388,7 @@ async function workspaceOverview(context, args) {
       webmasterOverlap: true,
       rankTracker: true,
       serpEvidence: true,
+      distributionEvidence: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -630,6 +645,44 @@ async function serpEvidence(context, args) {
   };
 }
 
+async function distributionEvidence(context, args) {
+  const caseConfig = await selectedCase(context, args.caseId);
+  const jsonPath = workspaceFile(context, args.relativeJsonPath, 'relativeJsonPath');
+  const dataset = JSON.parse(await fs.readFile(jsonPath, 'utf8'));
+  const result = analyzeDistributionEvidence(dataset);
+  const limit = clampLimit(args.limit);
+
+  return {
+    caseId: caseConfig.id,
+    caseName: caseConfig.name,
+    source: path.relative(context.workspaceRoot, jsonPath).replaceAll(path.sep, '/'),
+    meta: result.meta,
+    entities: result.entities.slice(0, limit),
+    entityCount: result.entities.length,
+    omittedEntities: Math.max(0, result.entities.length - limit),
+    content: result.content.slice(0, limit).map((row) => ({
+      id: row.id,
+      platform: row.platform,
+      type: row.type,
+      externalId: row.externalId,
+      entityId: row.entityId,
+      entityName: row.entity?.name || '',
+      url: row.url,
+      title: row.title,
+      textPreview: String(row.text || '').slice(0, 500),
+      textLength: String(row.text || '').length,
+      publishedAt: row.publishedAt,
+      queries: row.queries,
+      latestMetrics: row.latestMetrics,
+      observedAt: row.observedAt,
+      metricDelta: row.metricDelta,
+      metricSnapshotCount: row.metricSnapshotCount,
+    })),
+    contentCount: result.content.length,
+    omittedContent: Math.max(0, result.content.length - limit),
+  };
+}
+
 const TOOL_HANDLERS = {
   yaai_workspace_overview: workspaceOverview,
   yaai_analyze_latest: analyzeLatest,
@@ -638,6 +691,7 @@ const TOOL_HANDLERS = {
   yaai_webmaster_overlap: webmasterOverlap,
   yaai_rank_tracker: rankTracker,
   yaai_serp_evidence: serpEvidence,
+  yaai_distribution_evidence: distributionEvidence,
 };
 
 function protocolFromMessage(message, state) {

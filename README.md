@@ -1,4 +1,4 @@
-# yaai — reusable SEO research engine
+# yaai — reusable market and SEO research engine
 
 `yaai` is a client-neutral engine. Client cases, presets, planner profiles, result files and dated snapshots live in external project workspaces.
 
@@ -7,13 +7,15 @@ The engine provides:
 - Yandex Wordstat batch collection;
 - Yandex Webmaster query-to-URL exports, average-position rank tracking and overlap analysis (OAuth, independent from Wordstat credentials);
 - guarded Yandex Search API SERP collection and competitor/result-page evidence;
+- platform-neutral distribution evidence with shared `Entity / ContentItem / MetricsSnapshot` contracts;
+- a first live YouTube Data API v3 adapter for topic/channel/content research;
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
 - dated snapshots and comparisons between runs;
 - a small local web UI;
-- a local MCP server for AI agents (workspace overview, analysis, Page Planner, snapshot comparison and Webmaster overlap);
-- reusable Agent Skills for Yandex keyword research, Page Planning, SEO review, content gaps and decision reports.
+- a local MCP server for AI agents (workspace overview, analysis, Page Planner, snapshot comparison, Webmaster, SERP and saved distribution evidence);
+- reusable Agent Skills for Yandex keyword research, Page Planning, SEO review, content gaps, distribution intelligence and decision reports.
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
@@ -96,7 +98,23 @@ YANDEX_FOLDER_ID=...
 
 Live Yandex Search API SERP collection can use `YANDEX_SEARCH_API_KEY` + `YANDEX_SEARCH_FOLDER_ID`; when these aliases are empty it falls back to `YANDEX_API_KEY` + `YANDEX_FOLDER_ID`. The collector never runs without explicit `--execute`.
 
-Webmaster separately reads `YANDEX_WEBMASTER_OAUTH_TOKEN` (alternatives: `YANDEX_WEBMASTER_TOKEN`, `YANDEX_OAUTH_TOKEN`). A Yandex Cloud API key and key ID cannot replace this user OAuth token. Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
+Webmaster separately reads `YANDEX_WEBMASTER_OAUTH_TOKEN` (alternatives: `YANDEX_WEBMASTER_TOKEN`, `YANDEX_OAUTH_TOKEN`). A Yandex Cloud API key and key ID cannot replace this user OAuth token.
+
+YouTube distribution research reads `YOUTUBE_API_KEY`. Live collection is explicit and refuses to run without `--execute`:
+
+```bash
+npm run youtube:collect -- \\
+  --queries "ai sales,lead automation" \\
+  --region RU \\
+  --language ru \\
+  --max-results 10 \\
+  --out /private/youtube-evidence.json \\
+  --execute
+```
+
+The normalized result can then be analyzed locally with `npm run distribution:analyze`. See **[docs/distribution-evidence.md](docs/distribution-evidence.md)**.
+
+Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
 ## MCP for AI agents
 
@@ -106,7 +124,7 @@ Run the local stdio server against any yaai workspace:
 npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
 ```
 
-The MCP layer is deliberately thin: it reuses yaai's deterministic analysis/planner/rank-tracker/SERP-analysis code and does **not** call paid Yandex APIs. Live Search API collection is a separate CLI command that requires explicit `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
+The MCP layer is deliberately thin: it reuses yaai's deterministic analysis code and does **not** call live external collection APIs. Fresh Yandex SERP or YouTube evidence is collected only through explicit CLI commands that require `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
 
 ## Agent Skills
 
@@ -116,11 +134,12 @@ The repository includes reusable workflows in `.agents/skills/`:
 - `page-plan` — CREATE / EXPAND / MERGE / HOLD decisions;
 - `rank-tracker` — Yandex Webmaster average-position movement and striking-distance queries;
 - `competitor-evidence` — observed Yandex SERP domains/pages and own-domain gaps;
+- `distribution-intelligence` — recurring creators/channels, topic distribution, observed content counters and metric movement from saved platform evidence;
 - `seo-review` — current demand + planner + snapshot + optional Webmaster review;
 - `content-gap` — uncovered or weakly mapped first-party demand;
 - `seo-report` — concise evidence-labeled decision reporting.
 
-Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)** and SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**.
+Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)**, SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**, and platform/distribution evidence in **[docs/distribution-evidence.md](docs/distribution-evidence.md)**.
 
 ## Local UI
 
