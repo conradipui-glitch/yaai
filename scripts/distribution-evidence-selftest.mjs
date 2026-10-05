@@ -5,6 +5,7 @@ import {
   createContentItem,
   createDistributionDataset,
   createEntity,
+  createEntityMetricsSnapshot,
   createMetricsSnapshot,
 } from '../lib/source-adapter.mjs';
 
@@ -51,6 +52,21 @@ snapshots.push(createMetricsSnapshot({
   metrics: { views: 1300, likes: 60, comments: 8 },
 }));
 
+const entitySnapshots = [
+  createEntityMetricsSnapshot({
+    platform: 'youtube',
+    entityId: entity.id,
+    observedAt: '2026-10-05T08:00:00Z',
+    metrics: { subscribers: 1000, totalViews: 50000, publicVideos: 100 },
+  }),
+  createEntityMetricsSnapshot({
+    platform: 'youtube',
+    entityId: entity.id,
+    observedAt: '2026-10-06T08:00:00Z',
+    metrics: { subscribers: 1100, totalViews: 54000, publicVideos: 101 },
+  }),
+];
+
 const dataset = createDistributionDataset({
   source: 'test',
   platform: 'youtube',
@@ -59,23 +75,32 @@ const dataset = createDistributionDataset({
   entities: [entity],
   contentItems: content,
   metricsSnapshots: snapshots,
+  entityMetricsSnapshots: entitySnapshots,
 });
 
 const analysis = analyzeDistributionEvidence(dataset);
 assert.equal(analysis.meta.entityCount, 1);
 assert.equal(analysis.meta.contentCount, 3);
 assert.equal(analysis.meta.metricsSnapshotCount, 4);
+assert.equal(analysis.meta.entityMetricsSnapshotCount, 2);
 assert.equal(analysis.meta.multiSnapshotContentCount, 1);
+assert.equal(analysis.meta.multiSnapshotEntityCount, 1);
 assert.equal(analysis.entities[0].queryCount, 2);
 assert.equal(analysis.entities[0].sampleMedianViews, 2000);
+assert.equal(analysis.entities[0].latestMetrics.subscribers, 1100);
+assert.equal(analysis.entities[0].metricDelta.subscribers, 100);
+assert.equal(analysis.entities[0].metricDelta.totalViews, 4000);
 
 const top = analysis.entities[0].topContent[0];
 assert.equal(top.id, content[2].id);
 assert.equal(top.sampleRelativeReach, 2);
+assert.equal(top.viewsPerSubscriber, 3.64);
 
 const updated = analysis.content.find((item) => item.id === content[0].id);
 assert.equal(updated.latestMetrics.views, 1300);
 assert.equal(updated.metricDelta.views, 300);
 assert.equal(updated.metricDelta.comments, 3);
+assert.equal(updated.entityLatestMetrics.subscribers, 1100);
+assert.equal(updated.viewsPerSubscriber, 1.18);
 
 console.log('distribution evidence selftest: ok');
