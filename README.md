@@ -8,7 +8,8 @@ The engine provides:
 - Yandex Webmaster query-to-URL exports, average-position rank tracking and overlap analysis (OAuth, independent from Wordstat credentials);
 - guarded Yandex Search API SERP collection and competitor/result-page evidence;
 - platform-neutral distribution evidence with shared `Entity / ContentItem / MetricsSnapshot` contracts;
-- a first live YouTube Data API v3 adapter for topic/channel/content research;
+- a live YouTube Data API v3 adapter for topic/channel/content research;
+- a read-only Telegram MTProto adapter for public channel/post research, repeated counter snapshots and outbound-link evidence;
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
@@ -112,7 +113,23 @@ npm run youtube:collect -- \\
   --execute
 ```
 
-The normalized result can then be analyzed locally with `npm run distribution:analyze`. See **[docs/distribution-evidence.md](docs/distribution-evidence.md)**.
+The normalized result can then be analyzed locally with `npm run distribution:analyze`.
+
+Telegram research uses `TELEGRAM_API_ID` + `TELEGRAM_API_HASH` from `my.telegram.org` and a local StringSession file:
+
+```bash
+npm install
+npm run telegram:auth -- --out /private/telegram.session --execute
+npm run telegram:collect -- \
+  --channels "channel_one,channel_two" \
+  --research-queries "AI заработок,автоматизация бизнеса" \
+  --limit 50 \
+  --session-file /private/telegram.session \
+  --out /private/telegram-evidence.json \
+  --execute
+```
+
+The session file is an active login credential and must never be committed or uploaded. See **[docs/telegram-evidence.md](docs/telegram-evidence.md)** and **[docs/distribution-evidence.md](docs/distribution-evidence.md)**.
 
 Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
@@ -124,7 +141,7 @@ Run the local stdio server against any yaai workspace:
 npm run mcp -- --workspace ../my-project/research/yaai --case my-project-seo
 ```
 
-The MCP layer is deliberately thin: it reuses yaai's deterministic analysis code and does **not** call live external collection APIs. Fresh Yandex SERP or YouTube evidence is collected only through explicit CLI commands that require `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
+The MCP layer is deliberately thin: it reuses yaai's deterministic analysis code and does **not** call live external collection APIs. Fresh Yandex SERP, YouTube or Telegram evidence is collected only through explicit CLI commands that require `--execute`. See **[docs/mcp.md](docs/mcp.md)** for client configuration, tools, protocol compatibility and the safety boundary.
 
 ## Agent Skills
 
@@ -139,7 +156,7 @@ The repository includes reusable workflows in `.agents/skills/`:
 - `content-gap` — uncovered or weakly mapped first-party demand;
 - `seo-report` — concise evidence-labeled decision reporting.
 
-Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)**, SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**, and platform/distribution evidence in **[docs/distribution-evidence.md](docs/distribution-evidence.md)**.
+Skills orchestrate the MCP tools; they do not replace yaai's deterministic calculations. See **[docs/agent-skills.md](docs/agent-skills.md)**. Rank tracking is documented in **[docs/rank-tracker.md](docs/rank-tracker.md)**, SERP evidence in **[docs/serp-evidence.md](docs/serp-evidence.md)**, platform/distribution evidence in **[docs/distribution-evidence.md](docs/distribution-evidence.md)**, and Telegram collection in **[docs/telegram-evidence.md](docs/telegram-evidence.md)**.
 
 ## Local UI
 

@@ -27,7 +27,7 @@ A normalized distribution evidence JSON collected by an explicit source adapter 
 
 1. Call `yaai_distribution_evidence`.
 2. Review entity `queryCount` and the queries that discovered each entity.
-3. Review top collected content and latest observed metrics.
+3. Review top collected content and latest observed metrics. Preserve platform-native counters such as Telegram forwards/reactions instead of reducing everything to likes.
 4. If content or entity data has multiple snapshots, use `metricDelta` as measured counter movement between the two latest observations.
 5. Use `sampleRelativeReach` only as a within-entity, within-collected-sample comparison.
 6. Use `viewsPerSubscriber` only as size context for the same platform/entity; it is not conversion or audience quality.
@@ -46,7 +46,7 @@ Return:
 
 ## Guardrails
 
-- Never compare raw views/likes across different platforms as a universal effectiveness score.
+- Never compare raw views/likes/forwards/reactions across different platforms as a universal effectiveness score.
 - Never call search-selected items a representative channel baseline.
 - Never infer conversions, revenue, audience quality or causal placement lift from public counters alone.
 - Treat YouTube subscriber counts as rounded public counters, not exact audience size.
