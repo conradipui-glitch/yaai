@@ -55,6 +55,11 @@ Analyzes a saved Yandex Search API SERP snapshot: repeated competitor domains, o
 
 Primary tool: `yaai_serp_evidence`.
 
+### `distribution-intelligence`
+
+Analyzes normalized platform evidence across the shared entity/content/metrics model: recurring creators/channels, topic discovery paths, observed counters, and metric movement when repeated snapshots exist.
+
+Primary tool: `yaai_distribution_evidence`.
 ### `seo-review`
 
 Combines current demand, page decisions, snapshot movement and optional Webmaster URL overlap into a compact review: what changed, what matters, what is uncertain, and what to do next.
@@ -96,7 +101,7 @@ seo-review
 
 ## Safety and cost boundary
 
-Agent Skills do not expand MCP permissions. The current MCP layer does not call paid Yandex APIs. Rank tracking analyzes an already downloaded Webmaster CSV and does not start a new export. SERP skills analyze an already collected Search API evidence JSON and do not perform live searches through MCP. Fresh Wordstat/Webmaster/SERP collection uses explicit CLI workflows.
+Agent Skills do not expand MCP permissions. The current MCP layer does not call paid Yandex APIs. Rank tracking analyzes an already downloaded Webmaster CSV and does not start a new export. SERP and distribution skills analyze already collected evidence files and do not perform live searches or platform requests through MCP. Fresh Wordstat/Webmaster/SERP/YouTube collection uses explicit CLI workflows.
 
 ## Validation
 
