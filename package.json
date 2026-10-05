@@ -1,9 +1,9 @@
 {
   "name": "yaai-wordstat-batch",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "type": "module",
-  "description": "Reusable Yandex-first SEO decision engine with Wordstat, Webmaster analytics, rank tracking, SERP competitor evidence, Page Planner, MCP tools and Agent Skills",
+  "description": "Reusable Yandex-first market and SEO research engine with search demand, SERP competitor evidence, distribution evidence, Page Planner, MCP tools and Agent Skills",
   "scripts": {
     "start": "node server.mjs",
     "dev": "node --watch server.mjs",
@@ -11,7 +11,7 @@
     "compare": "node scripts/compare-snapshots.mjs",
     "webmaster": "node scripts/webmaster-export.mjs",
     "webmaster:overlap": "node scripts/analyze-webmaster-overlap.mjs",
-    "check": "node --check server.mjs && node --check mcp-server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check lib/workspace.mjs && node --check lib/webmaster.mjs && node --check lib/webmaster-overlap.mjs && node --check lib/rank-tracker.mjs && node --check lib/serp-evidence.mjs && node --check lib/yandex-folder.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/webmaster-export.mjs && node --check scripts/webmaster-selftest.mjs && node --check scripts/analyze-webmaster-overlap.mjs && node --check scripts/rank-tracker.mjs && node --check scripts/rank-tracker-selftest.mjs && node --check scripts/serp-collect.mjs && node --check scripts/serp-analyze.mjs && node --check scripts/serp-evidence-selftest.mjs && node --check scripts/yandex-folder-selftest.mjs && node --check scripts/webmaster-overlap-selftest.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs && node scripts/webmaster-selftest.mjs && node scripts/webmaster-overlap-selftest.mjs && node scripts/rank-tracker-selftest.mjs && node scripts/serp-evidence-selftest.mjs && node scripts/yandex-folder-selftest.mjs && node scripts/mcp-selftest.mjs && node scripts/agent-skills-selftest.mjs",
+    "check": "node --check server.mjs && node --check mcp-server.mjs && node --check lib/analyze.mjs && node --check lib/snapshots.mjs && node --check lib/workspace.mjs && node --check lib/webmaster.mjs && node --check lib/webmaster-overlap.mjs && node --check lib/rank-tracker.mjs && node --check lib/serp-evidence.mjs && node --check lib/yandex-folder.mjs && node --check lib/source-adapter.mjs && node --check lib/adapters/youtube.mjs && node --check lib/distribution-evidence.mjs && node --check public/page-planner.js && node --check public/app.js && node --check scripts/batch.mjs && node --check scripts/build-page-plan.mjs && node --check scripts/snapshot-results.mjs && node --check scripts/compare-snapshots.mjs && node --check scripts/webmaster-export.mjs && node --check scripts/webmaster-selftest.mjs && node --check scripts/analyze-webmaster-overlap.mjs && node --check scripts/rank-tracker.mjs && node --check scripts/rank-tracker-selftest.mjs && node --check scripts/serp-collect.mjs && node --check scripts/serp-analyze.mjs && node --check scripts/serp-evidence-selftest.mjs && node --check scripts/youtube-collect.mjs && node --check scripts/distribution-analyze.mjs && node --check scripts/youtube-adapter-selftest.mjs && node --check scripts/distribution-evidence-selftest.mjs && node --check scripts/yandex-folder-selftest.mjs && node --check scripts/webmaster-overlap-selftest.mjs && node --check scripts/selftest.mjs && node scripts/selftest.mjs && node scripts/webmaster-selftest.mjs && node scripts/webmaster-overlap-selftest.mjs && node scripts/rank-tracker-selftest.mjs && node scripts/serp-evidence-selftest.mjs && node scripts/yandex-folder-selftest.mjs && node scripts/youtube-adapter-selftest.mjs && node scripts/distribution-evidence-selftest.mjs && node scripts/mcp-selftest.mjs && node scripts/agent-skills-selftest.mjs",
     "mcp": "node mcp-server.mjs",
     "mcp:selftest": "node scripts/mcp-selftest.mjs",
     "skills:selftest": "node scripts/agent-skills-selftest.mjs",
@@ -20,7 +20,11 @@
     "serp:collect": "node scripts/serp-collect.mjs",
     "serp:analyze": "node scripts/serp-analyze.mjs",
     "serp:selftest": "node scripts/serp-evidence-selftest.mjs",
-    "yandex-folder:selftest": "node scripts/yandex-folder-selftest.mjs"
+    "yandex-folder:selftest": "node scripts/yandex-folder-selftest.mjs",
+    "distribution:analyze": "node scripts/distribution-analyze.mjs",
+    "distribution:selftest": "node scripts/distribution-evidence-selftest.mjs",
+    "youtube:collect": "node scripts/youtube-collect.mjs",
+    "youtube:selftest": "node scripts/youtube-adapter-selftest.mjs"
   },
   "engines": {
     "node": ">=20"
