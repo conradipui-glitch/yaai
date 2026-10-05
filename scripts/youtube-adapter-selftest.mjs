@@ -21,6 +21,22 @@ const dataset = buildYouTubeDistributionDataset({
       ],
     },
   ],
+  channels: [
+    {
+      id: 'c1',
+      snippet: {
+        title: 'Channel One',
+        description: 'Demo channel description',
+        customUrl: '@channelone',
+      },
+      statistics: {
+        subscriberCount: '10000',
+        hiddenSubscriberCount: false,
+        viewCount: '500000',
+        videoCount: '120',
+      },
+    },
+  ],
   videos: [
     {
       id: 'v1',
@@ -51,6 +67,10 @@ assert.equal(dataset.platform, 'youtube');
 assert.equal(dataset.entities.length, 1);
 assert.equal(dataset.contentItems.length, 2);
 assert.equal(dataset.metricsSnapshots.length, 2);
+assert.equal(dataset.entityMetricsSnapshots.length, 1);
+assert.equal(dataset.entityMetricsSnapshots[0].metrics.subscribers, 10000);
+assert.equal(dataset.entityMetricsSnapshots[0].metrics.totalViews, 500000);
+assert.equal(dataset.entities[0].handle, '@channelone');
 assert.equal(dataset.queries.length, 2);
 
 const v2 = dataset.contentItems.find((item) => item.externalId === 'v2');
