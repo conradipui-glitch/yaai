@@ -10,9 +10,10 @@
 - compare the two latest dated snapshots;
 - inspect a Yandex Webmaster query-to-URL CSV for overlap candidates;
 - track Yandex Webmaster average positions across dates;
-- analyze previously collected Yandex SERP competitor evidence.
+- analyze previously collected Yandex SERP competitor evidence;
+- analyze previously collected platform/distribution evidence.
 
-The MCP surface is **read-only with respect to external services**: it does not call Wordstat, Webmaster or Search API endpoints and therefore cannot create paid Yandex API usage. Refresh/collect data through the explicit CLI workflows first.
+The MCP surface is **read-only with respect to external services**: it does not call Wordstat, Webmaster, Yandex Search API, YouTube, or other live collection endpoints. Refresh/collect data through explicit CLI workflows first.
 
 ## Start
 
@@ -81,6 +82,9 @@ Reads a dated Webmaster CSV by a **workspace-relative path** and returns current
 
 Reads a normalized Yandex Search API SERP evidence JSON by a **workspace-relative path** and returns own-domain presence/absence, domains above the site, repeated competitor domains and observed result pages. It never performs a live search request.
 
+### `yaai_distribution_evidence`
+
+Reads a normalized platform evidence JSON by a **workspace-relative path** and analyzes the shared `Entity / ContentItem / MetricsSnapshot` model. It returns recurring entities, content-query links, latest observed counters, and metric deltas when repeated snapshots exist. It never performs a live platform request.
 ### `yaai_webmaster_overlap`
 
 Reads a Webmaster CSV by a **workspace-relative path** and finds queries associated with multiple URLs. Paths escaping the workspace are rejected.
@@ -110,6 +114,7 @@ MCP adapter
    +--> analyzeWebmasterCsv()
    +--> analyzeRankTrackerCsv()
    +--> analyzeSerpEvidence()
+   +--> analyzeDistributionEvidence()
    |
    v
 yaai workspace
