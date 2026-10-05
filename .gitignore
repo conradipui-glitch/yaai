@@ -6,6 +6,8 @@ node_modules/
 .DS_Store
 я.txt
 *.log
+*.session
+*.session-journal
 /cases/
 /presets/
 /planners/
