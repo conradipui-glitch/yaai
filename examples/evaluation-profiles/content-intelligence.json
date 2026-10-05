@@ -1,0 +1,33 @@
+{
+  "id": "content-intelligence-v1",
+  "name": "Content intelligence",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.75,
+  "questions": {
+    "market_role": {
+      "type": "choice",
+      "instructions": "What is the primary market role of this content?",
+      "criteria": {
+        "demand_signal": "The author or quoted audience expresses a need, problem, request, buying intent, or search for a solution",
+        "offer_signal": "The content primarily sells, promotes, or positions a product, service, course, channel, or offer",
+        "educational": "The content primarily teaches, explains, compares, or demonstrates without a dominant direct offer",
+        "news_opinion": "The content primarily reports news, commentary, or opinion",
+        "noise": "The content is not materially useful for market, audience, competitor, or distribution research"
+      }
+    },
+    "commercial_signal": {
+      "type": "noul",
+      "instructions": "Does this content contain a commercially relevant signal such as a need, offer, pricing, buying intent, CTA, vendor selection, or monetization path?"
+    },
+    "actionability": {
+      "type": "score",
+      "instructions": "How actionable is this content for market research or business decision-making?",
+      "criteria": [
+        "No actionable market information",
+        "Weak contextual signal only",
+        "Useful signal that could inform a hypothesis",
+        "Strong concrete signal that can directly inform an offer, lead, content, competitor, or distribution action"
+      ]
+    }
+  }
+}
