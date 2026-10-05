@@ -161,6 +161,76 @@ await fs.writeFile(
     sourceMeta: {},
   }),
 );
+await fs.writeFile(
+  path.join(root, 'evaluation.json'),
+  JSON.stringify({
+    schemaVersion: 1,
+    source: 'openrouter-decisions',
+    generatedAt: '2026-10-05T12:00:00.000Z',
+    modelRequested: 'typesafe/jev-1.13',
+    profile: {
+      id: 'demo-eval',
+      name: 'Demo evaluation',
+      reviewThreshold: 0.8,
+      questions: {
+        fit: {
+          type: 'choice',
+          instructions: 'How well does this item fit?',
+          criteria: { high: 'Strong fit', low: 'Weak fit' },
+        },
+      },
+    },
+    summary: {
+      itemCount: 2,
+      needsReviewCount: 1,
+      totalCost: 0.00002,
+      totalInputTokens: 500,
+      totalOutputTokens: 20,
+    },
+    evaluations: [
+      {
+        itemId: 'item-1',
+        meta: { source: 'demo' },
+        stateHash: 'a'.repeat(64),
+        model: 'typesafe/jev-1.13-test',
+        provider: 'TypeSafe',
+        answers: {
+          fit: {
+            type: 'choice',
+            value: 'high',
+            confidence: 0.95,
+            certainty: 0.95,
+            probabilities: { high: 0.97, low: 0.03 },
+          },
+        },
+        route: { threshold: 0.8, needsReview: false, lowCertainty: [] },
+        usage: { cost: 0.00001, inputTokens: 250, outputTokens: 10 },
+      },
+      {
+        itemId: 'item-2',
+        meta: { source: 'demo' },
+        stateHash: 'b'.repeat(64),
+        model: 'typesafe/jev-1.13-test',
+        provider: 'TypeSafe',
+        answers: {
+          fit: {
+            type: 'choice',
+            value: 'low',
+            confidence: 0.55,
+            certainty: 0.55,
+            probabilities: { high: 0.45, low: 0.55 },
+          },
+        },
+        route: {
+          threshold: 0.8,
+          needsReview: true,
+          lowCertainty: [{ id: 'fit', certainty: 0.55 }],
+        },
+        usage: { cost: 0.00001, inputTokens: 250, outputTokens: 10 },
+      },
+    ],
+  }),
+);
 
 async function writeSnapshot(date, run, count, fingerprint = 'same') {
   const dir = path.join(root, 'snapshots', 'demo-seo', 'snapshots', date, run);
@@ -250,6 +320,7 @@ assert.equal(overview.snapshotCount, 2);
 assert.equal(overview.capabilities.rankTracker, true);
 assert.equal(overview.capabilities.serpEvidence, true);
 assert.equal(overview.capabilities.distributionEvidence, true);
+assert.equal(overview.capabilities.evaluationEvidence, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
 
 const analysis = await call('yaai_analyze_latest', { limit: 10 });
@@ -304,6 +375,18 @@ assert.equal(distribution.entityCount, 1);
 assert.equal(distribution.contentCount, 1);
 assert.equal(distribution.entities[0].entity.name, 'Demo Channel');
 assert.equal(distribution.content[0].latestMetrics.views, 1000);
+
+const evaluation = await call('yaai_evaluation_evidence', {
+  relativeJsonPath: 'evaluation.json',
+  limit: 10,
+});
+assert.equal(evaluation.meta.profileId, 'demo-eval');
+assert.equal(evaluation.meta.itemCount, 2);
+assert.equal(evaluation.meta.needsReviewCount, 1);
+assert.equal(evaluation.questionStats.fit.values.high, 1);
+assert.equal(evaluation.questionStats.fit.values.low, 1);
+assert.equal(evaluation.evaluationCount, 2);
+assert.equal(evaluation.evaluations[1].route.needsReview, true);
 
 const escapeAttempt = await handleRpcMessage({
   jsonrpc: '2.0',
