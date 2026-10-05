@@ -1,6 +1,6 @@
 {
   "name": "yaai-wordstat-batch",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "private": true,
   "type": "module",
   "description": "Reusable Yandex-first market and SEO research engine with search demand, SERP competitor evidence, distribution evidence, Page Planner, MCP tools and Agent Skills",
