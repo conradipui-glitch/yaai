@@ -14,3 +14,49 @@ jobs:
         with:
           node-version: 22
       - run: npm run check
+      - name: Check YouTube API secret
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          if [ -n "$YOUTUBE_API_KEY" ]; then
+            echo "youtube_secret_present=true"
+          else
+            echo "youtube_secret_present=false"
+          fi
+      - name: Live YouTube earnings research smoke
+        if: ${{ secrets.YOUTUBE_API_KEY != '' }}
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          npm run youtube:collect -- \
+            --queries "заработок на нейросетях 2026,AI автоматизация бизнеса заработок 2026,удаленная работа фриланс 2026,заработок на маркетплейсах 2026,заработок на Telegram канале 2026,арбитраж трафика заработок 2026" \
+            --region RU \
+            --language ru \
+            --max-results 10 \
+            --out .data/youtube-earnings-2026.json \
+            --execute
+          npm run distribution:analyze -- \
+            --input .data/youtube-earnings-2026.json \
+            --out .data/youtube-earnings-2026-analysis.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const a = JSON.parse(fs.readFileSync('.data/youtube-earnings-2026-analysis.json', 'utf8'));
+          console.log(JSON.stringify({
+            meta: a.meta,
+            topEntities: a.entities.slice(0, 12).map(x => ({
+              name: x.entity?.name,
+              queryCount: x.queryCount,
+              contentCount: x.contentCount,
+              sampleMedianViews: x.sampleMedianViews,
+              topContent: x.topContent.slice(0, 3)
+            })),
+            topContent: a.content.slice(0, 15).map(x => ({
+              entity: x.entity?.name,
+              title: x.title,
+              url: x.url,
+              publishedAt: x.publishedAt,
+              queries: x.queries,
+              metrics: x.latestMetrics
+            }))
+          }, null, 2));
+          NODE
