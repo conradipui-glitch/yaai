@@ -269,5 +269,5 @@ Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows re
 
 ## Research recovery and future Studio
 
-- [Resume a GitHub Actions Pain Quality study](docs/github-actions-resume.md) — restore previous evidence and per-item Jev checkpoints; newly paid API calls require explicit approval.
+- [Resume paid Pain Quality and Omsk studies in GitHub Actions](docs/github-actions-resume.md) — restore previous evidence and per-item Jev checkpoints; newly paid API calls require explicit approval.
 - [YA AI Studio roadmap](docs/yaai-studio-roadmap.md) — future local agent workspace, interactive reports, optional Kanban/Scrumban, content creation and reviewed publishing. **Planning only; not yet implemented.**
