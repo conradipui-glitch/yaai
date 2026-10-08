@@ -148,6 +148,7 @@ if (!folder) {
 const checkpointed = await collectYandexWithCheckpoints({
   kind: 'yandex-serp-v1',
   output,
+  directory: flag('--checkpoint-dir'),
   requests: queries.map(query => ({
     query, region: String(region), groupsOnPage, folder, ownDomain,
   })),
