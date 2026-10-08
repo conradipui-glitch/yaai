@@ -75,3 +75,8 @@ npm run check
 Selftest использует **только искусственные тестовые метки**, чтобы проверить формулы, отложенные записи, несовпадающие идентификаторы карт и отсутствие вымышленных процентов. Он **не** подтверждает качество Jev на настоящих человеческих оценках.
 
 Первый реальный пилот: собрать 50–100 наблюдений по одной тематике, вручную разметить **включая отрицательные предсказания**, посмотреть FP/FN и поправить критерии Jev или источники, после чего повторить на независимой выборке.
+
+
+## Evidence-cost semantics (since 0.18.1)
+
+The quality report now distinguishes `costPerHumanPositiveUsd` (all human-positive matches) from `costPerSourceSupportedTruePositiveUsd` (human-positive matches whose source text really supports the claim). The backward-compatible field `costPerValidatedTruePositiveUsd` uses the stricter, source-supported denominator. Costs remain unavailable when any labeled item's Jev cost is missing; Yandex and reviewer costs are not included.
