@@ -2,10 +2,6 @@ name: Pain Quality real-data pilot
 
 # One automatic run when this workflow is first merged; later runs are manual.
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/pain-quality-pilot.yml"
   workflow_dispatch:
 
 permissions:
