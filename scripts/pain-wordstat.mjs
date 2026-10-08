@@ -26,7 +26,7 @@ const folder=await discoverYandexFolderId({
 if(!folder)throw new Error('Yandex folder ID unavailable.');
 const requests=seeds.map(seed=>({seed,region,numPhrases,folder}));
 const checkpointed=await collectYandexWithCheckpoints({
-  kind:'wordstat-topRequests-v1',output,
+  kind:'wordstat-toprequests-v1',output,
   directory:flag('--checkpoint-dir'),
   requests,
   validateResult(result,request) {
