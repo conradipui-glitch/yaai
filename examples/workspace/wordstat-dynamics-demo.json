@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "region": "Пример региона",
+  "from": "2022-01-01",
+  "to": "2023-12-31",
+  "period": "PERIOD_MONTHLY",
+  "devices": [
+    "DEVICE_ALL"
+  ],
+  "services": [
+    {
+      "code": "demo",
+      "phrase": "пример запроса"
+    }
+  ]
+}
