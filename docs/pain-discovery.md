@@ -79,3 +79,8 @@ Each observed phrase/snippet is classified by pain presence, controlled pain cat
 npm run pain:selftest
 npm run check
 ~~~
+
+
+## Human quality verification
+
+Pain Discovery 0.18 preserves both accepted and rejected observations in evidenceLedger for human review. Use `pain:review`, `pain:review:interactive` and `pain:quality`; see [pain-quality.md](pain-quality.md). Existing older Pain Maps must be regenerated to measure recall because they do not preserve Jev negatives.

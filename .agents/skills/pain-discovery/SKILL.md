@@ -22,6 +22,13 @@ Turn observed search phrases and Yandex SERP excerpts into **candidate audience 
 
 For each candidate pain show the controlled pain category, observed Wordstat phrases and their separate non-additive counts, excerpt URLs, which claims came from the source, source age/region, and review status. Distinguish a search phrase from a firsthand complaint. Prioritize user-facing opportunities by independent evidence quality, not by Jev confidence alone.
 
+## Human quality audit
+
+1. Prepare a source-only review queue from the saved Pain Map using `pain:review`.
+2. Have a human label both accepted and rejected Jev observations; `pain:review:interactive` resumes unfinished work.
+3. Use `pain:quality` for sample precision, recall, source validation coverage, and cost per validated true positive.
+4. Never call model probabilities or synthetic fixtures real-world precision/recall.
+5. If there are insufficient manual labels, mark quality as unproven and do not claim the model achieved a target.
 ## Guardrails
 
 - Wordstat counts overlap and are not unique people, leads, market size or proof of purchase intent.

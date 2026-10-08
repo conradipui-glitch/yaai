@@ -68,6 +68,10 @@ const evaluations=await evaluateItemsWithJev({
 const map=buildPainMap({topic:'автоматизация продаж',evidenceItems:items,evaluations,serp,wordstat});
 assert.equal(map.summary.acceptedEvidence,4);
 assert.equal(map.summary.rejectedEvidence,1);
+assert.equal(map.evidenceLedger.length,5);
+assert.equal(map.evidenceLedger.filter(row=>row.classification.accepted===false).length,1);
+assert.equal(map.evidenceLedger.filter(row=>row.kind==='serp_snippet').length,2);
+assert.ok(map.evidenceLedger.every(row=>Object.hasOwn(row.classification,'modelCostUsd')));
 assert.equal(map.summary.painCategories,2);
 assert.equal(map.summary.measuredModelCostUsd,0.00005);
 const leads=map.cards.find(c=>c.category==='lost_opportunities');
