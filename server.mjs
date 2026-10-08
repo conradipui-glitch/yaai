@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyzeRows } from './lib/analyze.mjs';
+import { createLocalHttpGuard } from './lib/http-guard.mjs';
 import { resolveWorkspaceRoot, safeConfigId, workspacePaths } from './lib/workspace.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,6 +24,10 @@ const WORKSPACE = workspacePaths(WORKSPACE_ROOT);
 const PRESETS_DIR = WORKSPACE.presets;
 const PLANNERS_DIR = WORKSPACE.planners;
 const PORT = Number(process.env.PORT || 8787);
+const HTTP_GUARD = createLocalHttpGuard({
+  port: PORT,
+  maxPaidRequests: Number(process.env.YAAI_LOCAL_API_MAX_CALLS || 100),
+});
 
 let cache = await loadCache();
 
@@ -140,6 +145,7 @@ async function yandexRequest(endpoint, payload = {}) {
     throw error;
   }
 
+  HTTP_GUARD.reservePaidRequest();
   const response = await fetch(`${API_BASE}${endpoint}`, {
     method: 'POST',
     headers: {
@@ -339,6 +345,8 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
 
   try {
+    const denied = HTTP_GUARD.check(req);
+    if (denied) return json(res, denied.status, { error: denied.error });
     if (req.method === 'GET' && url.pathname === '/api/config') {
       return json(res, 200, {
         hasApiKey: Boolean(getApiKey()),
@@ -346,6 +354,8 @@ const server = http.createServer(async (req, res) => {
         defaultFolderId: getFolderId() || null,
         maxSeeds: MAX_SEEDS,
         cacheTtlHours: CACHE_TTL_MS / 3_600_000,
+        localRequestToken: HTTP_GUARD.token,
+        paidApiBudget: HTTP_GUARD.stats(),
         workspaceRoot: WORKSPACE_ROOT,
       });
     }

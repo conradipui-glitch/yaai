@@ -1,5 +1,12 @@
 const WORD_RE = /[\p{L}\p{N}]+/gu;
 
+function knownCount(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+function rankingCount(value) { return knownCount(value) ?? -1; }
+
 export function normalizePlannerText(value) {
   return String(value || '')
     .toLowerCase()
@@ -136,34 +143,34 @@ function finalizeGroup(group, config) {
     phraseKeys.add(normalizePlannerText(row.phrase));
     if (row.intentId) intents.add(row.intentId);
     if (row.queryType in queryTypes) queryTypes[row.queryType] += 1;
-    if (!strongest || Number(row.count || 0) > Number(strongest.count || 0)) strongest = row;
+    if (!strongest || rankingCount(row.count) > rankingCount(strongest.count)) strongest = row;
 
     const regionId = String(row.regionId || '');
     const region = regions.get(regionId) || {
       regionId,
       regionName: row.regionName || regionId,
       phraseCount: 0,
-      maxCount: 0,
+      maxCount: null,
       strongestPhrase: '',
     };
     region.phraseCount += 1;
-    if (Number(row.count || 0) > region.maxCount) {
-      region.maxCount = Number(row.count || 0);
+    if (knownCount(row.count) !== null && (region.maxCount === null || knownCount(row.count) > region.maxCount)) {
+      region.maxCount = knownCount(row.count);
       region.strongestPhrase = row.phrase;
     }
     regions.set(regionId, region);
   }
 
-  const maxCount = Number(strongest?.count || 0);
+  const maxCount = knownCount(strongest?.count);
   const businessPriority = strongestPriority(group.rows, group.target.priority);
   const focusWeight = Number(group.target.focusWeight ?? config.defaultFocusWeight ?? 1);
-  const score = Math.round((Math.log10(maxCount + 1) * 20 + focusWeight * 8 + decisionWeight(group.decision) + priorityWeight(businessPriority)) * 10) / 10;
+  const score = Math.round((Math.log10((maxCount ?? 0) + 1) * 20 + focusWeight * 8 + decisionWeight(group.decision) + priorityWeight(businessPriority)) * 10) / 10;
   const topQueries = [...group.rows]
-    .sort((a, b) => Number(b.count || 0) - Number(a.count || 0) || String(a.phrase).localeCompare(String(b.phrase), 'ru'))
+    .sort((a, b) => rankingCount(b.count) - rankingCount(a.count) || String(a.phrase).localeCompare(String(b.phrase), 'ru'))
     .slice(0, 10)
     .map((row) => ({
       phrase: row.phrase,
-      count: Number(row.count || 0),
+      count: knownCount(row.count),
       regionName: row.regionName,
       queryType: row.queryType,
       intentId: row.intentId || '',
@@ -186,7 +193,7 @@ function finalizeGroup(group, config) {
     maxCount,
     strongestPhrase: strongest?.phrase || '',
     strongestRegion: strongest?.regionName || '',
-    regions: [...regions.values()].sort((a, b) => b.maxCount - a.maxCount),
+    regions: [...regions.values()].sort((a, b) => rankingCount(b.maxCount) - rankingCount(a.maxCount)),
     intentIds: [...intents].sort(),
     queryTypeCounts: queryTypes,
     topQueries,
@@ -231,7 +238,7 @@ export function buildPagePlan(analysis, preset, options = {}) {
   }
 
   const pages = [...groups.values()].map((group) => finalizeGroup(group, config));
-  pages.sort((a, b) => b.plannerScore - a.plannerScore || b.maxCount - a.maxCount || a.title.localeCompare(b.title, 'ru'));
+  pages.sort((a, b) => b.plannerScore - a.plannerScore || rankingCount(b.maxCount) - rankingCount(a.maxCount) || a.title.localeCompare(b.title, 'ru'));
 
   const nowCount = Math.max(1, Number(config.nowCount || 5));
   const nextCount = Math.max(nowCount, Number(config.nextCount || 10));

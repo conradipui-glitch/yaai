@@ -5,6 +5,7 @@ let allRegions = [];
 let lastRows = [];
 let lastAnalysis = null;
 let lastPagePlan = null;
+let localRequestToken = '';
 
 const TYPE_LABEL = {
   commercial: 'Commercial',
@@ -43,6 +44,10 @@ function esc(value) {
   }[char]));
 }
 
+function visibleCount(value) {
+  return value == null || value === '' ? 'нет данных' : Number(value).toLocaleString('ru-RU');
+}
+
 function selectedRegions() {
   return [...document.querySelectorAll('.region input:checked')]
     .map((input) => ({ id: input.dataset.id, name: input.dataset.name }));
@@ -57,7 +62,12 @@ function renderRegions() {
 }
 
 async function api(url, options = {}) {
-  const response = await fetch(url, { headers: { 'content-type': 'application/json' }, ...options });
+  const headers = { 'content-type': 'application/json', ...(options.headers || {}) };
+  if (options.method?.toUpperCase() === 'POST') {
+    if (!localRequestToken) throw new Error('Local security token is not ready. Refresh the page.');
+    headers['x-yaai-local-token'] = localRequestToken;
+  }
+  const response = await fetch(url, { ...options, headers });
   const data = await response.json().catch(() => ({ error: 'Р В РЎСљР В Р’ВµР В РЎвЂќР В РЎвЂўР РЋР вЂљР РЋР вЂљР В Р’ВµР В РЎвЂќР РЋРІР‚С™Р В Р вЂ¦Р РЋРІР‚в„–Р В РІвЂћвЂ“ Р В РЎвЂўР РЋРІР‚С™Р В Р вЂ Р В Р’ВµР РЋРІР‚С™ Р РЋР С“Р В Р’ВµР РЋР вЂљР В Р вЂ Р В Р’ВµР РЋР вЂљР В Р’В°' }));
   if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
   return data;
@@ -154,14 +164,14 @@ function renderPagePlan(data) {
 
   const pages = data.pages || [];
   $('pagePlanBody').innerHTML = pages.length ? pages.map((page) => {
-    const regions = (page.regions || []).map((region) => `${region.regionName}: ${Number(region.maxCount || 0).toLocaleString('ru-RU')}`).join('<br>');
-    const top = (page.topQueries || []).slice(0, 4).map((q) => `${esc(q.phrase)} <b>${Number(q.count || 0).toLocaleString('ru-RU')}</b>`).join('<br>');
+    const regions = (page.regions || []).map((region) => `${esc(region.regionName)}: ${visibleCount(region.maxCount)}`).join('<br>');
+    const top = (page.topQueries || []).slice(0, 4).map((q) => `${esc(q.phrase)} <b>${visibleCount(q.count)}</b>`).join('<br>');
     return `<tr>
       <td><b>#${page.priorityRank}</b><br>${pill(PRIORITY_LABEL[page.priorityBand] || page.priorityBand, page.priorityBand)}</td>
       <td>${pill(PLAN_LABEL[page.decision] || page.decision, page.decision)}<br><span class="muted">${esc(page.pageKind)}</span></td>
       <td><b>${esc(page.title)}</b><br><code>${esc(page.path)}</code>${page.generated ? '<br><span class="muted">auto target</span>' : ''}</td>
       <td>${esc(page.businessPriority || 'Р Р†Р вЂљРІР‚Сњ')}<br><span class="muted">score ${esc(page.plannerScore)}</span></td>
-      <td><b>${esc(page.strongestPhrase)}</b> Р Р†Р вЂљРІР‚Сњ ${Number(page.maxCount || 0).toLocaleString('ru-RU')}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
+      <td><b>${esc(page.strongestPhrase)}</b> Р Р†Р вЂљРІР‚Сњ ${visibleCount(page.maxCount)}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
       <td>${regions || 'Р Р†Р вЂљРІР‚Сњ'}</td>
       <td>${(page.intentIds || []).map((id) => pill(id)).join('') || '<span class="muted">Р В Р’В±Р В Р’ВµР В Р’В· intent</span>'}</td>
       <td>${top || 'Р Р†Р вЂљРІР‚Сњ'}${page.note ? `<br><span class="muted">${esc(page.note)}</span>` : ''}</td>
@@ -188,7 +198,9 @@ async function buildPlannerFromAnalysis() {
 
 async function init() {
   try {
-    const [config, presets] = await Promise.all([api('/api/config'), api('/api/presets')]);
+    const config = await api('/api/config');
+    localRequestToken = config.localRequestToken || '';
+    const presets = await api('/api/presets');
     if (config.defaultFolderId) {
       $('folderId').value = config.defaultFolderId;
       localStorage.setItem('folderId', config.defaultFolderId);

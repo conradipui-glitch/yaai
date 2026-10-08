@@ -160,4 +160,40 @@ assert.equal(summary.meta.needsReviewCount, 1);
 assert.equal(summary.questionStats.fit.values.high, 1);
 assert.equal(summary.questionStats.fit.values.medium, 1);
 
+
+const missingUsage = await evaluateItemsWithJev({
+  items: [{id:'missing-cost',state:{text:'test missing cost'}}],
+  profile,apiKey:'fixture',
+  callDecision:async()=>({
+    model:'fixture',answers:{
+      fit:{type:'choice',choice:'high',confidence:null},
+      active_need:{type:'noul',noul:0.8},
+      urgency:{type:'score',score:2,confidence:0.9},
+    },
+    usage:{ inputTokens:11,outputTokens:5,cost:null },
+  }),
+});
+assert.equal(missingUsage.evaluations[0].usage.cost,null);
+assert.equal(missingUsage.summary.totalCost,null);
+assert.equal(missingUsage.summary.measuredCostSubtotal,0);
+assert.equal(missingUsage.summary.missingCostCount,1);
+assert.equal(missingUsage.summary.costComplete,false);
+const noCertainty = summarizeEvaluationEvidence(missingUsage);
+assert.equal(noCertainty.questionStats.fit.averageCertainty,null);
+
+const trulyFree=await evaluateItemsWithJev({
+  items:[{id:'free',state:{text:'test measured zero cost'}}],
+  profile,apiKey:'fixture',
+  callDecision:async()=>({
+    model:'fixture',answers:{
+      fit:{type:'choice',choice:'high',confidence:0.98},
+      active_need:{type:'noul',noul:0.9},
+      urgency:{type:'score',score:2,confidence:0.9},
+    },
+    usage:{cost:0,input_tokens:0,output_tokens:0},
+  }),
+});
+assert.equal(trulyFree.summary.totalCost,0);
+assert.equal(trulyFree.summary.missingCostCount,0);
+
 console.log('jev evaluation selftest: ok');
