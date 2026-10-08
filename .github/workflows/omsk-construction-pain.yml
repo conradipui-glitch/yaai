@@ -2,139 +2,85 @@ name: Omsk construction Pain Discovery pilot
 
 on:
   workflow_dispatch:
+    inputs:
+      resume_run_id:
+        description: "Prior run ID of this Omsk pilot; leave empty for fresh research"
+        required: false
+        type: string
+        default: ""
+      confirm_paid_requests:
+        description: "Authorize any unfinished paid Wordstat, SERP or Jev requests"
+        required: true
+        type: boolean
+        default: false
+
 permissions:
   contents: read
+  actions: read
 
 jobs:
-  verify-region:
-    if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Verify Omsk Oblast Wordstat region ID from provider tree
-        env:
-          YAIS_API: ${{ secrets.YAIS_API }}
-          YAIS_ID: ${{ secrets.YAIS_ID }}
-          YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
-        run: node scripts/pain-verify-region.mjs --name "Омская область" --expected-id 11318
-
   pain-study:
-    needs: verify-region
     runs-on: ubuntu-latest
-    timeout-minutes: 14
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
         include:
           - code: roofing
-            topic: "кровельные работы"
-            seeds: "кровельные работы,ремонт кровли"
-            queries: "кровельные работы омск цена,течет крыша что делать ремонт кровли"
           - code: screed
-            topic: "полусухая стяжка"
-            seeds: "полусухая стяжка,полусухая стяжка цена"
-            queries: "полусухая стяжка омск цена,полусухая стяжка трещины причины"
           - code: facades
-            topic: "фасадные работы"
-            seeds: "фасадные работы,утепление фасада"
-            queries: "фасадные работы омск цена,утепление фасада ошибки и проблемы"
     env:
       YAIS_API: ${{ secrets.YAIS_API }}
       YAIS_ID: ${{ secrets.YAIS_ID }}
       YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
       YAIS_AI: ${{ secrets.YAIS_AI }}
-      PILOT_REGION_ID: "11318"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Record bounded method and permitted call count
+      - name: Restore this case's prior evidence and checkpoints
+        if: ${{ inputs.resume_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+          name: omsk-pain-${{ matrix.code }}
+          path: pilot/${{ matrix.code }}
+      - name: Validate saved stages and finish only missing work
+        env:
+          CONFIRM_PAID: ${{ inputs.confirm_paid_requests }}
         run: |
-          echo "Pilot: ${{ matrix.code }}; Wordstat 2 calls, Yandex SERP 2 calls x 5 results, Jev maximum 8 decisions."
-          echo "All findings are hypotheses; no change to the published site; Wordstat counts may overlap."
-          mkdir -p "$RUNNER_TEMP/pain-${{ matrix.code }}"
-      - name: Collect actual Omsk Oblast Wordstat phrases
+          if [ "$CONFIRM_PAID" = "true" ]; then
+            node scripts/omsk-pain-resume.mjs \
+              --case "${{ matrix.code }}" --dir "pilot/${{ matrix.code }}" --execute
+          else
+            node scripts/omsk-pain-resume.mjs \
+              --case "${{ matrix.code }}" --dir "pilot/${{ matrix.code }}"
+          fi
+      - name: Summarize observed evidence without pretending hypotheses are verified
         run: |
-          node scripts/pain-wordstat.mjs \
-            --seeds "${{ matrix.seeds }}" \
-            --region "$PILOT_REGION_ID" \
-            --num-phrases 35 \
-            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/wordstat.json" \
-            --execute
-      - name: Produce offline query hypotheses (not auto-searched)
-        run: |
-          node scripts/pain-prepare.mjs \
-            --topic "${{ matrix.topic }}" \
-            --wordstat "$RUNNER_TEMP/pain-${{ matrix.code }}/wordstat.json" \
-            --limit 4 \
-            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/query-plan.json" \
-            --query-file "$RUNNER_TEMP/pain-${{ matrix.code }}/query-plan.txt"
-      - name: Collect Yandex results for two PRESELECTED problem or price queries
-        run: |
-          node scripts/serp-collect.mjs \
-            --queries "${{ matrix.queries }}" \
-            --region "$PILOT_REGION_ID" \
-            --groups 5 \
-            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/serp.json" \
-            --execute
-      - name: Classify balanced Wordstat and SERP evidence through Jev
-        run: |
-          node scripts/pain-analyze.mjs \
-            --topic "${{ matrix.topic }}" \
-            --wordstat "$RUNNER_TEMP/pain-${{ matrix.code }}/wordstat.json" \
-            --serp "$RUNNER_TEMP/pain-${{ matrix.code }}/serp.json" \
-            --limit 8 \
-            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.json" \
-            --md "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.md" \
-            --evaluation-out "$RUNNER_TEMP/pain-${{ matrix.code }}/jev-evidence.json" \
-            --execute
-      - name: Create blind quality-review sample, no fabricated human labels
-        run: |
-          node scripts/pain-review.mjs \
-            --map "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.json" \
-            --sample-size 8 \
-            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/review-unlabeled.json"
-          node scripts/pain-quality.mjs \
-            --map "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.json" \
-            --review "$RUNNER_TEMP/pain-${{ matrix.code }}/review-unlabeled.json" \
-            --target-labels 8 \
-            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/quality.json"
-      - name: Summarize only observed evidence and provenance
-        run: |
-          node --input-type=module - "$RUNNER_TEMP/pain-${{ matrix.code }}" <<'NODE'
+          node --input-type=module - "pilot/${{ matrix.code }}/pain-map.json" <<'NODE'
           import fs from 'node:fs';
-          const folder=process.argv[2];
-          const map=JSON.parse(fs.readFileSync(folder+'/pain-map.json','utf8'));
-          const stats={
+          const map=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          console.log(JSON.stringify({
             topic:map.topic,
             generatedAt:map.generatedAt,
             evidenceCount:map.input?.evidenceItemCount,
             accepted:map.summary?.acceptedEvidence,
             requiringReview:map.summary?.uncertainEvidence,
-            modelCostUsd:map.summary?.measuredModelCostUsd,
-            cards:map.cards?.map(c=>({
+            measuredModelCostUsd:map.summary?.measuredModelCostUsd,
+            cards:map.cards?.slice(0,6).map(c=>({
               title:c.title,status:c.status,wordstatPhrases:c.searchPhraseCount,
-              serpPages:c.distinctSearchPages,
-              samples:[
-                ...(c.evidence?.wordstat||[]).slice(0,2).map(x=>({kind:"Wordstat phrase",phrase:x.query,count:x.observedCount})),
-                ...(c.evidence?.serp||[]).slice(0,2).map(x=>({kind:"SERP excerpt",title:x.title,url:x.url,excerpt:x.excerpt?.slice(0,190)}))
-              ]
-            })).slice(0,6)
-          };
-          console.log('OMSK_PAIN_PILOT_REPORT_START');
-          console.log(JSON.stringify(stats,null,2));
-          console.log('OMSK_PAIN_PILOT_REPORT_END');
+              serpPages:c.distinctSearchPages
+            }))
+          },null,2));
           NODE
-      - name: Keep source evidence and review queue for human validation
+      - name: Preserve completed evidence and incomplete paid checkpoints for retry
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: omsk-pain-${{ matrix.code }}
-          path: ${{ runner.temp }}/pain-${{ matrix.code }}/
-          if-no-files-found: ignore
-          retention-days: 5
+          path: pilot/${{ matrix.code }}/
+          if-no-files-found: warn
+          retention-days: 7
