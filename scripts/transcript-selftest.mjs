@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {
-  buildTranscriptEvidence, makeTranscriptRecord, parseCaptionText,
+  buildTranscriptEvidence, directVideoDistribution, makeTranscriptRecord, parseCaptionText, parseYouTubeVideoId,
   transcriptChunks, videoIdFromContent,
 } from '../lib/youtube-transcripts.mjs';
 import { createDistributionDataset, createEntity, createContentItem } from '../lib/source-adapter.mjs';
@@ -14,6 +14,15 @@ const distribution=createDistributionDataset({
   source:'fixture',platform:'youtube',entities:[entity],contentItems:[item],
 });
 assert.equal(videoIdFromContent(item),'4mkUoy7PM5Q');
+assert.equal(parseYouTubeVideoId('4mkUoy7PM5Q'),'4mkUoy7PM5Q');
+assert.equal(parseYouTubeVideoId('https://www.youtube.com/watch?v=4mkUoy7PM5Q&t=20s'),'4mkUoy7PM5Q');
+assert.equal(parseYouTubeVideoId('https://youtu.be/4mkUoy7PM5Q'),'4mkUoy7PM5Q');
+assert.equal(parseYouTubeVideoId('https://www.youtube.com/shorts/4mkUoy7PM5Q'),'4mkUoy7PM5Q');
+assert.throws(()=>parseYouTubeVideoId('https://example.com/watch?v=4mkUoy7PM5Q'),/Not a valid/);
+const direct = directVideoDistribution('https://youtu.be/4mkUoy7PM5Q');
+assert.equal(direct.source,'user-supplied-youtube-video');
+assert.equal(direct.sourceMeta.creatorUnverified,true);
+assert.equal(direct.contentItems[0].externalId,'4mkUoy7PM5Q');
 
 const vtt=parseCaptionText('WEBVTT\n\n00:00:01.000 --> 00:00:03.000\nHello <b>world</b>\n\n00:00:04.000 --> 00:00:05.500\nGo to Telegram!', 'vtt');
 assert.equal(vtt.length,2);
