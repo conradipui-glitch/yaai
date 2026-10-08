@@ -153,6 +153,19 @@ See **[docs/evaluation-layer.md](docs/evaluation-layer.md)** and **[docs/youtube
 
 Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
+## Pain Discovery v1
+
+Find **candidate audience problems** using observed Yandex Wordstat phrases, SERP titles/passages, and cheap Jev classification. This reuses the current Wordstat/Search API connections, not a new external service.
+
+~~~bash
+npm run pain:wordstat -- --seeds "автоматизация продаж" --region 225 --out /private/pain-wordstat.json --execute
+npm run pain:prepare -- --topic "автоматизация продаж" --wordstat /private/pain-wordstat.json --limit 8 --out /private/query-plan.json --query-file /private/pain-queries.txt
+npm run serp:collect -- --query-file /private/pain-queries.txt --region 225 --groups 5 --out /private/pain-serp.json --execute
+npm run pain:analyze -- --topic "автоматизация продаж" --wordstat /private/pain-wordstat.json --serp /private/pain-serp.json --out /private/pain-map.json --md /private/pain-map.md --execute
+~~~
+
+Pain cards remain explicitly **unverified hypotheses**, with source links and non-additive Wordstat counters. See [docs/pain-discovery.md](docs/pain-discovery.md).
+
 ## YouTube transcript → Jev
 
 If you already have one video transcript, **no YouTube API key or full Distribution dataset is needed**:
