@@ -267,6 +267,13 @@ GitHub Actions tests that call Yandex Wordstat, Yandex Search, OpenRouter/Jev, o
 
 Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows regains a `push` trigger. This does not disable other manually triggered workflows, nor guarantee zero charges from workflows added in the future.
 
+## SERP relevance: independent human check
+
+To review filtering mistakes without re-running paid APIs, use the
+[48-row stratified SERP review procedure](docs/serp-human-review.md).
+It generates unfilled human-label fields and calculates sample-only
+false-exclusion indicators **after** real human review, not before.
+
 ## Evidence-backed reports
 
 Generate a standalone, searchable HTML report and structured source-backed JSON **offline** from a saved Pain Map:
