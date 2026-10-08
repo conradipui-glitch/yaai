@@ -11,6 +11,21 @@ Google's official captions.download API requires OAuth and permission to edit th
 
 This version imports **existing speech-to-text transcripts or subtitles**; it does not decode video audio or do Whisper/ASR when captions are unavailable.
 
+## Fast path: one known video, no Google API key
+
+If you have a video's URL and a transcript file, import it directly:
+
+```bash
+npm run youtube:transcripts -- \
+  --video "https://www.youtube.com/watch?v=4mkUoy7PM5Q" \
+  --transcript-file /private/4mkUoy7PM5Q.md \
+  --out /private/transcript-evidence.json
+```
+
+This creates a *schema-only* placeholder source entity with no claimed creator identity or public metrics. Its provenance explicitly says that the creator and metadata were not verified. The transcript is linked to the real supplied video ID.
+
+Then run `npm run transcript:evaluate -- --transcripts /private/transcript-evidence.json --out /private/results.json --execute`.
+
 ## 1. Obtain content IDs
 
 Use an existing `youtube-evidence.json` from `youtube:collect` or the shared Distribution Evidence contract.
