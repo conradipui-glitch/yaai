@@ -6,6 +6,41 @@ billable API requests. Its primary goal is to detect **harmful exclusions**:
 on-topic or potentially useful pages that a pre-Jev rule might have thrown
 away.
 
+## Review in a browser (no spreadsheet required)
+
+Run the usual **prepare** command below. It now also creates
+`pilot.review.html`, a fully self-contained offline review interface.
+Open it locally in a browser and review one source at a time.
+
+- The interface shows only source query, title, SERP excerpt and the URL
+  (if you click it, an external website may open). It **does not embed**
+  the filter's `exclude/review/keep` decision, reason or audit manifest.
+- For each page choose relevance (yes/no/unclear) and whether it has a
+  useful signal (yes/no/unclear); optional notes can record rationale.
+  Keyboard shortcuts: **1–3** relevance, **4–6** usefulness; arrow keys
+  navigate records (not while typing).
+- Use **Save to CSV** regularly. The page intentionally does not
+  silently write your private labels to a remote service or promise
+  background autosaving. Later open the same HTML and use **Load CSV**
+  to restore the exact previous progress. The import verifies the
+  immutable source text, IDs and rating constraints.
+- Send the exported `yaai-serp-review-labeled.csv` together with
+  `pilot.manifest.json` to the `score` command or upload the CSV
+  here for assistance. The CSV is compatible with `score` as a
+  reviewer-blind, source-only file.
+
+If you already have a `pilot.blind.csv` from an older run, make the page
+without regenerating or paying for any research:
+
+```bash
+npm run pain:serp:review-ui -- \
+  --blind /private/pilot.blind.csv \
+  --html /private/pilot.review.html
+```
+
+Browser reviews are human judgments, not generated model truth. If a
+page excerpt isn't enough, use `unclear` rather than guessing.
+
 ## The review procedure
 
 ```bash

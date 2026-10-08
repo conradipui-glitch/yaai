@@ -115,6 +115,11 @@ try{
   assert.match(prepare.stdout,/"independentHumanLabels": 0/);
   assert.equal(parseCsv(await fs.readFile(prefix+'.csv','utf8')).length,19);
   assert.equal(parseCsv(await fs.readFile(prefix+'.blind.csv','utf8')).length,19);
+  const html=await fs.readFile(prefix+'.review.html','utf8');
+  assert.match(html,/id="rows-json"/);
+  assert.match(html,/Сохранить ответы в CSV/);
+  assert.doesNotMatch(html,/"decision":"exclude"/);
+
   const completed=path.join(tmp,'human-labeled.csv');
   await fs.writeFile(completed,blindLabeled);
   const score=spawnSync(process.execPath,[

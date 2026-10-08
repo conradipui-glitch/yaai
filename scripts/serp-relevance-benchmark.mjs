@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { inspectPainSerpCandidates, SERP_RELEVANCE_RULESET } from '../lib/pain-serp-relevance.mjs';
+import { renderSerpReviewHtml } from './serp-review-html.mjs';
 
 const HEADERS = [
   'id','decision','query','title','excerpt','url','reason',
@@ -221,8 +222,9 @@ if(process.argv[1]&&path.resolve(process.argv[1])===currentFile) {
       const source=flag('--serp'),topic=flag('--topic'),out=flag('--out');
       requireTrue(source&&topic&&out,'prepare requires --serp --topic --out');
       const manifestFile=path.resolve(out+'.manifest.json'),
-        csvFile=path.resolve(out+'.csv'),blindFile=path.resolve(out+'.blind.csv');
-      await ensureFree([manifestFile,csvFile,blindFile]);
+        csvFile=path.resolve(out+'.csv'),blindFile=path.resolve(out+'.blind.csv'),
+        htmlFile=path.resolve(out+'.review.html');
+      await ensureFree([manifestFile,csvFile,blindFile,htmlFile]);
       const pack=buildReviewPack({
         serp:JSON.parse(await fs.readFile(source,'utf8')),topic,
         size:Number(flag('--size')||48),seed:flag('--seed')||'benchmark-v1',
@@ -231,7 +233,9 @@ if(process.argv[1]&&path.resolve(process.argv[1])===currentFile) {
       await fs.writeFile(manifestFile,JSON.stringify(pack.manifest,null,2)+'\n',{flag:'wx',mode:0o600});
       await fs.writeFile(csvFile,pack.csv,{flag:'wx',mode:0o600});
       await fs.writeFile(blindFile,pack.blindCsv,{flag:'wx',mode:0o600});
-      console.log(JSON.stringify({manifest:manifestFile,csv:csvFile,blindCsv:blindFile,counts:pack.manifest.counts,
+      await fs.writeFile(htmlFile,renderSerpReviewHtml(pack.rows,{topic}),{flag:'wx',mode:0o600});
+      console.log(JSON.stringify({manifest:manifestFile,csv:csvFile,blindCsv:blindFile,
+        reviewHtml:htmlFile,counts:pack.manifest.counts,
         independentHumanLabels:0,paidApiCalls:0},null,2));
     } else if(action==='score'){
       const manifestFile=flag('--manifest'),csvFile=flag('--labels'),out=flag('--out');
