@@ -7,9 +7,6 @@ on:
 
 jobs:
   check:
-    permissions:
-      contents: read
-      actions: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,30 +15,3 @@ jobs:
           node-version: 22
       - run: npm run check
       - run: node scripts/encoding-selftest.mjs
-      # TEMPORARY: produce review pack from earlier saved research, no paid API.
-      # Remove this QA-only step before merging.
-      - name: Restore old SERP for one-off real-data QA
-        if: github.head_ref == 'feat/serp-human-benchmark-20261009'
-        uses: actions/download-artifact@v4
-        with:
-          run-id: 37803334636
-          github-token: ${{ github.token }}
-          name: pain-quality-real-pilot-2026-10-08
-          path: ${{ runner.temp }}/past-serp
-      - name: Create real-data blind review pack
-        if: github.head_ref == 'feat/serp-human-benchmark-20261009'
-        run: |
-          node scripts/serp-relevance-benchmark.mjs prepare \
-            --serp "$RUNNER_TEMP/past-serp/serp.json" \
-            --topic "обработка заявок" \
-            --out "$RUNNER_TEMP/serp-human-review" --size 48
-      - name: Preserve temporary private QA review pack
-        if: github.head_ref == 'feat/serp-human-benchmark-20261009'
-        uses: actions/upload-artifact@v4
-        with:
-          name: serp-human-review-private-qa
-          path: |
-            ${{ runner.temp }}/serp-human-review.csv
-            ${{ runner.temp }}/serp-human-review.blind.csv
-            ${{ runner.temp }}/serp-human-review.manifest.json
-          retention-days: 1
