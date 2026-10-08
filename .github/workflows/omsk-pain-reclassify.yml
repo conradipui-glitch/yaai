@@ -1,4 +1,5 @@
 name: Reclassify cached Omsk search demand and SERP with Jev
+# Second pass: balance input slots across both Yandex SERP queries.
 
 on:
   workflow_dispatch:
