@@ -219,3 +219,54 @@ Every live call requires explicit `--execute`.
 The model is intentionally pinned to `typesafe/jev-1.13` by default so changes to a moving alias do not silently change classification behavior. Change `YAAI_JEV_MODEL` deliberately when testing a newer model.
 
 OpenRouter pricing and model behavior can change. Use the returned `usage.cost` for measured run cost rather than hard-coding an assumed price.
+
+## Recovering interrupted paid evaluations
+
+CLI evaluators now save each **successful** Jev decision to a private, atomic
+checkpoint file **before** moving to the next item. This applies to
+`jev:evaluate`, `jev:distribution`, `transcript:evaluate` and `pain:analyze`.
+
+By default, the private checkpoint directory is next to `--out`, named
+`<output-path>.jev-checkpoints/`. For example:
+
+```bash
+npm run jev:evaluate -- \
+  --input /private/items.json \
+  --profile examples/evaluation-profiles/lead-qualification.json \
+  --out /private/leads.json \
+  --execute
+```
+
+If the process stops before writing `/private/leads.json`, run the **same
+command again**. Previously saved decisions are reused; only unsaved or
+changed decisions invoke OpenRouter. An alternate, reusable directory may
+be specified with `--checkpoint-dir /private/jev-checkpoints` (use the
+same value again when restarting with a different `--out`).
+
+The match includes the item ID, full state, metadata, model selection, and
+evaluation profile/questions. Changing any of them requires a fresh decision.
+The output keeps the usual total cost of all evaluations (including previously
+paid results) and adds:
+
+- `summary.reusedCount` — results reused from disk;
+- `summary.newlyEvaluatedCount` — requests made in this invocation;
+- `summary.newMeasuredCostSubtotal` — measured spend during this invocation;
+- `summary.newMissingCostCount` — fresh responses lacking cost data.
+
+Unknown cost is still unknown, **not zero**. Keep the directory private:
+it contains classifications and source metadata, though not the original
+state. It is excluded by Git. To prevent accidental re-spending, the CLI
+refuses to start when an output file already exists. Choose a *new* output
+path only when intentionally producing another result.
+
+**Limits:** A process terminated after receiving an API response but before
+writing its checkpoint may still repeat that one paid request. Never run
+concurrent evaluations against the same checkpoint directory. The checkpoint
+cannot retroactively recover responses from old runs that saved no checkpoints.
+GitHub Actions runners are temporary: upload the checkpoint folder as an
+artifact even on failure and restore it to the exact path before a manual
+retry if you want reuse **across runs**. Uploading a folder alone does not
+automatically restore it on the next run.
+
+No extra API calls or background retries are performed by checkpointing.
+`--execute` remains mandatory.
