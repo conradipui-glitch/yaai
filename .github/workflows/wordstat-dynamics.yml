@@ -1,0 +1,82 @@
+name: Wordstat monthly dynamics
+
+on:
+  workflow_dispatch:
+    inputs:
+      manifest_url:
+        description: "Raw GitHub JSON manifest with region and service phrases"
+        required: true
+        type: string
+        default: "https://raw.githubusercontent.com/conradipui-glitch/silalesa/main/research/yaai-omsk-wordstat-pilot.json"
+      confirm_live:
+        description: "I authorize live metered Yandex Wordstat API requests"
+        required: true
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths: [".github/workflows/wordstat-dynamics.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  monthly:
+    # Only execute on explicit manual opt-in or the one-time authorized integration merge.
+    if: github.event_name == 'push' || inputs.confirm_live == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+      YANDEX_API_KEY: ${{ secrets.YANDEX_API_KEY }}
+      YANDEX_FOLDER_ID: ${{ secrets.YANDEX_FOLDER_ID }}
+      DEFAULT_MANIFEST_URL: "https://raw.githubusercontent.com/conradipui-glitch/silalesa/main/research/yaai-omsk-wordstat-pilot.json"
+      REQUESTED_MANIFEST_URL: ${{ inputs.manifest_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read reviewed project manifest without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="${REQUESTED_MANIFEST_URL:-$DEFAULT_MANIFEST_URL}"
+          # Manifests are data-only and may be fetched only from GitHub raw content.
+          case "$URL" in
+            https://raw.githubusercontent.com/*) ;;
+            *) echo "Only raw.githubusercontent.com HTTPS manifests are accepted" >&2; exit 1 ;;
+          esac
+          curl --fail --silent --show-error --location --max-time 30 "$URL" --output "$RUNNER_TEMP/research-manifest.json"
+          node -e 'const d=require(process.argv[1]); if(d.schemaVersion!==1 || d.services?.length>20) process.exit(1); console.log(JSON.stringify({region:d.region,serviceCount:d.services.length,from:d.from,to:d.to}))' "$RUNNER_TEMP/research-manifest.json"
+      - name: Collect guarded monthly Wordstat history
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/wordstat-dynamics.mjs \
+            --input "$RUNNER_TEMP/research-manifest.json" \
+            --out "$RUNNER_TEMP/monthly.csv" \
+            --summary "$RUNNER_TEMP/summary.json" \
+            --execute
+      - name: Print aggregated research, never secrets
+        shell: bash
+        run: |
+          node - "$RUNNER_TEMP/summary.json" <<'NODE'
+          const fs = require("fs");
+          const d = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+          console.log(JSON.stringify({
+            source:d.source,period:d.dataPeriod,region:d.region,
+            observations:d.observations,annualRanks:d.annualRanks,
+            monthLeaders:d.monthLeaders,
+            caution:d.phraseNote
+          },null,2));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wordstat-monthly-dynamics
+          path: |
+            ${{ runner.temp }}/monthly.csv
+            ${{ runner.temp }}/summary.json
+          retention-days: 3
