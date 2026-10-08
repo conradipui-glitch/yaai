@@ -20,6 +20,16 @@ assert.match(pilot,/actions\/download-artifact@v4/);
 assert.match(pilot,/scripts\/pain-pilot-resume\.mjs/);
 assert.match(pilot,/if: always\(\)/);
 assert.match(pilot,/actions\/upload-artifact@v4/);
+const omsk=await fs.readFile('.github/workflows/omsk-construction-pain.yml','utf8');
+assert.match(omsk,/resume_run_id:/);
+assert.match(omsk,/confirm_paid_requests:/);
+assert.match(omsk,/default: false/);
+assert.match(omsk,/actions\/download-artifact@v4/);
+assert.match(omsk,/scripts\/omsk-pain-resume\.mjs/);
+assert.match(omsk,/if: always\(\)/);
+assert.match(omsk,/actions\/upload-artifact@v4/);
+assert.doesNotMatch(omsk,/^\s+run: node scripts\/pain-wordstat\.mjs/m,
+  'Omsk workflow must route all paid calls through the guarded recovery runner');
 const dynamics=await fs.readFile('.github/workflows/wordstat-dynamics.yml','utf8');
 assert.match(dynamics,/if: inputs\.confirm_live == true/);
 console.log('live API workflows require manual launch: '+workflows.length+' guarded');
