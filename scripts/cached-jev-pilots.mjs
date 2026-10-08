@@ -3,12 +3,13 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { CASES as OMSK_CASES } from './omsk-pain-resume.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PROFILE = 'examples/evaluation-profiles/pain-discovery.json';
 const HASHED_FILES = [
   PROFILE, 'scripts/pain-analyze.mjs', 'scripts/pain-review.mjs',
-  'scripts/pain-quality.mjs', 'lib/pain-discovery.mjs',
+  'scripts/pain-quality.mjs', 'scripts/omsk-pain-resume.mjs', 'lib/pain-discovery.mjs',
   'lib/evaluation.mjs', 'lib/pain-quality.mjs', 'lib/jev.mjs',
 ];
 const OMSK_TOPICS = Object.freeze({
@@ -87,6 +88,8 @@ export async function inspectSource({ mode, code, source, repository = REPO, env
       Array.isArray(wordstat.seeds) && wordstat.seeds.length >= 1 &&
       wordstat.regions?.length === 1 && String(wordstat.regions[0].id) === '11318' &&
       String(serp.region) === '11318' &&
+      same(wordstat.seeds, OMSK_CASES[code].seeds) &&
+      same(serp.queries.map(row => row.query), OMSK_CASES[code].queries) &&
       serp.queries.length === 2 && Number(serp.groupsOnPage) === 5,
       'Cached Omsk source does not match the expected regional research.');
   } else {
