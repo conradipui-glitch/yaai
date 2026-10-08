@@ -42,9 +42,11 @@ export async function pilotFingerprint(profileFile = 'examples/evaluation-profil
   // A changed source-selection policy must invalidate old saved query plans:
   // otherwise a resumed study might silently reuse off-topic Yandex evidence.
   const relevanceCodeHash = sha256(await fs.readFile('lib/pain-relevance.mjs'));
+  const serpRelevanceCodeHash = sha256(await fs.readFile('lib/pain-serp-relevance.mjs'));
+
   const discoveryCodeHash = sha256(await fs.readFile('lib/pain-discovery.mjs'));
   return sha256(JSON.stringify({
-    ...PILOT_SETTINGS, model, profileHash, relevanceCodeHash, discoveryCodeHash,
+    ...PILOT_SETTINGS, model, profileHash, relevanceCodeHash, serpRelevanceCodeHash, discoveryCodeHash,
   }));
 }
 
