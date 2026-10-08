@@ -303,12 +303,12 @@ document.addEventListener('keydown',event=>{
 });
 function quoteCsv(v){
  let str=String(v??'');
- if(/^\s*[=+@-]/u.test(str))str="'"+str;
+ if(/^\\s*[=+@-]/u.test(str))str="'"+str;
  return '"'+str.replace(/"/g,'""')+'"';
 }
 function exportCsv(){
- const csv='\ufeff'+[header,...records.map(row=>header.map(k=>row[k]))]
-  .map(row=>row.map(quoteCsv).join(';')).join('\r\n')+'\r\n';
+ const csv='\\ufeff'+[header,...records.map(row=>header.map(k=>row[k]))]
+  .map(row=>row.map(quoteCsv).join(';')).join('\\r\\n')+'\\r\\n';
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
  const a=document.createElement('a');a.href=url;a.download='yaai-serp-review-labeled.csv';
  document.body.append(a);a.click();a.remove();
@@ -318,7 +318,7 @@ function exportCsv(){
 }
 $('save').addEventListener('click',exportCsv);
 function parseCsv(text){
- const str=String(text).replace(/^\ufeff/u,'');
+ const str=String(text).replace(/^\\ufeff/u,'');
  const rows=[];let row=[],field='',inside=false;
  for(let i=0;i<str.length;i++){
   const c=str[i];
@@ -330,8 +330,8 @@ function parseCsv(text){
    if(field!=='')throw Error('Неверные кавычки в CSV');
    inside=true;
   }else if(c===';'){row.push(field);field='';}
-  else if(c==='\r'&&str[i+1]==='\n'){row.push(field);rows.push(row);field='';row=[];i++;}
-  else if(c==='\n'){row.push(field);rows.push(row);field='';row=[];}
+  else if(c==='\\r'&&str[i+1]==='\\n'){row.push(field);rows.push(row);field='';row=[];i++;}
+  else if(c==='\\n'){row.push(field);rows.push(row);field='';row=[];}
   else field+=c;
  }
  if(inside)throw Error('В CSV не закрыта кавычка');
