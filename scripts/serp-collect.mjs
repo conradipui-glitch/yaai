@@ -3,6 +3,7 @@ import path from 'node:path';
 
 import { decodeYandexSearchResponse } from '../lib/serp-evidence.mjs';
 import { discoverYandexFolderId } from '../lib/yandex-folder.mjs';
+import { collectYandexWithCheckpoints } from '../lib/yandex-checkpoints.mjs';
 
 const API_URL = 'https://searchapi.api.cloud.yandex.net/v2/web/search';
 const REQUEST_DELAY_MS = 500;
@@ -144,14 +145,25 @@ if (!folder) {
   throw new Error('Yandex Search folder ID is missing and could not be derived. Set YANDEX_SEARCH_FOLDER_ID, YANDEX_FOLDER_ID or YAIS_FOLDER_ID.');
 }
 
-const collected = [];
-for (let index = 0; index < queries.length; index += 1) {
-  const query = queries[index];
-  const result = await search(query, { region, groupsOnPage, key, folder });
-  collected.push(result);
-  console.error(`SERP ${index + 1}/${queries.length}: ${query} -> ${result.results.length} results`);
-  if (index < queries.length - 1) await sleep(REQUEST_DELAY_MS);
-}
+const checkpointed = await collectYandexWithCheckpoints({
+  kind: 'yandex-serp-v1',
+  output,
+  requests: queries.map(query => ({
+    query, region: String(region), groupsOnPage, folder, ownDomain,
+  })),
+  validateResult(result, request) {
+    if(result?.query !== request.query || !Array.isArray(result?.results) ||
+       result.results.length > groupsOnPage) {
+      throw new Error('Invalid saved SERP result for '+request.query);
+    }
+  },
+  fetchRequest: async ({query})=>search(query,{region,groupsOnPage,key,folder}),
+  onProgress: async ({index,total,request,result,reused})=>{
+    console.error('SERP '+index+'/'+total+': '+request.query+' -> '+result.results.length+' results'+(reused?' [reused]':''));
+    if(!reused && index < total) await sleep(REQUEST_DELAY_MS);
+  },
+});
+const collected = checkpointed.results;
 
 const dataset = {
   schemaVersion: 1,
@@ -172,7 +184,9 @@ console.log(JSON.stringify({
   saved: destination,
   generatedAt: dataset.generatedAt,
   region: dataset.region,
+  newApiCalls: checkpointed.newCalls,
+  reusedApiCalls: checkpointed.reusedCalls,
   queries: dataset.queries.length,
   results: dataset.queries.reduce((sum, item) => sum + item.results.length, 0),
-  note: 'This command made live Yandex Search API requests. Keep the resulting evidence file private when it contains client research.',
+  note: 'New live API requests and previously saved responses are counted separately. Keep evidence and checkpoints private.',
 }, null, 2));
