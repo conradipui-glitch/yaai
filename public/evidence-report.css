@@ -92,7 +92,8 @@ code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:an
 .metric{padding:16px}.claims{grid-template-columns:1fr}.claim{padding:19px}
 .section-head{display:block}.section-head p{margin-top:9px}
 .toolbar{align-items:stretch}.toolbar label{width:100%}
-.toolbar select,.toolbar input{width:100%}.toolbar button{flex:1}.footer{display:block}}
+.toolbar select,.toolbar input{width:100%}.toolbar button{flex:1}.footer{display:block}
+.swipe-note{display:block}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{
 :root{background:#fff}*{box-shadow:none!important;animation:none!important;transition:none!important}
