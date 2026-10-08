@@ -73,6 +73,34 @@ npm run serp:collect -- \
 
 Stores only result titles, passages, URLs and result positions. No full pages are fetched. A snippet is not automatically a customer's complaint.
 
+### SERP relevance before Jev (offline)
+
+After Yandex returns the raw SERP, YA AI examines **unique valid snippets**
+before selecting its limited and potentially billable Jev batch. Original
+`serp.json` is left intact.
+
+For lead/request/CRM research, only clearly unrelated personal-name
+greetings, a journalist surname, literal-road pages and search-query
+homonyms are automatically excluded. Pages without an exact topic-word
+match are **retained** with a `topic-not-explicit-in-excerpt` flag,
+because genuinely early/emerging signals and synonyms may use unfamiliar
+vocabulary. Business-context pages, seller promotions and model negatives
+are also retained. This is a conservative heuristic, **not a universal
+semantic relevance model**.
+
+The Pain Map records a separate `serpSourceSelection` audit, which counts
+eligible unique source snippets *before* the Jev limit, and distinguishes
+`excluded` with reasons from `review` with retained URLs. Each Jev-assessed
+SERP observation also retains its `sourceRelevance` decision. An excluded
+source is **not** an erroneous Jev classification, a human negative label
+or a confirmed irrelevant market signal. The report displays the audit and
+links to original pages for manual inspection. Source citations are still
+SERP snippets, not verified full page texts.
+
+The offline regression `npm run pain:serp:relevance:selftest` covers
+intentional off-topic pages, alternative vocabulary, marketing promotions,
+source integrity, HTML escaping and report traceability. No API call is made.
+
 ## 4. Jev → Pain Map
 
 The already configured YAIS_AI / OPENROUTER_API_KEY is used for model calls.
