@@ -40,7 +40,8 @@ export async function fingerprintOmskStudy(code, {
   const checkedFiles = ['examples/evaluation-profiles/pain-discovery.json',
     'scripts/pain-wordstat.mjs', 'scripts/pain-prepare.mjs',
     'scripts/serp-collect.mjs', 'scripts/pain-analyze.mjs',
-    'lib/pain-discovery.mjs', 'lib/evaluation.mjs'];
+    'lib/pain-discovery.mjs', 'lib/pain-relevance.mjs',
+    'lib/pain-serp-relevance.mjs', 'lib/evaluation.mjs'];
   const fileHashes = {};
   for (const name of checkedFiles) {
     fileHashes[name] = hash(await fs.readFile(path.join(repository, name)));

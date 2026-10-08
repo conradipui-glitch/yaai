@@ -11,6 +11,7 @@ const HASHED_FILES = [
   PROFILE, 'scripts/pain-analyze.mjs', 'scripts/pain-review.mjs',
   'scripts/pain-quality.mjs', 'scripts/omsk-pain-resume.mjs', 'lib/pain-discovery.mjs',
   'lib/evaluation.mjs', 'lib/pain-quality.mjs', 'lib/jev.mjs',
+  'lib/pain-relevance.mjs', 'lib/pain-serp-relevance.mjs',
 ];
 const OMSK_TOPICS = Object.freeze({
   roofing: 'кровельные работы',
