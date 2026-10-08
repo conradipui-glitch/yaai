@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { evaluateItemsWithJev } from '../lib/evaluation.mjs';
+import { prepareJevCheckpoints } from '../lib/jev-checkpoints.mjs';
 import { DEFAULT_JEV_MODEL, resolveOpenRouterApiKey } from '../lib/jev.mjs';
 
 const args = process.argv.slice(2);
@@ -37,14 +38,17 @@ if (!Array.isArray(items)) {
   throw new Error('Evaluation input must be an array or an object with items array. Each item requires id + state.');
 }
 
+const checkpoint = await prepareJevCheckpoints({ outputPath, checkpointDir: flag('--checkpoint-dir') });
+
 const dataset = await evaluateItemsWithJev({
   items,
   profile,
+  checkpoint,
   model,
   apiKey,
   delayMs,
-  onProgress: ({ index, total, itemId, route, cost }) => {
-    console.error(`Jev ${index}/${total}: ${itemId} -> ${route.needsReview ? 'review' : 'confident'} cost=${cost}`);
+  onProgress: ({ index, total, itemId, route, cost, reused }) => {
+    console.error(`Jev ${index}/${total}: ${itemId} -> ${route.needsReview ? 'review' : 'confident'} cost=${cost}${reused ? ' [reused]' : ''}`);
   },
 });
 
@@ -57,6 +61,9 @@ console.log(JSON.stringify({
   modelRequested: dataset.modelRequested,
   profileId: dataset.profile.id,
   itemCount: dataset.summary.itemCount,
+  reusedCount: dataset.summary.reusedCount,
+  newlyEvaluatedCount: dataset.summary.newlyEvaluatedCount,
+  newMeasuredCostSubtotal: dataset.summary.newMeasuredCostSubtotal,
   needsReviewCount: dataset.summary.needsReviewCount,
   totalCost: dataset.summary.totalCost,
   totalInputTokens: dataset.summary.totalInputTokens,
