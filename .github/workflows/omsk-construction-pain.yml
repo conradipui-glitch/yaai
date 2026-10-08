@@ -2,17 +2,12 @@ name: Omsk construction Pain Discovery pilot
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/omsk-construction-pain.yml"
-
 permissions:
   contents: read
 
 jobs:
   verify-region:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-omsk-pain-pilot]')
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
