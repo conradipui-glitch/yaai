@@ -1,4 +1,8 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { createJevCheckpointStore, prepareJevCheckpoints } from '../lib/jev-checkpoints.mjs';
 
 import {
   evaluateItemsWithJev,
@@ -196,4 +200,91 @@ const trulyFree=await evaluateItemsWithJev({
 assert.equal(trulyFree.summary.totalCost,0);
 assert.equal(trulyFree.summary.missingCostCount,0);
 
-console.log('jev evaluation selftest: ok');
+
+const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'yaai-jev-resume-'));
+try {
+  const checkpoint = createJevCheckpointStore(path.join(directory, 'result.json.jev-checkpoints'));
+  const batch = [
+    { id: 'resume-a', state: { text: 'first' }, meta: { source: 'fixture' } },
+    { id: 'resume-b', state: { text: 'second' }, meta: { source: 'fixture' } },
+    { id: 'resume-c', state: { text: 'third' }, meta: { source: 'fixture' } },
+  ];
+  let failed = true;
+  let attempted = 0;
+  const decision = async ({ state }) => {
+    attempted++;
+    if (failed && state.text === 'second') throw new Error('simulated outage');
+    return fakeCall({ state });
+  };
+  await assert.rejects(
+    evaluateItemsWithJev({ items: batch, profile, checkpoint, callDecision: decision }),
+    /simulated outage/,
+  );
+  assert.equal(attempted, 2);
+  assert.equal((await fs.readdir(checkpoint.root)).filter(f => f.endsWith('.json')).length, 1);
+  failed = false;
+  const resumed = await evaluateItemsWithJev({
+    items: batch, profile, checkpoint, callDecision: decision,
+  });
+  assert.equal(attempted, 4, 'only the remaining two decisions should be paid');
+  assert.equal(resumed.summary.itemCount, 3);
+  assert.equal(resumed.summary.reusedCount, 1);
+  assert.equal(resumed.summary.newlyEvaluatedCount, 2);
+  assert.equal(resumed.summary.totalCost, 0.0000378);
+  assert.equal(resumed.summary.newMeasuredCostSubtotal, 0.0000252);
+  const allCached = await evaluateItemsWithJev({
+    items: batch, profile, checkpoint, callDecision: async () => {
+      throw new Error('cached batch must never call the API');
+    },
+  });
+  assert.equal(allCached.summary.reusedCount, 3);
+  assert.equal(allCached.summary.newlyEvaluatedCount, 0);
+  assert.equal(allCached.summary.newMeasuredCostSubtotal, 0);
+  assert.deepEqual(allCached.evaluations, resumed.evaluations);
+  const updated = await evaluateItemsWithJev({
+    items: [{ ...batch[0], state: { text: 'changed evidence' } }, ...batch.slice(1)],
+    profile, checkpoint, callDecision: decision,
+  });
+  assert.equal(updated.summary.reusedCount, 2);
+  assert.equal(updated.summary.newlyEvaluatedCount, 1);
+  const otherModel = await evaluateItemsWithJev({
+    items: batch, profile, model: 'typesafe/different-snapshot',
+    checkpoint, callDecision: decision,
+  });
+  assert.equal(otherModel.summary.reusedCount, 0, 'a model change invalidates all cached decisions');
+  assert.equal(otherModel.summary.newlyEvaluatedCount, 3);
+  const differentProfile = await evaluateItemsWithJev({
+    items: batch, profile: { ...profile, reviewThreshold: 0.81 },
+    checkpoint, callDecision: decision,
+  });
+  assert.equal(differentProfile.summary.reusedCount, 0, 'a profile change invalidates cached decisions');
+
+  const duplicateItems = [batch[0], { ...batch[0], state: { text: 'another' } }];
+  await assert.rejects(evaluateItemsWithJev({
+    items: duplicateItems, profile, checkpoint, callDecision: () => {
+      throw new Error('paid call must not happen');
+    },
+  }), /Duplicate evaluation item ID/);
+
+  const existingOutput = path.join(directory, 'already.json');
+  await fs.writeFile(existingOutput, '{}');
+  await assert.rejects(prepareJevCheckpoints({
+    outputPath: existingOutput,
+  }), /Refusing to spend on an existing output file/);
+  await assert.rejects(prepareJevCheckpoints({
+    outputPath: path.join(directory, 'same.json'),
+    checkpointDir: path.join(directory, 'same.json'),
+  }), /directory must be separate/);
+
+  const files = (await fs.readdir(checkpoint.root)).filter(f => f.endsWith('.json'));
+  await fs.writeFile(path.join(checkpoint.root, files[0]), 'invalid-json');
+  await assert.rejects(evaluateItemsWithJev({
+    items: batch, profile, checkpoint, callDecision: () => {
+      throw new Error('API must not run on corrupt checkpoint');
+    },
+  }), /Corrupt Jev checkpoint JSON/);
+} finally {
+  await fs.rm(directory, { recursive: true, force: true });
+}
+
+console.log('jev evaluation selftest: ok (includes interrupted/resumed jobs, invalidation, output guards)');
