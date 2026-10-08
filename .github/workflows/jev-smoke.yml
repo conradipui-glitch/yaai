@@ -2,14 +2,6 @@ name: Jev smoke
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "lib/jev.mjs"
-      - "lib/evaluation.mjs"
-      - "scripts/jev-smoke.mjs"
-      - ".github/workflows/jev-smoke.yml"
-
 jobs:
   smoke:
     runs-on: ubuntu-latest
