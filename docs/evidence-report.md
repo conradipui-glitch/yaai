@@ -125,3 +125,27 @@ npm run check
 Внимание: это ручная техническая и визуальная QA-проверка одной реальной
 выборки. Для оценки точности модели по-прежнему нужны независимые
 человеческие метки. Не подменяйте ими оценки Jev.
+
+
+## Quality Gate: what the model never received
+
+New Pain Maps may carry a `sourceSelection` section. It documents Wordstat
+candidate phrases excluded by the **offline homonym relevance check** before
+planning paid search requests or sending source excerpts to Jev.
+
+The standalone HTML report adds a compact, expandable audit listing each
+excluded phrase and the rule that fired. The standardized JSON includes
+the same information under `sourceSelection`. Rejected candidates are
+**not** included among Jev's model-negative predictions or counted as
+human-labeled negatives. The original Wordstat file remains unchanged.
+
+Historic Pain Maps without the new field are still readable: the renderer
+does **not** fabricate a zero-exclusion statistic for them. The rule catches
+obvious personal-name/road collisions in lead-generation topics, but it
+does not validate every query's business relevance. Users should manually
+review unclear queries and ensure source snippets really discuss the
+intended topic.
+
+Validation is covered by `npm run pain:relevance:selftest`, using a set
+of intentionally ambiguous phrases and known relevant marketing terms
+without spending tokens or calling search APIs.
