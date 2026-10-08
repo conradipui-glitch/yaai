@@ -2,14 +2,6 @@ name: Transcript Jev smoke
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "lib/youtube-transcripts.mjs"
-      - "scripts/transcript-smoke.mjs"
-      - "examples/evaluation-profiles/transcript-intelligence.json"
-      - ".github/workflows/transcript-smoke.yml"
-
 jobs:
   transcript-jev:
     runs-on: ubuntu-latest
