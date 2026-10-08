@@ -39,7 +39,13 @@ function normalizeJson(text, filename) {
 export async function pilotFingerprint(profileFile = 'examples/evaluation-profiles/pain-discovery.json', env = process.env) {
   const model = String(env.YAAI_JEV_MODEL || 'typesafe/jev-1.13');
   const profileHash = sha256(await fs.readFile(profileFile));
-  return sha256(JSON.stringify({ ...PILOT_SETTINGS, model, profileHash }));
+  // A changed source-selection policy must invalidate old saved query plans:
+  // otherwise a resumed study might silently reuse off-topic Yandex evidence.
+  const relevanceCodeHash = sha256(await fs.readFile('lib/pain-relevance.mjs'));
+  const discoveryCodeHash = sha256(await fs.readFile('lib/pain-discovery.mjs'));
+  return sha256(JSON.stringify({
+    ...PILOT_SETTINGS, model, profileHash, relevanceCodeHash, discoveryCodeHash,
+  }));
 }
 
 export async function inspectPilot(directory, fingerprint) {

@@ -30,6 +30,36 @@ npm run pain:prepare -- \
 
 Wordstat-observed phrases and newly generated search hypotheses are labeled separately. **Generated queries are not measured demand.** Review the query file before paying for Search API calls.
 
+### Relevance guard before paid steps
+
+YA AI now runs a **conservative offline word-sense check** on Wordstat
+candidate phrases when the research is about processing requests, leads,
+sales or CRM. A phrase about congratulating a person named Лида, a surname
+Лидов or a literal road should not be mistaken for marketing leads or
+expensive enquiries. The rule **does not reject every short or ambiguous
+phrase**: uncertain observations remain eligible and are flagged for human
+review rather than silently treated as irrelevant.
+
+The query plan saves a `relevanceAudit` section with the candidate count,
+excluded count, reason codes and the **original text and observed count** of
+each rejected phrase. The same guard applies again before selecting
+Wordstat observations for paid Jev evaluation; the Pain Map stores
+`sourceSelection`, and the standalone Evidence Report surfaces the audit.
+
+This is a narrowly targeted **heuristic**, not a semantic proof of relevance.
+It does not fetch webpages, revise the original Wordstat data or improve Jev
+accuracy by itself. If a flagged term is relevant to your real business,
+inspect the original source and revise the study topic/query plan explicitly.
+Never infer a reduction in model false positives without independent human
+labels.
+
+**Versioning:** Research-resume manifests bind the rules/code used for source
+selection. After this change, old query plans may be incompatible with a new
+resume; start a fresh research directory if the manifest rejects it, and
+review costs again before authorizing new Yandex/Jev calls.
+
+
+
 ## 3. Existing Yandex SERP collector
 
 ~~~bash
