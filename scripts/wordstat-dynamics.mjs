@@ -149,7 +149,7 @@ for(const [index,service] of manifest.services.entries()){
   await fs.writeFile(checkpointPath,[
     "month,service,queries,region,phrase",
     ...resultRows.map(r=>[r.month,r.service,r.queries??"",r.region,r.phrase].map(csvCell).join(","))
-  ].join("\\n")+"\\n","utf8");
+  ].join("\n")+"\n","utf8");
   await new Promise(resolve=>setTimeout(resolve,800));
 }
 if(resultRows.length!==months.length*manifest.services.length)fail("Missing rows for complete seasonal baseline");
