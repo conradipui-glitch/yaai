@@ -153,6 +153,18 @@ See **[docs/evaluation-layer.md](docs/evaluation-layer.md)** and **[docs/youtube
 
 Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
 
+## Pain Quality — проверка на ручной разметке
+
+После Pain Discovery создаём слепую выборку, включая пропущенные Jev кандидаты. Человек размечает исходные свидетельства, а не ответы модели.
+
+```bash
+npm run pain:review -- --map /private/pain-map.json --out /private/pain-review.json --sample-size 100
+npm run pain:review:interactive -- --review /private/pain-review.json --reviewer analyst
+npm run pain:quality -- --map /private/pain-map.json --review /private/pain-review.json --out /private/pain-quality.json --md /private/pain-quality.md
+```
+
+Получаем precision, recall, подтверждённость источниками и стоимость Jev на верно найденную боль. Без человеческих меток эти показатели не считаются.
+См. [docs/pain-quality.md](docs/pain-quality.md).
 ## Pain Discovery v1
 
 Find **candidate audience problems** using observed Yandex Wordstat phrases, SERP titles/passages, and cheap Jev classification. This reuses the current Wordstat/Search API connections, not a new external service.
