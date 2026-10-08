@@ -1,0 +1,61 @@
+name: Pain Discovery live smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lib/pain-discovery.mjs"
+      - "scripts/pain-wordstat.mjs"
+      - "scripts/pain-prepare.mjs"
+      - "scripts/pain-analyze.mjs"
+      - "examples/evaluation-profiles/pain-discovery.json"
+      - ".github/workflows/pain-discovery-smoke.yml"
+  workflow_dispatch:
+
+jobs:
+  yandex-jev-pain-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify required secrets exist
+        env:
+          YAIS_API: ${{ secrets.YAIS_API }}
+          YAIS_AI: ${{ secrets.YAIS_AI }}
+        run: |
+          test -n "$YAIS_API" || { echo "YAIS_API unavailable"; exit 1; }
+          test -n "$YAIS_AI" || { echo "YAIS_AI unavailable"; exit 1; }
+      - name: Real capped Yandex Wordstat (one request)
+        env:
+          YAIS_API: ${{ secrets.YAIS_API }}
+          YAIS_ID: ${{ secrets.YAIS_ID }}
+          YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+        run: |
+          npm run pain:wordstat -- --seeds "дорогие лиды" --region 225 --num-phrases 15 --out /tmp/pain-wordstat.json --execute
+      - name: Prepare one search query
+        run: |
+          npm run pain:prepare -- --topic "обработка лидов" --wordstat /tmp/pain-wordstat.json --limit 1 --out /tmp/pain-plan.json --query-file /tmp/pain-queries.txt
+      - name: Real Yandex SERP (one request, three results)
+        env:
+          YAIS_API: ${{ secrets.YAIS_API }}
+          YAIS_ID: ${{ secrets.YAIS_ID }}
+          YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+        run: |
+          npm run serp:collect -- --query-file /tmp/pain-queries.txt --region 225 --groups 3 --out /tmp/pain-serp.json --execute
+      - name: Real capped Jev classifications
+        env:
+          YAIS_AI: ${{ secrets.YAIS_AI }}
+        run: |
+          npm run pain:analyze -- --topic "обработка лидов" --wordstat /tmp/pain-wordstat.json --serp /tmp/pain-serp.json --limit 4 --out /tmp/pain-map.json --md /tmp/pain-map.md --execute
+      - name: Validate saved evidence
+        run: |
+          node --input-type=module -e "import fs from 'node:fs'; const d=JSON.parse(fs.readFileSync('/tmp/pain-map.json'));if(!Array.isArray(d.cards)||d.summary.measuredModelCostUsd==null)process.exit(1);console.log(JSON.stringify({itemCount:d.input.evidenceItemCount,categories:d.summary.painCategories,accepted:d.summary.acceptedEvidence,costUsd:d.summary.measuredModelCostUsd}));"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pain-discovery-smoke-evidence
+          path: |
+            /tmp/pain-map.json
+            /tmp/pain-map.md
+          retention-days: 2
