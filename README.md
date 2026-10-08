@@ -259,3 +259,10 @@ Unknown Wordstat counts and unknown Jev usage costs are represented as `null`, n
 Pain Quality distinguishes cost per **human-accepted pain** and cost per **source-supported true positive**. The latter requires the human to mark the original excerpt as supporting the pain.
 
 Checks: `npm run audit:selftest`, `npm run check` (offline; no real Yandex/OpenRouter calls).
+
+
+### Live API smoke tests are opt-in (0.18.2)
+
+GitHub Actions tests that call Yandex Wordstat, Yandex Search, OpenRouter/Jev, or cached Jev research now use **manual** `workflow_dispatch` only. Merging code no longer silently launches these 10 metered/research workflows. Run them explicitly from GitHub → Actions when you want a live integration check; standard CI still runs automatically on pull requests and main pushes without API credentials. The Wordstat monthly dynamics workflow additionally requires `confirm_live=true`.
+
+Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows regains a `push` trigger. This does not disable other manually triggered workflows, nor guarantee zero charges from workflows added in the future.

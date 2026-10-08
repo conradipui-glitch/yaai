@@ -11,13 +11,6 @@ on:
         description: Yandex region id
         required: false
         default: "66"
-  push:
-    paths:
-      - '.github/workflows/serp-smoke.yml'
-      - 'scripts/serp-collect.mjs'
-      - 'scripts/serp-analyze.mjs'
-      - 'lib/serp-evidence.mjs'
-
 jobs:
   smoke:
     runs-on: ubuntu-latest

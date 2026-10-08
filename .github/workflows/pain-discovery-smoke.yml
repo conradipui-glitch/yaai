@@ -1,15 +1,6 @@
 name: Pain Discovery live smoke
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "lib/pain-discovery.mjs"
-      - "scripts/pain-wordstat.mjs"
-      - "scripts/pain-prepare.mjs"
-      - "scripts/pain-analyze.mjs"
-      - "examples/evaluation-profiles/pain-discovery.json"
-      - ".github/workflows/pain-discovery-smoke.yml"
   workflow_dispatch:
 
 jobs:

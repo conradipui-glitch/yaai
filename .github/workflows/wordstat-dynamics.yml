@@ -13,17 +13,13 @@ on:
         required: true
         type: boolean
         default: false
-  push:
-    branches: [main]
-    paths: [".github/workflows/wordstat-dynamics.yml", "scripts/wordstat-dynamics.mjs"]
-
 permissions:
   contents: read
 
 jobs:
   monthly:
     # Only execute on explicit manual opt-in or the one-time authorized integration merge.
-    if: (github.event_name == 'push' && contains(github.event.head_commit.message, '[live-wordstat-research]')) || (github.event_name == 'workflow_dispatch' && inputs.confirm_live == true)
+    if: inputs.confirm_live == true
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
