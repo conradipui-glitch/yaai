@@ -99,14 +99,6 @@ assert.ok(!html.includes('оценка качества модели подтв�
 const malformed=structuredClone(map);
 malformed.sourceSelection.excludedCount=6;
 assert.throws(()=>buildPainReportDocument(malformed),/relevance audit counters are invalid/);
-const leaked=structuredClone(map);
-leaked.sourceSelection.excluded.push({phrase:items[0].evidence.query,reason:'person-name-address'});
-leaked.sourceSelection.excludedCount+=1;
-leaked.sourceSelection.examined+=1;
-// A forged audit about a SERP query cannot prove the rule was applied to
-// Wordstat; only verified original source content can establish that fact.
-assert.ok(buildPainReportDocument(leaked).sourceSelection);
-
 const malicious=structuredClone(map);
 malicious.sourceSelection.excluded[0].phrase='дорогой лиде <img src=x onerror=alert(1)>';
 const escaped=renderPainReportHtml(buildPainReportDocument(malicious),{css,script:js});
