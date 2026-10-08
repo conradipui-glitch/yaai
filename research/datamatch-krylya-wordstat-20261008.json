@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "project": "DataMatch — поисковый интерес к хоккею и досугу в Омске",
+  "region": "Омская область",
+  "from": "2024-01-01",
+  "to": "2025-12-31",
+  "period": "PERIOD_MONTHLY",
+  "devices": ["DEVICE_ALL"],
+  "researchStatus": "exploratory-historical-search-interest",
+  "notes": "История поисковых запросов за 2024–2025 календарные годы, а не два полных хоккейных сезона. Не покрывает открытие СКК в 2026 году. Фразы пересекаются, числа нельзя складывать или трактовать как людей, покупателей, посещения, размер рынка либо конверсию в билет. Не устанавливает влияние Telegram или причинность. 10 фраз; жесткий лимит всего запуска — 12 HTTP-обращений Wordstat, включая поиск региона, определение folder и повторы. Другие платные API не разрешены.",
+  "services": [
+    {"code": "krylya", "phrase": "омские крылья"},
+    {"code": "krylya-tickets", "phrase": "омские крылья билеты"},
+    {"code": "krylya-schedule", "phrase": "омские крылья расписание"},
+    {"code": "hockey-omsk", "phrase": "хоккей омск"},
+    {"code": "hockey-tickets-omsk", "phrase": "билеты на хоккей омск"},
+    {"code": "blinov", "phrase": "скк блинова"},
+    {"code": "avangard-tickets", "phrase": "авангард билеты"},
+    {"code": "vhl-tickets", "phrase": "билеты вхл"},
+    {"code": "leisure-omsk", "phrase": "куда сходить в омске"},
+    {"code": "afisha-omsk", "phrase": "афиша омск"}
+  ]
+}

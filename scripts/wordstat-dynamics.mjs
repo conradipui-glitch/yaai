@@ -53,6 +53,17 @@ if (!execute) {
   console.log(JSON.stringify({region:manifest.region,services:manifest.services.length,months:months.length,estimatedCalls:manifest.services.length}));
   process.exit(0);
 }
+// Temporary research branch only: user authorized at most 12 Wordstat calls.
+const originalFetch = globalThis.fetch.bind(globalThis);
+let wordstatRequests = 0;
+globalThis.fetch = (url, options) => {
+  if (!String(url).startsWith(`${ENDPOINT}/`)) fail("Research authorization covers Wordstat only; other API calls blocked");
+  if (wordstatRequests >= 12) fail("Wordstat request budget exhausted (12); no additional HTTP call made");
+  wordstatRequests += 1;
+  console.log(`WORDSTAT_REQUEST_BUDGET ${wordstatRequests}/12 ${String(url).split('/').at(-1)}`);
+  return originalFetch(url, options);
+};
+
 const apiKey=String(process.env.YAIS_API||process.env.YANDEX_API_KEY||"").trim();
 const keyId=String(process.env.YAIS_ID||"").trim();
 let folderId=String(process.env.YAIS_FOLDER_ID||process.env.YANDEX_FOLDER_ID||"").trim();
