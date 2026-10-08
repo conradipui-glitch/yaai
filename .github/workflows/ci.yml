@@ -7,9 +7,6 @@ on:
 
 jobs:
   check:
-    permissions:
-      contents: read
-      actions: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,26 +15,3 @@ jobs:
           node-version: 22
       - run: npm run check
       - run: node scripts/encoding-selftest.mjs
-
-      # Temporary QA only: process an existing blind sample; remove before merge.
-      - name: Restore previously prepared 48-row blind sample
-        if: github.head_ref == 'feat/serp-review-ui-20261009'
-        uses: actions/download-artifact@v4
-        with:
-          run-id: 37855449253
-          github-token: ${{ github.token }}
-          name: serp-human-review-private-qa
-          path: ${{ runner.temp }}/blind-sample
-      - name: Generate an offline browser review for the real sample
-        if: github.head_ref == 'feat/serp-review-ui-20261009'
-        run: |
-          node scripts/serp-review-html.mjs \
-            --blind "$RUNNER_TEMP/blind-sample/serp-human-review.blind.csv" \
-            --html "$RUNNER_TEMP/yaai-serp-review-48.html"
-      - name: Upload real-data reviewer HTML for private QA
-        if: github.head_ref == 'feat/serp-review-ui-20261009'
-        uses: actions/upload-artifact@v4
-        with:
-          name: yaai-serp-review-ui-private-qa
-          path: ${{ runner.temp }}/yaai-serp-review-48.html
-          retention-days: 1
