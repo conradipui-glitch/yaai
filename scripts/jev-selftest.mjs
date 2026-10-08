@@ -276,8 +276,17 @@ try {
     checkpointDir: path.join(directory, 'same.json'),
   }), /directory must be separate/);
 
-  const files = (await fs.readdir(checkpoint.root)).filter(f => f.endsWith('.json'));
-  await fs.writeFile(path.join(checkpoint.root, files[0]), 'invalid-json');
+  const expectedSignature = hashEvaluationState({
+    version: 1, itemId: batch[0].id, state: batch[0].state,
+    meta: batch[0].meta, model: DEFAULT_JEV_MODEL,
+    profile: {
+      id: profile.id, name: profile.name,
+      questions: profile.questions,
+      reviewThreshold: profile.reviewThreshold,
+      reviewQuestions: null,
+    },
+  });
+  await fs.writeFile(path.join(checkpoint.root, expectedSignature + '.json'), 'invalid-json');
   await assert.rejects(evaluateItemsWithJev({
     items: batch, profile, checkpoint, callDecision: () => {
       throw new Error('API must not run on corrupt checkpoint');
