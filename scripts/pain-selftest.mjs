@@ -110,4 +110,26 @@ assert.ok(regionalPainSignals.some(x=>x.evidence.query==='трещины стя�
 assert.ok(regionalPainSignals.some(x=>x.evidence.kind==='serp_snippet'));
 assert.ok(regionalPainSignals.find(x=>x.evidence.query==='полусухая стяжка цена').evidence.note.includes('do not prove pain'));
 
+const twoQueries={
+  generatedAt:'2026-10-08T10:00:00Z',region:'11318',queries:[
+    {query:'кровельные работы цена',results:Array.from({length:5},(_,i)=>({
+      position:i+1,url:'https://prices.example/p'+i,title:'Прайс',passage:'Стоимость работ '+i
+    }))},
+    {query:'течет крыша что делать',results:Array.from({length:5},(_,i)=>({
+      position:i+1,url:'https://defects.example/p'+i,title:'Протечка кровли',passage:'Как устранить протечку '+i
+    }))}
+  ]
+};
+const selectedAcrossQueries=buildPainEvidenceItems({
+  topic:'кровельные работы',wordstat:{rows:[
+    {phrase:'кровельные работы цена',count:40},{phrase:'трещина в кровле',count:9}
+  ]},
+  serp:twoQueries,limit:6
+});
+const selectedSnippets=selectedAcrossQueries.filter(x=>x.evidence.kind==='serp_snippet');
+assert.equal(selectedSnippets.length,4);
+assert.equal(selectedSnippets.filter(x=>x.evidence.query==='кровельные работы цена').length,2);
+assert.equal(selectedSnippets.filter(x=>x.evidence.query==='течет крыша что делать').length,2);
+assert.equal(selectedAcrossQueries.filter(x=>x.evidence.kind==='wordstat_phrase').length,2);
+
 console.log('pain discovery selftest: ok');
