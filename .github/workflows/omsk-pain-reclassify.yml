@@ -1,0 +1,94 @@
+name: Reclassify cached Omsk search demand and SERP with Jev
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/omsk-pain-reclassify.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  reclassify:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[reclassify-omsk-pain]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - code: roofing
+            topic: "кровельные работы"
+          - code: screed
+            topic: "полусухая стяжка"
+          - code: facades
+            topic: "фасадные работы"
+    env:
+      YAIS_AI: ${{ secrets.YAIS_AI }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Reuse prior saved Wordstat and SERP, no new Yandex calls
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 37803639247
+          github-token: ${{ github.token }}
+          name: omsk-pain-${{ matrix.code }}
+          path: ${{ runner.temp }}/input
+      - name: Evaluate a balanced cached 8-observation sample
+        run: |
+          mkdir -p "$RUNNER_TEMP/reclassified"
+          node scripts/pain-analyze.mjs \
+            --topic "${{ matrix.topic }}" \
+            --wordstat "$RUNNER_TEMP/input/wordstat.json" \
+            --serp "$RUNNER_TEMP/input/serp.json" \
+            --limit 8 \
+            --out "$RUNNER_TEMP/reclassified/pain-map.json" \
+            --md "$RUNNER_TEMP/reclassified/pain-map.md" \
+            --evaluation-out "$RUNNER_TEMP/reclassified/jev-evidence.json" \
+            --execute
+      - name: Create blind review queue, not model-as-human labels
+        run: |
+          node scripts/pain-review.mjs \
+            --map "$RUNNER_TEMP/reclassified/pain-map.json" \
+            --sample-size 8 \
+            --out "$RUNNER_TEMP/reclassified/review-unlabeled.json"
+          node scripts/pain-quality.mjs \
+            --map "$RUNNER_TEMP/reclassified/pain-map.json" \
+            --review "$RUNNER_TEMP/reclassified/review-unlabeled.json" \
+            --target-labels 8 \
+            --out "$RUNNER_TEMP/reclassified/quality.json"
+      - name: Print source-aware evidence selection and model uncertainty
+        run: |
+          node --input-type=module - "$RUNNER_TEMP/reclassified/pain-map.json" <<'NODE'
+          import fs from 'node:fs';
+          const d=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+          const report={
+            topic:d.topic,
+            input:d.input,
+            summary:d.summary,
+            classifications:d.evidenceLedger.map(x=>({
+              kind:x.kind,query:x.query,observedCount:x.observedCount,
+              sourceUrl:x.url,
+              accepted:x.classification?.accepted,
+              category:x.classification?.category,
+              probability:x.classification?.painProbability,
+              needsReview:x.classification?.needsReview
+            }))
+          };
+          console.log('OMSK_CACHED_RECLASSIFICATION_START');
+          console.log(JSON.stringify(report,null,2));
+          console.log('OMSK_CACHED_RECLASSIFICATION_END');
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: omsk-reclassified-${{ matrix.code }}
+          path: ${{ runner.temp }}/reclassified/
+          if-no-files-found: ignore
+          retention-days: 5
