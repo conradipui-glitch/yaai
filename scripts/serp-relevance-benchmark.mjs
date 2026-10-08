@@ -8,6 +8,7 @@ const HEADERS = [
   'id','decision','query','title','excerpt','url','reason',
   'gold_relevance','gold_useful_signal','reviewer_note',
 ];
+const BLIND_HEADERS=['id','query','title','excerpt','url','gold_relevance','gold_useful_signal','reviewer_note'];
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const requireTrue = (condition, message) => {
   if (!condition) throw Error('SERP benchmark: ' + message);
@@ -122,6 +123,7 @@ export function buildReviewPack({topic,serp,size=48,seed='benchmark-v1'}={}) {
     },
     rows,
     csv:csvString([HEADERS,...rows.map(row=>HEADERS.map(field=>row[field]))]),
+    blindCsv:csvString([BLIND_HEADERS,...rows.map(row=>BLIND_HEADERS.map(field=>row[field]))]),
   };
 }
 
@@ -130,21 +132,29 @@ export function scoreReviewPack({manifest,csv}={}) {
     Array.isArray(manifest.rows),'invalid review manifest');
   requireTrue(manifest.rows.length===manifest.sampleCount, 'manifest count mismatch');
   const records=parseCsv(csv);
-  requireTrue(JSON.stringify(records.shift())===JSON.stringify(HEADERS),'CSV columns differ from expected template');
+  const headers=records.shift();
+  const full=JSON.stringify(headers)===JSON.stringify(HEADERS);
+  const blind=JSON.stringify(headers)===JSON.stringify(BLIND_HEADERS);
+  requireTrue(full||blind,'CSV columns differ from expected full or blind template');
   requireTrue(records.length===manifest.rows.length,'review has missing/extra rows');
   const originals=new Map(manifest.rows.map(r=>[r.id,r]));
   requireTrue(originals.size===manifest.rows.length,'duplicate IDs in manifest');
   const seen=new Set(), labeled=[];
   for(const record of records){
-    requireTrue(record.length===HEADERS.length,'invalid row width');
-    const item=Object.fromEntries(HEADERS.map((h,i)=>[h,record[i]]));
+    requireTrue(record.length===headers.length,'invalid row width');
+    const item=Object.fromEntries(headers.map((h,i)=>[h,record[i]]));
     const original=originals.get(item.id);
     requireTrue(original&&!seen.has(item.id),'duplicate or unknown review ID');
     seen.add(item.id);
-    for(const name of ['decision','query','title','excerpt','url','reason']){
+    for(const name of (full?['decision','query','title','excerpt','url','reason']:
+      ['query','title','excerpt','url'])){
       requireTrue(item[name]===original[name] || item[name]==="'"+original[name],
         'immutable source field changed: '+item.id+' '+name);
     }
+    // In blind review, machine decision and reason are restored only from
+    // the original manifest, never from reviewer-controlled columns.
+    item.decision=original.decision;
+    item.reason=original.reason;
     const relevance=item.gold_relevance.trim().toLocaleLowerCase('en-US');
     const useful=item.gold_useful_signal.trim().toLocaleLowerCase('en-US');
     requireTrue(['','relevant','irrelevant','unclear'].includes(relevance),
@@ -210,8 +220,9 @@ if(process.argv[1]&&path.resolve(process.argv[1])===currentFile) {
     if(action==='prepare'){
       const source=flag('--serp'),topic=flag('--topic'),out=flag('--out');
       requireTrue(source&&topic&&out,'prepare requires --serp --topic --out');
-      const manifestFile=path.resolve(out+'.manifest.json'),csvFile=path.resolve(out+'.csv');
-      await ensureFree([manifestFile,csvFile]);
+      const manifestFile=path.resolve(out+'.manifest.json'),
+        csvFile=path.resolve(out+'.csv'),blindFile=path.resolve(out+'.blind.csv');
+      await ensureFree([manifestFile,csvFile,blindFile]);
       const pack=buildReviewPack({
         serp:JSON.parse(await fs.readFile(source,'utf8')),topic,
         size:Number(flag('--size')||48),seed:flag('--seed')||'benchmark-v1',
@@ -219,7 +230,8 @@ if(process.argv[1]&&path.resolve(process.argv[1])===currentFile) {
       await fs.mkdir(path.dirname(csvFile),{recursive:true,mode:0o700});
       await fs.writeFile(manifestFile,JSON.stringify(pack.manifest,null,2)+'\n',{flag:'wx',mode:0o600});
       await fs.writeFile(csvFile,pack.csv,{flag:'wx',mode:0o600});
-      console.log(JSON.stringify({manifest:manifestFile,csv:csvFile,counts:pack.manifest.counts,
+      await fs.writeFile(blindFile,pack.blindCsv,{flag:'wx',mode:0o600});
+      console.log(JSON.stringify({manifest:manifestFile,csv:csvFile,blindCsv:blindFile,counts:pack.manifest.counts,
         independentHumanLabels:0,paidApiCalls:0},null,2));
     } else if(action==='score'){
       const manifestFile=flag('--manifest'),csvFile=flag('--labels'),out=flag('--out');
