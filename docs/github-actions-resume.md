@@ -1,6 +1,6 @@
 # Recover paid research in GitHub Actions
 
-Scope: **Pain Quality real-data pilot** and **Omsk construction Pain Discovery pilot** (three independent cases). These workflows use narrowly scoped recovery runners; this is **not** a general workflow manager. Live smoke tests and other manually launched pilots are unchanged.
+Scope: **Pain Quality real-data pilot**, **Omsk construction Pain Discovery**, **Omsk Jev reclassification**, and **Pain Quality relevance-controlled pilot**. Each uses narrowly scoped artifact recovery; this is **not** a general workflow manager. One-off live smoke tests remain intentionally fresh and manual.
 
 ## Start a fresh study
 
@@ -141,3 +141,58 @@ Offline safety tests:
 node scripts/omsk-pain-resume-selftest.mjs
 node scripts/workflow-budget-selftest.mjs
 ```
+
+## Resume previously collected data with Jev (no new Yandex calls)
+
+Two additional **manual-only** workflows can reuse previous Yandex evidence and
+continue Jev assessments without repeating decisions that were saved before a
+crash:
+
+| Workflow | Original source run | Previous Jev run | Max Jev decisions |
+| --- | --- | --- | --- |
+| **Reclassify cached Omsk search demand and SERP with Jev** | `source_run_id` referencing `omsk-pain-roofing`, `omsk-pain-screed`, `omsk-pain-facades` | Optional `resume_run_id`, same reclassification workflow | 8 per topic |
+| **Pain Quality relevance-controlled pilot** | `source_run_id` referencing `pain-quality-real-pilot-2026-10-08` | Optional `resume_run_id`, same relevance workflow | 90 |
+
+Both workflows preserve the original source artifact separately from the
+assessment outputs. **No Wordstat or Yandex Search API requests** are made by
+either workflow. A saved Jev checkpoint may prevent repeating an already
+evaluated source observation.
+
+To run either workflow in GitHub Actions:
+
+1. Provide `source_run_id` from the original research. Historical run IDs
+   are provided as defaults only for convenience; these older artifacts can
+   expire. If unavailable, obtain a valid run with the required evidence.
+2. Leave `resume_run_id` blank for new assessment, or set it to an earlier
+   execution of the **same** assessment workflow to continue its outputs.
+3. `confirm_paid_requests=false` (default) never invokes Jev. A run with
+   an unfinished Jev stage exits **before processing or spending**.
+4. Set `confirm_paid_requests=true` only when you agree to the remaining
+   Jev calls. Already completed work is inspected and skipped; valid
+   per-observation Jev checkpoints are reused.
+
+Source and output data must match the verified scenario manifest. It binds
+the selected Omsk case or relevance filter, a digest of original source data,
+requested Jev model, evaluation profile and analysis code. If any change,
+the run stops before paid evaluation instead of mixing evidence.
+
+For relevance-controlled review, the topic filter is deterministic and
+requires at least **five relevant queries** and **50 SERP result excerpts**
+before running Jev. The blind review remains unlabeled; reported quality
+statistics are not claimed to be verified until a human labels the source
+excerpts.
+
+The corresponding artifacts are uploaded even when a stage fails, including
+any per-item Jev checkpoints:
+
+- `omsk-reclassified-{roofing,screed,facades}`
+- `pain-quality-relevant-real-sample-2026-10-08`
+
+Artifacts are retained for **7 days**. A force-cancelled runner, expired
+artifact, provider response before checkpoint creation, or an incomplete
+multi-file final report may still require manual recovery. Legacy
+reclassification artifacts without a manifest cannot be automatically
+trusted or resumed. Never reconstruct a missing manifest by hand.
+
+Offline tests: `node scripts/cached-jev-pilots-selftest.mjs` and
+`node scripts/workflow-budget-selftest.mjs`.
