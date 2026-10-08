@@ -30,6 +30,18 @@ assert.match(omsk,/if: always\(\)/);
 assert.match(omsk,/actions\/upload-artifact@v4/);
 assert.doesNotMatch(omsk,/^\s+run: node scripts\/pain-wordstat\.mjs/m,
   'Omsk workflow must route all paid calls through the guarded recovery runner');
+for (const name of ['omsk-pain-reclassify','pain-quality-relevance-pilot']) {
+  const content=await fs.readFile('.github/workflows/'+name+'.yml','utf8');
+  assert.match(content,/resume_run_id:/,name+' must offer restoring an earlier run');
+  assert.match(content,/confirm_paid_requests:/,name+' must require explicit paid consent');
+  assert.match(content,/default: false/,name+' must fail closed by default');
+  assert.match(content,/actions\/download-artifact@v4/,name+' must restore artifacts');
+  assert.match(content,/scripts\/cached-jev-pilots\.mjs/,name+' must use approved stage runner');
+  assert.match(content,/if: always\(\)/,name+' must retain partial checkpoints');
+  assert.match(content,/actions\/upload-artifact@v4/,name+' must save artifacts');
+  assert.doesNotMatch(content,/^\s*(?:run:.*|.*npm run pain:analyze.*)--execute/m,
+    name+' may not contain an unconditional paid command');
+}
 const dynamics=await fs.readFile('.github/workflows/wordstat-dynamics.yml','utf8');
 assert.match(dynamics,/if: inputs\.confirm_live == true/);
 console.log('live API workflows require manual launch: '+workflows.length+' guarded');
