@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -21,6 +22,10 @@ const rows=[
 const html=renderSerpReviewHtml(rows,{topic:'обработка заявок'});
 assert.match(html,/<!doctype html>/i);
 assert.match(html,/lang="ru"/);
+const inline=html.match(/<script>([\s\S]*?)<\/script>/);
+assert.ok(inline, 'inline browser interaction script is present');
+assert.doesNotThrow(()=>new vm.Script(inline[1]),
+  'embedded client JS must parse, including CSV newlines and regexes');
 assert.match(html,/id="rows-json"/);
 assert.match(html,/Сохранить ответы в CSV/);
 assert.match(html,/Загрузить CSV/);
