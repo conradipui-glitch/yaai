@@ -21,7 +21,7 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-const SERVER_INFO = { name: 'yaai', version: '0.15.0' };
+const SERVER_INFO = { name: 'yaai', version: '0.16.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
   'The MCP surface does not call live external collection or model APIs; collect/refresh Wordstat, Webmaster, SERP, YouTube, Telegram or Jev evaluation evidence with explicit CLI workflows first.';
@@ -715,6 +715,8 @@ async function evaluationEvidence(context, args) {
     meta: result.meta,
     questionStats: result.questionStats,
     evaluations: result.evaluations.slice(0, limit),
+    videoMap: Array.isArray(dataset.videoMap) ? dataset.videoMap.slice(0, limit) : [],
+    videoCount: Array.isArray(dataset.videoMap) ? dataset.videoMap.length : 0,
     evaluationCount: result.evaluations.length,
     omittedEvaluations: Math.max(0, result.evaluations.length - limit),
   };
