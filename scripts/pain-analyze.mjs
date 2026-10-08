@@ -57,5 +57,7 @@ console.log(JSON.stringify({
   accepted:map.summary.acceptedEvidence,review:map.summary.uncertainEvidence,
   reused:evaluations.summary.reusedCount,newMeasuredCostSubtotal:evaluations.summary.newMeasuredCostSubtotal,
   observedCostUsd:map.summary.measuredModelCostUsd,
-  note:'Pain cards are categorized hypotheses; supporting links/snippets and observed Wordstat counts are retained.'
+  wordstatRejectedBeforeJev:map.sourceSelection?.excludedCount ?? 0,
+  wordstatAmbiguousForReview:map.sourceSelection?.reviewCount ?? 0,
+  note:'Pain cards are categorized hypotheses; source relevance rules exclude only obvious off-topic homonyms and retain original Wordstat evidence.'
 },null,2));
