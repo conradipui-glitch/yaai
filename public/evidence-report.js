@@ -53,9 +53,13 @@
         row.dataset.review === 'yes' ? 'Да' : 'Нет', anchor?.href || '',
       ]);
     }
-    const csv = '\ufeff' + cells.map(line =>
-      line.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(';')
-    ).join('\r\n');
+    // Untrusted source text must not become spreadsheet formulas when CSV is opened.
+    const safeCsv = value => {
+      const text = String(value);
+      const neutral = /^[\s]*[=+@-]/u.test(text) ? "'" + text : text;
+      return '"' + neutral.replace(/"/g, '""') + '"';
+    };
+    const csv = '\ufeff' + cells.map(line => line.map(safeCsv).join(';')).join('\r\n');
     const url = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
     const anchor = document.createElement('a');
     anchor.href = url;
