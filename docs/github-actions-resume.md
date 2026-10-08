@@ -1,7 +1,6 @@
-# Recover a GitHub Actions Pain Quality research run
+# Recover paid research in GitHub Actions
 
-Scope: **only** the existing **Pain Quality real-data pilot** workflow. This is
-not yet a generic workflow manager; other research jobs are unchanged.
+Scope: **Pain Quality real-data pilot** and **Omsk construction Pain Discovery pilot** (three independent cases). These workflows use narrowly scoped recovery runners; this is **not** a general workflow manager. Live smoke tests and other manually launched pilots are unchanged.
 
 ## Start a fresh study
 
@@ -95,3 +94,50 @@ non-additive demand semantics.
 The new offline regression command `node scripts/yandex-checkpoints-selftest.mjs`
 simulates two provider outages, reruns both collectors with mock transports,
 and ensures only missing requests are issued. No real API keys are used.
+
+## Omsk construction pilot: roofing, screed, facades
+
+GitHub → Actions → **Omsk construction Pain Discovery pilot** → Run workflow.
+
+- New research: leave `resume_run_id` empty and set
+  `confirm_paid_requests=true` after reviewing the bounded call plan.
+  The workflow runs three independent, topic-scoped cases: roofing,
+  screed and facades, each limited to two Wordstat seed requests,
+  two Yandex SERP requests and at most eight Jev decisions.
+- Retry: take the numerical run ID from the previous execution and set
+  `resume_run_id` to it. Each matrix case restores its own artifact:
+  `omsk-pain-roofing`, `omsk-pain-screed` or `omsk-pain-facades`.
+  Previously completed stages are validated and skipped; per-request
+  Wordstat, SERP and Jev checkpoints may resume an interrupted stage.
+- Approval: `confirm_paid_requests=false` **never** sends paid calls.
+  If an unfinished stage could send paid requests, the entire case stops
+  before any stage is executed. To allow only the missing paid-capable
+  stages, rerun with `confirm_paid_requests=true`. Cached responses still
+  do not generate new API requests.
+- A case that already has every valid stage can be rerun without
+  authorizing paid calls; it will reuse the stored report.
+
+Each case has its **own** validated manifest, which binds the case,
+parameters, Jev profile and selected model, and the relevant research
+code. It prevents accidental mixing of Omsk topics, regions and
+configuration across artifact downloads. Saved data from older runs
+without this manifest cannot be automatically recovered.
+
+Each run uploads results **even when the job fails**, with 7-day
+artifact retention. This is best-effort: cancellation before upload,
+unavailable artifacts and responses not yet saved to disk cannot be
+recovered. The old live "verify region" prerequisite has been removed
+from the recovery path to avoid a new API probe before checking and
+reusing already collected evidence. The regional ID remains explicitly
+pinned to `11318`. A live provider-region audit, when desired, is a
+separate paid/authorized diagnostic.
+
+Data stored in Actions artifacts can be accessible to people with
+repository/run permissions. Avoid putting confidential client data in
+public repository research jobs; never upload API keys or sessions.
+
+Offline safety tests:
+```bash
+node scripts/omsk-pain-resume-selftest.mjs
+node scripts/workflow-budget-selftest.mjs
+```
