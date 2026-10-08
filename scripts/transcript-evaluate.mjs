@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { evaluateItemsWithJev } from '../lib/evaluation.mjs';
+import { prepareJevCheckpoints } from '../lib/jev-checkpoints.mjs';
 import { DEFAULT_JEV_MODEL, resolveOpenRouterApiKey } from '../lib/jev.mjs';
 import { transcriptChunks } from '../lib/youtube-transcripts.mjs';
 
@@ -58,12 +59,15 @@ for (const transcript of data.transcripts.filter((row) => row.status === 'ok').s
 if (!items.length) throw new Error('No usable transcript chunks; import or fetch transcripts first.');
 if (items.length > 300) throw new Error('Maximum 300 Jev calls per batch.');
 
+const checkpoint = await prepareJevCheckpoints({ outputPath: output, checkpointDir: flag('--checkpoint-dir') });
+
 const result = await evaluateItemsWithJev({
   items,
   profile,
+  checkpoint,
   model: flag('--model') || process.env.YAAI_JEV_MODEL || DEFAULT_JEV_MODEL,
   apiKey,
-  onProgress: ({ index, total, itemId, cost }) => console.error(`Transcript Jev ${index}/${total}: ${itemId} cost=${cost}`),
+  onProgress: ({ index, total, itemId, cost, reused }) => console.error(`Transcript Jev ${index}/${total}: ${itemId} cost=${cost}${reused ? ' [reused]' : ''}`),
 });
 
 const byVideo = new Map();
@@ -111,7 +115,8 @@ await fs.mkdir(path.dirname(destination), { recursive: true });
 await fs.writeFile(destination, JSON.stringify(result, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
 console.log(JSON.stringify({
   saved: destination, videos: result.videoMap.length,
-  chunks: result.summary.itemCount, review: result.summary.needsReviewCount,
+  chunks: result.summary.itemCount, reused: result.summary.reusedCount,
+  newMeasuredCostSubtotal: result.summary.newMeasuredCostSubtotal, review: result.summary.needsReviewCount,
   actualCostUsd: result.summary.totalCost,
   videoMap: result.videoMap.map((v) => ({
     videoId: v.videoId, title: v.title, signals: v.signals, evidenceCount: v.evidence.length,
