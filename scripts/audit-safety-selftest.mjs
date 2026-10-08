@@ -1,4 +1,7 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import { analyzeRows } from '../lib/analyze.mjs';
+import { buildPagePlan } from '../public/page-planner.js';
 import { createLocalHttpGuard } from '../lib/http-guard.mjs';
 import { optionalNonnegativeNumber, maxOptionalNumber, formatOptionalNumber } from '../lib/optional-number.mjs';
 
@@ -29,4 +32,19 @@ assert.equal(maxOptionalNumber(2,null),2);
 assert.equal(maxOptionalNumber(2,6),6);
 assert.equal(formatOptionalNumber(null),'нет данных');
 assert.equal(formatOptionalNumber(0),'0');
+
+const preset=JSON.parse(await fs.readFile('examples/workspace/presets/example.json','utf8'));
+const planner=JSON.parse(await fs.readFile('examples/workspace/planners/example.json','utf8'));
+const analysis=analyzeRows([{
+  phrase:'buy widget online', regionId:'1',regionName:'Example Region',
+  count:null,types:['top'],seeds:['buy widget'],
+}],preset,{includeTop:true,includeAssociations:false});
+assert.equal(analysis.assignedRows[0].count,null);
+assert.equal(analysis.summary.find(x=>x.intentId==='EX01').maxCount,null);
+assert.equal(analysis.summary.find(x=>x.intentId==='EX01').relativeDemandBand,'unknown');
+const pagePlan=buildPagePlan(analysis,{id:preset.id,pagePlanner:planner});
+const landing=pagePlan.pages.find(x=>x.planId==='example-main');
+assert.equal(landing.maxCount,null);
+assert.equal(landing.topQueries[0].count,null);
+
 console.log('audit safety and optional-number selftest: ok');
