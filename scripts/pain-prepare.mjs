@@ -22,4 +22,12 @@ await fs.mkdir(path.dirname(outputPath),{recursive:true});
 await fs.mkdir(path.dirname(queriesPath),{recursive:true});
 await fs.writeFile(outputPath,JSON.stringify(plan,null,2)+'\n',{flag:'wx'});
 await fs.writeFile(queriesPath,plan.queries.map(x=>x.query).join('\n')+'\n',{flag:'wx'});
-console.log(JSON.stringify({plan:outputPath,queryFile:queriesPath,queries:plan.queries.length,observed:plan.queries.filter(x=>x.kind==='observed-wordstat-phrase').length,generated:plan.queries.filter(x=>x.kind==='generated-search-hypothesis').length},null,2));
+console.log(JSON.stringify({
+  plan:outputPath,queryFile:queriesPath,queries:plan.queries.length,
+  observed:plan.queries.filter(x=>x.kind==='observed-wordstat-phrase').length,
+  generated:plan.queries.filter(x=>x.kind==='generated-search-hypothesis').length,
+  relevanceChecked:plan.relevanceAudit?.examined ?? 0,
+  excludedBeforeSearch:plan.relevanceAudit?.excludedCount ?? 0,
+  ambiguousForReview:plan.relevanceAudit?.reviewCount ?? 0,
+  note:'Review query-plan.json relevanceAudit and query file before authorizing paid SERP collection.',
+},null,2));
