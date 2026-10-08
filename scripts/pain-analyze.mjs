@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { buildPainEvidenceItems, buildPainMap } from '../lib/pain-discovery.mjs';
+import { buildPainEvidenceItems, buildPainMap, painMapMarkdown } from '../lib/pain-discovery.mjs';
 import { evaluateItemsWithJev } from '../lib/evaluation.mjs';
 import { resolveOpenRouterApiKey, DEFAULT_JEV_MODEL } from '../lib/jev.mjs';
 
@@ -12,11 +12,11 @@ function flag(name) {
 }
 if(!args.includes('--execute'))throw new Error('No Jev calls made; add --execute after reviewing input and --limit.');
 const topic=flag('--topic'), wordstatPath=flag('--wordstat'), serpPath=flag('--serp');
-const out=flag('--out'), rawOut=flag('--evaluation-out');
+const out=flag('--out'), rawOut=flag('--evaluation-out'), mdOut=flag('--md');
 const limit=Number(flag('--limit')||30);
 if(!topic||!out||(!wordstatPath&&!serpPath))throw new Error('Usage: --topic "..." [--wordstat wordstat.json] [--serp serp.json] --out pain-map.json --execute [--limit 30].');
 if(!Number.isInteger(limit)||limit<1||limit>150)throw new Error('--limit must be 1–150 Jev decisions.');
-if(rawOut&&path.resolve(rawOut)===path.resolve(out))throw new Error('--out and --evaluation-out must differ.');
+if([out,rawOut,mdOut].filter(Boolean).map(x=>path.resolve(x)).some((x,i,arr)=>arr.indexOf(x)!==i))throw new Error('Output paths must be distinct.');
 const key=resolveOpenRouterApiKey();
 if(!key)throw new Error('Set YAIS_AI or OPENROUTER_API_KEY.');
 const [wordstat,serp,profile]=await Promise.all([
@@ -38,6 +38,11 @@ const map=buildPainMap({topic,evidenceItems:items,evaluations,wordstat,serp});
 const destination=path.resolve(out);
 await fs.mkdir(path.dirname(destination),{recursive:true});
 await fs.writeFile(destination,JSON.stringify(map,null,2)+'\n',{flag:'wx',mode:0o600});
+if(mdOut){
+  const p=path.resolve(mdOut);
+  await fs.mkdir(path.dirname(p),{recursive:true});
+  await fs.writeFile(p,painMapMarkdown(map),{flag:'wx',mode:0o600});
+}
 if(rawOut){
   const p=path.resolve(rawOut);
   await fs.mkdir(path.dirname(p),{recursive:true});
