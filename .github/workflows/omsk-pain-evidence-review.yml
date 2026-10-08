@@ -1,0 +1,40 @@
+name: Review cached Omsk Pain Discovery evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/omsk-pain-evidence-review.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  offline-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Download prior research artifacts without any paid API requests
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 37803639247
+          github-token: ${{ github.token }}
+          pattern: omsk-pain-*
+          path: ${{ runner.temp }}/omsk
+          merge-multiple: false
+      - name: Validate evidence, inspect source snippets and negative Jev labels
+        run: |
+          node scripts/report-omsk-pain-pilot.mjs \
+            "$RUNNER_TEMP/omsk" \
+            "$RUNNER_TEMP/omsk-evidence-report.md"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: omsk-evidence-report
+          path: ${{ runner.temp }}/omsk-evidence-report.md
+          retention-days: 7
