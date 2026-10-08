@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { discoverYandexFolderId } from '../lib/yandex-folder.mjs';
+import { collectYandexWithCheckpoints } from '../lib/yandex-checkpoints.mjs';
 
 const args=process.argv.slice(2);
 function flag(name) {
@@ -23,22 +24,35 @@ const folder=await discoverYandexFolderId({
   folderId:String(process.env.YAIS_FOLDER_ID||process.env.YANDEX_FOLDER_ID||'').trim(),
 });
 if(!folder)throw new Error('Yandex folder ID unavailable.');
-const merged=new Map(), calls=[];
-for(let i=0;i<seeds.length;i++){
-  const seed=seeds[i];
-  const res=await fetch('https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests',{
-    method:'POST',
-    headers:{Authorization:'Api-Key '+key,'Content-Type':'application/json',Accept:'application/json'},
-    body:JSON.stringify({folderId:folder,phrase:seed,numPhrases,regions:[region],devices:['DEVICE_ALL']}),
-    signal:AbortSignal.timeout(30000),
-  });
-  const payload=await res.json().catch(()=>({}));
-  if(!res.ok)throw new Error('Yandex Wordstat HTTP '+res.status+' (seed '+(i+1)+' of '+seeds.length+'). Partial results not published.');
-  const top=payload.results || payload.topRequests || payload.top_requests || [];
-  const associated=payload.associations || payload.associatedRequests || payload.associated_requests || [];
+const requests=seeds.map(seed=>({seed,region,numPhrases,folder}));
+const checkpointed=await collectYandexWithCheckpoints({
+  kind:'wordstat-toprequests-v1',output,
+  directory:flag('--checkpoint-dir'),
+  requests,
+  validateResult(result,request) {
+    if(result?.seed!==request.seed || !Array.isArray(result?.top) ||
+       !Array.isArray(result?.associated)) throw new Error('Invalid saved Wordstat response for '+request.seed);
+  },
+  async fetchRequest({seed,region,numPhrases,folder}) {
+    const res=await fetch('https://searchapi.api.cloud.yandex.net/v2/wordstat/topRequests',{
+      method:'POST',
+      headers:{Authorization:'Api-Key '+key,'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({folderId:folder,phrase:seed,numPhrases,regions:[region],devices:['DEVICE_ALL']}),
+      signal:AbortSignal.timeout(30000),
+    });
+    const payload=await res.json().catch(()=>({}));
+    if(!res.ok)throw new Error('Yandex Wordstat HTTP '+res.status+' (seed '+seed+'). Paid results before this failure remain saved.');
+    const top=payload.results || payload.topRequests || payload.top_requests || [];
+    const associated=payload.associations || payload.associatedRequests || payload.associated_requests || [];
+    return {seed,top,associated};
+  },
+  onProgress:({index,total,request,result,reused})=>
+    console.error('Wordstat '+index+'/'+total+': '+request.seed+' -> '+result.top.length+' top rows'+(reused?' [reused]':'')),
+});
+const merged=new Map(),calls=[];
+for(const {seed,top,associated} of checkpointed.results){
   calls.push({seed,topItems:top.length,associationItems:associated.length});
   for(const [kind,arr] of [['top',top],['association',associated]]){
-    if(!Array.isArray(arr))continue;
     for(const row of arr){
       const phrase=String(row.phrase||row.query||row.request||'').trim();
       if(!phrase)continue;
@@ -52,8 +66,6 @@ for(let i=0;i<seeds.length;i++){
       merged.set(keyText,prev);
     }
   }
-  console.error('Wordstat '+(i+1)+'/'+seeds.length+': received '+top.length+' top rows');
-  if(i<seeds.length-1)await new Promise(resolve=>setTimeout(resolve,500));
 }
 const data={
   schemaVersion:1, source:'yandex-wordstat-topRequests',generatedAt:new Date().toISOString(),
@@ -63,4 +75,4 @@ const data={
 const destination=path.resolve(output);
 await fs.mkdir(path.dirname(destination),{recursive:true});
 await fs.writeFile(destination,JSON.stringify(data,null,2)+'\n',{flag:'wx',mode:0o600});
-console.log(JSON.stringify({saved:destination,apiCalls:seeds.length,rows:data.rowCount},null,2));
+console.log(JSON.stringify({saved:destination,apiCalls:checkpointed.newCalls,reusedApiCalls:checkpointed.reusedCalls,totalRequests:seeds.length,rows:data.rowCount},null,2));

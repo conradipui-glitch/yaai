@@ -16,3 +16,6 @@ node_modules/
 
 # Resumable Jev results can contain private source metadata.
 *.jev-checkpoints/
+
+# Paid Yandex API responses (private, local resumable state)
+*.yandex-checkpoints/

@@ -49,12 +49,19 @@ download/store private copies if longer retention is necessary.
 
 - This is best-effort: a cancelled/force-terminated runner, artifact upload
   failure or expired artifact can prevent recovery.
-- The Wordstat and SERP scripts currently write their files at the *end*
-  of each stage. Failure halfway through one of these stages may require
-  redoing its requests, but **never without renewed explicit approval**.
-- Jev writes completed per-item decisions during the stage, so an uploaded
-  checkpoint may avoid repeated Jev calls. A response not yet checkpointed
-  cannot be recovered.
+- Wordstat now saves each successful seed response, and SERP saves each
+  successful query response. They both produce `<output>.yandex-checkpoints/`
+  containing a strict batch manifest and atomic result records. A failure
+  midway through a stage no longer forces the **saved** requests to repeat.
+- Saved Yandex responses are reused only if the entire batch signature
+  (queries/seeds, region, folder and collection settings) matches. Missing
+  responses still require explicit `confirm_paid_requests=true` to call Yandex.
+- Jev likewise writes each completed decision. A provider response not yet
+  written to a checkpoint cannot be recovered.
+- A failed stage (even if **all** its individual responses are checkpointed)
+  is still considered pending by the pilot safety gate. You must explicitly
+  approve attempting that paid-capable stage; its matching saved responses
+  will be reused without additional charges.
 - No cross-run deduplication occurs without `resume_run_id`.
 - A restored finished report remains the output of that original
   research, including historical model costs. It is not a new measurement.
@@ -62,3 +69,29 @@ download/store private copies if longer retention is necessary.
 Local offline test: `node scripts/pain-pilot-resume-selftest.mjs`.
 Normal repository CI runs this test automatically. **No live providers are
 called in CI.**
+
+## Local checkpoint directories for Yandex collectors
+
+```bash
+node scripts/pain-wordstat.mjs --seeds "term one,term two" --region 225 \
+  --out /private/wordstat.json --execute
+
+node scripts/serp-collect.mjs --queries "query one,query two" --region 225 \
+  --out /private/serp.json --execute
+```
+
+If interrupted, repeat the same command with the same output path. Each CLI
+prints **new** and **reused** request counts after a successful run. You may
+choose `--checkpoint-dir /private/specific-saved-directory` on both runs
+instead of the default `<out>.yandex-checkpoints/`.
+
+**Do not commit** the checkpoint directory: it can contain private search
+results. Both checkpoint kinds are excluded by `.gitignore`. Do not
+run multiple collectors concurrently against the same directory, change
+the saved manifest, or manually splice data from unrelated runs. Unknown
+Wordstat counts stay unknown; the collector retains the original
+non-additive demand semantics.
+
+The new offline regression command `node scripts/yandex-checkpoints-selftest.mjs`
+simulates two provider outages, reruns both collectors with mock transports,
+and ensures only missing requests are issued. No real API keys are used.
