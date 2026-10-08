@@ -48,6 +48,15 @@ assert.deepEqual(parseCsv(a.csv)[0],[
   'id','decision','query','title','excerpt','url','reason',
   'gold_relevance','gold_useful_signal','reviewer_note',
 ]);
+const blindRows=parseCsv(a.blindCsv);
+assert.deepEqual(blindRows[0],[
+  'id','query','title','excerpt','url',
+  'gold_relevance','gold_useful_signal','reviewer_note',
+]);
+assert.equal(blindRows[0].includes('decision'),false);
+assert.equal(blindRows[0].includes('reason'),false);
+const blankBlind=scoreReviewPack({manifest:a.manifest,csv:a.blindCsv});
+assert.equal(blankBlind.status,'awaiting_independent_labels');
 const blank=scoreReviewPack({manifest:a.manifest,csv:a.csv});
 assert.equal(blank.status,'awaiting_independent_labels');
 assert.equal(blank.decisiveTotal,0);
@@ -65,7 +74,12 @@ for(const row of rows.slice(1)){
   row[col('gold_useful_signal')]=excluded&&seenExcluded===1?'yes':'no';
 }
 const reviewed=csvString(rows);
-const report=scoreReviewPack({manifest:a.manifest,csv:reviewed});
+const blindHeaders=blindRows[0];
+const fullHeaders=rows[0];
+const blindLabeled=csvString([blindHeaders,...rows.slice(1).map(fullRow=>
+  blindHeaders.map(name=>fullRow[fullHeaders.indexOf(name)]))]);
+const report=scoreReviewPack({manifest:a.manifest,csv:blindLabeled});
+assert.deepEqual(report.groups,scoreReviewPack({manifest:a.manifest,csv:reviewed}).groups);
 assert.equal(report.status,'descriptive_sample_complete');
 assert.equal(report.groups.exclude.decisiveLabels,6);
 assert.equal(report.groups.exclude.relevant,1);
@@ -100,8 +114,9 @@ try{
   assert.equal(prepare.status,0,prepare.stderr);
   assert.match(prepare.stdout,/"independentHumanLabels": 0/);
   assert.equal(parseCsv(await fs.readFile(prefix+'.csv','utf8')).length,19);
+  assert.equal(parseCsv(await fs.readFile(prefix+'.blind.csv','utf8')).length,19);
   const completed=path.join(tmp,'human-labeled.csv');
-  await fs.writeFile(completed,reviewed);
+  await fs.writeFile(completed,blindLabeled);
   const score=spawnSync(process.execPath,[
     'scripts/serp-relevance-benchmark.mjs','score',
     '--manifest',prefix+'.manifest.json','--labels',completed,
