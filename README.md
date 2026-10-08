@@ -267,6 +267,16 @@ GitHub Actions tests that call Yandex Wordstat, Yandex Search, OpenRouter/Jev, o
 
 Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows regains a `push` trigger. This does not disable other manually triggered workflows, nor guarantee zero charges from workflows added in the future.
 
+## Evidence-backed reports
+
+Generate a standalone, searchable HTML report and structured source-backed JSON **offline** from a saved Pain Map:
+
+```bash
+npm run report:pain -- --map /private/pain-map.json --html /private/pain-evidence.html
+```
+
+The output distinguishes source observations, model hypotheses and (if supplied) provisional human review. It preserves all accepted/rejected evidence, checks integrity and never calls a paid API. Read the [Evidence Report guide](docs/evidence-report.md) before sharing client research.
+
 ## Research recovery and future Studio
 
 - [Resume paid Pain Quality and Omsk studies in GitHub Actions](docs/github-actions-resume.md) — restore previous evidence and per-item Jev checkpoints; newly paid API calls require explicit approval.
