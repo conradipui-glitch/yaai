@@ -5,6 +5,7 @@ let allRegions = [];
 let lastRows = [];
 let lastAnalysis = null;
 let lastPagePlan = null;
+let localRequestToken = '';
 
 const TYPE_LABEL = {
   commercial: 'Commercial',
@@ -57,7 +58,12 @@ function renderRegions() {
 }
 
 async function api(url, options = {}) {
-  const response = await fetch(url, { headers: { 'content-type': 'application/json' }, ...options });
+  const headers = { 'content-type': 'application/json', ...(options.headers || {}) };
+  if (options.method?.toUpperCase() === 'POST') {
+    if (!localRequestToken) throw new Error('Local security token is not ready. Refresh the page.');
+    headers['x-yaai-local-token'] = localRequestToken;
+  }
+  const response = await fetch(url, { ...options, headers });
   const data = await response.json().catch(() => ({ error: 'Р В РЎСљР В Р’ВµР В РЎвЂќР В РЎвЂўР РЋР вЂљР РЋР вЂљР В Р’ВµР В РЎвЂќР РЋРІР‚С™Р В Р вЂ¦Р РЋРІР‚в„–Р В РІвЂћвЂ“ Р В РЎвЂўР РЋРІР‚С™Р В Р вЂ Р В Р’ВµР РЋРІР‚С™ Р РЋР С“Р В Р’ВµР РЋР вЂљР В Р вЂ Р В Р’ВµР РЋР вЂљР В Р’В°' }));
   if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
   return data;
@@ -188,7 +194,9 @@ async function buildPlannerFromAnalysis() {
 
 async function init() {
   try {
-    const [config, presets] = await Promise.all([api('/api/config'), api('/api/presets')]);
+    const config = await api('/api/config');
+    localRequestToken = config.localRequestToken || '';
+    const presets = await api('/api/presets');
     if (config.defaultFolderId) {
       $('folderId').value = config.defaultFolderId;
       localStorage.setItem('folderId', config.defaultFolderId);
