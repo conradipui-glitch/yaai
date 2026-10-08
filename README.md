@@ -270,7 +270,9 @@ Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows re
 ## SERP relevance: independent human check
 
 To review filtering mistakes without re-running paid APIs, use the
-[48-row stratified SERP review procedure](docs/serp-human-review.md).
+[48-row stratified SERP review procedure](docs/serp-human-review.md),
+which now creates a standalone **offline, reviewer-blind HTML interface**
+with keyboard shortcuts, progress and CSV export/import.
 It generates unfilled human-label fields and calculates sample-only
 false-exclusion indicators **after** real human review, not before.
 
