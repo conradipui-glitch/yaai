@@ -6,7 +6,7 @@ const outcomes=[
   {pred:true,truth:false,category:'high_cost',gold:null,supported:false},
   {pred:false,truth:true,category:'none',gold:'complexity',supported:true},
   {pred:false,truth:false,category:'none',gold:null,supported:false},
-  {pred:true,truth:true,category:'poor_quality',gold:'unreliable',supported:true},
+  {pred:true,truth:true,category:'poor_quality',gold:'unreliable',supported:false},
   {pred:false,truth:false,category:'none',gold:null,supported:false},
 ];
 const ledger=Array.from({length:12},(_,i)=>{
@@ -67,7 +67,7 @@ assert.equal(result.sample.labeled,12);
 assert.equal(result.metrics.painPrecision,0.6667);
 assert.equal(result.metrics.painRecall,0.6667);
 assert.equal(result.metrics.categoryAccuracyOnTruePositive,0.5);
-assert.equal(result.metrics.validatedEvidenceCoverage,0.6667);
+assert.equal(result.metrics.validatedEvidenceCoverage,0.3333);
 assert.equal(result.metrics.reviewedJevCostUsd,0.12);
 assert.equal(result.metrics.costPerHumanPositiveUsd,0.03);
 assert.equal(result.metrics.sourceSupportedTruePositiveCount,2);
