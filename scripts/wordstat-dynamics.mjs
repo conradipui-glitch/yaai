@@ -109,8 +109,14 @@ for(const [index,service] of manifest.services.entries()){
   for(const item of records){
     const month=String(item.date||"").slice(0,7);
     if(!months.includes(month))continue;
-    const count=Number(item.count);
-    if(!Number.isSafeInteger(count)||count<0||byMonth.has(month))fail(`Unexpected count/month duplication for service ${service.code}`);
+    const raw=String(item.count??"");
+    if(!/^[0-9]+$/.test(raw))fail(`Non-integer monthly count for ${service.code}, month ${month}, value type ${typeof item.count}; refusing to infer zero`);
+    const count=Number(raw);
+    if(!Number.isSafeInteger(count)||count<0)fail(`Out-of-range monthly count for ${service.code}, month ${month}`);
+    if(byMonth.has(month)) {
+      if(byMonth.get(month)===count)continue;
+      fail(`Conflicting repeated month for ${service.code}, month ${month}: counts ${byMonth.get(month)} versus ${count}; refusing to aggregate blindly`);
+    }
     byMonth.set(month,count);
   }
   if(byMonth.size!==24)fail(`Incomplete returned monthly history for ${service.code}: received ${byMonth.size}/24 months; stopping without guessing absent counts`);
