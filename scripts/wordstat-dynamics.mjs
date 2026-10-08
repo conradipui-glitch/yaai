@@ -63,14 +63,25 @@ if (!folderId)fail("Wordstat folder ID not configured or discoverable; check Git
 /** No credentials, folder IDs, or full API error bodies are logged. */
 async function post(endpoint,body) {
   for(let attempt=0;attempt<3;attempt++){
-    const res=await fetch(`${ENDPOINT}/${endpoint}`,{
-      method:"POST",headers:{"Authorization":`Api-Key ${apiKey}`,"Content-Type":"application/json"},
-      body:JSON.stringify({...body,folderId}),signal:AbortSignal.timeout(40000)
-    });
-    if((res.status===429||res.status>=500)&&attempt<2){
-      await new Promise(resolve=>setTimeout(resolve,1300*(attempt+1)));continue;
+    let res;
+    try {
+      res=await fetch(`${ENDPOINT}/${endpoint}`,{
+        method:"POST",headers:{"Authorization":`Api-Key ${apiKey}`,"Content-Type":"application/json"},
+        body:JSON.stringify({...body,folderId}),signal:AbortSignal.timeout(25000)
+      });
+    } catch(error) {
+      // Socket resets and AbortSignal timeouts are transient. Never echo the
+      // request headers/credentials, nor confuse an API timeout with zero demand.
+      if(attempt===2)fail(`Yandex Wordstat ${endpoint}: network timeout after three attempts; partial results, if any, were checkpointed`);
+      console.warn(`WORDSTAT_RETRY ${endpoint} after network interruption (attempt ${attempt+1}/3)`);
+      await new Promise(resolve=>setTimeout(resolve,1400*(attempt+1)));
+      continue;
     }
-    if(!res.ok)fail(`Yandex Wordstat ${endpoint}: HTTP ${res.status}, no response details shown`);
+    if((res.status===429||res.status>=500)&&attempt<2){
+      console.warn(`WORDSTAT_RETRY ${endpoint} after HTTP ${res.status} (attempt ${attempt+1}/3)`);
+      await new Promise(resolve=>setTimeout(resolve,1400*(attempt+1)));continue;
+    }
+    if(!res.ok)fail(`Yandex Wordstat ${endpoint}: HTTP ${res.status}, response details suppressed`);
     return await res.json();
   }
   fail("Wordstat retries exhausted");
@@ -130,6 +141,15 @@ for(const [index,service] of manifest.services.entries()){
   for(const month of months)resultRows.push({month,service:service.code,queries:byMonth.get(month)??null,region:region.name,phrase:service.phrase});
   const known=months.filter(month=>byMonth.get(month)!==null&&byMonth.has(month)).length;
   console.log(`WORDSTAT_MONTHLY_PROGRESS ${index+1}/${manifest.services.length} (known months ${known}/24; others explicitly unknown)`);
+  // Persist each successfully collected direction before attempting the next
+  // metered call. The partial CSV is never mistaken for a complete dataset.
+  const checkpointPath=outputFile.replace(/\.csv$/, "-partial.csv");
+  const csvCell=(value)=>'"'+String(value).replaceAll('"','""')+'"';
+  await fs.mkdir(path.dirname(checkpointPath),{recursive:true});
+  await fs.writeFile(checkpointPath,[
+    "month,service,queries,region,phrase",
+    ...resultRows.map(r=>[r.month,r.service,r.queries??"",r.region,r.phrase].map(csvCell).join(","))
+  ].join("\n")+"\n","utf8");
   await new Promise(resolve=>setTimeout(resolve,800));
 }
 if(resultRows.length!==months.length*manifest.services.length)fail("Missing rows for complete seasonal baseline");
@@ -170,4 +190,5 @@ await fs.mkdir(path.dirname(outputFile),{recursive:true});
 await fs.mkdir(path.dirname(summaryFile),{recursive:true});
 await fs.writeFile(outputFile,[header,...csvRows].join("\n")+"\n","utf8");
 await fs.writeFile(summaryFile,JSON.stringify(summary,null,2)+"\n","utf8");
+await fs.rm(outputFile.replace(/\.csv$/, "-partial.csv"),{force:true});
 console.log("WORDSTAT_MONTHLY_SUCCESS",JSON.stringify({region:summary.region,period:summary.dataPeriod,services:summary.serviceCount,observations:summary.observations,clearMonths:monthLeaders.filter(x=>x.clearLead).length,missingCounts:resultRows.length-resultRows.filter(r=>r.queries!==null).length}));
