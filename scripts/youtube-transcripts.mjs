@@ -43,7 +43,7 @@ for (const item of videos) {
   const id = videoIdFromContent(item);
   let record;
   if (inputDir) {
-    for (const ext of ['vtt', 'srt', 'txt']) {
+    for (const ext of ['vtt', 'srt', 'md', 'txt']) {
       const candidate = path.join(path.resolve(inputDir), id + '.' + ext);
       try {
         const raw = await fs.readFile(candidate, 'utf8');
@@ -72,7 +72,7 @@ for (const item of videos) {
     }
   }
 
-  if (!record) record = makeTranscriptRecord({ item, source: 'local-files', status: 'missing', reason: 'No matching <videoId>.txt/.srt/.vtt file' });
+  if (!record) record = makeTranscriptRecord({ item, source: 'local-files', status: 'missing', reason: 'No matching <videoId>.txt/.md/.srt/.vtt file' });
   records.push(record);
   console.error(`Transcript ${id}: ${record.status} (${record.text.length} chars)`);
 }
