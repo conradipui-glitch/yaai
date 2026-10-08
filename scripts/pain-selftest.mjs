@@ -33,6 +33,14 @@ const items=buildPainEvidenceItems({topic:'автоматизация прода
 assert.equal(items.length,5);
 assert.equal(items.filter(x=>x.evidence.kind==='wordstat_phrase').length,3);
 assert.equal(items.filter(x=>x.evidence.kind==='serp_snippet').length,2);
+const balanced=buildPainEvidenceItems({topic:'автоматизация продаж',wordstat,serp,limit:4});
+assert.equal(balanced.filter(x=>x.evidence.kind==='serp_snippet').length,2);
+assert.equal(balanced.filter(x=>x.evidence.kind==='wordstat_phrase').length,2);
+const one=buildPainEvidenceItems({topic:'автоматизация продаж',wordstat,serp,limit:1});
+assert.equal(one[0].evidence.kind,'serp_snippet');
+const wordstatOnly=buildPainEvidenceItems({topic:'автоматизация продаж',wordstat,limit:2});
+assert.equal(wordstatOnly.length,2);
+
 assert.equal(items.find(x=>x.evidence.query==='долго отвечают клиентам').evidence.observedCount,null);
 assert.equal(items.find(x=>x.evidence.query==='как не терять заявки клиентов').evidence.observedCount,220);
 assert.throws(()=>buildPainEvidenceItems({topic:'foo'}),/Need Wordstat or SERP/);
