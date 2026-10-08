@@ -33,6 +33,16 @@ h1{font-size:clamp(42px,5.2vw,76px);line-height:1.05;letter-spacing:-.06em;margi
 .source-readiness .mix span{font-size:14px;color:var(--ink)}
 .source-readiness .mix b{font-size:20px;color:var(--teal)}
 .source-readiness p{margin:4px 0;color:var(--muted);font-size:13px;line-height:1.55}
+.relevance-audit{background:var(--teal-light);border:1px solid #bad6cd;border-radius:14px;padding:19px 23px;margin:-13px 0 35px}
+.relevance-heading{display:flex;flex-wrap:wrap;gap:9px 20px;justify-content:space-between;align-items:center}
+.relevance-heading strong{font-size:17px;letter-spacing:-.025em;color:var(--ink)}
+.relevance-audit p{font-size:13px;color:#48645f;line-height:1.6;margin:10px 0 0}
+.relevance-audit details{margin-top:13px;border-top:1px solid #bad6cd;padding-top:10px}
+.relevance-audit summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--teal)}
+.relevance-audit ul{margin:11px 0 0;padding-left:19px}
+.relevance-audit li{margin:8px 0;font-size:13px;line-height:1.5}
+.relevance-audit li span,.relevance-audit li small{display:block;color:#55746e}
+
 .swipe-note{display:none;font-size:12px;color:var(--muted);margin:0;padding:10px 16px;border-bottom:1px solid var(--line)}
 .metric small{display:block;margin-top:6px;color:var(--muted);font-size:11px}
 section{margin-top:45px}h2{font-size:clamp(26px,2.6vw,35px);letter-spacing:-.04em;margin:7px 0 12px}
