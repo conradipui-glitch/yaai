@@ -91,4 +91,23 @@ const noCount=buildPainMap({
     route:{needsReview:true}}],summary:{totalCost:0}},
 });
 assert.equal(noCount.cards[0].bestObservedWordstatCount,null);
+const regionalPainSignals = buildPainEvidenceItems({
+  topic:'строительные работы в Омске',
+  wordstat:{generatedAt:'2026-10-08T10:00:00Z',rows:[
+    {phrase:'полусухая стяжка цена',count:30,regionName:'Омская область',types:['top']},
+    {phrase:'трещины стяжки причины',count:12,regionName:'Омская область',types:['top']},
+    {phrase:'кровельные работы',count:500,regionName:'Омская область',types:['top']},
+  ]},
+  serp:{generatedAt:'2026-10-08T10:00:00Z',region:'11318',queries:[{query:'ремонт кровли проблемы',results:[
+    {position:1,url:'https://example.org/issue',title:'Как понять проблему',passage:'О проблеме и стоимости ремонта'}
+  ]}]},
+  limit:4
+});
+assert.equal(regionalPainSignals.filter(x=>x.evidence.kind==='wordstat_phrase').length,2,
+  'Observed cost and defects must reach Jev without passing neutral generic search terms');
+assert.ok(regionalPainSignals.some(x=>x.evidence.query==='полусухая стяжка цена'));
+assert.ok(regionalPainSignals.some(x=>x.evidence.query==='трещины стяжки причины'));
+assert.ok(regionalPainSignals.some(x=>x.evidence.kind==='serp_snippet'));
+assert.ok(regionalPainSignals.find(x=>x.evidence.query==='полусухая стяжка цена').evidence.note.includes('do not prove pain'));
+
 console.log('pain discovery selftest: ok');
