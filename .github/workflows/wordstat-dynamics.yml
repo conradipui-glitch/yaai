@@ -68,7 +68,7 @@ jobs:
           const d = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
           console.log(JSON.stringify({
             source:d.source,period:d.dataPeriod,region:d.region,
-            observations:d.observations,annualRanks:d.annualRanks,
+            observations:d.observations,knownObservations:d.knownObservations,incompleteServices:d.incompleteServices,rankingComplete:d.rankingComplete,annualRanks:d.annualRanks,
             monthLeaders:d.monthLeaders,
             caution:d.phraseNote
           },null,2));
