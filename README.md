@@ -246,3 +246,16 @@ npm run check
 ```
 
 CI runs syntax checks and neutral end-to-end tests using `examples/workspace/`, along with mock Webmaster API calls and synthetic query-URL CSV. No real client case, OAuth secret or paid export is needed for CI.
+
+
+## Security and evidence integrity (0.18.1)
+
+The local Wordstat UI requires the same-origin browser request token that it automatically obtains from `GET /api/config` for **every POST**. Other origins, non-JSON requests and missing tokens are rejected before any paid API request. The server only listens on `127.0.0.1`; the Host header must also be loopback.
+
+`YAAI_LOCAL_API_MAX_CALLS` limits actual outgoing Yandex API attempts **per server process**, default 100 (allowed 1–1000). Cached Wordstat hits do not consume this budget. **This is a count cap, not a USD/RUB spending guarantee**, and restarting the process resets it. `/api/config` reports the remaining call allowance.
+
+Unknown Wordstat counts and unknown Jev usage costs are represented as `null`, not fabricated zero. If any Jev request omits cost, `summary.totalCost` is unknown; `measuredCostSubtotal` remains the known partial amount with `missingCostCount`.
+
+Pain Quality distinguishes cost per **human-accepted pain** and cost per **source-supported true positive**. The latter requires the human to mark the original excerpt as supporting the pain.
+
+Checks: `npm run audit:selftest`, `npm run check` (offline; no real Yandex/OpenRouter calls).
