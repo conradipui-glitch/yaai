@@ -1,0 +1,63 @@
+{
+  "id": "transcript-intelligence-v1",
+  "name": "YouTube transcript market signals",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.73,
+  "reviewQuestions": [
+    "content_role",
+    "monetization"
+  ],
+  "questions": {
+    "content_role": {
+      "type": "choice",
+      "instructions": "What is the dominant purpose of this video transcript excerpt?",
+      "criteria": {
+        "selling": "Promotes a paid service, software, course, consultation or offer",
+        "education": "Mainly explains a process, strategy, tutorial or case",
+        "demand": "People describe a concrete current need, problem or search for a provider",
+        "opinion": "Primarily commentary, news, or personal opinion",
+        "other": "Unrelated or not enough evidence"
+      }
+    },
+    "offer_present": {
+      "type": "noul",
+      "instructions": "Is an explicit offer for a product, service, course, guide, consultation or other benefit present in this excerpt? Do not infer one if absent."
+    },
+    "pain_present": {
+      "type": "noul",
+      "instructions": "Does the excerpt explicitly describe a problem, frustration or unmet need experienced by the target audience?"
+    },
+    "cta_present": {
+      "type": "noul",
+      "instructions": "Is there an explicit call to action telling the viewer to subscribe, message, click, download, sign up or visit somewhere?"
+    },
+    "funnel_present": {
+      "type": "noul",
+      "instructions": "Does the excerpt explicitly direct the viewer from this YouTube video to another channel, landing page, website, messenger, community or lead magnet?"
+    },
+    "monetization": {
+      "type": "choice",
+      "instructions": "What is the strongest explicitly described monetization model in this excerpt? If not identifiable choose unknown.",
+      "criteria": {
+        "services": "Selling done-for-you services or freelancing",
+        "education": "Selling courses, coaching, consulting, or paid learning",
+        "product": "Selling software, app subscriptions or another digital product",
+        "affiliate": "Affiliate/referral revenue is the explicit core model",
+        "advertising": "Selling advertising placements or sponsorships",
+        "physical": "Selling physical products",
+        "mixed": "Two or more distinct monetization models are explicitly mentioned",
+        "unknown": "No identifiable monetization model"
+      }
+    },
+    "actionable": {
+      "type": "score",
+      "instructions": "How useful is this excerpt for a grounded business or information distribution research hypothesis?",
+      "criteria": [
+        "No actionable information",
+        "Weak hint without a concrete mechanism",
+        "Concrete offer, pain, strategy, or audience clue",
+        "Specific funnel, CTA, product, or positioning mechanism worth investigating"
+      ]
+    }
+  }
+}

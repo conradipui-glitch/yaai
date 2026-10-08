@@ -11,6 +11,7 @@ The engine provides:
 - a live YouTube Data API v3 adapter for topic/channel/content research;
 - a read-only Telegram MTProto adapter for public channel/post research, repeated counter snapshots and outbound-link evidence;
 - a cheap structured Evaluation Layer using TypeSafe Jev through OpenRouter Decisions for lead/content/message classification before expensive AI work;
+- YouTube transcript enrichment (.md/.srt/.vtt/.txt or optional public captions) linked to ContentItem and Jev offer/pain/CTA/funnel evidence;
 - intent clustering and query classification;
 - Commercial / Informational / Noise / Unmapped labels;
 - Landing / Guide / Hold recommendations and Page Planner;
@@ -148,9 +149,25 @@ npm run jev:distribution -- \
   --execute
 ```
 
-See **[docs/evaluation-layer.md](docs/evaluation-layer.md)**.
+See **[docs/evaluation-layer.md](docs/evaluation-layer.md)** and **[docs/youtube-transcripts.md](docs/youtube-transcripts.md)**.
 
 Secrets belong in the environment or GitHub Secrets, never in committed client data, scripts, logs or issue threads.
+
+## YouTube transcript → Jev
+
+```bash
+npm run youtube:transcripts -- \
+  --distribution /private/youtube-evidence.json \
+  --input-dir /private/transcripts \
+  --out /private/transcript-evidence.json
+
+npm run transcript:evaluate -- \
+  --transcripts /private/transcript-evidence.json \
+  --out /private/transcript-evaluation.json \
+  --execute
+```
+
+Local import supports timestamped Markdown as well as plain text/SRT/VTT. Optionally add `--fetch --execute` to the first command to *attempt* public YouTube captions; data-center blocks are recorded. Jev flags offer, pain, CTA, funnel and monetization candidates in time-linked excerpts, not verified exact text. See **[docs/youtube-transcripts.md](docs/youtube-transcripts.md)**.
 
 ## MCP for AI agents
 

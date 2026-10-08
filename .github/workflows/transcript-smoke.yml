@@ -1,0 +1,32 @@
+name: Transcript Jev smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lib/youtube-transcripts.mjs"
+      - "scripts/transcript-smoke.mjs"
+      - "examples/evaluation-profiles/transcript-intelligence.json"
+      - ".github/workflows/transcript-smoke.yml"
+
+jobs:
+  transcript-jev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check OpenRouter secret
+        env:
+          YAIS_AI: ${{ secrets.YAIS_AI }}
+        run: |
+          if [ -z "$YAIS_AI" ]; then
+            echo "YAIS_AI unavailable"
+            exit 1
+          fi
+      - name: Live transcript Jev API contract
+        env:
+          YAIS_AI: ${{ secrets.YAIS_AI }}
+        run: npm run transcript:smoke

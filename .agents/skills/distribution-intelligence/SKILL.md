@@ -12,6 +12,7 @@ Use normalized platform evidence to answer:
 - which creators/channels/entities repeatedly appear around the selected research queries;
 - which content items were discovered for each topic;
 - what public counters were observed for those items and their source entities;
+- whether saved YouTube transcript decisions suggest explicit offers, pains, CTAs or funnel transitions;
 - whether repeated content or entity metric snapshots show growth over time;
 - which entities or content items deserve deeper qualitative research.
 
@@ -27,7 +28,7 @@ A normalized distribution evidence JSON collected by an explicit source adapter 
 
 1. Call `yaai_distribution_evidence`.
 2. Review entity `queryCount` and the queries that discovered each entity.
-3. Review top collected content and latest observed metrics. Preserve platform-native counters such as Telegram forwards/reactions instead of reducing everything to likes.
+3. Review top collected content and latest observed metrics. If saved transcript evaluation evidence exists, read it with `yaai_evaluation_evidence` and use only its cited chunk/time anchors. Preserve platform-native counters such as Telegram forwards/reactions instead of reducing everything to likes.
 4. If content or entity data has multiple snapshots, use `metricDelta` as measured counter movement between the two latest observations.
 5. Use `sampleRelativeReach` only as a within-entity, within-collected-sample comparison.
 6. Use `viewsPerSubscriber` only as size context for the same platform/entity; it is not conversion or audience quality.
@@ -49,6 +50,7 @@ Return:
 - Never compare raw views/likes/forwards/reactions across different platforms as a universal effectiveness score.
 - Never call search-selected items a representative channel baseline.
 - Never infer conversions, revenue, audience quality or causal placement lift from public counters alone.
+- Jev flags signal presence, not exact verified offer/CTA wording; inspect the original transcript before attributing specific claims to a creator.
 - Treat YouTube subscriber counts as rounded public counters, not exact audience size.
 - Never trigger live platform collection through MCP.
 - Label measured evidence separately from inference.
