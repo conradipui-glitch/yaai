@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { optionalNonnegativeNumber, maxOptionalNumber, formatOptionalNumber } from '../lib/optional-number.mjs';
 import { analyzeRows } from '../lib/analyze.mjs';
 import { loadCase } from '../lib/snapshots.mjs';
 import { requireCaseId, resolveCaseId, resolveWorkspaceRoot, workspacePaths } from '../lib/workspace.mjs';
@@ -86,17 +87,17 @@ function addRows(map, callMeta, items, type) {
   for (const item of items || []) {
     const phrase = String(item.phrase || item.query || item.request || '').trim();
     if (!phrase) continue;
-    const count = Number(item.count ?? item.shows ?? item.frequency ?? 0);
+    const count = optionalNonnegativeNumber(item.count ?? item.shows ?? item.frequency);
     const key = `${callMeta.region.id}|${norm(phrase)}`;
     const row = map.get(key) || {
       phrase,
       regionId: callMeta.region.id,
       regionName: callMeta.region.name,
-      count: 0,
+      count: null,
       types: new Set(),
       seeds: new Set(),
     };
-    if (Number.isFinite(count)) row.count = Math.max(row.count, count);
+    row.count = maxOptionalNumber(row.count, count);
     row.types.add(type);
     row.seeds.add(callMeta.seed);
     map.set(key, row);
@@ -158,7 +159,7 @@ const rows = [...merged.values()].map((r) => ({
   ...r,
   types: [...r.types].sort(),
   seeds: [...r.seeds].sort(),
-})).sort((a, b) => b.count - a.count || a.phrase.localeCompare(b.phrase, 'ru'));
+})).sort((a, b) => (b.count ?? -1) - (a.count ?? -1) || a.phrase.localeCompare(b.phrase, 'ru'));
 
 await fs.mkdir(OUT_DIR, { recursive: true });
 const generatedAt = new Date().toISOString();
@@ -176,7 +177,7 @@ await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-latest.json`), JSON.st
 await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-latest.csv`), writeCsv(
   rows,
   ['phrase','region_id','region_name','count','types','seeds'],
-  (r) => [r.phrase,r.regionId,r.regionName,r.count,r.types.join('|'),r.seeds.join('|')]
+  (r) => [r.phrase,r.regionId,r.regionName,r.count ?? '',r.types.join('|'),r.seeds.join('|')]
 ), 'utf8');
 
 const rawMd = [];
@@ -193,7 +194,7 @@ for (const region of targets) {
   rawMd.push('| # | Р вЂ”Р В°Р С—РЎР‚Р С•РЎРѓ | Р В§Р В°РЎРѓРЎвЂљР С•РЎвЂљР Р…Р С•РЎРѓРЎвЂљРЎРЉ | Р СћР С‘Р С— | Seed |');
   rawMd.push('|---:|---|---:|---|---|');
   const top = rows.filter((r) => r.regionId === region.id).slice(0, 60);
-  top.forEach((r, i) => rawMd.push(`| ${i + 1} | ${r.phrase.replaceAll('|','\\|')} | ${r.count} | ${r.types.join(', ')} | ${r.seeds.join(', ').replaceAll('|','\\|')} |`));
+  top.forEach((r, i) => rawMd.push(`| ${i + 1} | ${r.phrase.replaceAll('|','\\|')} | ${formatOptionalNumber(r.count)} | ${r.types.join(', ')} | ${r.seeds.join(', ').replaceAll('|','\\|')} |`));
   rawMd.push('');
 }
 await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-wordstat-summary.md`), rawMd.join('\n'), 'utf8');
@@ -238,7 +239,7 @@ await fs.writeFile(path.join(OUT_DIR, `${PREFIX}-query-actions-latest.csv`), wri
   actionRows,
   ['phrase','region_id','region_name','count','types','seeds','analysis_status','query_type','query_confidence','query_source','next_action','intent_id','intent_title','intent_score','matched_keywords'],
   (r) => [
-    r.phrase,r.regionId,r.regionName,r.count,(r.types || []).join('|'),(r.seeds || []).join('|'),
+    r.phrase,r.regionId,r.regionName,r.count ?? '',(r.types || []).join('|'),(r.seeds || []).join('|'),
     r.analysisStatus,r.queryType,r.queryConfidence,r.querySource,r.nextAction,
     r.intentId || '',r.intentTitle || '',r.score || '',(r.matchedKeywords || []).join('|')
   ]
@@ -274,7 +275,7 @@ intentMd.push('| Р вЂ”Р В°Р С—РЎР‚Р С•РЎРѓ | Р В
 intentMd.push('|---|---|---:|---|---|---|---|');
 for (const row of actionRows.slice(0, 80)) {
   const intent = row.intentId ? `${row.intentId} ${row.intentTitle || ''}` : 'РІР‚вЂќ';
-  intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${row.count} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${String(intent).replaceAll('|','\\|')} | ${row.queryConfidence || 'РІР‚вЂќ'} |`);
+  intentMd.push(`| ${String(row.phrase).replaceAll('|','\\|')} | ${row.regionName} | ${formatOptionalNumber(row.count)} | ${row.queryType} | ${actionLabel(row.nextAction)} | ${String(intent).replaceAll('|','\\|')} | ${row.queryConfidence || 'РІР‚вЂќ'} |`);
 }
 intentMd.push('');
 
