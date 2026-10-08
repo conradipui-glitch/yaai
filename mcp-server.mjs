@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { analyzeRows } from './lib/analyze.mjs';
 import { analyzeDistributionEvidence } from './lib/distribution-evidence.mjs';
 import { summarizeEvaluationEvidence } from './lib/evaluation.mjs';
+import { painMapMarkdown } from './lib/pain-discovery.mjs';
 import { listSnapshotManifests, loadCase, pctChange } from './lib/snapshots.mjs';
 import { analyzeRankTrackerCsv } from './lib/rank-tracker.mjs';
 import { analyzeSerpEvidence } from './lib/serp-evidence.mjs';
@@ -21,7 +22,7 @@ const LEGACY_PROTOCOL_VERSIONS = new Set([
   '2025-03-26',
   '2024-11-05',
 ]);
-const SERVER_INFO = { name: 'yaai', version: '0.16.0' };
+const SERVER_INFO = { name: 'yaai', version: '0.17.0' };
 const SERVER_INSTRUCTIONS =
   'Yandex-first SEO decision engine. Tools read an explicit yaai workspace and compute analysis locally. ' +
   'The MCP surface does not call live external collection or model APIs; collect/refresh Wordstat, Webmaster, SERP, YouTube, Telegram or Jev evaluation evidence with explicit CLI workflows first.';
@@ -198,6 +199,19 @@ export const TOOLS = [
       relativeJsonPath: {
         type: 'string',
         description: 'Path to a saved Jev evaluation JSON relative to the workspace root. Parent-directory escapes are rejected.',
+      },
+      limit: LIMIT,
+    }, ['relativeJsonPath']),
+  },
+  {
+    name: 'yaai_pain_evidence',
+    title: 'Pain Discovery Evidence',
+    description: 'Read a previously generated Yandex Wordstat + SERP + Jev Pain Map with source links and unverified pain hypotheses. Never calls external APIs.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      relativeJsonPath: {
+        type: 'string',
+        description: 'Path to a saved Pain Map JSON within the workspace. Parent-directory escapes are rejected.',
       },
       limit: LIMIT,
     }, ['relativeJsonPath']),
@@ -404,6 +418,7 @@ async function workspaceOverview(context, args) {
       serpEvidence: true,
       distributionEvidence: true,
       evaluationEvidence: true,
+      painEvidence: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -722,6 +737,28 @@ async function evaluationEvidence(context, args) {
   };
 }
 
+async function painEvidence(context, args) {
+  const caseConfig = await selectedCase(context, args.caseId);
+  const jsonPath = workspaceFile(context, args.relativeJsonPath, 'relativeJsonPath');
+  const map = JSON.parse(await fs.readFile(jsonPath, 'utf8'));
+  if (map.source !== 'yaai-pain-discovery' || Number(map.schemaVersion) !== 1 || !Array.isArray(map.cards)) {
+    throw new Error('Expected a saved yaai Pain Map JSON.');
+  }
+  const limit = clampLimit(args.limit);
+  return {
+    caseId: caseConfig.id,
+    caseName: caseConfig.name,
+    source: path.relative(context.workspaceRoot, jsonPath).replaceAll(path.sep, '/'),
+    topic: map.topic,
+    summary: map.summary,
+    methodology: map.methodology,
+    cards: map.cards.slice(0, limit),
+    cardCount: map.cards.length,
+    omittedCards: Math.max(0, map.cards.length - limit),
+    reportPreview: painMapMarkdown({ ...map, cards: map.cards.slice(0, Math.min(3, limit)) }).slice(0, 3500),
+  };
+}
+
 const TOOL_HANDLERS = {
   yaai_workspace_overview: workspaceOverview,
   yaai_analyze_latest: analyzeLatest,
@@ -732,6 +769,7 @@ const TOOL_HANDLERS = {
   yaai_serp_evidence: serpEvidence,
   yaai_distribution_evidence: distributionEvidence,
   yaai_evaluation_evidence: evaluationEvidence,
+  yaai_pain_evidence: painEvidence,
 };
 
 function protocolFromMessage(message, state) {
