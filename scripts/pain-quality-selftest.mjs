@@ -46,6 +46,8 @@ assert.equal(empty.metrics.painPrecision,null);
 assert.equal(empty.metrics.painRecall,null);
 assert.equal(empty.metrics.validatedEvidenceCoverage,null);
 assert.equal(empty.metrics.costPerValidatedTruePositiveUsd,null);
+assert.equal(empty.metrics.costPerHumanPositiveUsd,null);
+assert.equal(empty.metrics.costPerSourceSupportedTruePositiveUsd,null);
 assert.match(painQualityMarkdown(empty),/нет данных/);
 
 for (const item of queue.items) {
@@ -67,7 +69,10 @@ assert.equal(result.metrics.painRecall,0.6667);
 assert.equal(result.metrics.categoryAccuracyOnTruePositive,0.5);
 assert.equal(result.metrics.validatedEvidenceCoverage,0.6667);
 assert.equal(result.metrics.reviewedJevCostUsd,0.12);
-assert.equal(result.metrics.costPerValidatedTruePositiveUsd,0.03);
+assert.equal(result.metrics.costPerHumanPositiveUsd,0.03);
+assert.equal(result.metrics.sourceSupportedTruePositiveCount,2);
+assert.equal(result.metrics.costPerSourceSupportedTruePositiveUsd,0.06);
+assert.equal(result.metrics.costPerValidatedTruePositiveUsd,0.06);
 assert.equal(result.discrepancies.length,6);
 assert.equal(result.sources.wordstat_phrase.reviewed,6);
 assert.equal(result.sources.serp_snippet.reviewed,6);
