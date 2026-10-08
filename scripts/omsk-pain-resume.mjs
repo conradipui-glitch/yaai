@@ -86,10 +86,10 @@ export async function inspectOmskStudy(directory, code, fingerprint) {
     } catch (error) { if (error.code !== 'ENOENT') throw error; }
   }
   const manifestRaw = await read('omsk-resume-manifest.json');
-  if (!manifestRaw && (completed.length || checkpointNames.length)) {
+  if (manifestRaw === null && (completed.length || checkpointNames.length)) {
     fail('Saved Omsk artifacts lack a verified resume manifest. Cannot use legacy data.');
   }
-  if (manifestRaw) {
+  if (manifestRaw !== null) {
     let m;
     try { m = JSON.parse(manifestRaw); }
     catch { fail('Malformed Omsk resume manifest.'); }
