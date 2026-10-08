@@ -42,5 +42,6 @@ jobs:
           name: serp-human-review-private-qa
           path: |
             ${{ runner.temp }}/serp-human-review.csv
+            ${{ runner.temp }}/serp-human-review.blind.csv
             ${{ runner.temp }}/serp-human-review.manifest.json
           retention-days: 1
