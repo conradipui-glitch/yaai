@@ -1,83 +1,59 @@
 name: Pain Quality real-data pilot
 
-# One automatic run when this workflow is first merged; later runs are manual.
+# Paid collection/evaluation is opt-in; resumptions may run offline.
 on:
   workflow_dispatch:
+    inputs:
+      resume_run_id:
+        description: "Earlier run ID of THIS pilot; leave empty for a fresh run"
+        required: false
+        type: string
+        default: ""
+      confirm_paid_requests:
+        description: "Explicitly allow only missing paid Yandex/Jev stages"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   real-data-pilot:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Check API configuration
-        env:
-          YAIS_API: ${{ secrets.YAIS_API }}
-          YAIS_AI: ${{ secrets.YAIS_AI }}
-        run: |
-          test -n "$YAIS_API" || { echo "Missing YAIS_API"; exit 1; }
-          test -n "$YAIS_AI" || { echo "Missing YAIS_AI"; exit 1; }
-          mkdir -p pilot
-      - name: Wordstat, capped at 3 requests
-        env:
-          YAIS_API: ${{ secrets.YAIS_API }}
-          YAIS_ID: ${{ secrets.YAIS_ID }}
-          YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
-        run: |
-          npm run pain:wordstat -- \
-            --seeds "обработка заявок,лиды теряются,дорогие лиды" \
-            --region 225 --num-phrases 90 \
-            --out pilot/wordstat.json --execute
-      - name: Prepare up to 12 Yandex searches
-        run: |
-          npm run pain:prepare -- \
-            --topic "обработка заявок" \
-            --wordstat pilot/wordstat.json --limit 12 \
-            --out pilot/query-plan.json --query-file pilot/serp-queries.txt
-      - name: Collect up to 12 queries x 12 SERP snippets
+          node-version: "22"
+      - name: Restore private prior artifacts only when explicitly requested
+        if: ${{ inputs.resume_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+          name: pain-quality-real-pilot-2026-10-08
+          path: pilot/
+      - name: Validate and resume only unfinished stages
         env:
           YAIS_API: ${{ secrets.YAIS_API }}
           YAIS_ID: ${{ secrets.YAIS_ID }}
           YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
-        run: |
-          npm run serp:collect -- \
-            --query-file pilot/serp-queries.txt \
-            --region 225 --groups 12 \
-            --out pilot/serp.json --execute
-      - name: Jev - max 90 real source observations
-        env:
           YAIS_AI: ${{ secrets.YAIS_AI }}
+          CONFIRM_PAID: ${{ inputs.confirm_paid_requests }}
         run: |
-          npm run pain:analyze -- \
-            --topic "обработка заявок" \
-            --wordstat pilot/wordstat.json --serp pilot/serp.json \
-            --limit 90 --out pilot/pain-map.json --md pilot/pain-map.md \
-            --evaluation-out pilot/jev-evidence.json --execute
-      - name: Produce blind queue - up to 80 observations
-        run: |
-          npm run pain:review -- \
-            --map pilot/pain-map.json --sample-size 80 \
-            --out pilot/review-unlabeled.json
-      - name: Honest quality report without invented human labels
-        run: |
-          npm run pain:quality -- \
-            --map pilot/pain-map.json --review pilot/review-unlabeled.json \
-            --target-labels 50 \
-            --out pilot/quality-unlabeled.json --md pilot/quality-unlabeled.md
-      - name: Validate pilot size and labeling integrity
-        run: |
-          node --input-type=module -e "import fs from 'node:fs';const map=JSON.parse(fs.readFileSync('pilot/pain-map.json'));const q=JSON.parse(fs.readFileSync('pilot/review-unlabeled.json'));const quality=JSON.parse(fs.readFileSync('pilot/quality-unlabeled.json'));if(q.items.some(x=>x.label.isPain!==null))throw Error('Unexpected fabricated human labels');console.log(JSON.stringify({population:map.evidenceLedger.length,queued:q.items.length,wordstat:q.items.filter(x=>x.evidence.kind==='wordstat_phrase').length,serp:q.items.filter(x=>x.evidence.kind==='serp_snippet').length,painSignals:map.summary.acceptedEvidence,jevUsd:map.summary.measuredModelCostUsd,status:quality.status}));if(q.items.length<50)throw Error('Fewer than 50 observations, pilot needs more collection');"
-      - name: Upload pilot artifacts (short retention, source excerpts only)
+          if [ "$CONFIRM_PAID" = "true" ]; then
+            node scripts/pain-pilot-resume.mjs --dir pilot --execute
+          else
+            node scripts/pain-pilot-resume.mjs --dir pilot
+          fi
+      - name: Upload all completed stages AND Jev checkpoints on failure
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pain-quality-real-pilot-2026-10-08
           path: pilot/
           if-no-files-found: warn
-          retention-days: 2
+          retention-days: 7
