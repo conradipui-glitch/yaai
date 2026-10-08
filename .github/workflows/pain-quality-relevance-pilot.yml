@@ -1,12 +1,24 @@
 name: Pain Quality relevance-controlled pilot
+# Use only pre-existing Yandex evidence; Jev is opt-in and resumable.
 
 on:
   workflow_dispatch:
     inputs:
       source_run_id:
-        description: "Earlier Pain Quality real-data pilot run containing cached Yandex search evidence"
+        description: "Original Pain Quality real-data run containing Yandex SERP evidence"
         required: true
+        type: string
         default: "37803334636"
+      resume_run_id:
+        description: "Earlier relevance pilot run ID to restore Jev checkpoints (optional)"
+        required: false
+        type: string
+        default: ""
+      confirm_paid_requests:
+        description: "Explicitly authorize missing Jev decisions (up to 90)"
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -15,76 +27,62 @@ permissions:
 jobs:
   relevance-controlled-review:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      YAIS_AI: ${{ secrets.YAIS_AI }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Reuse earlier Yandex evidence (no new Yandex API calls)
+      - name: Restore existing Yandex observations; no Yandex API calls
         uses: actions/download-artifact@v4
         with:
           name: pain-quality-real-pilot-2026-10-08
           path: pilot/raw
-          run-id: ${{ inputs.source_run_id || '37803334636' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Apply strict topic relevance gate before Jev
-        run: |
-          mkdir -p pilot/clean
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          const raw = JSON.parse(fs.readFileSync('pilot/raw/serp.json','utf8'));
-          const queries = raw.queries.filter(row =>
-            /^(?:почему\s+|альтернатива\s+)?обработка\s+заявок(?:\s|$)/iu.test(row.query));
-          const clean = {...raw,queries,source:'yandex-search-api-v2',
-            filtering:{rule:'explicit-topic-query-match',
-              note:'Exclude Wordstat suggested queries about personal name Lida and unrelated topics before Jev.',
-              excludedQueries:raw.queries.length-queries.length}};
-          fs.writeFileSync('pilot/clean/serp.json',JSON.stringify(clean,null,2));
-          const results = queries.reduce((n,q)=>n+q.results.length,0);
-          console.log(JSON.stringify({keptQueries:queries.map(x=>x.query), excludedQueries:raw.queries.length-queries.length,rawResults:results}));
-          if(queries.length<5||results<50) throw Error('Insufficient relevant Yandex SERP evidence; do not run Jev.');
-          NODE
-      - name: Jev on relevant source text only (max 90 calls)
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+      - name: Restore earlier filtered data, assessment and Jev checkpoints
+        if: ${{ inputs.resume_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: pain-quality-relevant-real-sample-2026-10-08
+          path: pilot/clean
+          run-id: ${{ inputs.resume_run_id }}
+          github-token: ${{ github.token }}
+      - name: Validate sources, apply topic filter and resume approved work
         env:
-          YAIS_AI: ${{ secrets.YAIS_AI }}
+          CONFIRM_PAID: ${{ inputs.confirm_paid_requests }}
         run: |
-          test -n "$YAIS_AI" || { echo "YAIS_AI missing"; exit 1; }
-          npm run pain:analyze -- \
-            --topic "обработка заявок" \
-            --serp pilot/clean/serp.json --limit 90 \
-            --out pilot/clean/pain-map.json \
-            --md pilot/clean/pain-map.md \
-            --evaluation-out pilot/clean/jev-evidence.json --execute
-      - name: Generate blind review queue
-        run: |
-          npm run pain:review -- \
-            --map pilot/clean/pain-map.json --sample-size 80 \
-            --out pilot/clean/review-unlabeled.json
-      - name: Verify zero human labels and minimum sample size
+          if [ "$CONFIRM_PAID" = "true" ]; then
+            node scripts/cached-jev-pilots.mjs --mode relevance \
+              --source pilot/raw --dir pilot/clean --execute
+          else
+            node scripts/cached-jev-pilots.mjs --mode relevance \
+              --source pilot/raw --dir pilot/clean
+          fi
+      - name: Print source population and human-review status
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
-          const p='pilot/clean/';
-          const map=JSON.parse(fs.readFileSync(p+'pain-map.json'));
-          const q=JSON.parse(fs.readFileSync(p+'review-unlabeled.json'));
-          if(q.items.some(row=>row.label.isPain!==null)) throw Error('Human labels may not be simulated.');
-          if(q.items.length<50||map.evidenceLedger.length<50) throw Error('Not enough relevant distinct source observations.');
-          if(q.items.some(row=>!row.evidence.query.match(/обработка заявок/u))) throw Error('An off-topic search query bypassed relevance filtering.');
-          console.log(JSON.stringify({topic:map.topic,distinctRelevantObservations:map.evidenceLedger.length,blindReviewCount:q.items.length,jevAccepted:map.summary.acceptedEvidence,jevCostUsd:map.summary.measuredModelCostUsd,humanLabels:0}));
+          const prefix='pilot/clean/';
+          const map=JSON.parse(fs.readFileSync(prefix+'pain-map.json','utf8'));
+          const review=JSON.parse(fs.readFileSync(prefix+'review-unlabeled.json','utf8'));
+          if(review.items.some(row=>row.label.isPain!==null)) throw Error('Unexpected human labels.');
+          console.log(JSON.stringify({
+            topic:map.topic,
+            distinctRelevantObservations:map.evidenceLedger.length,
+            blindReviewCount:review.items.length,
+            jevAccepted:map.summary.acceptedEvidence,
+            jevCostUsd:map.summary.measuredModelCostUsd,
+            humanLabels:0
+          }));
           NODE
-      - name: Honest quality report - before any human annotation
-        run: |
-          npm run pain:quality -- \
-            --map pilot/clean/pain-map.json \
-            --review pilot/clean/review-unlabeled.json \
-            --target-labels 50 \
-            --out pilot/clean/quality-unlabeled.json \
-            --md pilot/clean/quality-unlabeled.md
-      - uses: actions/upload-artifact@v4
+      - name: Save filtered evidence, reports and partial Jev checkpoints on failure
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: pain-quality-relevant-real-sample-2026-10-08
           path: pilot/clean/
-          if-no-files-found: warn
-          retention-days: 2
+          if-no-files-found: ignore
+          retention-days: 7
