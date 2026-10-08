@@ -2,11 +2,6 @@ name: Wordstat smoke
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/wordstat-smoke.yml'
-      - 'scripts/wordstat-smoke.mjs'
-
 jobs:
   smoke:
     runs-on: ubuntu-latest
