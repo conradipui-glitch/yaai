@@ -57,7 +57,8 @@ assert.ok(results.retained.some(x=>x.url.endsWith('offtopic-query') && x.relevan
 const tiny=buildPainEvidenceItems({topic,serp,limit:2});
 assert.equal(tiny.length,2);
 assert.equal(tiny[0].evidence.url,'https://example.test/experimental');
-assert.equal(tiny[1].evidence.url,'https://example.test/real');
+assert.equal(tiny[1].evidence.url,'https://example.test/offtopic-query');
+assert.equal(tiny[1].evidence.sourceRelevance.decision,'review');
 assert.equal(tiny[0].evidence.sourceRelevance.decision,'review');
 const whole=buildPainEvidenceItems({topic,serp,limit:40});
 assert.equal(whole.length,6);
