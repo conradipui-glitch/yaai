@@ -44,6 +44,10 @@ function esc(value) {
   }[char]));
 }
 
+function visibleCount(value) {
+  return value == null || value === '' ? 'нет данных' : Number(value).toLocaleString('ru-RU');
+}
+
 function selectedRegions() {
   return [...document.querySelectorAll('.region input:checked')]
     .map((input) => ({ id: input.dataset.id, name: input.dataset.name }));
@@ -160,14 +164,14 @@ function renderPagePlan(data) {
 
   const pages = data.pages || [];
   $('pagePlanBody').innerHTML = pages.length ? pages.map((page) => {
-    const regions = (page.regions || []).map((region) => `${region.regionName}: ${Number(region.maxCount || 0).toLocaleString('ru-RU')}`).join('<br>');
-    const top = (page.topQueries || []).slice(0, 4).map((q) => `${esc(q.phrase)} <b>${Number(q.count || 0).toLocaleString('ru-RU')}</b>`).join('<br>');
+    const regions = (page.regions || []).map((region) => `${esc(region.regionName)}: ${visibleCount(region.maxCount)}`).join('<br>');
+    const top = (page.topQueries || []).slice(0, 4).map((q) => `${esc(q.phrase)} <b>${visibleCount(q.count)}</b>`).join('<br>');
     return `<tr>
       <td><b>#${page.priorityRank}</b><br>${pill(PRIORITY_LABEL[page.priorityBand] || page.priorityBand, page.priorityBand)}</td>
       <td>${pill(PLAN_LABEL[page.decision] || page.decision, page.decision)}<br><span class="muted">${esc(page.pageKind)}</span></td>
       <td><b>${esc(page.title)}</b><br><code>${esc(page.path)}</code>${page.generated ? '<br><span class="muted">auto target</span>' : ''}</td>
       <td>${esc(page.businessPriority || 'Р Р†Р вЂљРІР‚Сњ')}<br><span class="muted">score ${esc(page.plannerScore)}</span></td>
-      <td><b>${esc(page.strongestPhrase)}</b> Р Р†Р вЂљРІР‚Сњ ${Number(page.maxCount || 0).toLocaleString('ru-RU')}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
+      <td><b>${esc(page.strongestPhrase)}</b> Р Р†Р вЂљРІР‚Сњ ${visibleCount(page.maxCount)}<br><span class="muted">${esc(page.strongestRegion)}</span></td>
       <td>${regions || 'Р Р†Р вЂљРІР‚Сњ'}</td>
       <td>${(page.intentIds || []).map((id) => pill(id)).join('') || '<span class="muted">Р В Р’В±Р В Р’ВµР В Р’В· intent</span>'}</td>
       <td>${top || 'Р Р†Р вЂљРІР‚Сњ'}${page.note ? `<br><span class="muted">${esc(page.note)}</span>` : ''}</td>
