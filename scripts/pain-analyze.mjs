@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { buildPainEvidenceItems, buildPainMap, painMapMarkdown } from '../lib/pain-discovery.mjs';
 import { evaluateItemsWithJev } from '../lib/evaluation.mjs';
+import { prepareJevCheckpoints } from '../lib/jev-checkpoints.mjs';
 import { resolveOpenRouterApiKey, DEFAULT_JEV_MODEL } from '../lib/jev.mjs';
 
 const args=process.argv.slice(2);
@@ -26,13 +27,15 @@ const [wordstat,serp,profile]=await Promise.all([
 ]);
 const items=buildPainEvidenceItems({topic,wordstat,serp,limit});
 if(!items.length)throw new Error('No candidate source observations; do not label generated queries as audience evidence.');
+const checkpoint=await prepareJevCheckpoints({outputPath:out,otherOutputs:[rawOut,mdOut],checkpointDir:flag('--checkpoint-dir')});
 const evaluations=await evaluateItemsWithJev({
   items:items.map(item=>({id:item.id,state:item.state,meta:item.meta})),
+  checkpoint,
   profile,model:flag('--model')||process.env.YAAI_JEV_MODEL||DEFAULT_JEV_MODEL,
   apiKey:key,
   delayMs:Number(flag('--delay-ms')||0),
-  onProgress:({index,total,itemId,route,cost})=>
-    console.error('Pain Jev '+index+'/'+total+': '+itemId+' → '+(route.needsReview?'review':'assessed')+' cost='+cost),
+  onProgress:({index,total,itemId,route,cost,reused})=>
+    console.error('Pain Jev '+index+'/'+total+': '+itemId+' → '+(route.needsReview?'review':'assessed')+' cost='+cost+(reused?' [reused]':'')),
 });
 const map=buildPainMap({topic,evidenceItems:items,evaluations,wordstat,serp});
 const destination=path.resolve(out);
@@ -52,6 +55,7 @@ console.log(JSON.stringify({
   saved:destination,model:evaluations.modelRequested,
   items:map.input.evidenceItemCount,cards:map.summary.painCategories,
   accepted:map.summary.acceptedEvidence,review:map.summary.uncertainEvidence,
+  reused:evaluations.summary.reusedCount,newMeasuredCostSubtotal:evaluations.summary.newMeasuredCostSubtotal,
   observedCostUsd:map.summary.measuredModelCostUsd,
   note:'Pain cards are categorized hypotheses; supporting links/snippets and observed Wordstat counts are retained.'
 },null,2));
