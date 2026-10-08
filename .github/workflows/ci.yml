@@ -15,18 +15,3 @@ jobs:
           node-version: 22
       - run: npm run check
       - run: node scripts/encoding-selftest.mjs
-      # Temporary QA handoff of public report sources; remove before merge.
-      - name: Package report renderer for local browser QA
-        if: github.head_ref == 'qa/real-evidence-report-20261009'
-        uses: actions/upload-artifact@v4
-        with:
-          name: evidence-renderer-qa-source
-          path: |
-            lib/evidence-report.mjs
-            lib/evidence-report-html.mjs
-            lib/pain-discovery.mjs
-            lib/pain-quality.mjs
-            public/evidence-report.css
-            public/evidence-report.js
-            scripts/render-pain-report.mjs
-          retention-days: 1
