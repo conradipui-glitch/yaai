@@ -116,6 +116,14 @@ try {
   await assert.rejects(inspectOmskStudy(root, 'roofing', differentModel),
     /Incompatible Omsk resume manifest/);
 
+  const emptyManifest = path.join(tmp, 'empty-manifest');
+  await fs.mkdir(emptyManifest);
+  await fs.writeFile(path.join(emptyManifest, 'omsk-resume-manifest.json'), '');
+  await assert.rejects(runOmskStudy({
+    code: 'roofing', directory: emptyManifest, execute: true, invoke: counted,
+  }), /Malformed Omsk resume manifest/);
+  assert.equal(invoked, 3, 'empty manifest must not invoke a paid stage');
+
   const failedRestore = path.join(tmp, 'unverified');
   await fs.mkdir(failedRestore);
   await fs.copyFile(path.join(root, 'wordstat.json'), path.join(failedRestore, 'wordstat.json'));
