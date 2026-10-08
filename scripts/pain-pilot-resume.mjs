@@ -65,13 +65,23 @@ export async function inspectPilot(directory, fingerprint) {
     }
     if (n) present.push(stage);
   }
-  // Jev checkpoint files may exist without complete Jev output.
-  let checkpointExists = false;
-  try {
-    checkpointExists = (await fs.readdir(path.join(root, 'pain-map.json.jev-checkpoints'))).length > 0;
-  } catch (error) {
-    if (error.code !== 'ENOENT') throw error;
+  // Incomplete paid stages may still contain paid responses from earlier
+  // requests. Preserve them across Actions runs, even if no final JSON exists.
+  const checkpointDirectories = [
+    'wordstat.json.yandex-checkpoints',
+    'serp.json.yandex-checkpoints',
+    'pain-map.json.jev-checkpoints',
+  ];
+  const partialCheckpoints = [];
+  for (const name of checkpointDirectories) {
+    try {
+      const names = await fs.readdir(path.join(root, name));
+      if (names.length) partialCheckpoints.push(name);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
   }
+  const checkpointExists = partialCheckpoints.length > 0;
   if (!manifestText && (present.length || checkpointExists)) {
     throw new Error('Saved research lacks resume-manifest.json. Do not reuse unverified legacy artifacts.');
   }
@@ -141,7 +151,7 @@ export async function inspectPilot(directory, fingerprint) {
     pending: PILOT_STAGES.filter(stage => !completed.has(stage)),
     pendingPaid: PAID_PILOT_STAGES.filter(stage => !completed.has(stage)),
     hasManifest: Boolean(manifestText),
-    checkpointExists,
+    checkpointExists, partialCheckpoints,
   };
 }
 
