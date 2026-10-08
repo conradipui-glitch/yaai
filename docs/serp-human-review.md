@@ -16,9 +16,12 @@ npm run pain:serp:benchmark -- prepare \
   --size 48
 ```
 
-Creates `pilot.csv` (UTF-8, semicolon-delimited, readable in Excel and
-LibreOffice) and `pilot.manifest.json` (the fixed source and rule decisions).
-Both are private files. **No human labels are generated automatically.**
+Creates `pilot.blind.csv` for independent human review (without the
+model's `decision` or `reason` columns), `pilot.csv` for transparent auditing,
+and `pilot.manifest.json` binding original source IDs to machine decisions.
+These are UTF-8 semicolon CSV files; **no human labels are generated automatically**.
+Use **the blind CSV** or a spreadsheet converted from it for labeling. Keep the
+full CSV/manifest out of the reviewer's view until labels are submitted.
 
 The 48-row target is approximately evenly split between:
 - `exclude`: snippets automatically removed **before** Jev;
@@ -40,21 +43,21 @@ possible, and independently fill only these columns**:
 | `gold_useful_signal` | `yes` / `no` / `unclear` | Does it contain a potentially useful customer/market signal *for this topic*? |
 | `reviewer_note` | free text | Reason, caveat, evidence of relevance |
 
-Leave all source columns, source IDs, and the `decision` column untouched.
+Leave all source columns and source IDs untouched. The blind CSV contains **no decision column**.
 `yes` for `gold_useful_signal` is allowed only when the page is labeled
 `relevant`. `unclear` is encouraged if a SERP excerpt is insufficient for
 a confident judgment. **Do not paste AI/Jev classifications into gold fields
 and call them human labels.** If possible, have a second person label a
 subset independently before reconciling disagreements.
 
-The reviewer should *not* treat `decision` as the ground truth. A filtered
-review view hiding `decision` from labelers can further reduce confirmation
-bias; the benchmark still retains the machine decision for scoring.
+The blind CSV hides the filter's `decision` and `reason` to reduce confirmation
+bias; scores are reconstructed from the **separate immutable manifest** after
+review. The full CSV can still be used for engineering diagnostics.
 
 ## Score the completed review
 
-Export the edited spreadsheet as UTF-8 semicolon CSV with the existing column
-names, then run:
+Export the edited **blind** spreadsheet as UTF-8 semicolon CSV with the existing
+column names, then run:
 
 ```bash
 npm run pain:serp:benchmark -- score \
