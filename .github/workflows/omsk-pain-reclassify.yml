@@ -14,7 +14,8 @@ permissions:
 
 jobs:
   reclassify:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[reclassify-omsk-pain]')
+    # Only a change to THIS workflow file triggers the paid Jev recheck on push; no Yandex calls.
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     strategy:
