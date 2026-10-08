@@ -3,11 +3,6 @@ name: Reclassify cached Omsk search demand and SERP with Jev
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/omsk-pain-reclassify.yml"
-
 permissions:
   actions: read
   contents: read
@@ -15,7 +10,7 @@ permissions:
 jobs:
   reclassify:
     # Only a change to THIS workflow file triggers the paid Jev recheck on push; no Yandex calls.
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     strategy:
