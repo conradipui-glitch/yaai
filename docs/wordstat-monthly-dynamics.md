@@ -11,7 +11,7 @@ The case configuration stays **in the client's own repository or private workspa
 - Device scope `DEVICE_ALL`, monthly frequency, **two complete calendar years**.
 - One *preliminary* manually listed phrase per service.
 - For each record: month, service code, query count, region name, phrase.
-- 24 values per service are required. Missing months are a hard error rather than implicit zero.
+- 24 monthly positions per service are evaluated. If Yandex does not report a count, it stays **unknown** (blank CSV value), never an invented zero. Such services are excluded from provisional rankings; `rankingComplete=false` and all seasonal `clearLead` flags remain false until the source gap is resolved.
 - Summary has annual ranking and two-year average monthly top/second place, with an exploratory 20% margin.
 
 No results are published until an explicit research workflow executes and returns valid data. Wordstat phrase-containing counts overlap and should not be interpreted as total market size or as independently measured enquiries. Sample phrases need human review of commercial intent and biases.
