@@ -266,3 +266,8 @@ Checks: `npm run audit:selftest`, `npm run check` (offline; no real Yandex/OpenR
 GitHub Actions tests that call Yandex Wordstat, Yandex Search, OpenRouter/Jev, or cached Jev research now use **manual** `workflow_dispatch` only. Merging code no longer silently launches these 10 metered/research workflows. Run them explicitly from GitHub → Actions when you want a live integration check; standard CI still runs automatically on pull requests and main pushes without API credentials. The Wordstat monthly dynamics workflow additionally requires `confirm_live=true`.
 
 Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows regains a `push` trigger. This does not disable other manually triggered workflows, nor guarantee zero charges from workflows added in the future.
+
+## Research recovery and future Studio
+
+- [Resume a GitHub Actions Pain Quality study](docs/github-actions-resume.md) — restore previous evidence and per-item Jev checkpoints; newly paid API calls require explicit approval.
+- [YA AI Studio roadmap](docs/yaai-studio-roadmap.md) — future local agent workspace, interactive reports, optional Kanban/Scrumban, content creation and reviewed publishing. **Planning only; not yet implemented.**
