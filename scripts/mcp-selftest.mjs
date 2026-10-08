@@ -259,6 +259,28 @@ await writeSnapshot('2026-09-29', '120000Z', 100);
 
 const context = createMcpContext({ workspaceRoot: root, caseId: 'demo-seo' });
 
+await fs.writeFile(path.join(root, 'pain-map.json'), JSON.stringify({
+  schemaVersion: 1,
+  source: 'yaai-pain-discovery',
+  topic: 'обработка заявок',
+  summary: { painCategories: 1, acceptedEvidence: 2, rejectedEvidence: 1, uncertainEvidence: 0, measuredModelCostUsd: 0.00002 },
+  methodology: ['Hypotheses, not verified customer complaints.'],
+  cards: [{
+    category: 'lost_opportunities',
+    title: 'Потерянные заявки и возможности',
+    status: 'hypothesis_requires_validation',
+    searchPhraseCount: 1,
+    snippetCount: 1,
+    distinctSearchPages: 1,
+    bestObservedWordstatCount: 220,
+    needsReviewCount: 0,
+    evidence: {
+      wordstat: [{query:'не терять заявки',observedCount:220}],
+      serp: [{title:'Клиенты уходят',url:'https://example.org/post/1',excerpt:'У нас теряются заявки'}],
+    },
+  }],
+}));
+
 const legacyState = {};
 const initialized = await handleRpcMessage({
   jsonrpc: '2.0',
@@ -321,6 +343,7 @@ assert.equal(overview.capabilities.rankTracker, true);
 assert.equal(overview.capabilities.serpEvidence, true);
 assert.equal(overview.capabilities.distributionEvidence, true);
 assert.equal(overview.capabilities.evaluationEvidence, true);
+assert.equal(overview.capabilities.painEvidence, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
 
 const analysis = await call('yaai_analyze_latest', { limit: 10 });
@@ -387,6 +410,13 @@ assert.equal(evaluation.questionStats.fit.values.high, 1);
 assert.equal(evaluation.questionStats.fit.values.low, 1);
 assert.equal(evaluation.evaluationCount, 2);
 assert.equal(evaluation.evaluations[1].route.needsReview, true);
+const pain = await call('yaai_pain_evidence', { relativeJsonPath: 'pain-map.json', limit: 10 });
+assert.equal(pain.topic, 'обработка заявок');
+assert.equal(pain.cardCount, 1);
+assert.equal(pain.summary.acceptedEvidence, 2);
+assert.equal(pain.cards[0].bestObservedWordstatCount, 220);
+assert.equal(pain.cards[0].evidence.serp[0].url, 'https://example.org/post/1');
+assert.match(pain.reportPreview,/Потерянные заявки/);
 
 const escapeAttempt = await handleRpcMessage({
   jsonrpc: '2.0',

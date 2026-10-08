@@ -1,0 +1,57 @@
+{
+  "id": "pain-discovery-v1",
+  "name": "Audience pain from observed search language and SERP snippets",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.75,
+  "reviewQuestions": [
+    "pain_type",
+    "voice"
+  ],
+  "questions": {
+    "pain_present": {
+      "type": "noul",
+      "instructions": "Is there an explicitly expressed problem, frustration, unmet need, negative experience, costly obstacle, or request for a solution in this specific source excerpt? Search queries can hint at a need but do not prove a customer complaint. A seller merely claiming to solve a problem is not a firsthand complaint."
+    },
+    "pain_type": {
+      "type": "choice",
+      "instructions": "Which SINGLE category best describes the explicit problem or unmet need in this evidence? Use none if no grounded problem is expressed; do not invent context.",
+      "criteria": {
+        "time_loss": "Delays, slow response, wasted time or waiting",
+        "lost_opportunities": "Lost requests, leads, customers, revenue opportunities or missed sales",
+        "high_cost": "High prices, unexpected costs, overspending, or poor cost control",
+        "poor_quality": "Mistakes, low quality, poor outcomes or inaccurate work",
+        "unreliable": "Service/product outages, breakdowns, failures or instability",
+        "complexity": "Difficult steps, manual work, confusion, excessive operational complexity",
+        "uncertainty": "Lack of trust, transparency, certainty, or reliable information",
+        "alternatives": "Explicit dissatisfaction or need for a replacement/alternative",
+        "other": "Grounded pain that does not match categories above",
+        "none": "No explicit or inferable pain grounded in the source"
+      }
+    },
+    "voice": {
+      "type": "choice",
+      "instructions": "Whose voice is present in the text? Wordstat search phrases do not reveal who searched; SERP snippets may be written by sellers, journalists or forum participants. Never assume a real dissatisfied buyer.",
+      "criteria": {
+        "first_person": "Explicit firsthand experience or complaint from an identified speaker within the excerpt",
+        "question": "Question or problem-oriented search phrasing; speaker identity unknown",
+        "seller_promotion": "Seller's promotional claim or advertising copy",
+        "third_party": "Editorial, informational, or third-party description",
+        "unknown": "Cannot reliably determine voice from this evidence"
+      }
+    },
+    "solution_intent": {
+      "type": "noul",
+      "instructions": "Does the source explicitly imply the author/searcher is seeking a solution or alternative now? Do not infer purchase intent merely from information searches."
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How immediate or time-sensitive is the explicitly expressed need? Score the evidence, not a conjectured business opportunity.",
+      "criteria": [
+        "No urgency indicated",
+        "General curiosity or long-term issue",
+        "Concrete active problem with no immediate deadline",
+        "Urgent need, deadline or ongoing loss"
+      ]
+    }
+  }
+}

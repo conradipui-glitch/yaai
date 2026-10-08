@@ -60,6 +60,12 @@ Primary tool: `yaai_serp_evidence`.
 Analyzes normalized platform evidence across the shared entity/content/metrics model: recurring creators/channels, topic discovery paths, observed counters, and metric movement when repeated snapshots exist.
 
 Primary tool: `yaai_distribution_evidence`.
+### `pain-discovery`
+
+Combines saved Yandex Wordstat and SERP evidence with Jev categorization to identify **unverified** audience pain hypotheses and distinguish search intent, firsthand snippets, and seller claims.
+
+Primary MCP tool: `yaai_pain_evidence`.
+
 ### `cheap-evaluation`
 
 Uses saved Jev/OpenRouter Decisions evidence as a cheap semantic gate before expensive reasoning or generation. It separates confident decisions from low-certainty review rows and never invents explanations Jev did not return.

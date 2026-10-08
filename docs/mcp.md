@@ -86,6 +86,10 @@ Reads a normalized Yandex Search API SERP evidence JSON by a **workspace-relativ
 ### `yaai_distribution_evidence`
 
 Reads a normalized platform evidence JSON by a **workspace-relative path** and analyzes the shared `Entity / ContentItem / MetricsSnapshot` model. It returns recurring entities, content-query links, latest observed counters, and metric deltas when repeated snapshots exist. It never performs a live platform request.
+### `yaai_pain_evidence`
+
+Reads a saved Pain Discovery JSON from a safe workspace-relative path, returning candidate pain cards, original Wordstat phrases and SERP citations. It performs **no paid Yandex or OpenRouter API calls**. Classification remains an unverified hypothesis.
+
 ### `yaai_evaluation_evidence`
 
 Reads a saved Jev/OpenRouter Decisions evidence JSON by a **workspace-relative path**. It returns profile/model metadata, per-question outcome distributions, average certainty, review counts, and detailed evaluation rows up to the requested limit. It never calls OpenRouter.

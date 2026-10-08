@@ -16,6 +16,7 @@ const expected = [
   'competitor-evidence',
   'distribution-intelligence',
   'cheap-evaluation',
+  'pain-discovery',
   'seo-review',
   'content-gap',
   'seo-report',
@@ -49,6 +50,7 @@ for (const requiredTool of [
   'yaai_serp_evidence',
   'yaai_distribution_evidence',
   'yaai_evaluation_evidence',
+  'yaai_pain_evidence',
   'yaai_webmaster_overlap',
 ]) {
   assert.ok(referencedTools.has(requiredTool), `skills should cover MCP tool ${requiredTool}`);
