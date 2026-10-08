@@ -40,16 +40,20 @@
 
   document.getElementById('export').addEventListener('click', () => {
     const visible = [...body.rows].filter(row => !row.hidden);
-    const cells = [['Источник','Запрос','Фрагмент','Решение модели','Частотность','Требует пересмотра','URL']];
+    const cells = [['ID свидетельства','Источник','Регион','Запрос','Фрагмент','Решение модели','Категория Jev','Частотность','Требует пересмотра','URL']];
     for (const row of visible) {
       const td = row.cells;
       const source = td[0].querySelector('.source-tag').textContent;
       const query = td[1].querySelector('strong').textContent;
       const excerpt = td[1].querySelector('p').textContent;
       const anchor = td[1].querySelector('a[href^="http"]');
+      const id = td[1].querySelector('code')?.textContent || '';
+      const region = td[0].querySelector('.subtle')?.textContent || '';
+      const category = td[2].querySelector('.subtle')?.textContent || '';
       cells.push([
-        source, query, excerpt, td[2].querySelector('.status-pill').textContent,
-        row.dataset.count === '-1' ? '' : row.dataset.count,
+        id, source, region, query, excerpt,
+        td[2].querySelector('.status-pill').textContent,
+        category, row.dataset.count === '-1' ? '' : row.dataset.count,
         row.dataset.review === 'yes' ? 'Да' : 'Нет', anchor?.href || '',
       ]);
     }
