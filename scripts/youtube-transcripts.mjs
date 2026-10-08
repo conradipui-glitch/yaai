@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { buildTranscriptEvidence, makeTranscriptRecord, normalizeCaptionSegments, parseCaptionText, videoIdFromContent } from '../lib/youtube-transcripts.mjs';
+import { buildTranscriptEvidence, directVideoDistribution, makeTranscriptRecord, normalizeCaptionSegments, parseCaptionText, videoIdFromContent } from '../lib/youtube-transcripts.mjs';
 import { validateDistributionDataset } from '../lib/source-adapter.mjs';
 
 const args = process.argv.slice(2);
@@ -12,6 +12,8 @@ function flag(name) {
 }
 
 const inputPath = flag('--distribution');
+const directVideo = flag('--video');
+const transcriptFile = flag('--transcript-file');
 const output = flag('--out');
 const inputDir = flag('--input-dir');
 const live = args.includes('--fetch');
@@ -19,13 +21,15 @@ const execute = args.includes('--execute');
 const limit = Number(flag('--limit') || 10);
 const languages = String(flag('--languages') || 'ru,en').split(',').map((s) => s.trim()).filter(Boolean);
 
-if (!inputPath || !output) throw new Error('Pass --distribution saved-youtube.json and --out transcript-evidence.json.');
-if (!inputDir && !live) throw new Error('Provide --input-dir with local .txt/.srt/.vtt files or explicit --fetch --execute.');
+if (!output) throw new Error('Pass --out transcript-evidence.json.');
+if (Boolean(inputPath) === Boolean(directVideo)) throw new Error('Provide exactly one of --distribution or --video.');
+if (!inputDir && !transcriptFile && !live) throw new Error('Provide --input-dir, --transcript-file or explicit --fetch --execute.');
+if (transcriptFile && !directVideo) throw new Error('--transcript-file requires --video.');
 if (live && !execute) throw new Error('Live YouTube transcript fetching requires --fetch --execute.');
 if (!Number.isInteger(limit) || limit < 1 || limit > 30) throw new Error('--limit must be 1–30.');
 if (!languages.length) throw new Error('At least one transcript language is required.');
 
-const distribution = JSON.parse(await fs.readFile(path.resolve(inputPath), 'utf8'));
+const distribution = directVideo ? directVideoDistribution(directVideo, flag('--title')) : JSON.parse(await fs.readFile(path.resolve(inputPath), 'utf8'));
 validateDistributionDataset(distribution);
 if (distribution.platform !== 'youtube') throw new Error('Expected YouTube distribution evidence.');
 
@@ -42,7 +46,13 @@ const records = [];
 for (const item of videos) {
   const id = videoIdFromContent(item);
   let record;
-  if (inputDir) {
+  if (transcriptFile) {
+    const ext = path.extname(transcriptFile).slice(1).toLowerCase();
+    if (!['txt', 'md', 'srt', 'vtt'].includes(ext)) throw new Error('--transcript-file must end with .txt, .md, .srt or .vtt.');
+    const raw = await fs.readFile(path.resolve(transcriptFile), 'utf8');
+    record = makeTranscriptRecord({ item, segments: parseCaptionText(raw, ext), source: 'local-' + ext });
+  }
+  if (!record && inputDir) {
     for (const ext of ['vtt', 'srt', 'md', 'txt']) {
       const candidate = path.join(path.resolve(inputDir), id + '.' + ext);
       try {

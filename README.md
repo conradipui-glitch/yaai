@@ -155,6 +155,17 @@ Secrets belong in the environment or GitHub Secrets, never in committed client d
 
 ## YouTube transcript → Jev
 
+If you already have one video transcript, **no YouTube API key or full Distribution dataset is needed**:
+
+```bash
+npm run youtube:transcripts -- \
+  --video "https://www.youtube.com/watch?v=4mkUoy7PM5Q" \
+  --transcript-file /private/4mkUoy7PM5Q.md \
+  --out /private/transcript-evidence.json
+```
+
+
+
 ```bash
 npm run youtube:transcripts -- \
   --distribution /private/youtube-evidence.json \
