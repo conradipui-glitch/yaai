@@ -72,6 +72,14 @@ assert.match(html,/2<\/b> из 2 наблюдений Wordstat/);
 assert.match(html,/На узком экране таблица листается вправо/);
 assert.match(js,/ID свидетельства/);
 assert.match(js,/Категория Jev/);
+const sourceNoiseCase={...report,summary:{
+  ...report.summary,
+  sourceBreakdown:{wordstat:2,serp:2},
+  acceptedBySource:{wordstat:0,serp:3},
+}};
+assert.match(renderPainReportHtml(sourceNoiseCase,{css,script:js}),
+  /Проверьте запросы на совпадения значений слов/);
+
 assert.match(html,/Не принято моделью/);
 assert.match(html,/class="claims"/);
 assert.match(html,/нет данных/);
