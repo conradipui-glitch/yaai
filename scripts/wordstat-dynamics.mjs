@@ -53,14 +53,22 @@ if (!execute) {
   console.log(JSON.stringify({region:manifest.region,services:manifest.services.length,months:months.length,estimatedCalls:manifest.services.length}));
   process.exit(0);
 }
-// Temporary research branch only: user authorized at most 12 Wordstat calls.
+// Temporary research branch only: 1 prior Wordstat call + at most 11 more = 12 total.
 const originalFetch = globalThis.fetch.bind(globalThis);
 let wordstatRequests = 0;
 globalThis.fetch = (url, options) => {
-  if (!String(url).startsWith(`${ENDPOINT}/`)) fail("Research authorization covers Wordstat only; other API calls blocked");
-  if (wordstatRequests >= 12) fail("Wordstat request budget exhausted (12); no additional HTTP call made");
+  const address = String(url);
+  if (address === 'https://llm.api.cloud.yandex.net/foundationModels/v1/completion') {
+    const probe = JSON.parse(options?.body || '{}');
+    // Existing folder discovery uses an invalid four-character folder, not a real model.
+    if (probe.modelUri !== 'gpt://test/yandexgpt/latest' || probe.completionOptions?.maxTokens !== 1) fail('AI generation not authorized');
+    console.log('FOLDER_METADATA_PROBE: invalid test folder only; real model calls blocked');
+    return originalFetch(url, options);
+  }
+  if (!address.startsWith(`${ENDPOINT}/`)) fail('Research authorization covers Wordstat and invalid-folder discovery only');
+  if (wordstatRequests >= 11) fail('Wordstat request budget exhausted (11 remaining); no additional HTTP call made');
   wordstatRequests += 1;
-  console.log(`WORDSTAT_REQUEST_BUDGET ${wordstatRequests}/12 ${String(url).split('/').at(-1)}`);
+  console.log(`WORDSTAT_REQUEST_BUDGET ${wordstatRequests}/11 ${String(url).split('/').at(-1)}`);
   return originalFetch(url, options);
 };
 
