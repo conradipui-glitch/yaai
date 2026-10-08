@@ -1,0 +1,145 @@
+name: Omsk construction Pain Discovery pilot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/omsk-construction-pain.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-region:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-omsk-pain-pilot]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify Omsk Oblast Wordstat region ID from provider tree
+        env:
+          YAIS_API: ${{ secrets.YAIS_API }}
+          YAIS_ID: ${{ secrets.YAIS_ID }}
+          YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+        run: node scripts/pain-verify-region.mjs --name "Омская область" --expected-id 11318
+
+  pain-study:
+    needs: verify-region
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - code: roofing
+            topic: "кровельные работы"
+            seeds: "кровельные работы,ремонт кровли"
+            queries: "кровельные работы омск цена,течет крыша что делать ремонт кровли"
+          - code: screed
+            topic: "полусухая стяжка"
+            seeds: "полусухая стяжка,полусухая стяжка цена"
+            queries: "полусухая стяжка омск цена,полусухая стяжка трещины причины"
+          - code: facades
+            topic: "фасадные работы"
+            seeds: "фасадные работы,утепление фасада"
+            queries: "фасадные работы омск цена,утепление фасада ошибки и проблемы"
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+      YAIS_AI: ${{ secrets.YAIS_AI }}
+      PILOT_REGION_ID: "11318"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Record bounded method and permitted call count
+        run: |
+          echo "Pilot: ${{ matrix.code }}; Wordstat 2 calls, Yandex SERP 2 calls x 5 results, Jev maximum 8 decisions."
+          echo "All findings are hypotheses; no change to the published site; Wordstat counts may overlap."
+          mkdir -p "$RUNNER_TEMP/pain-${{ matrix.code }}"
+      - name: Collect actual Omsk Oblast Wordstat phrases
+        run: |
+          node scripts/pain-wordstat.mjs \
+            --seeds "${{ matrix.seeds }}" \
+            --region "$PILOT_REGION_ID" \
+            --num-phrases 35 \
+            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/wordstat.json" \
+            --execute
+      - name: Produce offline query hypotheses (not auto-searched)
+        run: |
+          node scripts/pain-prepare.mjs \
+            --topic "${{ matrix.topic }}" \
+            --wordstat "$RUNNER_TEMP/pain-${{ matrix.code }}/wordstat.json" \
+            --limit 4 \
+            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/query-plan.json" \
+            --query-file "$RUNNER_TEMP/pain-${{ matrix.code }}/query-plan.txt"
+      - name: Collect Yandex results for two PRESELECTED problem or price queries
+        run: |
+          node scripts/serp-collect.mjs \
+            --queries "${{ matrix.queries }}" \
+            --region "$PILOT_REGION_ID" \
+            --groups 5 \
+            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/serp.json" \
+            --execute
+      - name: Classify balanced Wordstat and SERP evidence through Jev
+        run: |
+          node scripts/pain-analyze.mjs \
+            --topic "${{ matrix.topic }}" \
+            --wordstat "$RUNNER_TEMP/pain-${{ matrix.code }}/wordstat.json" \
+            --serp "$RUNNER_TEMP/pain-${{ matrix.code }}/serp.json" \
+            --limit 8 \
+            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.json" \
+            --md "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.md" \
+            --evaluation-out "$RUNNER_TEMP/pain-${{ matrix.code }}/jev-evidence.json" \
+            --execute
+      - name: Create blind quality-review sample, no fabricated human labels
+        run: |
+          node scripts/pain-review.mjs \
+            --map "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.json" \
+            --sample-size 8 \
+            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/review-unlabeled.json"
+          node scripts/pain-quality.mjs \
+            --map "$RUNNER_TEMP/pain-${{ matrix.code }}/pain-map.json" \
+            --review "$RUNNER_TEMP/pain-${{ matrix.code }}/review-unlabeled.json" \
+            --target-labels 8 \
+            --out "$RUNNER_TEMP/pain-${{ matrix.code }}/quality.json"
+      - name: Summarize only observed evidence and provenance
+        run: |
+          node --input-type=module - "$RUNNER_TEMP/pain-${{ matrix.code }}" <<'NODE'
+          import fs from 'node:fs';
+          const folder=process.argv[2];
+          const map=JSON.parse(fs.readFileSync(folder+'/pain-map.json','utf8'));
+          const stats={
+            topic:map.topic,
+            generatedAt:map.generatedAt,
+            evidenceCount:map.input?.evidenceItemCount,
+            accepted:map.summary?.acceptedEvidence,
+            requiringReview:map.summary?.uncertainEvidence,
+            modelCostUsd:map.summary?.measuredModelCostUsd,
+            cards:map.cards?.map(c=>({
+              title:c.title,status:c.status,wordstatPhrases:c.searchPhraseCount,
+              serpPages:c.distinctSearchPages,
+              samples:[
+                ...(c.evidence?.wordstat||[]).slice(0,2).map(x=>({kind:"Wordstat phrase",phrase:x.query,count:x.observedCount})),
+                ...(c.evidence?.serp||[]).slice(0,2).map(x=>({kind:"SERP excerpt",title:x.title,url:x.url,excerpt:x.excerpt?.slice(0,190)}))
+              ]
+            })).slice(0,6)
+          };
+          console.log('OMSK_PAIN_PILOT_REPORT_START');
+          console.log(JSON.stringify(stats,null,2));
+          console.log('OMSK_PAIN_PILOT_REPORT_END');
+          NODE
+      - name: Keep source evidence and review queue for human validation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: omsk-pain-${{ matrix.code }}
+          path: ${{ runner.temp }}/pain-${{ matrix.code }}/
+          if-no-files-found: ignore
+          retention-days: 5
