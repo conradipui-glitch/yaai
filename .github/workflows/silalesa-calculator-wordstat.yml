@@ -28,6 +28,7 @@ jobs:
     timeout-minutes: 18
     env:
       YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
       YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
       YANDEX_API_KEY: ${{ secrets.YANDEX_API_KEY }}
       YANDEX_FOLDER_ID: ${{ secrets.YANDEX_FOLDER_ID }}
@@ -47,6 +48,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Resolve Yandex folder from repository Secrets without exposing identifiers
+        shell: bash
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { discoverYandexFolderId } from './lib/yandex-folder.mjs';
+          const folder=await discoverYandexFolderId({
+            apiKey:process.env.YAIS_API || process.env.YANDEX_API_KEY,
+            keyId:process.env.YAIS_ID,
+            folderId:process.env.YAIS_FOLDER_ID || process.env.YANDEX_FOLDER_ID,
+          });
+          if(!folder) throw new Error('Wordstat folder could not be resolved; check YAIS_FOLDER_ID in repo Secrets');
+          fs.appendFileSync(process.env.GITHUB_ENV, 'YAIS_FOLDER_ID='+folder+'\n');
+          console.log('Wordstat folder resolved. No API keys or folder identifiers were logged.');
+          NODE
       - name: Verify seed set and scope (no secrets)
         run: |
           node --input-type=module - <<'NODE'
