@@ -3,9 +3,16 @@ name: Silalesa calculator demand — guarded Yandex Wordstat
 on:
   push:
     branches:
-      - research/silalesa-calculator-wordstat-20261010
+      - main
     paths:
       - .github/workflows/silalesa-calculator-wordstat.yml
+  workflow_dispatch:
+    inputs:
+      confirm_paid:
+        description: "I authorize 16 metered Yandex Wordstat TopRequests for Silalesa calculators"
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -16,6 +23,7 @@ concurrency:
 
 jobs:
   research:
+    if: github.event_name == 'push' || inputs.confirm_paid == true
     runs-on: ubuntu-latest
     timeout-minutes: 18
     env:
