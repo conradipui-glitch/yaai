@@ -1,0 +1,117 @@
+name: Silalesa W3 construction intent — Yandex Wordstat
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/silalesa-wave3-wordstat.yml
+  workflow_dispatch:
+    inputs:
+      confirm_paid:
+        description: "Authorize 16 Yandex Wordstat TopRequests for Silalesa W3"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: silalesa-wave3-wordstat-20261010
+  cancel-in-progress: false
+
+jobs:
+  research:
+    if: github.event_name == 'push' || inputs.confirm_paid == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+      YANDEX_API_KEY: ${{ secrets.YANDEX_API_KEY }}
+      YANDEX_FOLDER_ID: ${{ secrets.YANDEX_FOLDER_ID }}
+      REQUEST_DELAY_MS: '650'
+    steps:
+      - name: Checkout yaai engine
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout isolated Silalesa W3 research
+        uses: actions/checkout@v4
+        with:
+          repository: conradipui-glitch/silalesa
+          ref: research/seo-wave3-construction-20261010
+          path: silalesa
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Resolve existing Yandex account folder using repository Secrets
+        shell: bash
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { discoverYandexFolderId } from './lib/yandex-folder.mjs';
+          const folder=await discoverYandexFolderId({
+            apiKey:process.env.YAIS_API || process.env.YANDEX_API_KEY,
+            keyId:process.env.YAIS_ID,
+            folderId:process.env.YAIS_FOLDER_ID || process.env.YANDEX_FOLDER_ID,
+          });
+          if(!folder) throw new Error('Wordstat folder not resolved; check repository Secrets');
+          fs.appendFileSync(process.env.GITHUB_ENV, 'YAIS_FOLDER_ID='+folder+'\n');
+          console.log('Yandex folder resolved. Identifiers and API secrets are not printed.');
+          NODE
+      - name: Verify limited new construction study
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const c=JSON.parse(fs.readFileSync('silalesa/research/yaai/cases/silalesa-wave3-construction.json','utf8'));
+          if(c.seeds.length!==8||c.regions.length!==2||c.seeds.some(x=>/бан[ьяиею]|саун|квадро/iu.test(x)))
+            throw Error('Wave 3 unexpected region/seed count or archived niche');
+          console.log(JSON.stringify({caseId:c.id,seeds:c.seeds,regions:c.regions,meteredTopRequests:16},null,2));
+          NODE
+      - name: Fetch 16 metered regional TopRequests
+        run: node scripts/batch.mjs --workspace silalesa/research/yaai --case silalesa-wave3-construction
+      - name: Analyze planned landing and guide paths
+        run: node scripts/build-page-plan.mjs --workspace silalesa/research/yaai --case silalesa-wave3-construction
+      - name: Emit review summary with observed counts only
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const root='silalesa/research/yaai/results';
+          const raw=JSON.parse(fs.readFileSync(root+'/silalesa-wave3-construction-wordstat-latest.json','utf8'));
+          const top=raw.rows.filter(row=>row.types.includes('top'));
+          const groups={
+            industrial:/топпинг|промышленн.{0,12}пол|бетонн.{0,12}пол/iu,
+            demolition:/демонтаж/iu,
+            masonry:/кладк|газобетон|кирпич/iu,
+            monolith:/монолит/iu,
+          };
+          const summary={
+            generatedAt:raw.generatedAt,
+            source:'Yandex Wordstat TopRequests via yaai',
+            regions:raw.regions.map(r=>r.name),
+            meteredTopRequests:raw.calls.length,
+            totalTopRows:top.length,
+            overlapWarning:'Wordstat matches and regions overlap; no counts summed; no visit or lead figures.',
+            groups:Object.fromEntries(Object.entries(groups).map(([key,pattern])=>[
+              key,top.filter(row=>pattern.test(row.phrase))
+                .sort((a,b)=>(b.count??-1)-(a.count??-1))
+                .slice(0,42).map(row=>({region:row.regionName,phrase:row.phrase,count:row.count,source:'top'}))
+            ]))
+          };
+          fs.writeFileSync(root+'/silalesa-wave3-construction-review-summary.json',JSON.stringify(summary,null,2));
+          console.log('W3_SUMMARY_BEGIN');
+          console.log(JSON.stringify(summary,null,2));
+          console.log('W3_SUMMARY_END');
+          NODE
+      - name: Save evidence and planner outputs (7 days)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silalesa-wave3-wordstat-20261010
+          path: silalesa/research/yaai/results/silalesa-wave3-construction-*
+          if-no-files-found: warn
+          retention-days: 7
