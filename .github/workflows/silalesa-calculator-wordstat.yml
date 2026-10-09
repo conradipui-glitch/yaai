@@ -1,0 +1,88 @@
+name: Silalesa calculator demand — guarded Yandex Wordstat
+
+on:
+  push:
+    branches:
+      - research/silalesa-calculator-wordstat-20261010
+    paths:
+      - .github/workflows/silalesa-calculator-wordstat.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: silalesa-calculator-wordstat-20261010
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+      YANDEX_API_KEY: ${{ secrets.YANDEX_API_KEY }}
+      YANDEX_FOLDER_ID: ${{ secrets.YANDEX_FOLDER_ID }}
+      REQUEST_DELAY_MS: '600'
+    steps:
+      - name: Checkout yaai research engine
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout isolated public Silalesa research workspace
+        uses: actions/checkout@v4
+        with:
+          repository: conradipui-glitch/silalesa
+          ref: research/calculator-demand-20261010
+          path: silalesa
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify seed set and scope (no secrets)
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const c=JSON.parse(fs.readFileSync('silalesa/research/yaai/cases/silalesa-calculators.json','utf8'));
+          if (c.seeds.length!==8 || c.regions.length!==2 || c.seeds.some(x=>/бан[ьяиею]|саун|квадро/iu.test(x))) throw new Error('Unexpected scope');
+          console.log(JSON.stringify({case:c.id,seedCount:c.seeds.length,regionCount:c.regions.length,expectedTopRequests:c.seeds.length*c.regions.length,regions:c.regions},null,2));
+          NODE
+      - name: Collect fresh Wordstat TopRequests with repository Secrets
+        run: node scripts/batch.mjs --workspace silalesa/research/yaai --case silalesa-calculators
+      - name: Run yaai Page Planner on observed data
+        run: node scripts/build-page-plan.mjs --workspace silalesa/research/yaai --case silalesa-calculators
+      - name: Summarize observed Top only (no credentials)
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const raw=JSON.parse(fs.readFileSync('silalesa/research/yaai/results/silalesa-calculators-wordstat-latest.json','utf8'));
+          const top=raw.rows.filter(r=>r.types.includes('top'));
+          const groups={
+            plaster:/штукатур/iu,
+            screed:/стяжк/iu,
+            roof:/кровл|крыш/iu,
+          };
+          const summary={
+            generatedAt:raw.generatedAt,
+            regions:raw.regions.map(r=>r.name),
+            meteredTopRequests:raw.calls.length,
+            topRowCount:top.length,
+            note:'Overlapping Wordstat query counts; never sum as market or lead estimates. Association-only excluded.',
+            groups:Object.fromEntries(Object.entries(groups).map(([name,pattern])=>[name,top
+              .filter(x=>pattern.test(x.phrase))
+              .sort((a,b)=>(b.count??-1)-(a.count??-1))
+              .slice(0,35)
+              .map(x=>({region:x.regionName,phrase:x.phrase,count:x.count,source:'top'}))]))
+          };
+          const dest='silalesa/research/yaai/results/silalesa-calculators-review-summary.json';
+          fs.writeFileSync(dest,JSON.stringify(summary,null,2));
+          console.log(JSON.stringify(summary,null,2));
+          NODE
+      - name: Save source, classification, Page Planner and review summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: silalesa-calculator-wordstat-20261010
+          path: silalesa/research/yaai/results/silalesa-calculators-*
+          if-no-files-found: warn
+          retention-days: 7
