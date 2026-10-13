@@ -107,6 +107,15 @@ Example argument:
 }
 ```
 
+### `yaai_tasks` and `yaai_task_detail`
+
+List or inspect **draft work requests** registered in the same private
+workspace via CLI (`npm run task -- create ...`). The MCP layer never
+creates, approves, executes or completes tasks. A `draft` is an intention
+only, not a running job. `yaai_tasks` optionally filters by `caseId`;
+`yaai_task_detail` takes a validated opaque `id`. See
+[Task Registry](task-registry.md).
+
 ## Design boundary
 
 The MCP adapter intentionally does not duplicate the engine:
