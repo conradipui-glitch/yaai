@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { createTask } from '../lib/task-registry.mjs';
 import { linkSavedArtifact } from '../lib/task-results.mjs';
+import { runOfflineTask } from '../lib/task-executor.mjs';
 
 import {
   MODERN_PROTOCOL_VERSION,
@@ -295,6 +296,16 @@ const previouslySaved=await linkSavedArtifact({
 assert.equal(previouslySaved.status,'result_linked');
 assert.equal(previouslySaved.linkedArtifact.measuredCostUsd,null);
 assert.equal(previouslySaved.events.length,2);
+await fs.mkdir(path.join(root,'inputs','demo-seo'),{recursive:true});
+await fs.writeFile(path.join(root,'inputs','demo-seo','webmaster.csv'),
+  'Запрос;URL;Показы;Клики\\nкупить баню;/a;15;1\\nкупить баню;/b;12;2\\n'.replaceAll('\\n','\n'));
+const executedTask=await createTask({
+  workspaceRoot:root,caseId:'demo-seo',kind:'research',
+  title:'Offline Webmaster overlap via CLI engine',
+});
+const executedRun=await runOfflineTask({workspaceRoot:root,id:executedTask.id});
+assert.equal(executedRun.status,'succeeded');
+assert.equal(executedRun.execution.billableCallsMadeByThisJob,0);
 
 
 const legacyState = {};
@@ -363,15 +374,22 @@ assert.equal(overview.capabilities.painEvidence, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
 assert.equal(overview.capabilities.draftTaskReadOnly,true);
 const drafts=await call('yaai_tasks',{caseId:'demo-seo'});
-assert.equal(drafts.total,1);
-assert.equal(drafts.tasks[0].id,draftTask.id);
-assert.equal(drafts.tasks[0].policy.executed,false);
-assert.equal(drafts.tasks[0].status,'result_linked');
-assert.equal(drafts.tasks[0].events[1].type,'artifact_linked');
+assert.equal(drafts.total,2);
+const oldDraft= drafts.tasks.find(item=>item.id===draftTask.id);
+assert.ok(oldDraft);
+assert.equal(oldDraft.policy.executed,false);
+assert.equal(oldDraft.status,'result_linked');
+assert.equal(oldDraft.events[1].type,'artifact_linked');
+assert.ok(drafts.tasks.some(item=>item.id===executedTask.id&&item.status==='succeeded'));
 const detail=await call('yaai_task_detail',{id:draftTask.id});
 assert.equal(detail.title,draftTask.title);
 assert.equal(detail.linkedArtifact.relativeJsonPath,'results/demo-wordstat-latest.json');
 assert.equal(detail.policy.paidCallsAuthorized,false);
+const runDetail=await call('yaai_task_detail',{id:executedTask.id});
+assert.equal(runDetail.status,'succeeded');
+assert.equal(runDetail.execution.attempts,1);
+assert.equal(runDetail.execution.billableCallsMadeByThisJob,0);
+assert.equal(overview.capabilities.offlineTaskRunHistoryReadOnly,true);
 assert.equal(overview.capabilities.savedResultLinksReadOnly,true);
 const noDrafts=await call('yaai_tasks',{caseId:'another-project'});
 assert.equal(noDrafts.total,0);
@@ -449,6 +467,11 @@ assert.equal(pain.cards[0].bestObservedWordstatCount, 220);
 assert.equal(pain.cards[0].evidence.serp[0].url, 'https://example.org/post/1');
 assert.match(pain.reportPreview,/Потерянные заявки/);
 
+const taskRunAttempt=await handleRpcMessage({
+  jsonrpc:'2.0',id:'task-run',method:'tools/call',
+  params:{name:'yaai_task_run',arguments:{id:executedTask.id},_meta:meta},
+},modernState,context);
+assert.equal(taskRunAttempt.error.code,-32602,'MCP must not expose executor');
 const taskWriteAttempt=await handleRpcMessage({
   jsonrpc:'2.0',id:'task-write',method:'tools/call',
   params:{name:'yaai_task_create',arguments:{title:'Should not exist'},_meta:meta},

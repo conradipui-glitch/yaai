@@ -22,6 +22,15 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## First one-off offline task execution
+
+An existing Webmaster CSV can now be analyzed as a persisted task:
+`npm run task -- run --workspace PRIVATE_WORKSPACE --id TASK_ID`.
+The task records attempts, detects interrupted/failed runs, and exposes
+the same status via read-only MCP. Local CLI retry is explicit; no paid
+APIs, scheduler or automatic campaign changes.
+[How to run/recover safely](docs/task-offline-execution.md).
+
 ## Headless-first delivery plan and task registry
 
 [YA AI staged delivery plan](docs/yaai-delivery-plan.md) tracks what actually
