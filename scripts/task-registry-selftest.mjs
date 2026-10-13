@@ -75,6 +75,7 @@ try {
   try{
     await fs.mkdir(path.join(unsafe,'cases'));
     await fs.writeFile(path.join(unsafe,'cases','alpha.json'),JSON.stringify({id:'alpha'}));
+    await fs.mkdir(path.join(other,'tasks'));
     await fs.symlink(path.join(other,'tasks'),path.join(unsafe,'tasks'));
     await assert.rejects(createTask({workspaceRoot:unsafe,caseId:'alpha',title:'secret'}),/unsafe storage directory/);
   }finally{await fs.rm(unsafe,{recursive:true,force:true});}
