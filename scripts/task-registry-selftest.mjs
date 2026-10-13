@@ -34,7 +34,7 @@ try {
   assert.equal((await listTasks({workspaceRoot:root,caseId:'beta'})).tasks[0].id,second.id);
   assert.equal((await listTasks({workspaceRoot:root,caseId:'alpha',limit:1})).total,1);
   assert.equal((await listTasks({workspaceRoot:other})).total,0);
-  await assert.rejects(readTask({workspaceRoot:other,id:first.id}),{code:'ENOENT'});
+  await assert.rejects(readTask({workspaceRoot:other,id:first.id}),/task not found/);
   await assert.rejects(createTask({workspaceRoot:root,caseId:'../alpha',title:'bad'}),/Invalid case id/);
   await assert.rejects(createTask({workspaceRoot:root,caseId:'missing',title:'bad'}),{code:'ENOENT'});
   await assert.rejects(createTask({workspaceRoot:root,caseId:'alpha',kind:'execute',title:'bad'}),/unsupported task kind/);
