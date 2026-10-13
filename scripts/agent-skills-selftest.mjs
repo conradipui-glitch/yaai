@@ -20,6 +20,7 @@ const expected = [
   'seo-review',
   'content-gap',
   'seo-report',
+  'yaai-setup',
 ];
 
 const knownTools = new Set(TOOLS.map((tool) => tool.name));

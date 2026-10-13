@@ -88,10 +88,24 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 2A. Local / Harness-first setup — PR #56
+
+An interactive/offline `npm run setup` and flag-driven installer create
+case-compatible **private external workspaces**, intentionally empty
+data/business-rule templates and an optional generic stdio MCP connector
+file. `--dry-run` and read-only `--check` inspect prerequisites.
+Compatibility is tested with the existing `yaai_workspace_overview`
+and task registry; existing modified configs are never overwritten.
+
+This is **not** an authenticated deployment, LLM/model provider selector,
+key vault, live connection test, billing manager or complete UI installer.
+See [Local and Harness setup](local-setup.md).
+
 ### 2. Setup, provider profiles and secrets
 
-- Guided install for local and Harness-first modes; verify Node,
-  workspace, dependencies and required optional credentials.
+- **2A done:** guided Local/Harness-first workspace setup and offline doctor.
+  **Next:** dependency/provider capability checks and isolated credential
+  configuration without echoing or logging secrets.
 - Capability-based Jev adapters: current OpenRouter Decisions first;
   official TypeSafe adapter only after verifying its separate API
   request/response contract. Reject unsupported custom base URLs.

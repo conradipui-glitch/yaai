@@ -22,6 +22,19 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Install locally or connect a Harness
+
+**New (Stage 2A):** from the engine checkout run `npm run setup` for an
+interactive Russian-language installation guide, or use explicit
+`npm run setup -- --mode harness --workspace PRIVATE_PATH --case CASE_ID`.
+The setup creates a **private client workspace outside this repository**,
+empty case/preset/planner templates and, in Harness mode, a generic
+stdio MCP configuration you can copy into a compatible agent Harness.
+`--dry-run` previews actions and `--check` diagnoses the installation
+without changing files or contacting APIs. It requires **no second main
+LLM API key**. Provider accounts and live data collection are separate.
+[Installation guide and safety boundaries](docs/local-setup.md).
+
 ## First one-off offline task execution
 
 An existing Webmaster CSV can now be analyzed as a persisted task:
