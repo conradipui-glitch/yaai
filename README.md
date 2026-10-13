@@ -27,10 +27,11 @@ For Webmaster access, export commands, costs, GitHub Actions and private CSV ana
 [YA AI staged delivery plan](docs/yaai-delivery-plan.md) tracks what actually
 exists and the planned Local / Harness / VPS / Studio / Telegram steps.
 
-**Stage 1A:** use `npm run task -- create --workspace /private/workspace --case CASE --title "Task"`
-to save a **draft** (not an executing/paid job). `npm run task -- list`
-and `npm run task -- show` read the same private workspace as the
-read-only MCP tools `yaai_tasks` and `yaai_task_detail`.
+**Stages 1A–1B:** register a **draft** with `npm run task -- create --workspace /private/workspace --case CASE --title "Task"`,
+then optionally link an existing saved JSON with
+`npm run task -- link --workspace /private/workspace --id TASK_ID --relative-json results/CASEPREFIX-report.json`.
+`task list/show` and the read-only MCP tools `yaai_tasks` / `yaai_task_detail`
+show the same verified evidence without paid work or autonomous execution.
 [Details, safeguards and examples](docs/task-registry.md).
 
 ## Workspace boundary

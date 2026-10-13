@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { createTask } from '../lib/task-registry.mjs';
+import { linkSavedArtifact } from '../lib/task-results.mjs';
 
 import {
   MODERN_PROTOCOL_VERSION,
@@ -287,6 +288,14 @@ const draftTask=await createTask({
   title:'Review saved competitor SERP source',
 });
 assert.equal(draftTask.status,'draft');
+const previouslySaved=await linkSavedArtifact({
+  workspaceRoot:root,id:draftTask.id,
+  relativeJsonPath:'results/demo-wordstat-latest.json',
+});
+assert.equal(previouslySaved.status,'result_linked');
+assert.equal(previouslySaved.linkedArtifact.measuredCostUsd,null);
+assert.equal(previouslySaved.events.length,2);
+
 
 const legacyState = {};
 const initialized = await handleRpcMessage({
@@ -357,8 +366,13 @@ const drafts=await call('yaai_tasks',{caseId:'demo-seo'});
 assert.equal(drafts.total,1);
 assert.equal(drafts.tasks[0].id,draftTask.id);
 assert.equal(drafts.tasks[0].policy.executed,false);
+assert.equal(drafts.tasks[0].status,'result_linked');
+assert.equal(drafts.tasks[0].events[1].type,'artifact_linked');
 const detail=await call('yaai_task_detail',{id:draftTask.id});
 assert.equal(detail.title,draftTask.title);
+assert.equal(detail.linkedArtifact.relativeJsonPath,'results/demo-wordstat-latest.json');
+assert.equal(detail.policy.paidCallsAuthorized,false);
+assert.equal(overview.capabilities.savedResultLinksReadOnly,true);
 const noDrafts=await call('yaai_tasks',{caseId:'another-project'});
 assert.equal(noDrafts.total,0);
 
