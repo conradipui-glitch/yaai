@@ -1,0 +1,58 @@
+---
+name: yaai-setup
+description: "Guide a user through a safe YA AI local or Harness-first setup without requesting or exposing API secrets."
+---
+
+## Goal
+
+Help the user install YA AI as an independent research workspace, or connect
+that same workspace to a compatible AI Harness over the existing read-only
+stdio MCP server. Avoid requiring a separate paid LLM API: the Harness may
+provide writing and reasoning; YA AI supplies deterministic calculations
+and stored evidence.
+
+## Procedure
+
+1. Confirm the user wants to configure **Local** or **Harness-first**.
+   If there is a compatible installed checkout, reuse it. Do not assume VPS,
+   Docker, Telegram, remote MCP, general agent execution or paid APIs exist.
+2. Explain that the workspace stores private client-specific data and must
+   be **outside** the YA AI engine Git repository. Get the workspace path
+   and safe case ID from the user. Run the offline preview first:
+
+   ~~~bash
+   npm run setup -- --dry-run --mode harness --workspace /private/client-1/yaai --case client-seo
+   ~~~
+
+3. After explicit approval, run the same command without `--dry-run`.
+   In Harness mode, it creates `integrations/mcp.local.json`. Explain that
+   it is a **generic stdio MCP example**, not an automatic installation
+   into a particular Harness. Let the user review/copy its `mcpServers`
+   entry into the client-specific configuration.
+4. Run the read-only doctor:
+
+   ~~~bash
+   npm run setup -- --check --mode harness --workspace /private/client-1/yaai --case client-seo
+   ~~~
+
+5. For a connected MCP client, verify `yaai_workspace_overview` sees the
+   expected case. `yaai_tasks` and `yaai_task_detail` only inspect previously
+   registered tasks and evidence; they must not claim to run jobs.
+6. Tell the user that new cases have **empty seeds, regions, intents and
+   planner targets**. A successful setup is **not** a completed SEO study;
+   obtaining paid external evidence requires separate authorization.
+
+## Guardrails
+
+- Never ask for an API secret in chat, paste it into a Shell command or
+  persist it to repository files, task descriptions, setup templates or
+  visible logs. Credential setup belongs to a separate protected flow.
+- Never execute `npm run setup` against the source repo itself, a filesystem
+  root, a symlinked directory or another client's workspace without consent.
+- Do not install packages or expose ports without the user's approval.
+  `npm ci` can download software, but `npm run setup` itself is offline.
+- Do not enable billable Jev, Wordstat, Search API, campaign changes,
+  live schedules, a public server or write-enabled MCP automatically.
+- Distinguish actual functionality from future roadmap promises. Before
+  recommending VPS, Telegram OAuth/Mini App or a TypeSafe direct API
+  adapter, verify they have been implemented and separately approved.
