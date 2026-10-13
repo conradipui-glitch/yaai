@@ -4,6 +4,7 @@ import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 import { analyzeRows } from './lib/analyze.mjs';
+import { listTasks, readTask } from './lib/task-registry.mjs';
 import { analyzeDistributionEvidence } from './lib/distribution-evidence.mjs';
 import { summarizeEvaluationEvidence } from './lib/evaluation.mjs';
 import { painMapMarkdown } from './lib/pain-discovery.mjs';
@@ -202,6 +203,23 @@ export const TOOLS = [
       },
       limit: LIMIT,
     }, ['relativeJsonPath']),
+  },
+  {
+    name: 'yaai_tasks',
+    title: 'YA AI Draft Task Registry',
+    description: 'List locally registered DRAFT work requests in the selected workspace, optionally scoped to a case. Read-only: no research, approvals, paid API calls or execution.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      limit: LIMIT,
+    }),
+  },
+  {
+    name: 'yaai_task_detail',
+    title: 'YA AI Draft Task Detail',
+    description: 'Read a single task record by its opaque task ID from this workspace. Read-only; status draft never implies execution.',
+    inputSchema: objectSchema({
+      id: { type: 'string', description: 'Task ID returned from yaai_tasks or CLI registration.' },
+    }, ['id']),
   },
   {
     name: 'yaai_pain_evidence',
@@ -419,6 +437,7 @@ async function workspaceOverview(context, args) {
       distributionEvidence: true,
       evaluationEvidence: true,
       painEvidence: true,
+      draftTaskReadOnly: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -759,7 +778,21 @@ async function painEvidence(context, args) {
   };
 }
 
+async function tasksList(context,args) {
+  return listTasks({
+    workspaceRoot:context.workspaceRoot,
+    caseId:args.caseId,
+    limit:clampLimit(args.limit),
+  });
+}
+
+async function taskDetail(context,args) {
+  return readTask({workspaceRoot:context.workspaceRoot,id:args.id});
+}
+
 const TOOL_HANDLERS = {
+  yaai_tasks: tasksList,
+  yaai_task_detail: taskDetail,
   yaai_workspace_overview: workspaceOverview,
   yaai_analyze_latest: analyzeLatest,
   yaai_build_page_plan: buildLatestPagePlan,

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { createTask } from '../lib/task-registry.mjs';
 
 import {
   MODERN_PROTOCOL_VERSION,
@@ -281,6 +282,12 @@ await fs.writeFile(path.join(root, 'pain-map.json'), JSON.stringify({
   }],
 }));
 
+const draftTask=await createTask({
+  workspaceRoot:root,caseId:'demo-seo',kind:'research',
+  title:'Review saved competitor SERP source',
+});
+assert.equal(draftTask.status,'draft');
+
 const legacyState = {};
 const initialized = await handleRpcMessage({
   jsonrpc: '2.0',
@@ -345,6 +352,16 @@ assert.equal(overview.capabilities.distributionEvidence, true);
 assert.equal(overview.capabilities.evaluationEvidence, true);
 assert.equal(overview.capabilities.painEvidence, true);
 assert.equal(overview.capabilities.paidApiCallsFromMcp, false);
+assert.equal(overview.capabilities.draftTaskReadOnly,true);
+const drafts=await call('yaai_tasks',{caseId:'demo-seo'});
+assert.equal(drafts.total,1);
+assert.equal(drafts.tasks[0].id,draftTask.id);
+assert.equal(drafts.tasks[0].policy.executed,false);
+const detail=await call('yaai_task_detail',{id:draftTask.id});
+assert.equal(detail.title,draftTask.title);
+const noDrafts=await call('yaai_tasks',{caseId:'another-project'});
+assert.equal(noDrafts.total,0);
+
 
 const analysis = await call('yaai_analyze_latest', { limit: 10 });
 assert.equal(analysis.caseId, 'demo-seo');
@@ -417,6 +434,17 @@ assert.equal(pain.summary.acceptedEvidence, 2);
 assert.equal(pain.cards[0].bestObservedWordstatCount, 220);
 assert.equal(pain.cards[0].evidence.serp[0].url, 'https://example.org/post/1');
 assert.match(pain.reportPreview,/Потерянные заявки/);
+
+const taskWriteAttempt=await handleRpcMessage({
+  jsonrpc:'2.0',id:'task-write',method:'tools/call',
+  params:{name:'yaai_task_create',arguments:{title:'Should not exist'},_meta:meta},
+},modernState,context);
+assert.equal(taskWriteAttempt.error.code,-32602,'MCP must not expose writes');
+const taskEscapeAttempt=await handleRpcMessage({
+  jsonrpc:'2.0',id:'task-escape',method:'tools/call',
+  params:{name:'yaai_task_detail',arguments:{id:'../../.env'},_meta:meta},
+},modernState,context);
+assert.equal(taskEscapeAttempt.result.isError,true);
 
 const escapeAttempt = await handleRpcMessage({
   jsonrpc: '2.0',
