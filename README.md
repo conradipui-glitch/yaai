@@ -267,6 +267,16 @@ GitHub Actions tests that call Yandex Wordstat, Yandex Search, OpenRouter/Jev, o
 
 Guardrail: `npm run workflow:budget:selftest` fails if any of these workflows regains a `push` trigger. This does not disable other manually triggered workflows, nor guarantee zero charges from workflows added in the future.
 
+## Jev SEO decision workflows
+
+Three bounded Jev workflows reuse saved search and site research: **search-term intent triage**,
+**landing-page query/promise matching**, and **semantic candidate checks for Webmaster page overlap**.
+Start with the free `jev:seo prepare`, review inputs, explicitly choose
+`jev:evaluate --execute` only if paid decisions are warranted, then
+build a source-verified human-only recommendation queue using `jev:seo route`.
+No advertising or site changes happen automatically.
+[Guided task examples and future Ryze use cases](docs/jev-seo-workflows.md).
+
 ## SERP relevance: independent human check
 
 To review filtering mistakes without re-running paid APIs, use the
