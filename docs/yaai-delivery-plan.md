@@ -67,6 +67,20 @@ linkage with source-integrity checks and CLI restart tests. Stage 1
 **does not** yet have executable tasks, budget authorization or a
 general multi-event run lifecycle.
 
+### 1C. First constrained offline execution — implementation in PR #55
+
+The **existing Webmaster overlap CSV analyzer** is now available for a
+locally initiated, one-off research task. Start/end events, uniquely named
+outputs, tamper-detecting hashes, safe failure codes, explicit retries and
+same-host stale-lock recovery are tested with synthetic CSV fixtures.
+CLI may request runs; MCP can **only read** their statuses. No paid API,
+arbitrary command runner, scheduler, authenticated remote worker or
+campaign mutation is enabled.
+
+This milestone does **not** finish the future paid execution contract:
+credentials, provider budgets, approval tokens and resumable API tasks
+need separate implementation and acceptance.
+
 ### Next: tightly scoped execution contract (before autonomous jobs)
 
 Define actual run statuses, separate user approvals from source metadata,
