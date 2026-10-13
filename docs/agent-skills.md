@@ -18,6 +18,16 @@ Yandex data / workspace
    human decision
 ```
 
+## Guided installation
+
+The `yaai-setup` skill helps a compatible Harness walk a user through
+Local or Harness-first setup with explicit consent and an offline
+`npm run setup -- --dry-run` preview. This skill does **not** install
+software automatically, ask for API secrets, configure Telegram/VPS or
+expand MCP permissions. It uses the existing read-only
+`yaai_workspace_overview` tool to confirm the configured case.
+[Setup details](local-setup.md).
+
 ## Included skills
 
 ### `yandex-keyword-research`
