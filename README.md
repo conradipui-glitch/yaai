@@ -22,6 +22,17 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Headless-first delivery plan and task registry
+
+[YA AI staged delivery plan](docs/yaai-delivery-plan.md) tracks what actually
+exists and the planned Local / Harness / VPS / Studio / Telegram steps.
+
+**Stage 1A:** use `npm run task -- create --workspace /private/workspace --case CASE --title "Task"`
+to save a **draft** (not an executing/paid job). `npm run task -- list`
+and `npm run task -- show` read the same private workspace as the
+read-only MCP tools `yaai_tasks` and `yaai_task_detail`.
+[Details, safeguards and examples](docs/task-registry.md).
+
 ## Workspace boundary
 
 A workspace is any directory with this structure:
