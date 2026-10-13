@@ -1,0 +1,36 @@
+{
+  "id": "seo-landing-page-match-v1",
+  "name": "Landing page promise match (review only)",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.8,
+  "reviewQuestions": [
+    "alignment",
+    "intent_covered"
+  ],
+  "questions": {
+    "alignment": {
+      "type": "choice",
+      "instructions": "Assess whether the supplied page excerpt/title credibly serves the search query and any provided ad promise; do not claim the full page is verified.",
+      "criteria": {
+        "strong": "Page excerpt clearly addresses the same user need and offer as the query/promise",
+        "partial": "Some overlap, but key aspects of user intent or promise are absent from the excerpt",
+        "mismatch": "Page excerpt clearly addresses a different intent or offer",
+        "insufficient": "Title and excerpt do not provide enough context to judge"
+      }
+    },
+    "intent_covered": {
+      "type": "noul",
+      "instructions": "Is there explicit support in the supplied title and excerpt that this page answers the user's specific search intent?"
+    },
+    "specificity": {
+      "type": "score",
+      "instructions": "How specific is the supplied excerpt to the promised/search intent?",
+      "criteria": [
+        "No relevant information",
+        "Generic mention only",
+        "Concrete relevant explanation or offer",
+        "Precise response with meaningful details that meet the expressed intent"
+      ]
+    }
+  }
+}
