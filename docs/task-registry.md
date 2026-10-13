@@ -122,3 +122,11 @@ execution** for one selected existing workflow, with budget gates and
 recoverable run events.
 
 See [delivery plan](yaai-delivery-plan.md).
+
+## Stage 1C — explicit offline runs
+
+The shared registry now also exposes actual *offline* Webmaster overlap runs.
+Their status appears in the same CLI and read-only MCP task views, separately
+from Stage 1B's **previously saved** result links. Start/end events, attempts,
+failed or interrupted runs and manual recovery are documented in
+[offline task execution](task-offline-execution.md). No API/agent worker exists yet.
