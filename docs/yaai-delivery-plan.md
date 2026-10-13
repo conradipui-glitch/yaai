@@ -46,21 +46,33 @@ production-ready behavior**. We still need real-user acceptance testing.
 
 ### 1. Task foundation and honest inventory — in progress
 
-**1A. Durable request registry (this PR).** Explicit CLI creates a
+**1A. Durable request registry — completed (PR #53).** Explicit CLI creates a
 `draft` task in a selected workspace, then lists/reads it. Read-only
 MCP can see the same tasks and IDs. No worker, scheduler, approvals,
 execution, costs, completed-run tracking or automatic mutations are
 claimed here. A task is an **intention**, not an executed job.
 
-**1B. Minimal run/outcome binding (next).** Link an existing completed,
-saved output to a task, record input fingerprint, source artifact and
-reported model/API cost. Define a tested lifecycle and immutable event
-journal before enabling task execution. First reuse **one** existing
-research flow; do not wrap all commands at once.
+**1B. Saved-result binding — completed (PR #54).** Explicit CLI links
+one existing same-project saved JSON under `results/` or `snapshots/`.
+The immutable `artifact_linked` event records file SHA-256, metadata
+and measurable reported costs if present (otherwise null); CLI and
+read-only MCP inspect the identical linked state. No paid work, actual
+run, approval or executor was added. This is **not** a general
+append-only run lifecycle or a proof of external API accuracy.
 
-Exit for Stage 1: open one local project, create a draft via CLI,
-inspect the same ID from MCP, attach one *real saved* report in 1B
-without rerunning any paid API; restore after restarting the process.
+Exit for Stage 1: a real client-provided saved output still needs
+acceptance testing on its own workspace. The code now supports draft
+creation, read-only cross-interface inspection and immutable one-output
+linkage with source-integrity checks and CLI restart tests. Stage 1
+**does not** yet have executable tasks, budget authorization or a
+general multi-event run lifecycle.
+
+### Next: tightly scoped execution contract (before autonomous jobs)
+
+Define actual run statuses, separate user approvals from source metadata,
+and test an offline/dry-run executor for **one** already existing
+research flow. Do not expose paid execution in MCP or Telegram before
+policy enforcement and human verification.
 
 ### 2. Setup, provider profiles and secrets
 
