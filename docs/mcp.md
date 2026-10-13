@@ -151,3 +151,10 @@ npm run check
 ```
 
 The self-test covers both modern and legacy MCP protocol paths plus every exposed tool using an isolated temporary workspace.
+
+### Read-only offline execution status
+
+The existing `yaai_tasks` and `yaai_task_detail` also show Stage 1C
+local Webmaster CSV task runs, their attempts and integrity-checked output
+paths. This is inspection only: **no new MCP executor tool is exposed**.
+See [offline task execution](task-offline-execution.md).
