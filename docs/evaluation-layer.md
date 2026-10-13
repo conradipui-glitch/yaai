@@ -8,7 +8,19 @@ The default pinned model is:
 typesafe/jev-1.13
 ```
 
-Jev is called through OpenRouter's Decisions API, not chat completions. It returns typed decisions rather than generated prose.
+Jev is called through OpenRouter Decisions by default (not chat completions); the generic evaluator can optionally use the direct TypeSafe System One endpoint. It returns typed decisions rather than generated prose.
+
+## Two transport providers
+
+The default remains OpenRouter's Decisions API (`typesafe/jev-1.13`).
+The generic `jev:evaluate` CLI also supports direct official TypeSafe
+System One (`jev-1.13.0`) using `--provider typesafe` and
+`TYPESAFE_API_KEY`. Model ID namespaces and API keys **do not
+interchange**. The read-only `jev:provider` diagnostic does not contact
+the provider or disclose secrets. Existing checkpoint signatures
+for OpenRouter remain compatible, whereas direct TypeSafe signatures
+are separately namespaced.
+[Provider documentation](jev-providers.md).
 
 ## Credential
 
