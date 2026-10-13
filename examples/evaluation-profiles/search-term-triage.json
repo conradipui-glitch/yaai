@@ -1,0 +1,38 @@
+{
+  "id": "seo-search-term-triage-v1",
+  "name": "Search-term intent triage (suggestions only)",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.8,
+  "reviewQuestions": [
+    "intent",
+    "buyer_intent"
+  ],
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "For the supplied business, classify the observed search term by its dominant intent. Use only the state. A navigational search for a brand is not automatically junk.",
+      "criteria": {
+        "buyer": "Looking to buy, hire, book, obtain a quote or choose a vendor",
+        "researcher": "Comparing, learning, troubleshooting or investigating without explicit immediate purchase intent",
+        "employment": "Searching for work, jobs, salaries, internships or vacancies",
+        "navigation": "Looking for a particular website, brand, login or company",
+        "unrelated": "Clearly unrelated to the business offer, including unambiguous name/word collisions",
+        "insufficient": "Insufficient text or ambiguous context to decide"
+      }
+    },
+    "buyer_intent": {
+      "type": "noul",
+      "instructions": "Does this exact search phrase express a likely current buying or hiring intention for the business offering, based on supplied text only?"
+    },
+    "next_step_value": {
+      "type": "score",
+      "instructions": "Rate how useful it would be for a human marketer to inspect this term for possible SEO or ad improvements; do not infer unreported conversions.",
+      "criteria": [
+        "No observable relevance to this business",
+        "Weak relevance or missing context",
+        "Potentially relevant term worth manual inspection",
+        "Specific actionable intent backed by supplied context or measured conversions"
+      ]
+    }
+  }
+}
