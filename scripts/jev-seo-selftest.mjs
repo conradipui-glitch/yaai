@@ -29,11 +29,11 @@ assert.throws(()=>prepareSeoJev({task:'search-term-triage',
   profile:tprofile}),/duplicate source identity/);
 assert.throws(()=>prepareSeoJev({task:'search-term-triage',
   data:{terms:[{query:'x',conversions:-1}]},profile:tprofile}),/invalid nonnegative/);
-assert.throws(()=>prepareSeoJev({task:'search-term-triage',data:terms,profile:await profile('landing-page-match')}),/profile do not match/);
+const lp=await profile('landing-page-match');
+assert.throws(()=>prepareSeoJev({task:'search-term-triage',data:terms,profile:lp}),/profile do not match/);
 assert.throws(()=>prepareSeoJev({task:'search-term-triage',data:{terms:[]},profile:tprofile}),/no eligible candidates/);
 assert.throws(()=>prepareSeoJev({task:'search-term-triage',data:terms,profile:tprofile,limit:1001}),/invalid item cap/);
 
-const lp=await profile('landing-page-match');
 const matches={matches:[
   {id:'match-01',query:'заказать крышу омск',url:'https://example.test/roof/',
     pageTitle:'Кровельные работы в Омске',pageExcerpt:'Монтаж кровли, расчёт стоимости, фотографии реализованных проектов.',
