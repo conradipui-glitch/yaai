@@ -1,8 +1,9 @@
-# YA AI Studio — future product direction (not an active implementation)
+# YA AI Studio — concept and design history
 
-Status: agreed concept / backlog. **Do not start Studio implementation as part
-of reliability fixes.** First stabilize the YA AI research engine and
-recoverable, cost-controlled research workflows.
+**Current execution plan:** [YA AI delivery plan](yaai-delivery-plan.md) (2026-10-13).
+Stage 1A (draft tasks for CLI/MCP) is active. This earlier roadmap is retained
+for historical context; its implementation sequence is superseded by the
+staged headless-first plan. No UI, VPS worker or remote auth is claimed ready.
 
 ## Product concept
 
