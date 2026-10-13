@@ -16,6 +16,21 @@
 
 The MCP surface is **read-only with respect to external services**: it does not call Wordstat, Webmaster, Yandex Search API, YouTube, Telegram, OpenRouter, or other live collection/model endpoints. Refresh/collect data through explicit CLI workflows first.
 
+## Guided Local / Harness-first configuration
+
+You can now generate a workspace and generic local MCP stdio config
+without hand-editing paths:
+
+~~~bash
+npm run setup -- --mode harness --workspace /private/client/yaai --case client-seo
+npm run setup -- --check --mode harness --workspace /private/client/yaai --case client-seo
+~~~
+
+The generated private `integrations/mcp.local.json` can be adapted to
+your Harness's own MCP configuration. It is **not** an authenticated
+remote MCP server and is **not** automatically installed in the client.
+[Full setup instructions](local-setup.md).
+
 ## Start
 
 From the engine repository:
