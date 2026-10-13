@@ -130,7 +130,7 @@ try {
   await fs.symlink(path.join(home,'results','demo-earlier.json'),input);
   const unsafe=await runOfflineTask({workspaceRoot:home,id:symTask.id});
   assert.equal(unsafe.status,'failed');
-  assert.equal(unsafe.execution.errorCode,'EXECUTION_FAILED');
+  assert.equal(unsafe.execution.errorCode,'INPUT_INVALID');
   await fs.unlink(input);await fs.writeFile(input,inputBefore);
 
   // A live lock cannot be removed, even by explicit recover.
