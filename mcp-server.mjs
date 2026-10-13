@@ -4,7 +4,7 @@ import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 
 import { analyzeRows } from './lib/analyze.mjs';
-import { listTasksWithArtifacts, readTaskWithArtifact } from './lib/task-results.mjs';
+import { listTasksWithExecution, readTaskWithExecution } from './lib/task-executor.mjs';
 import { analyzeDistributionEvidence } from './lib/distribution-evidence.mjs';
 import { summarizeEvaluationEvidence } from './lib/evaluation.mjs';
 import { painMapMarkdown } from './lib/pain-discovery.mjs';
@@ -207,7 +207,7 @@ export const TOOLS = [
   {
     name: 'yaai_tasks',
     title: 'YA AI Draft Task Registry',
-    description: 'List locally registered task drafts and verified linked saved research outputs. Read-only: no research, approvals, paid API calls or execution.',
+    description: 'List task drafts, verified linked prior outputs and offline Webmaster execution history; read-only and no paid API calls or execution.',
     inputSchema: objectSchema({
       caseId: CASE_ID,
       limit: LIMIT,
@@ -216,7 +216,7 @@ export const TOOLS = [
   {
     name: 'yaai_task_detail',
     title: 'YA AI Draft Task Detail',
-    description: 'Read a task draft or its verified saved artifact linkage by opaque ID. Read-only; result_linked means previous output was attached, NOT a run by YA AI.',
+    description: 'Read task draft, previously linked evidence or actual OFFLINE Webmaster CSV run with status and attempt history; read-only and never triggers work.',
     inputSchema: objectSchema({
       id: { type: 'string', description: 'Task ID returned from yaai_tasks or CLI registration.' },
     }, ['id']),
@@ -439,6 +439,7 @@ async function workspaceOverview(context, args) {
       painEvidence: true,
       draftTaskReadOnly: true,
       savedResultLinksReadOnly: true,
+      offlineTaskRunHistoryReadOnly: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -780,7 +781,7 @@ async function painEvidence(context, args) {
 }
 
 async function tasksList(context,args) {
-  return listTasksWithArtifacts({
+  return listTasksWithExecution({
     workspaceRoot:context.workspaceRoot,
     caseId:args.caseId,
     limit:clampLimit(args.limit),
@@ -788,7 +789,7 @@ async function tasksList(context,args) {
 }
 
 async function taskDetail(context,args) {
-  return readTaskWithArtifact({workspaceRoot:context.workspaceRoot,id:args.id});
+  return readTaskWithExecution({workspaceRoot:context.workspaceRoot,id:args.id});
 }
 
 const TOOL_HANDLERS = {
