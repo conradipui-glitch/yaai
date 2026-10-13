@@ -88,6 +88,17 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 2B. Provider selection — PR #57
+
+The **generic** Jev evaluator can use existing OpenRouter Decisions or
+direct TypeSafe System One with fixed documented endpoints, distinct
+provider-specific environment credentials and pinned default model IDs.
+Offline `jev:provider` doctor reports configuration and key presence
+without requesting or logging secrets. Provider-aware checkpoint
+fingerprints prevent cross-provider cache contamination; missing
+USD costs remain unknown. No live credential, billing or tariff tests
+have been run, and some older specialized Jev CLIs remain OpenRouter-only.
+
 ### Stage 2A. Local / Harness-first setup — PR #56
 
 An interactive/offline `npm run setup` and flag-driven installer create
@@ -104,8 +115,9 @@ See [Local and Harness setup](local-setup.md).
 ### 2. Setup, provider profiles and secrets
 
 - **2A done:** guided Local/Harness-first workspace setup and offline doctor.
-  **Next:** dependency/provider capability checks and isolated credential
-  configuration without echoing or logging secrets.
+  **2B now available:** generic Jev transport selection and offline key
+  presence check. **Still missing:** managed secret store, provider quota/
+  price validation and safe paid test with explicit approval.
 - Capability-based Jev adapters: current OpenRouter Decisions first;
   official TypeSafe adapter only after verifying its separate API
   request/response contract. Reject unsupported custom base URLs.

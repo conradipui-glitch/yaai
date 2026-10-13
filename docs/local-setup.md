@@ -155,6 +155,17 @@ workspaces start with no collected Wordstat evidence, so some existing
 analysis features naturally have no result until you import/collect
 appropriate data.
 
+## Provider selection after setup (Stage 2B)
+
+YA AI now has a provider-aware **generic Jev evaluator**: its existing
+OpenRouter transport and the official direct TypeSafe System One
+transport use independent credentials. The setup wizard itself still
+does not request or store these credentials. See
+[provider profiles and read-only diagnostic](jev-providers.md).
+`npm run jev:provider -- --provider typesafe` checks only configuration:
+it cannot prove a key works, an account has quota, or a model has a
+particular price.
+
 ## Provider/API configuration is a separate milestone
 
 No secret values are requested, echoed, persisted to the workspace,
@@ -162,14 +173,15 @@ embedded in MCP configuration or committed to the engine. Do not paste
 OpenRouter, TypeSafe, Yandex or Google API credentials into chat,
 command-line arguments, URLs or GitHub Actions logs.
 
-The current Jev implementation talks to **OpenRouter Decisions**. A
-TypeSafe direct adapter or other provider must be separately implemented
-and contract-tested before it can be selected. Never assume changing an
-API base URL makes the payloads compatible.
+The generic Jev evaluator now supports both **OpenRouter Decisions** and
+**direct TypeSafe System One** with separately verified request formats.
+Other specialized workflows may still be OpenRouter-only; a URL swap is
+never a safe substitute for an adapter and its tests.
 
-Future Stage 2B: provider capabilities + offline diagnostic profile,
-credential isolation and protected, explicitly authorized connection test.
-Actual API price/availability must be checked independently.
+Stage 2B provides a secret-free offline provider diagnostic and isolated
+environment variable names; it does **not** provide a key vault or live
+account/price check. Live validation and additional integrations remain
+separate, explicitly authorized tasks.
 
 ## Acceptance criteria
 
