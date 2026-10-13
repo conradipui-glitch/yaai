@@ -35,11 +35,14 @@ try {
   const result=await runOfflineTask({workspaceRoot:home,id:task.id});
   assert.equal(result.status,'succeeded');
   assert.equal(result.execution.job,'webmaster-overlap');
+  assert.equal(result.policy.executed,true,'view reflects actual local attempt');
   assert.equal(result.execution.attempts,1);
   assert.equal(result.execution.billableCallsMadeByThisJob,0);
   assert.equal(result.execution.billableCallsAuthorized,false);
   assert.equal(result.policy.paidCallsAuthorized,false);
   assert.equal(result.execution.externalMutationsMade,false);
+  const rawDraft=JSON.parse(await fs.readFile(path.join(home,'tasks',task.id+'.json'),'utf8'));
+  assert.equal(rawDraft.policy.executed,false,'original immutable draft describes pre-run state');
   assert.equal(result.events.map(x=>x.type).join(','),'draft_created,run_started,run_succeeded');
   assert.equal(result.execution.output.path.startsWith('results/demo-webmaster-overlap-task-'),true);
   const saved=JSON.parse(await fs.readFile(path.join(home,result.execution.output.path),'utf8'));
