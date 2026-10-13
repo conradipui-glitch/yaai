@@ -290,3 +290,25 @@ The output distinguishes source observations, model hypotheses and (if supplied)
 
 - [Resume paid Pain Quality and Omsk studies in GitHub Actions](docs/github-actions-resume.md) — restore previous evidence and per-item Jev checkpoints; newly paid API calls require explicit approval.
 - [YA AI Studio roadmap](docs/yaai-studio-roadmap.md) — future local agent workspace, interactive reports, optional Kanban/Scrumban, content creation and reviewed publishing. **Planning only; not yet implemented.**
+
+
+## Offline SEO research report
+
+`npm run report:seo` turns **already saved** Wordstat → Intent → Page Planner
+outputs into a standalone HTML report with searchable source rows, page
+recommendations, and downloadable filtered CSV. It also writes the corresponding
+JSON source-of-truth report. No Yandex/OpenRouter/Jev calls are performed.
+
+```bash
+npm run report:seo -- \
+  --wordstat /private/case-wordstat-latest.json \
+  --intents /private/case-intents-latest.json \
+  --plan /private/case-page-plan-latest.json \
+  --html /private/seo-report.html
+```
+
+Inputs must belong to the **same saved run/preset**; the generator rejects
+obvious source mismatches and refuses to overwrite existing reports.
+It never treats Wordstat frequencies as additive market size or labels
+algorithmic page suggestions as verified sales. See
+[docs/seo-report.md](docs/seo-report.md). The CI test uses only invented data.
