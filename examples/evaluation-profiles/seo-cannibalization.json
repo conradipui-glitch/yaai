@@ -1,0 +1,36 @@
+{
+  "id": "seo-overlap-cannibalization-v1",
+  "name": "Search-query overlap triage (no automatic merge)",
+  "model": "typesafe/jev-1.13",
+  "reviewThreshold": 0.85,
+  "reviewQuestions": [
+    "relationship",
+    "same_intent"
+  ],
+  "questions": {
+    "relationship": {
+      "type": "choice",
+      "instructions": "Given query, Webmaster overlap metrics, and two supplied page title/summary snapshots, decide whether their user intents compete. Showing for the same query is not proof of harmful cannibalization.",
+      "criteria": {
+        "competing": "Both pages predominantly serve the same user need and appear to be close substitutes",
+        "complementary": "Pages address different related sub-needs and may both be useful",
+        "separate": "Pages serve clearly different intents despite sharing some query words",
+        "insufficient": "Page snapshots or search evidence insufficient to judge relationship"
+      }
+    },
+    "same_intent": {
+      "type": "noul",
+      "instructions": "Based only on both supplied page descriptions and the shared query, do these pages substantially target the same dominant search intent?"
+    },
+    "consolidation_priority": {
+      "type": "score",
+      "instructions": "How important is a HUMAN SEO review of potential consolidation or differentiation, not an automatic merge?",
+      "criteria": [
+        "No apparent issue",
+        "Low-priority overlap check",
+        "Worth assessing their query/CTR and differences",
+        "Strong duplicate-intent warning requiring manual investigation"
+      ]
+    }
+  }
+}
