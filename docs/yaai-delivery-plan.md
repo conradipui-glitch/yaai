@@ -88,6 +88,21 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 2C. Project-scoped provider onboarding — PR #58
+
+The Local/Harness-first installer can select OpenRouter or TypeSafe
+**per client case**. It stores only provider ID, model and allowed
+credential environment variable name outside the source checkout.
+Offline doctor reports safe readiness; the generic Jev CLI consumes
+this project profile without a custom API key in configuration.
+Re-installs and conflicting CLI flags are fail-closed. This milestone
+does **not** provide credential storage, a live/provider pricing test,
+an authenticated SaaS deployment or universal model routing.
+
+Next: guided setup usability and a reviewed credential-injection path
+for the user's chosen environment, then single-request live validation
+only with explicit cost approval; retain current no-paid-call defaults.
+
 ### Stage 2B. Provider selection — PR #57
 
 The **generic** Jev evaluator can use existing OpenRouter Decisions or
