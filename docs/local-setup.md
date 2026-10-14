@@ -67,6 +67,7 @@ private-client-workspace/
   inputs/
   tasks/
   integrations/
+    jev.client-a-seo.json # model/provider and env variable NAME only
     mcp.local.json    # only in Harness-first mode
 ~~~
 
@@ -154,6 +155,74 @@ It binds to `127.0.0.1`; do **not** publish it to the internet. New
 workspaces start with no collected Wordstat evidence, so some existing
 analysis features naturally have no result until you import/collect
 appropriate data.
+
+## Choose a Jev provider during setup — Stage 2C
+
+The wizard now prompts in Russian for a Jev provider, after the project
+name and result prefix. The choice is **per case**, not shared globally.
+In noninteractive mode:
+
+~~~bash
+npm run setup -- \
+  --mode harness \
+  --workspace /private/projects/client-a/yaai \
+  --case client-a-seo \
+  --prefix client-a \
+  --jev-provider typesafe
+~~~
+
+Optional flags: `--jev-model jev-1.13.0` and
+`--jev-key-env TYPESAFE_API_KEY`. The latter is the **name of an
+environment variable**, NOT its value; only verified variable names
+belonging to the selected provider are accepted.
+
+Each case gets a private `integrations/jev.<case-id>.json` containing
+only case ID, provider, model, and allowed environment key **name**.
+Neither the key nor the model account balance is stored there.
+You can keep `typesafe` for client A and `openrouter` for client B
+in the same workspace. Re-running the installer preserves existing
+selection and other project files. A conflicting requested provider,
+model, or key variable stops with an error: it is not silently rewritten.
+
+~~~bash
+npm run setup -- --check \
+  --mode harness --workspace /private/projects/client-a/yaai \
+  --case client-a-seo --prefix client-a
+
+npm run jev:provider -- \
+  --workspace /private/projects/client-a/yaai --case client-a-seo
+~~~
+
+`--check` confirms local file integrity and shows whether the *selected
+environment variable is present*. **No network access is performed,
+and a present key does not prove authorization, quota or pricing.**
+Missing credentials do not prevent using offline YA AI or Harness MCP
+for reading existing data.
+
+The **generic** Jev evaluator can use this saved selection:
+
+~~~bash
+npm run jev:evaluate -- \
+  --workspace /private/projects/client-a/yaai --case client-a-seo \
+  --input /private/terms.json \
+  --profile examples/evaluation-profiles/search-term-triage.json \
+  --out /private/terms-evaluated.json \
+  --execute
+~~~
+
+`--execute` is a separate explicit permission to incur potential model
+charges. Inspect the batch and chosen provider before running it.
+If `--provider` or `--model` is also passed and contradicts the saved
+selection, YA AI refuses the run. Previously configured environment
+defaults continue to work when **no project** is selected.
+
+**Important:** this profile does not automatically scope arbitrary
+input/output file paths to a client. Keep all evidence under your
+private project directories; true cross-project access control is a
+future auth/storage milestone. The wizard is not a key vault or a
+provider switch/migration tool yet. Changing an existing provider
+requires a separately planned explicit migration, not deleting
+files blindly.
 
 ## Provider selection after setup (Stage 2B)
 
