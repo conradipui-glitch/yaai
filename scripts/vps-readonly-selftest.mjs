@@ -76,7 +76,7 @@ try {
  const post=await read('/v1/tasks',password,{method:'POST'});
  assert.equal(post.status,405);
  const body=await read('/v1/tasks',password,{method:'POST',body:'{}'});
- assert.equal(body.status,400);
+ assert.equal(body.status,405,'all write methods must be rejected consistently');
  assert.equal((await read('/healthz?private=1',null)).status,401);
  await new Promise(resolve=>server.close(resolve));
  server=null;
