@@ -64,6 +64,23 @@ credentials via your local shell, OS secret store or Harness/VPS
 secret-injection mechanism. Do not paste keys into chat, README,
 project JSON, command-line arguments or GitHub Actions output.
 
+## Hidden one-time local key, or Harness-managed environment
+
+The generic evaluator also supports an **ephemeral hidden TTY prompt**
+with `--prompt-key --execute`. No API key appears in arguments,
+workspace files, MCP settings, reports, or logs; the credential is
+retained in process memory for this invocation only. The option
+requires an interactive terminal; for an unattended Harness use its
+secret store to inject the exact per-case environment variable. It
+does **not** bypass the explicit paid-call gate.
+
+The read-only `jev:provider` command now also displays a structured
+capability list: implemented offline research, generic Jev typed
+evaluation, SEO review, older provider-specific paths, and features
+not yet delivered (paid MCP, authenticated VPS, Telegram). These are
+code-level capabilities, not an account/quota/pricing verification.
+[Credential usage and deployment limits](credential-delivery-and-vps-readiness.md).
+
 ## Explicit paid decision using a selected provider
 
 OpenRouter (legacy behavior remains the default):
