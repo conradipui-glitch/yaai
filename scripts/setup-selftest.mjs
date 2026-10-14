@@ -27,7 +27,7 @@ try{
   const preview=await setupWorkspace({...config,dryRun:true});
   assert.equal(preview.paidRequests,0);
   assert.equal(preview.llmApiRequired,false);
-  assert.equal(preview.wouldCreate.length,3);
+  assert.equal(preview.wouldCreate.length,4);
   assert.equal(await fileExists(location),false,'dry-run must not create the workspace');
   const missing=cli(['--check',...options(location)]);
   assert.equal(missing.status,1);
@@ -35,7 +35,7 @@ try{
   assert.equal(await fileExists(location),false,'doctor must not mutate files');
 
   const actual=await setupWorkspace(config);
-  assert.equal(actual.createdFiles.length,3);
+  assert.equal(actual.createdFiles.length,4);
   assert.equal(actual.dryRun,false);
   assert.equal(actual.mode,'local');
   for(const file of actual.createdFiles)assert.ok(await fileExists(file));
@@ -56,6 +56,14 @@ try{
   assert.deepEqual(preset.intents,[]);
   assert.deepEqual(preset.negativeKeywords,[]);
   assert.deepEqual(planner.targets,[]);
+  const jevFile=path.join(location,'integrations','jev.roof-omsk.json');
+  const jev=JSON.parse(await fs.readFile(jevFile,'utf8'));
+  assert.deepEqual(jev,{
+    schemaVersion:1,caseId:'roof-omsk',provider:'openrouter',
+    model:'typesafe/jev-1.13',credentialEnvVar:'YAIS_AI',
+  });
+  assert.equal((await inspectSetup(config)).jev.credentialVerified,false);
+
   assert.equal((await fs.stat(caseFile)).mode&0o077,0,'private config permissions on Linux');
   const check=await inspectSetup(config);
   assert.equal(check.ready,true);
@@ -67,7 +75,7 @@ try{
   assert.equal(JSON.parse(cliCheck.stdout).ready,true);
   const idempotent=await setupWorkspace(config);
   assert.equal(idempotent.createdFiles.length,0);
-  assert.equal(idempotent.reusedFiles.length,3);
+  assert.equal(idempotent.reusedFiles.length,4);
   // Never overwrite a client-edited case, keywords or planner.
   const customized={...caseData,regions:['Омск'],seeds:['ремонт кровли']};
   await fs.writeFile(caseFile,JSON.stringify(customized));
