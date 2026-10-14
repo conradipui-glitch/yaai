@@ -95,6 +95,15 @@ capabilities remain **unverified by these checks**. The printed
 \`credentialPresent\` field is not an authorization decision and not
 proof of a good key.
 
+## Stage 3A: limited read-only VPS components are available
+
+A separate loopback-only authenticated task metadata API, example
+Caddy/systemd staging configuration and encrypted backup/restore drill
+have been implemented. They do **not** change the status of the existing
+local `server.mjs` or `mcp-server.mjs`: neither should be exposed
+publicly. A real host, cert issuance and external security review
+remain outstanding. [Read-only deployment guide](vps-readonly-stage.md).
+
 ## VPS go/no-go checklist (DESIGN — not deployed)
 
 **NO-GO today for public exposure of \`server.mjs\` or \`mcp-server.mjs\`.**
@@ -125,7 +134,7 @@ service or a distributed job manager. Before a user exposes a VPS:
    symlinks/traversal, network outages, power loss and restore before
    enabling a real URL.
 
-**Next milestone:** test a minimal authenticated **read-only** VPS
-deployment boundary and health check before any remote task or
-advertising control. This document makes no claim that it currently
+**Next milestone:** conduct an approved remote staging test with a real
+HTTPS certificate, token-revocation drill and encrypted restore test
+before any remote task or advertising control. This document makes no claim that it currently
 exists. See [delivery plan](yaai-delivery-plan.md).
