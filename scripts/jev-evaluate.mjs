@@ -5,6 +5,7 @@ import { evaluateItemsWithJev } from '../lib/evaluation.mjs';
 import { prepareJevCheckpoints } from '../lib/jev-checkpoints.mjs';
 import {getJevProvider,resolveJevCredential,validateJevProviderModel} from '../lib/jev-providers.mjs';
 import {resolveProjectJevSelection} from '../lib/setup-jev.mjs';
+import {readHiddenSecret} from '../lib/secret-prompt.mjs';
 
 const args = process.argv.slice(2);
 
@@ -31,12 +32,14 @@ const transport=getJevProvider(provider);
 const model=validateJevProviderModel(provider,
   projectSelection?.profile.model||flag('--model')||process.env.YAAI_JEV_MODEL||transport.defaultModel);
 const delayMs = Math.max(0, Math.trunc(Number(flag('--delay-ms') || 0)));
-const apiKey=projectSelection?projectSelection.apiKey:resolveJevCredential(provider);
+const promptKey=args.includes('--prompt-key');
+let apiKey=promptKey?'':projectSelection?projectSelection.apiKey:resolveJevCredential(provider);
 
 if (!inputPath) throw new Error('Specify --input /private/evaluation-items.json.');
 if (!profilePath) throw new Error('Specify --profile /path/profile.json.');
 if (!outputPath) throw new Error('Specify --out /private/evaluation-results.json.');
-if (!apiKey) throw new Error('Jev '+provider+' credential missing. Configure '+(projectSelection?.profile.credentialEnvVar||transport.credentialNames.join(' or '))+'.');
+if (!apiKey&&!promptKey) throw new Error('Jev '+provider+' credential missing. Configure '+(projectSelection?.profile.credentialEnvVar||transport.credentialNames.join(' or '))+' or use --prompt-key in a local TTY.');
+if(promptKey&&!process.stdin.isTTY)throw Error('--prompt-key requires a local interactive terminal. Harness/VPS must inject the selected secret through an environment variable.');
 
 const input = JSON.parse(await fs.readFile(path.resolve(inputPath), 'utf8'));
 const profile = JSON.parse(await fs.readFile(path.resolve(profilePath), 'utf8'));
@@ -46,6 +49,9 @@ if (!Array.isArray(items)) {
   throw new Error('Evaluation input must be an array or an object with items array. Each item requires id + state.');
 }
 
+// Check input/profile before asking for sensitive information; the explicit
+// --execute guard above always runs before terminal secret collection.
+if(promptKey)apiKey=await readHiddenSecret({label:transport.label+' API key'});
 const checkpoint = await prepareJevCheckpoints({ outputPath, checkpointDir: flag('--checkpoint-dir') });
 
 const dataset = await evaluateItemsWithJev({
@@ -70,6 +76,7 @@ console.log(JSON.stringify({
   modelRequested: dataset.modelRequested,
   provider:transport.id,
   selectedFrom:projectSelection?'private-project-profile':'explicit-or-default',
+  credentialSource:promptKey?'one-time-tty':'selected-environment',
   profileId: dataset.profile.id,
   itemCount: dataset.summary.itemCount,
   reusedCount: dataset.summary.reusedCount,
