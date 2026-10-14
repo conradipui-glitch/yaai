@@ -68,7 +68,7 @@ private-client-workspace/
   tasks/
   integrations/
     jev.client-a-seo.json # model/provider and env variable NAME only
-    mcp.local.json    # only in Harness-first mode
+    mcp.client-a-seo.local.json  # Harness-first, per case
 ~~~
 
 The case is registered with **blank seeds and regions**. The preset has
@@ -76,6 +76,11 @@ no intents or negative keywords, the planner has no target pages.
 These are **safe empty templates**, not fabricated SEO research.
 You need to configure the client-specific sources and targeting before
 real collection or page recommendations can be meaningful.
+
+Each case gets a separate MCP connector file. Existing legacy
+`integrations/mcp.local.json` files remain untouched, so current Harness
+connections keep working. The new per-case file can be selected in the
+Harness when the user is ready. It is never silently installed into a client.
 
 Existing files are never overwritten. Re-running setup is **idempotent**:
 if existing configurations match their case ID/prefix and required schema,
@@ -91,7 +96,7 @@ also protect the workspace with appropriate Windows file permissions.
 
 ## Harness-first: connect the existing MCP
 
-The private file `integrations/mcp.local.json` contains a **generic** MCP
+The private file `integrations/mcp.<case-id>.local.json` contains a **generic** MCP
 stdio client config with:
 
 - Node executable path detected at setup;
