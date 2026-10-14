@@ -88,7 +88,7 @@ try{
 
   const harness=await setupWorkspace({...config,mode:'harness'});
   assert.equal(harness.createdFiles.length,1,'only MCP config added');
-  const privateMcp=path.join(location,'integrations','mcp.local.json');
+  const privateMcp=path.join(location,'integrations','mcp.roof-omsk.local.json');
   const mcp=JSON.parse(await fs.readFile(privateMcp));
   assert.equal(mcp.mcpServers.yaai.command,process.execPath);
   assert.deepEqual(mcp.mcpServers.yaai.args,[
