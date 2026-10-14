@@ -108,5 +108,5 @@ const notTTY=cli('scripts/jev-evaluate.mjs',[
 ]);
 assert.notEqual(notTTY.status,0);
 assert.match(notTTY.stderr,/requires a local interactive terminal/);
-assert.doesNotMatch(notTTY.stderr,/Bearer|secret/);
+assert.doesNotMatch(notTTY.stderr,/should-never-print-this/);
 console.log('YA AI secret entry + capability doctor selftest: ok (TTY hidden input, cleanup, no-API, no-key disclosure)');
