@@ -20,6 +20,31 @@ The direct TypeSafe transport has not yet been exercised with a real user
 key or verified for live rate limits/prices: such verification requires
 explicit authorization and may incur charges.
 
+## Per-project installation profiles — Stage 2C
+
+`npm run setup` now generates a private case-specific profile at
+`WORKSPACE/integrations/jev.CASE_ID.json`. Configure a provider during
+installation with `--jev-provider openrouter|typesafe`, optionally
+`--jev-model` and `--jev-key-env` (allowlisted environment variable
+name only). Existing profiles are preserved, not automatically switched.
+
+Read exactly that case profile using:
+
+~~~bash
+npm run jev:provider -- --workspace /private/project --case client-a
+~~~
+
+`npm run jev:evaluate -- --workspace /private/project --case client-a
+--input ... --profile ... --out ... --execute` selects the saved provider,
+model and **only the exact configured environment variable**.
+Explicit provider/model overrides that conflict with the saved choice
+are rejected, rather than silently using another credential. This is
+configuration selection, not proof of provider authentication.
+
+The generic evaluator still accepts its original explicit
+`--provider` / `--model` flags when no project profile is requested.
+Older specialized Jev commands are **not** all migrated.
+
 ## Offline provider doctor (no billable requests)
 
 ~~~bash
