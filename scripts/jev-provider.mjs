@@ -1,5 +1,6 @@
 import {diagnoseJevProviders,getJevProvider,JEV_PROVIDER_IDS} from '../lib/jev-providers.mjs';
 import {resolveProjectJevSelection} from '../lib/setup-jev.mjs';
+import {offlineCapabilityReport} from '../lib/provider-capabilities.mjs';
 const args=process.argv.slice(2);
 const flag=name=>{
   const inline=args.find(a=>a.startsWith(name+'='));
@@ -29,6 +30,7 @@ if(args.includes('--help')){
     ...displayed,supportedProviders:JEV_PROVIDER_IDS,
     keySource:selected?'private-project-profile/environment':'environment-only',
     caseId:selected?.profile.caseId||null,
+    capabilities:offlineCapabilityReport({provider:id,credentialPresent:displayed.credentialPresent}),
   },null,2));
   if(args.includes('--require-key')&&!displayed.credentialPresent)process.exitCode=1;
 }
