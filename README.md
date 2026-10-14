@@ -22,6 +22,16 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## VPS read-only staging boundary (not yet deployed)
+
+A **separate, scoped, loopback-only** HTTP API exposes health and task
+metadata for one configured case with a strong Bearer token. It does
+**not** run `server.mjs`, paid Yandex/Jev endpoints, write-enabled MCP
+or campaign controls. Encrypted workspace backup and restore commands
+are included for a limited-size offline disaster-recovery drill.
+[Security contract and example HTTPS/systemd configuration](docs/vps-readonly-stage.md).
+No VPS, DNS, HTTPS certificate or live service was deployed by this PR.
+
 ## Local one-time Jev key and offline capability doctor
 
 **Stage 2D:** the generic Jev evaluator accepts `--prompt-key` **with**
