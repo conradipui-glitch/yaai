@@ -240,6 +240,21 @@ does not request or store these credentials. See
 it cannot prove a key works, an account has quota, or a model has a
 particular price.
 
+## Using the API key without saving it — Stage 2D
+
+After choosing Jev in the wizard, you may provide a key once in a
+trusted local terminal with `jev:evaluate --prompt-key --execute`.
+The prompt hides typed characters and does **not** write a secret to
+the project. Without a local TTY, use an operating system / Harness
+secret manager to inject the selected provider's environment variable.
+The wizard and read-only diagnostics remain free and secret-free.
+
+`npm run jev:provider -- --workspace WORKSPACE --case CASE`
+and `npm run setup -- --check ...` now distinguish locally available
+capabilities from **unimplemented VPS/MCP/Telegram integrations**.
+A local provider key is not proof of quota, pricing or live access.
+[Full guide and VPS readiness](credential-delivery-and-vps-readiness.md).
+
 ## Provider/API configuration is a separate milestone
 
 No secret values are requested, echoed, persisted to the workspace,

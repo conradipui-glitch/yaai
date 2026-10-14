@@ -48,6 +48,26 @@ and stored evidence.
    planner targets**. A successful setup is **not** a completed SEO study;
    obtaining paid external evidence requires separate authorization.
 
+## Credential handling after setup
+
+For a **trusted local human terminal**, explain `--prompt-key --execute`
+on the **generic** `jev:evaluate` CLI: hidden input is held only for
+the run, never placed into the command, chat, MCP config or report.
+Only run an explicitly authorized billable evaluation after inspecting
+the inputs and number of requested decisions.
+
+In Harness-first mode, recommend the Harness or OS-provided *protected
+environment secret injection* for the selected case; do not have the AI
+ask for the key in the conversation. The existing read-only MCP does not
+need Jev credentials and cannot launch paid evaluations.
+`jev:provider --workspace ... --case ...` shows **offline** capability
+and secret-presence diagnostics, not live key validation.
+
+Before recommending VPS or Telegram operation, review
+[the VPS security checklist](../../../docs/credential-delivery-and-vps-readiness.md):
+the current server lacks the authenticated deployment boundary for
+public exposure.
+
 ## Guardrails
 
 - Never ask for an API secret in chat, paste it into a Shell command or
