@@ -22,6 +22,19 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Project-specific Jev setup
+
+The offline setup wizard can now select `openrouter` or `typesafe`
+for **each case**. For example:
+`npm run setup -- --mode harness --workspace PRIVATE_PATH --case CASE_ID --jev-provider typesafe`.
+It saves **only** the provider, model and credential environment
+variable name to a private per-case file. Use
+`npm run jev:provider -- --workspace PRIVATE_PATH --case CASE_ID`
+to diagnose it without spending money or printing secrets. The
+generic `jev:evaluate` can use `--workspace` and `--case` to apply
+that exact profile when an explicit `--execute` is authorized.
+[Step-by-step wizard and limitations](docs/local-setup.md).
+
 ## Jev providers: OpenRouter or direct TypeSafe
 
 **Stage 2B:** the generic Jev evaluator supports `--provider openrouter` (existing

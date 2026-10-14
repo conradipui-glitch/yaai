@@ -26,7 +26,7 @@ npm run setup -- --mode harness --workspace /private/client/yaai --case client-s
 npm run setup -- --check --mode harness --workspace /private/client/yaai --case client-seo
 ~~~
 
-The generated private `integrations/mcp.local.json` can be adapted to
+The generated private `integrations/mcp.<case-id>.local.json` can be adapted to
 your Harness's own MCP configuration. It is **not** an authenticated
 remote MCP server and is **not** automatically installed in the client.
 [Full setup instructions](local-setup.md).

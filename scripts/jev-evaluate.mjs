@@ -4,6 +4,7 @@ import path from 'node:path';
 import { evaluateItemsWithJev } from '../lib/evaluation.mjs';
 import { prepareJevCheckpoints } from '../lib/jev-checkpoints.mjs';
 import {getJevProvider,resolveJevCredential,validateJevProviderModel} from '../lib/jev-providers.mjs';
+import {resolveProjectJevSelection} from '../lib/setup-jev.mjs';
 
 const args = process.argv.slice(2);
 
@@ -21,16 +22,21 @@ if (!args.includes('--execute')) {
 const inputPath = flag('--input');
 const profilePath = flag('--profile');
 const outputPath = flag('--out');
-const provider=flag('--provider')||process.env.YAAI_JEV_PROVIDER||'openrouter';
+const projectSelection=await resolveProjectJevSelection({
+  workspaceRoot:flag('--workspace'),caseId:flag('--case'),
+  provider:flag('--provider'),model:flag('--model'),
+});
+const provider=projectSelection?.profile.provider||flag('--provider')||process.env.YAAI_JEV_PROVIDER||'openrouter';
 const transport=getJevProvider(provider);
-const model=validateJevProviderModel(provider,flag('--model')||process.env.YAAI_JEV_MODEL||transport.defaultModel);
+const model=validateJevProviderModel(provider,
+  projectSelection?.profile.model||flag('--model')||process.env.YAAI_JEV_MODEL||transport.defaultModel);
 const delayMs = Math.max(0, Math.trunc(Number(flag('--delay-ms') || 0)));
-const apiKey=resolveJevCredential(provider);
+const apiKey=projectSelection?projectSelection.apiKey:resolveJevCredential(provider);
 
 if (!inputPath) throw new Error('Specify --input /private/evaluation-items.json.');
 if (!profilePath) throw new Error('Specify --profile /path/profile.json.');
 if (!outputPath) throw new Error('Specify --out /private/evaluation-results.json.');
-if (!apiKey) throw new Error('Jev '+provider+' credential missing. Configure '+transport.credentialNames.join(' or ')+'.');
+if (!apiKey) throw new Error('Jev '+provider+' credential missing. Configure '+(projectSelection?.profile.credentialEnvVar||transport.credentialNames.join(' or '))+'.');
 
 const input = JSON.parse(await fs.readFile(path.resolve(inputPath), 'utf8'));
 const profile = JSON.parse(await fs.readFile(path.resolve(profilePath), 'utf8'));
@@ -63,6 +69,7 @@ console.log(JSON.stringify({
   saved: destination,
   modelRequested: dataset.modelRequested,
   provider:transport.id,
+  selectedFrom:projectSelection?'private-project-profile':'explicit-or-default',
   profileId: dataset.profile.id,
   itemCount: dataset.summary.itemCount,
   reusedCount: dataset.summary.reusedCount,
