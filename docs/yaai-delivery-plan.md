@@ -88,6 +88,19 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 2D. Safe credential input and offline capability doctor — PR #59
+
+The generic Jev CLI can now request an ephemeral API key with a hidden
+TTY prompt (`--prompt-key --execute`) instead of persisting secrets
+in case/MCP files or invoking an OS-specific vault. Noninteractive
+Harness execution still relies on OS/Harness-provided environment
+injection. Offline setup and provider diagnostics surface an honest
+matrix of implemented and **not implemented** functions.
+A [VPS security go/no-go checklist](credential-delivery-and-vps-readiness.md)
+defines work that **must precede** exposing servers or remote MCP.
+This milestone does not add a vault, TLS, auth, persistent VPS worker,
+Telegram bot or a live provider call.
+
 ### Stage 2C. Project-scoped provider onboarding — PR #58
 
 The Local/Harness-first installer can select OpenRouter or TypeSafe
