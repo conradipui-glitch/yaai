@@ -88,6 +88,26 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 3A. Authenticated read-only VPS staging components — PR #60
+
+A **separate Node process**, bound to 127.0.0.1, now exposes only generic
+health and Bearer-token-protected task metadata for one pinned case.
+No `server.mjs` route, paid API, raw evidence download, arbitrary tool
+execution, write-enabled MCP or remote task control is exposed.
+A sample Caddy automatic-HTTPS reverse proxy and hardened Linux
+systemd service show how an administrator *could* deploy a staging
+instance; the example is not a tested remote deployment.
+A limited-size **AES-256-GCM encrypted workspace backup/restore**
+includes authenticated verification, restrictive source selection,
+wrong-key/tamper tests and non-overwriting restore to a new directory.
+
+The next acceptance milestone is a **real isolated staging VPS** with
+DNS/TLS, reviewed firewall/service permissions, credential rotation
+and a measured restore rehearsal — only after user approval and access
+to such a host. This code stage does not claim production hardening,
+Telegram/OAuth, remote MCP, multi-user roles or marketing mutations.
+See [stage 3A guide](vps-readonly-stage.md).
+
 ### Stage 2D. Safe credential input and offline capability doctor — PR #59
 
 The generic Jev CLI can now request an ephemeral API key with a hidden
