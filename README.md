@@ -22,6 +22,15 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Local one-time Jev key and offline capability doctor
+
+**Stage 2D:** the generic Jev evaluator accepts `--prompt-key` **with**
+`--execute` in a trusted interactive terminal. It reads a Jev key
+without echoing or storing it; Harness/VPS use their protected
+environment variable instead. `jev:provider` and `setup --check`
+show code capabilities and missing integrations without live API calls.
+[Secure credential delivery and VPS no-go checklist](docs/credential-delivery-and-vps-readiness.md).
+
 ## Project-specific Jev setup
 
 The offline setup wizard can now select `openrouter` or `typesafe`
