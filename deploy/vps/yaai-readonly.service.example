@@ -1,0 +1,35 @@
+# EXAMPLE ONLY: adapt paths/User before installing as
+# /etc/systemd/system/yaai-readonly.service.
+# The account "yaai" must be a dedicated unprivileged system user.
+# Its private workspace must already exist; use a distinct service per case.
+[Unit]
+Description=YA AI read-only private project API (no paid/model endpoints)
+After=network.target
+
+[Service]
+Type=simple
+User=yaai
+Group=yaai
+WorkingDirectory=/opt/yaai/current
+ExecStart=/usr/bin/node /opt/yaai/current/scripts/vps-readonly.mjs --workspace /var/lib/yaai/client-a --case client-a
+Environment=NODE_ENV=production
+Environment=YAAI_VPS_READ_PORT=8790
+LoadCredential=read_token:/etc/yaai/read-token
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+UMask=0077
+# The dedicated service must not have Yandex/Jev API keys in its environment.
+# The loopback API never invokes the full server.mjs or remote MCP.
+[Install]
+WantedBy=multi-user.target

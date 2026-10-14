@@ -22,3 +22,6 @@ node_modules/
 
 # Private per-client task requests; not product source code
 /tasks/
+
+# Encrypted private workspace exports (keep outside repository)
+*.yaai-backup
