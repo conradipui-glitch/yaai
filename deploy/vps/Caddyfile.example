@@ -1,0 +1,19 @@
+# Example ONLY. Copy to the administrator-managed Caddy configuration.
+# Set YAAI_DOMAIN to a real domain with DNS pointing at the VPS;
+# ensure TCP ports 80/443 are reachable for certificate issuance.
+# Caddy provides automatic HTTPS/TLS. The upstream Node API binds to
+# 127.0.0.1 and separately requires Authorization: Bearer <read token>.
+{$YAAI_DOMAIN} {
+    encode zstd gzip
+
+    @mutating {
+        not method GET
+    }
+    respond @mutating "Method not allowed" 405
+
+    reverse_proxy 127.0.0.1:8790 {
+        # Do not let an incoming Host header turn into a URL authority
+        # consumed by application code.
+        header_up Host 127.0.0.1:8790
+    }
+}
