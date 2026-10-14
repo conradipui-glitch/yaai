@@ -31,9 +31,9 @@ and stored evidence.
    name `TYPESAFE_API_KEY`. This is only configuration; no API access
    or quota has been verified. Never request or display the key VALUE.
 4. After explicit approval, run the same command without `--dry-run`.
-   In Harness mode, it creates `integrations/mcp.local.json`. Explain that
+   In Harness mode, it creates `integrations/mcp.<case-id>.local.json`. Explain that
    it is a **generic stdio MCP example**, not an automatic installation
-   into a particular Harness. Let the user review/copy its `mcpServers`
+   into a particular Harness. Existing legacy `mcp.local.json` stays intact. Let the user review/copy its `mcpServers`
    entry into the client-specific configuration.
 5. Run the read-only doctor:
 
