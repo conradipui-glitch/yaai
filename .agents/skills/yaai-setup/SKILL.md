@@ -24,21 +24,27 @@ and stored evidence.
    npm run setup -- --dry-run --mode harness --workspace /private/client-1/yaai --case client-seo
    ~~~
 
-3. After explicit approval, run the same command without `--dry-run`.
+3. Before creating files, offer **OpenRouter** (default) or
+   **TypeSafe** (direct) as the **per-case Jev decision provider**.
+   For TypeSafe, add `--jev-provider typesafe` to the preview and
+   creation command. State its model `jev-1.13.0` and environment key
+   name `TYPESAFE_API_KEY`. This is only configuration; no API access
+   or quota has been verified. Never request or display the key VALUE.
+4. After explicit approval, run the same command without `--dry-run`.
    In Harness mode, it creates `integrations/mcp.local.json`. Explain that
    it is a **generic stdio MCP example**, not an automatic installation
    into a particular Harness. Let the user review/copy its `mcpServers`
    entry into the client-specific configuration.
-4. Run the read-only doctor:
+5. Run the read-only doctor:
 
    ~~~bash
    npm run setup -- --check --mode harness --workspace /private/client-1/yaai --case client-seo
    ~~~
 
-5. For a connected MCP client, verify `yaai_workspace_overview` sees the
+6. For a connected MCP client, verify `yaai_workspace_overview` sees the
    expected case. `yaai_tasks` and `yaai_task_detail` only inspect previously
    registered tasks and evidence; they must not claim to run jobs.
-6. Tell the user that new cases have **empty seeds, regions, intents and
+7. Tell the user that new cases have **empty seeds, regions, intents and
    planner targets**. A successful setup is **not** a completed SEO study;
    obtaining paid external evidence requires separate authorization.
 
@@ -56,3 +62,5 @@ and stored evidence.
 - Distinguish actual functionality from future roadmap promises. Before
   recommending VPS, Telegram OAuth/Mini App or a TypeSafe direct API
   adapter, verify they have been implemented and separately approved.
+
+The **generic** Jev evaluator can read the chosen project profile with `--workspace` and `--case`, but paid requests still require explicit `--execute`. Never assume TypeSafe pricing or account access from the offline wizard.
