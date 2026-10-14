@@ -3,6 +3,7 @@ import readline from 'node:readline/promises';
 import {stdin as input,stdout as output} from 'node:process';
 import {setupWorkspace,inspectSetup} from '../lib/setup.mjs';
 import {ENGINE_ROOT} from '../lib/workspace.mjs';
+import {getJevProvider} from '../lib/jev-providers.mjs';
 
 const args=process.argv.slice(2);
 function flag(name){
@@ -19,12 +20,13 @@ const usage=[
   'YA AI Local / Harness-first setup (offline, no secrets)',
   '',
   'Interactive: npm run setup',
-  'With flags: npm run setup -- --mode local|harness --workspace /private/project --case project-seo [--name "Project"] [--prefix project]',
+  'With flags: npm run setup -- --mode local|harness --workspace /private/project --case project-seo [--name "Project"] [--prefix project] [--jev-provider openrouter|typesafe] [--jev-model MODEL] [--jev-key-env ENV_VAR]',
   'Preview: npm run setup -- --dry-run --mode harness --workspace DIR --case ID',
   'Check: npm run setup -- --check --mode harness --workspace DIR --case ID',
   '',
   'local creates private project storage and blank templates.',
   'harness also creates a generic private MCP stdio client config.',
+  'Jev provider is configured PER CASE; existing selection is reused without overwriting.',
   'No provider key is requested, stored or tested. A main LLM API is optional.',
 ].join('\n');
 if(has('--help')||has('-h')) {
@@ -32,6 +34,7 @@ if(has('--help')||has('-h')) {
 } else {
   let mode=flag('--mode'),workspaceRoot=flag('--workspace'),caseId=flag('--case');
   let resultPrefix=flag('--prefix'),projectName=flag('--name');
+  let jevProvider=flag('--jev-provider'),jevModel=flag('--jev-model'),jevKeyEnv=flag('--jev-key-env');
   const check=has('--check'),dryRun=has('--dry-run');
   if(check&&dryRun)throw Error('Choose either --check or --dry-run');
   const need=!(mode&&workspaceRoot&&caseId);
@@ -50,10 +53,18 @@ if(has('--help')||has('-h')) {
       caseId=caseId||await ask('ID проекта (например roof-omsk): ','');
       projectName=projectName||await ask('Название проекта ['+caseId+']: ',caseId);
       resultPrefix=resultPrefix||await ask('Префикс выходных файлов ['+caseId+']: ',caseId);
+      if(!check&&!jevProvider){
+        jevProvider=await ask('Jev провайдер (openrouter / typesafe) [сохранённый или openrouter]: ','');
+      }
+      if(jevProvider&&!check){
+        const chosen=getJevProvider(jevProvider);
+        console.log('Модель: '+chosen.defaultModel);
+        console.log('Ключ хранится отдельно. Переменная окружения: '+chosen.credentialNames[0]);
+      }
     } finally{rl.close();}
   }
   if(Number(process.versions.node.split('.')[0])<20)throw Error('Node.js >=20 required');
-  const params={mode,workspaceRoot,caseId,resultPrefix,projectName};
+  const params={mode,workspaceRoot,caseId,resultPrefix,projectName,jevProvider,jevModel,jevKeyEnv};
   const outcome=check?await inspectSetup(params):
     await setupWorkspace({...params,dryRun});
   console.log(JSON.stringify({
