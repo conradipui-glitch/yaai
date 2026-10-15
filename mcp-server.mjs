@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { analyzeRows } from './lib/analyze.mjs';
 import { listTasksWithExecution, readTaskWithExecution } from './lib/task-executor.mjs';
+import {listSignals} from './lib/signal-inbox.mjs';
 import { analyzeDistributionEvidence } from './lib/distribution-evidence.mjs';
 import { summarizeEvaluationEvidence } from './lib/evaluation.mjs';
 import { painMapMarkdown } from './lib/pain-discovery.mjs';
@@ -211,6 +212,16 @@ export const TOOLS = [
     inputSchema: objectSchema({
       caseId: CASE_ID,
       limit: LIMIT,
+    }),
+  },
+  {
+    name: 'yaai_signals',
+    title: 'YA AI Local Task Signals (Read-only)',
+    description: 'Read observed task completion, failure, interrupted attempt and saved-result signals from one private case; no messaging, paid calls or acknowledgement actions.',
+    inputSchema: objectSchema({
+      caseId: CASE_ID,
+      limit: LIMIT,
+      unreadOnly: {type:'boolean',default:false,description:'If true, hide locally acknowledged signals.'},
     }),
   },
   {
@@ -440,6 +451,7 @@ async function workspaceOverview(context, args) {
       draftTaskReadOnly: true,
       savedResultLinksReadOnly: true,
       offlineTaskRunHistoryReadOnly: true,
+      localSignalsReadOnly: true,
       paidApiCallsFromMcp: false,
     },
   };
@@ -791,8 +803,20 @@ async function tasksList(context,args) {
 async function taskDetail(context,args) {
   return readTaskWithExecution({workspaceRoot:context.workspaceRoot,id:args.id});
 }
+async function taskSignals(context,args) {
+  const id=String(args.caseId||context.defaultCaseId||'').trim();
+  if(!id)throw Error('Signal inbox needs a selected case ID.');
+  if(context.defaultCaseId&&id!==context.defaultCaseId)
+    throw Error('Signal inbox is limited to the MCP session case.');
+  return listSignals({
+    workspaceRoot:context.workspaceRoot,caseId:id,
+    limit:clampLimit(args.limit,50),
+    includeAcknowledged:args.unreadOnly!==true,
+  });
+}
 
 const TOOL_HANDLERS = {
+  yaai_signals: taskSignals,
   yaai_tasks: tasksList,
   yaai_task_detail: taskDetail,
   yaai_workspace_overview: workspaceOverview,
