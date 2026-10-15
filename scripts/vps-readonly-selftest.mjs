@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {randomBytes} from 'node:crypto';
 import {createTask} from '../lib/task-registry.mjs';
+import {linkSavedArtifact} from '../lib/task-results.mjs';
 import {makeVpsReadonlyServer,readVpsTokenFile,startVpsReadonly} from '../lib/vps-readonly.mjs';
 import {createEncryptedBackup,restoreEncryptedBackup} from '../lib/workspace-backup.mjs';
 
@@ -31,6 +32,10 @@ try {
    JSON.stringify({source:'cached',caseId:'client-a',text:'confidential A'}));
  await fs.writeFile(path.join(work,'results','beta-map.json'),
    JSON.stringify({source:'cached',caseId:'client-b',text:'confidential B'}));
+ await linkSavedArtifact({workspaceRoot:work,id:a.id,
+   relativeJsonPath:'results/alpha-map.json'});
+ await linkSavedArtifact({workspaceRoot:work,id:b.id,
+   relativeJsonPath:'results/beta-map.json'});
  await fs.writeFile(tokenFile,password+'\n',{mode:0o600,flag:'wx'});
  assert.equal(await readVpsTokenFile(tokenFile),password);
  server=makeVpsReadonlyServer({workspaceRoot:work,caseId:'client-a',token:password});
@@ -61,8 +66,19 @@ try {
  assert.equal(tasks.tasks[0].id,a.id);
  assert.equal(tasks.tasks[0].title,'Sensitive research A');
  assert.equal(tasks.tasks[0].attemptCount,0);
- assert.equal(tasks.tasks[0].sourceSha256,null);
+ assert.match(tasks.tasks[0].sourceSha256,/^[a-f0-9]{64}$/,'linked evidence fingerprint remains visible');
  assert.doesNotMatch(JSON.stringify(tasks),/confidential A|confidential B|Sensitive research B/);
+ const signalFeed=await read('/v1/signals',password);
+ assert.equal(signalFeed.status,200);
+ const inbox=await signalFeed.json();
+ assert.equal(inbox.total,1);
+ assert.equal(inbox.unread,1);
+ assert.equal(inbox.signals[0].taskId,a.id);
+ assert.equal(inbox.signals[0].type,'artifact_linked');
+ assert.equal(inbox.notificationSent,false);
+ assert.doesNotMatch(JSON.stringify(inbox),/confidential A|confidential B|Sensitive research B/);
+ assert.equal((await read('/v1/signals',null)).status,401);
+ assert.equal((await read('/v1/signals?caseId=client-b',password)).status,404);
  const detail=await read('/v1/tasks/'+a.id,password);
  assert.equal(detail.status,200);
  assert.equal((await detail.json()).task.id,a.id);

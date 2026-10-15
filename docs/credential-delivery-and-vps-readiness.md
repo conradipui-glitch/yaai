@@ -95,6 +95,15 @@ capabilities remain **unverified by these checks**. The printed
 \`credentialPresent\` field is not an authorization decision and not
 proof of a good key.
 
+## Local signals before external VPS deployment (Stage 3B)
+
+A **case-scoped signal inbox** now exposes genuine persisted task
+success/failure/interruption and earlier-result-link events via CLI,
+read-only MCP and the isolated VPS reader. A local acknowledgement
+does not trigger model requests or campaign changes. Telegram sending
+and 24/7 monitoring remain unimplemented.
+[Signal inbox and restrictions](signal-inbox.md).
+
 ## Stage 3A: limited read-only VPS components are available
 
 A separate loopback-only authenticated task metadata API, example

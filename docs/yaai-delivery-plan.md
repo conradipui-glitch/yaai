@@ -88,6 +88,23 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 3B. Shared observed signal inbox — PR #61
+
+Instead of running a VPS trial immediately, Stage 3B builds a bounded
+**read-only signal feed from real persisted local task events**:
+`run_failed`, `run_interrupted`, `run_succeeded`, `artifact_linked`.
+Signals have stable IDs across polling/restarts and explicit private
+CLI acknowledgements. Both read-only MCP and the existing isolated
+loopback VPS API expose case-scoped signals without source artifacts.
+No new background worker, Telegram delivery, live ad monitoring,
+synthetic click-fraud claims, provider calls or advertising changes
+are enabled. This is a prerequisite for future inbox/Web Studio alerts.
+
+VPS staging with live TLS, remote token rotation and backup restore
+testing is **postponed** until requested; we can next implement
+offline dry-run signal rules and Knowledge Layer with versioned help.
+[Signal inbox docs](signal-inbox.md).
+
 ### Stage 3A. Authenticated read-only VPS staging components — PR #60
 
 A **separate Node process**, bound to 127.0.0.1, now exposes only generic

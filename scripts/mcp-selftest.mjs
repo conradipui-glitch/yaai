@@ -5,6 +5,7 @@ import path from 'node:path';
 import { createTask } from '../lib/task-registry.mjs';
 import { linkSavedArtifact } from '../lib/task-results.mjs';
 import { runOfflineTask } from '../lib/task-executor.mjs';
+import {acknowledgeSignal} from '../lib/signal-inbox.mjs';
 
 import {
   MODERN_PROTOCOL_VERSION,
@@ -391,6 +392,28 @@ assert.equal(runDetail.execution.attempts,1);
 assert.equal(runDetail.execution.billableCallsMadeByThisJob,0);
 assert.equal(overview.capabilities.offlineTaskRunHistoryReadOnly,true);
 assert.equal(overview.capabilities.savedResultLinksReadOnly,true);
+const inbox=await call('yaai_signals',{caseId:'demo-seo'});
+assert.equal(inbox.total,2,'one linked result and one completed offline run');
+assert.equal(inbox.unread,2);
+assert.equal(inbox.notificationSent,false);
+assert.ok(inbox.signals.some(x=>x.type==='run_succeeded'));
+assert.ok(inbox.signals.some(x=>x.type==='artifact_linked'));
+const signalId=inbox.signals[0].id;
+await acknowledgeSignal({workspaceRoot:root,caseId:'demo-seo',signalId});
+const unreadSignals=await call('yaai_signals',{caseId:'demo-seo',unreadOnly:true});
+assert.equal(unreadSignals.total,1);
+assert.equal(unreadSignals.unread,1);
+const signalOtherCase=await handleRpcMessage({
+  jsonrpc:'2.0',id:'foreign-signal-case',method:'tools/call',
+  params:{name:'yaai_signals',arguments:{caseId:'another-project'},_meta:meta},
+},modernState,context);
+assert.equal(signalOtherCase.result.isError,true,'pinned MCP session cannot inspect foreign signals');
+const impossibleMcpAck=await handleRpcMessage({
+  jsonrpc:'2.0',id:'no-mcp-signal-ack',method:'tools/call',
+  params:{name:'yaai_signal_ack',arguments:{id:signalId},_meta:meta},
+},modernState,context);
+assert.equal(impossibleMcpAck.error.code,-32602,'MCP cannot acknowledge signals');
+
 const noDrafts=await call('yaai_tasks',{caseId:'another-project'});
 assert.equal(noDrafts.total,0);
 

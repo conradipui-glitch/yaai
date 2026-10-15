@@ -19,6 +19,7 @@ only three operations:
 | `GET /v1/info` | Bearer token | Selected case ID and read-only capabilities |
 | `GET /v1/tasks` | Bearer token | Up to 50 task metadata records for ONE pinned case |
 | `GET /v1/tasks/task-...` | Bearer token | One task metadata record; 404 for other cases |
+| `GET /v1/signals` | Bearer token | Case-scoped signal metadata, read-only; **no actual message sending** |
 
 All other routes, including `/api/batch`, `/api/test`, `/api/config`,
 file downloads, raw evidence, generic shell execution, task creation,
