@@ -154,7 +154,9 @@ try {
  const updated=await listSignals({workspaceRoot:root,caseId:'alpha'});
  assert.equal(updated.total,6);
  assert.equal(updated.unread,5);
- assert.notEqual(updated.signals[0].id,first.id);
+ assert.ok(updated.signals.some(x=>x.id===first.id),'prior signal remains in history');
+ assert.equal(new Set(updated.signals.map(x=>x.id)).size,6,'changed imported evidence has distinct signal IDs');
+ assert.equal(new Set(updated.signals.map(x=>x.checkId)).size,2,'two immutable evidence snapshots coexist');
  assert.equal((await listSavedMetricSignals({workspaceRoot:root,caseId:'alpha'})).length,6);
  assert.equal((await listSignals({workspaceRoot:root,caseId:'beta'})).total,0,
   'case-matched results cannot leak into a second client case');
