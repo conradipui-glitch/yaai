@@ -1,4 +1,5 @@
 import { buildPagePlan } from './page-planner.js';
+import {setupKnowledgeLayer} from './knowledge-layer.js';
 
 const $ = (id) => document.getElementById(id);
 let allRegions = [];
@@ -358,4 +359,5 @@ $('pagePlanCsvBtn').onclick = () => {
   );
 };
 
+setupKnowledgeLayer();
 init();
