@@ -22,6 +22,18 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Offline weekly advertising metric rules
+
+**Stage 3C:** import two adjacent completed 7-day periods in
+`inputs/CASE/ad-metrics.json`, then preview observations using
+`npm run metrics:check -- --workspace PRIVATE_DIR --case CASE`.
+Only `--save` creates immutable evidence and candidate warnings in
+the existing signal inbox. Spend, CTR and finalized conversion-rate
+comparisons include sample thresholds, figures and uncertainty notices.
+**No live Direct/Metrica/Google API, automatic alerts, campaign pauses,
+fraud claims or paid calls.**
+[Input example and conservative rule definitions](docs/weekly-metric-rules.md).
+
 ## Local signal inbox: completed work, errors and acknowledgements
 
 Before deploying to a real VPS, the engine can now derive durable
