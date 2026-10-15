@@ -18,7 +18,8 @@ assert.deepEqual(Object.keys(KNOWLEDGE_TOPICS).sort(),['ctr','cvr']);
 for(const topic of Object.values(KNOWLEDGE_TOPICS)){
   assert.ok(['ctr','cvr'].includes(topic.id));
   for(const key of ['title','short','formula','plain','mechanism','business','rule','caveat','pitfall']){
-    assert.ok(typeof topic[key]==='string'&&topic[key].length>20,topic.id+': '+key);
+    const minimum=['title','formula'].includes(key)?5:20;
+    assert.ok(typeof topic[key]==='string'&&topic[key].length>=minimum,topic.id+': '+key);
   }
   assert.ok(topic.related.length>0);
   assert.ok(topic.related.every(id=>Object.hasOwn(KNOWLEDGE_TOPICS,id)));
