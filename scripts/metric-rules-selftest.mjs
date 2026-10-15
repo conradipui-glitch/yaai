@@ -5,6 +5,8 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {evaluateMetricSnapshot,runMetricCheck,listSavedMetricSignals} from '../lib/metric-rules.mjs';
 import {listSignals,acknowledgeSignal} from '../lib/signal-inbox.mjs';
+import {makeVpsReadonlyServer} from '../lib/vps-readonly.mjs';
+import {MODERN_PROTOCOL_VERSION,createMcpContext,handleRpcMessage} from '../mcp-server.mjs';
 
 const root=await fs.mkdtemp(path.join(os.tmpdir(),'yaai-weekly-metrics-'));
 const baseline={
@@ -83,6 +85,45 @@ try {
  assert.equal(reports[0].occurredAt,'2026-10-11T23:59:59.000Z');
  const inbox=await listSignals({workspaceRoot:root,caseId:'alpha'});
  assert.equal(inbox.total,3);
+ // MCP sees exactly the same saved checks; no paid/write MCP method exists.
+ const state={};
+ const meta={
+   'io.modelcontextprotocol/protocolVersion':MODERN_PROTOCOL_VERSION,
+   'io.modelcontextprotocol/clientInfo':{name:'offline-metrics-test',version:'1'},
+   'io.modelcontextprotocol/clientCapabilities':{},
+ };
+ const rpc=await handleRpcMessage({
+   jsonrpc:'2.0',id:1,method:'tools/call',params:{
+     name:'yaai_signals',arguments:{caseId:'alpha'},_meta:meta,
+   },
+ },state,createMcpContext({workspaceRoot:root,caseId:'alpha'}));
+ assert.ok(!rpc.error,JSON.stringify(rpc.error));
+ assert.equal(rpc.result.structuredContent.total,3);
+ assert.equal(rpc.result.structuredContent.signals[0].ruleVersion,'ad-metrics-weekly-v1');
+ const foreign=await handleRpcMessage({
+   jsonrpc:'2.0',id:2,method:'tools/call',params:{
+     name:'yaai_signals',arguments:{caseId:'beta'},_meta:meta,
+   },
+ },state,createMcpContext({workspaceRoot:root,caseId:'alpha'}));
+ assert.equal(foreign.result.isError,true,'pinned MCP cannot inspect another client case');
+ // The staging-only loopback API returns metric signal metadata but no raw metrics.
+ const srv=makeVpsReadonlyServer({workspaceRoot:root,caseId:'alpha',
+   token:'secure-read-token-test-'.padEnd(45,'x')});
+ await new Promise(resolve=>srv.listen(0,'127.0.0.1',resolve));
+ try{
+   const base='http://127.0.0.1:'+srv.address().port;
+   const unauthorized=await fetch(base+'/v1/signals');
+   assert.equal(unauthorized.status,401);
+   const r=await fetch(base+'/v1/signals',{headers:{
+     Authorization:'Bearer '+'secure-read-token-test-'.padEnd(45,'x'),
+   }});
+   assert.equal(r.status,200);
+   const payload=await r.json();
+   assert.equal(payload.total,3);
+   assert.equal(payload.signals[0].checkId,undefined);
+   assert.equal(payload.signals[0].evidence,undefined);
+   assert.ok(payload.signals.every(x=>x.type.startsWith('metric_')));
+ }finally{await new Promise(resolve=>srv.close(resolve));}
  assert.equal(inbox.unread,3);
  assert.equal(inbox.delivery,'local-only');
  assert.equal(inbox.notificationSent,false);
