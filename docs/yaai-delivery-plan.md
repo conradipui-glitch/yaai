@@ -88,6 +88,26 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 4A. First contextual Knowledge Layer module — PR #63
+
+The existing **local** web UI includes a limited, functional Knowledge
+Layer for the Stage 3C CTR and conversion-rate rules. Help triggers have
+short definitions on hover/focus and accessible right-hand detail drawers
+covering formula, mechanism, practical PM decisions, risk and related
+terms. An editable offline two-week calculator demonstrates rate
+changes without falsely claiming to run the statistical rule engine.
+
+The accompanying CI drift gate pins the reviewed metric engine's Git
+blob source hash; changing that source requires reviewing/updating
+educational explanations. A backend parity fixture checks example
+math. This is **not** a complete dynamic documentation platform,
+auto-fresh external docs checker, Web Studio redesign or VPS UI.
+[Knowledge Layer scope and developer procedure](knowledge-layer.md).
+
+Next: add contextual help to additional real workflows, then evolve
+its layout into YA AI Studio rather than building a large unused
+documentation architecture.
+
 ### Stage 3C. Conservative offline campaign-metric review — PR #62
 
 The signal inbox can now receive **saved, provenance-checked findings**
