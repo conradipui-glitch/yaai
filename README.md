@@ -22,6 +22,18 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Local signal inbox: completed work, errors and acknowledgements
+
+Before deploying to a real VPS, the engine can now derive durable
+**per-case signals** from actual saved task events: offline task failures,
+successes, interruptions and attachment of previous evidence.
+`npm run signals -- list --workspace PRIVATE_DIR --case CASE` lists them,
+while `npm run signals -- ack ... --id SIGNAL_ID` marks an alert as
+seen locally. Read-only MCP and the isolated VPS staging API expose
+the same signal metadata. **No Telegram message, background poll,
+paid API call or advertising action is performed.**
+[Signal inbox guide](docs/signal-inbox.md).
+
 ## VPS read-only staging boundary (not yet deployed)
 
 A **separate, scoped, loopback-only** HTTP API exposes health and task
