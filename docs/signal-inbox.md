@@ -5,6 +5,19 @@ YA AI now has a **project-scoped, local-only signal inbox** based on
 notifications, Web Studio alerts and campaign-monitoring rules, but none
 of these delivery systems or live ad watchers are implemented here.
 
+## Saved weekly metric observations (Stage 3C)
+
+In addition to task events, the inbox now reads **explicitly saved**
+offline evaluations of manually imported 7-day advertising metrics.
+Signals include `metric_spend_increase`, `metric_ctr_drop` and
+`metric_conversion_rate_drop` with case/campaign references and
+deterministic check IDs. No signal is produced by dry-run alone,
+and new source snapshots do not overwrite previously saved checks.
+The signal rule evidence and a human-only recommendation are available
+locally and through case-authorized MCP; the VPS staging reader returns
+metadata only. This does **not** detect click fraud or change campaigns.
+[Rules, inputs and acceptance tests](weekly-metric-rules.md).
+
 ## What creates a signal
 
 No new background worker is necessary: signals are deterministically
