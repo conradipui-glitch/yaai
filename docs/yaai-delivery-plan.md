@@ -88,6 +88,25 @@ and test an offline/dry-run executor for **one** already existing
 research flow. Do not expose paid execution in MCP or Telegram before
 policy enforcement and human verification.
 
+### Stage 3C. Conservative offline campaign-metric review — PR #62
+
+The signal inbox can now receive **saved, provenance-checked findings**
+from two adjacent complete weekly periods of manually imported campaign
+metrics (RUB, one campaign per source). Rules look for spend growth at
+similar impression volume, CTR decline with conservative proportion
+interval separation, and conversion-rate decline only after finalized
+attribution and sample-size gates. A dry-run is the default; explicit
+`--save` records immutable findings. Read-only MCP and the separate
+loopback VPS reader inherit signal metadata without gaining any power
+to run checks or change external services.
+
+This is **not** live anomaly monitoring, authenticated Yandex/Google
+report ingestion, confirmed fraud detection, causal inference or
+automatic campaign protection. Further work: source-specific import
+validation, user education/Knowledge Layer and eventually opt-in
+notification delivery. Real VPS trials remain postponed.
+[Stage 3C detailed evidence contract](weekly-metric-rules.md).
+
 ### Stage 3B. Shared observed signal inbox — PR #61
 
 Instead of running a VPS trial immediately, Stage 3B builds a bounded
