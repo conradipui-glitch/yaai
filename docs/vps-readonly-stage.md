@@ -1,5 +1,11 @@
 # VPS Stage 3A — isolated, authenticated read-only staging API
 
+The protected `GET /v1/signals` route now also shows **saved**
+weekly advertising metric findings in its case-specific list.
+It remains metadata-only; it never reveals full numerical campaign
+evidence or authenticates to an advertising account.
+[Offline metric review rules](weekly-metric-rules.md).
+
 **Status:** implementation + example configuration + offline integration tests.
 **Not deployed to a real VPS**, not a production security audit.
 
