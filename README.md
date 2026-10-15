@@ -22,6 +22,16 @@ The engine provides:
 
 For Webmaster access, export commands, costs, GitHub Actions and private CSV analysis, read **[docs/webmaster.md](docs/webmaster.md)**. The presence of a Yandex Cloud API key or cloud balance does not establish access to Webmaster's OAuth-protected reports or its separate extended tariff.
 
+## Contextual Knowledge Layer (first working UI module)
+
+The existing local Wordstat UI now has interactive help for **CTR** and
+**conversion rate**: short hover/focus definitions, a keyboard-friendly
+responsive explanation drawer, related concepts and a live two-week
+**offline teaching calculator**. A CI rule-source hash gate forces
+content review when the actual ad metric logic changes. The calculator
+does **not** execute metric signal policy, make API calls or modify ads.
+[How it works and how help stays accurate](docs/knowledge-layer.md).
+
 ## Offline weekly advertising metric rules
 
 **Stage 3C:** import two adjacent completed 7-day periods in

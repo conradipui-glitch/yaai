@@ -82,6 +82,14 @@ conditions can make week-to-week observations incomparable.
 sample size and not-finalized conversions. There is no low-CTR or
 zero-conversion panic alarm from a handful of clicks.
 
+## Learn CTR and conversion visually
+
+The local YA AI page includes the first **Knowledge Layer** card with
+clickable CTR/CVR terms, a detailed explanation and editable sample
+weeks. It demonstrates rate calculations but does **not** apply
+the real Wilson interval checks or write signals.
+[Interactive help documentation](knowledge-layer.md).
+
 ## Preview, save and signal history
 
 Dry-run by default:
