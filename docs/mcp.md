@@ -167,6 +167,14 @@ npm run check
 
 The self-test covers both modern and legacy MCP protocol paths plus every exposed tool using an isolated temporary workspace.
 
+### Read-only local signal inbox
+
+`yaai_signals` inspects notifications derived from persisted offline
+task events, limited to the selected case. Set `unreadOnly: true`
+to exclude locally acknowledged signals. The MCP has **no**
+acknowledgement, messaging, paid invocation or task-write tool.
+[Signal inbox](signal-inbox.md).
+
 ### Read-only offline execution status
 
 The existing `yaai_tasks` and `yaai_task_detail` also show Stage 1C
