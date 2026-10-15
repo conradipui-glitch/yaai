@@ -167,6 +167,16 @@ npm run check
 
 The self-test covers both modern and legacy MCP protocol paths plus every exposed tool using an isolated temporary workspace.
 
+### Saved campaign metric review signals
+
+The existing `yaai_signals` also lists **explicitly saved** weekly
+metric review findings (manual import, versioned offline rules).
+An MCP query does not perform a new check; the CLI
+`npm run metrics:check -- ...` previews and `--save` stores findings
+after a local user reviews them. Each finding includes measured
+aggregates, eligibility checks and a human-only recommendation.
+[Weekly metric rule specification](weekly-metric-rules.md).
+
 ### Read-only local signal inbox
 
 `yaai_signals` inspects notifications derived from persisted offline
