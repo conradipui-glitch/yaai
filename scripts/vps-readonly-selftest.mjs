@@ -66,7 +66,7 @@ try {
  assert.equal(tasks.tasks[0].id,a.id);
  assert.equal(tasks.tasks[0].title,'Sensitive research A');
  assert.equal(tasks.tasks[0].attemptCount,0);
- assert.equal(tasks.tasks[0].sourceSha256,null);
+ assert.match(tasks.tasks[0].sourceSha256,/^[a-f0-9]{64}$/,'linked evidence fingerprint remains visible');
  assert.doesNotMatch(JSON.stringify(tasks),/confidential A|confidential B|Sensitive research B/);
  const signalFeed=await read('/v1/signals',password);
  assert.equal(signalFeed.status,200);
