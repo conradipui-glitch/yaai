@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "topic": "ctr-cvr-weekly-metrics",
+  "engineModule": "lib/metric-rules.mjs",
+  "engineGitBlobSha1": "814f8b414517b1d5561efdafc925a646a2e4ace0",
+  "rulesVersion": "ad-metrics-weekly-v1",
+  "reviewedDate": "2026-10-15",
+  "scope": "Local UI Knowledge Layer, CTR/CVR definitions, thresholds and sample guards",
+  "note": "If code changes, CI requires a human to review explanations, example math, and update this pin. Updating the hash alone is not evidence of review."
+}
