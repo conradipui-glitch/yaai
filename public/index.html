@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>yaai — Wordstat research</title>
+  <link rel="stylesheet" href="/knowledge-layer.css" />
   <style>
     :root{font-family:Inter,system-ui,sans-serif;color:#171717;background:#f5f5f3}body{margin:0}.wrap{max-width:1380px;margin:0 auto;padding:28px}.card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 8px 30px rgba(0,0,0,.04)}h1{margin:0 0 8px;font-size:34px}h2{font-size:20px;margin:0 0 14px}h3{font-size:16px;margin:14px 0 8px}.muted{color:#666}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;box-sizing:border-box;border:1px solid #ccc;border-radius:10px;padding:10px 12px;background:#fff}textarea{min-height:190px;resize:vertical}button{border:0;border-radius:10px;padding:10px 15px;background:#111;color:#fff;cursor:pointer}button.secondary{background:#ececea;color:#111}button:disabled{opacity:.5;cursor:not-allowed}.status{padding:10px 12px;border-radius:10px;background:#f0f0ef}.status.ok{background:#e8f6ec}.status.err{background:#fdeaea;color:#8a1c1c}.regions{max-height:240px;overflow:auto;border:1px solid #ddd;border-radius:10px;padding:8px}.region{display:flex;gap:8px;align-items:flex-start;padding:6px}.region input{width:auto;margin-top:3px}.metric{padding:12px;border-radius:12px;background:#f3f3f1;min-width:125px}.metric b{display:block;font-size:24px}.metric small{display:block;color:#666;margin-top:3px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid #eee;vertical-align:top}th{position:sticky;top:0;background:#fff;z-index:1}.table-wrap{max-height:620px;overflow:auto}.pill{display:inline-block;padding:2px 7px;border-radius:999px;background:#eee;margin:1px;font-size:12px}.pill.high,.pill.commercial,.pill.landing,.pill.expand,.pill.now{background:#dff3e4}.pill.medium,.pill.informational,.pill.guide,.pill.create,.pill.next{background:#fff0c9}.pill.low,.pill.unmapped,.pill.hold,.pill.merge,.pill.later{background:#f1f1f1}.pill.noise{background:#fdeaea;color:#8a1c1c}.intent-table td:first-child{white-space:nowrap}.note{padding:12px;border-left:3px solid #aaa;background:#f7f7f5;border-radius:8px}.checks{display:flex;gap:16px;flex-wrap:wrap}.checks label{font-weight:600;margin:0}.checks input{width:auto;margin-right:5px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}code{font-size:12px;background:#f1f1ef;padding:2px 5px;border-radius:5px;word-break:break-all}@media(max-width:850px){.grid,.grid3{grid-template-columns:1fr}.wrap{padding:14px}}
   </style>
@@ -14,6 +15,23 @@
     <h1>yaai · Wordstat research</h1>
     <div class="muted">Seed → Wordstat → регионы → дедупликация → intent → тип спроса → действие → Page Planner. API-ключ остаётся на сервере.</div>
   </div>
+
+  <section class="card" aria-labelledby="knowledge-intro-heading">
+    <div class="knowledge-intro">
+      <div>
+        <h2 id="knowledge-intro-heading">Knowledge Layer · объяснения в контексте</h2>
+        <p class="muted">Разбираемся в метриках без лишних терминов. Наведи курсор на понятие для краткой подсказки или нажми, чтобы открыть подробный разбор и калькулятор.</p>
+      </div>
+      <span class="pill">Офлайн · без API</span>
+    </div>
+    <div class="knowledge-buttons">
+      <button type="button" class="knowledge-trigger" data-knowledge="ctr"
+        data-tip="CTR: доля кликов от числа показов объявления.">? CTR — кликабельность</button>
+      <button type="button" class="knowledge-trigger" data-knowledge="cvr"
+        data-tip="Конверсия: доля кликов, завершившихся учтённым целевым действием.">? Конверсия — CVR</button>
+    </div>
+    <p class="muted" style="margin:12px 0 0;font-size:13px">Справка объясняет алгоритм офлайн-сигналов YA AI, но не запускает анализ рекламы и не доказывает причину изменений.</p>
+  </section>
 
   <div class="card">
     <h2>1. Доступ к Yandex</h2>
@@ -108,6 +126,69 @@
     <div class="table-wrap"><table><thead><tr><th>Приоритет</th><th>Решение</th><th>Страница</th><th>Бизнес</th><th>Сильнейший запрос</th><th>Регионы</th><th>Intent</th><th>Что покрывает</th></tr></thead><tbody id="pagePlanBody"><tr><td colspan="8" class="muted">Сначала постройте карту действий.</td></tr></tbody></table></div>
   </div>
 </div>
+<div id="knowledgeBackdrop" class="knowledge-backdrop" hidden></div>
+<aside id="knowledgeDrawer" class="knowledge-drawer" role="dialog" aria-modal="true"
+  aria-labelledby="knowledge-title" aria-describedby="knowledge-short" hidden>
+  <div class="knowledge-top">
+    <div><p class="knowledge-eyebrow">YA AI · Справка</p>
+      <h2 id="knowledge-title"></h2></div>
+    <button id="knowledgeClose" type="button" class="secondary knowledge-close"
+      aria-label="Закрыть справку">×</button>
+  </div>
+  <div class="knowledge-quick">
+    <h3>Простыми словами</h3>
+    <p id="knowledge-short"></p>
+    <p id="knowledge-formula" class="knowledge-formula"></p>
+    <p id="knowledge-plain" class="knowledge-mini"></p>
+  </div>
+  <section class="knowledge-section">
+    <h3>Как это работает</h3><p id="knowledge-mechanism"></p>
+  </section>
+  <section class="knowledge-section">
+    <h3>Зачем это владельцу проекта и PM</h3><p id="knowledge-business"></p>
+  </section>
+  <section class="knowledge-section">
+    <h3>Как это проверяет YA AI</h3><p id="knowledge-rule"></p>
+    <p class="knowledge-footnote">Версия правил: <code id="knowledge-rule-version"></code></p>
+  </section>
+  <section class="knowledge-section knowledge-warning">
+    <h3>Ограничения и частые ошибки</h3>
+    <p id="knowledge-caveat"></p>
+    <p id="knowledge-pitfall" style="margin-top:10px"></p>
+  </section>
+  <section class="knowledge-calc" aria-labelledby="knowledge-calculator-title">
+    <div class="knowledge-calc-head">
+      <div><h3 id="knowledge-calculator-title">Попробуй на своих цифрах</h3>
+        <p class="muted">Поменяй числа и посмотри, как меняются проценты. Это учебный расчёт, не запуск правил сигналов.</p>
+      </div>
+      <button type="button" id="knowledgeReset" class="secondary">Сброс</button>
+    </div>
+    <div class="knowledge-calc-grid">
+      <div class="knowledge-week">
+        <strong>Предыдущая неделя</strong>
+        <label for="knowledge-baseline-impressions">Показы</label>
+        <input class="knowledge-calc-input" id="knowledge-baseline-impressions" type="number" min="0" max="1000000000" step="1" value="10000" />
+        <label for="knowledge-baseline-clicks">Клики</label>
+        <input class="knowledge-calc-input" id="knowledge-baseline-clicks" type="number" min="0" max="1000000000" step="1" value="1000" />
+        <label for="knowledge-baseline-conversions">Конверсии</label>
+        <input class="knowledge-calc-input" id="knowledge-baseline-conversions" type="number" min="0" max="1000000000" step="1" value="150" />
+      </div>
+      <div class="knowledge-week">
+        <strong>Текущая неделя</strong>
+        <label for="knowledge-current-impressions">Показы</label>
+        <input class="knowledge-calc-input" id="knowledge-current-impressions" type="number" min="0" max="1000000000" step="1" value="10000" />
+        <label for="knowledge-current-clicks">Клики</label>
+        <input class="knowledge-calc-input" id="knowledge-current-clicks" type="number" min="0" max="1000000000" step="1" value="300" />
+        <label for="knowledge-current-conversions">Конверсии</label>
+        <input class="knowledge-calc-input" id="knowledge-current-conversions" type="number" min="0" max="1000000000" step="1" value="9" />
+      </div>
+    </div>
+    <div id="knowledgeExampleResult" class="knowledge-result" role="status"
+      aria-live="polite" aria-atomic="true"></div>
+  </section>
+  <div class="knowledge-related" id="knowledge-related" aria-label="Связанные термины"></div>
+  <p class="knowledge-footnote">Пример полностью локальный. Данные не отправляются на сервер, а рекомендации не меняют рекламные кампании.</p>
+</aside>
 <script type="module" src="/app.js"></script>
 </body>
 </html>
