@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyzeRows } from './lib/analyze.mjs';
+import { studioOverview } from './lib/studio-overview.mjs';
 import { createLocalHttpGuard } from './lib/http-guard.mjs';
 import { resolveWorkspaceRoot, safeConfigId, workspacePaths } from './lib/workspace.mjs';
 
@@ -358,6 +359,14 @@ const server = http.createServer(async (req, res) => {
         paidApiBudget: HTTP_GUARD.stats(),
         workspaceRoot: WORKSPACE_ROOT,
       });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/api/studio/overview') {
+      return json(res, 200, await studioOverview({
+        workspaceRoot: WORKSPACE_ROOT,
+        casesDir: WORKSPACE.cases,
+        caseId: url.searchParams.get('case') || '',
+      }));
     }
 
     if (req.method === 'GET' && url.pathname === '/api/presets') {
