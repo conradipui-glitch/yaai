@@ -77,38 +77,37 @@
       </section>
 
       <section id="pain" class="view" hidden>
-        <div class="eyebrow"><span class="dot"></span> АНАЛИЗ АУДИТОРИИ</div>
-        <div class="title-row"><div><h1>Исследуйте проблемы клиентов.</h1><p class="intro">В будущем здесь появятся кластеры с цитатами, источниками и проверяемыми выводами.</p></div><a class="secondary" href="https://github.com/conradipui-glitch/yaai/blob/main/docs/pain-discovery.md" target="_blank" rel="noopener noreferrer">Как запустить исследование ↗</a></div>
-        <div class="notice"><strong>Пока нет подключённых результатов Pain Discovery.</strong> Ниже — интерактивная схема интерфейса, а не результаты исследования. Числа, приоритеты и отзывы не подменяются выдуманными данными.</div>
+        <div class="eyebrow"><span class="dot"></span> АНАЛИЗ АУДИТОРИИ · ИСТОЧНИКИ И ГИПОТЕЗЫ</div>
+        <div class="title-row"><div><h1>Исследуйте проблемы клиентов.</h1><p class="intro">Реальные сохранённые свидетельства, связь с категориями и проверяемые первоисточники.</p></div><a class="secondary" href="https://github.com/conradipui-glitch/yaai/blob/main/docs/studio-local-ui.md" target="_blank" rel="noopener noreferrer">Как подключить отчёт ↗</a></div>
+        <div id="pain-state" class="notice" role="status">Проверяем сохранённый отчёт текущего проекта…</div>
+        <div id="pain-stats" class="report-stats" hidden>
+          <div class="card report-stat"><small>Тема исследования</small><strong id="pain-topic">—</strong></div>
+          <div class="card report-stat"><small>Категорий-гипотез</small><strong id="pain-claim-count">—</strong></div>
+          <div class="card report-stat"><small>Оценённых наблюдений</small><strong id="pain-observed-count">—</strong></div>
+          <div class="card report-stat"><small>Требуют пересмотра</small><strong id="pain-review-count">—</strong></div>
+        </div>
         <div class="pain-grid">
           <article class="card panel map-panel">
-            <div class="panel-heading"><div><h2>Карта проблем клиентов</h2><p>Шаблон группировки будущих сигналов · нажмите на категорию</p></div><span class="quiet-label">ШАБЛОН</span></div>
-            <div class="mindmap" aria-label="Пример структуры будущей карты проблем">
-              <svg class="mind-links" viewBox="0 0 780 410" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M390 205 Q300 130 195 85 M390 205 Q480 130 585 85 M390 205 L180 205 M390 205 L600 205 M390 205 Q300 275 195 325 M390 205 Q480 275 585 325" />
-              </svg>
-              <div class="center-node"><span class="center-symbol">✧</span><strong>Проблемы клиентов</strong><small>Ожидают результатов</small></div>
-              <button class="topic topic-a" data-topic="booking" type="button"><span>▦</span><strong>Запись и расписание</strong><small>Пример категории</small></button>
-              <button class="topic topic-b" data-topic="prices" type="button"><span>◈</span><strong>Цены и выручка</strong><small>Пример категории</small></button>
-              <button class="topic topic-c" data-topic="marketing" type="button"><span>✦</span><strong>Маркетинг и рост</strong><small>Пример категории</small></button>
-              <button class="topic topic-d" data-topic="service" type="button"><span>♡</span><strong>Клиентский опыт</strong><small>Пример категории</small></button>
-              <button class="topic topic-e" data-topic="team" type="button"><span>♧</span><strong>Команда и процессы</strong><small>Пример категории</small></button>
-              <button class="topic topic-f" data-topic="business" type="button"><span>▥</span><strong>Управление бизнесом</strong><small>Пример категории</small></button>
+            <div class="panel-heading"><div><h2>Карта потенциальных проблем</h2><p>Выберите категорию для просмотра связанных с ней наблюдений</p></div><span id="pain-map-badge" class="quiet-label">НЕТ ДАННЫХ</span></div>
+            <div id="pain-map" class="mindmap live-map" aria-label="Кластеры потенциальных проблем аудитории">
+              <svg id="pain-links" class="mind-links" viewBox="0 0 780 420" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <div class="center-node"><span class="center-symbol">✧</span><strong id="pain-center-title">Гипотезы о проблемах</strong><small id="pain-center-note">Ожидаем отчёт</small></div>
+              <p id="pain-map-empty" class="map-empty">Сохранённый отчёт пока не подключён.</p>
             </div>
           </article>
           <article class="card panel evidence-panel">
-            <div class="panel-heading"><div><h2>Доказательства из источников</h2><p>Место для реальных цитат и ссылок</p></div></div>
-            <div class="source-empty"><span class="source-symbol">⌕</span><h3>Источники не загружены</h3><p>Здесь будут оригинальные цитаты с датой, платформой и переходом к первоисточнику — когда загрузим сохранённый отчёт.</p></div>
+            <div class="panel-heading"><div><h2>Свидетельства из источников</h2><p>Поисковая фраза ≠ жалоба; фрагмент выдачи ≠ проверенный отзыв</p></div></div>
+            <div id="pain-evidence" class="pain-source-list"><div class="source-empty"><span class="source-symbol">⌕</span><h3>Нет источников</h3><p>Здесь будут выдержки из сохранённого отчёта с переходами к оригинальным страницам, если доступны URL.</p></div></div>
           </article>
           <article class="card panel problems-panel">
-            <div class="panel-heading"><div><h2>Проблемы клиентов</h2><p>Подтверждённые формулировки и связанные кластеры</p></div></div>
-            <div class="empty big-empty">Пока нет достоверных данных. Таблица появится после подключения сохранённого результата исследования.</div>
+            <div class="panel-heading"><div><h2>Категории потенциальных проблем</h2><p>Счётчики — количество записей в выборке, не люди и не размер рынка</p></div></div>
+            <div id="pain-claims" class="claims-wrap"><div class="empty big-empty">Категории появятся после подключения Evidence Report v1.</div></div>
           </article>
           <article class="card panel details-panel">
-            <div class="panel-heading"><div><h2>Детали категории</h2><p>Структура будущего анализа</p></div></div>
-            <h3 id="topic-title">Запись и расписание</h3>
-            <p id="topic-description" class="details-description">Здесь будут выявленные затруднения при записи, связанные цитаты и оценка спроса — только после проверки источников.</p>
-            <div class="details-foot">Подтверждённых выводов: <strong>нет данных</strong><br>Доказательств: <strong>не подключены</strong></div>
+            <div class="panel-heading"><div><h2>Детали категории</h2><p>Только сведения, обоснованные сохранёнными наблюдениями</p></div></div>
+            <h3 id="topic-title">Выберите категорию</h3>
+            <p id="topic-description" class="details-description">Модельные категории — гипотезы. Они требуют проверки первоисточников и независимой оценки человеком.</p>
+            <div id="pain-details-foot" class="details-foot">Связанных источников: <strong>нет данных</strong></div>
           </article>
         </div>
       </section>
