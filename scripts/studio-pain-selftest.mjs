@@ -139,8 +139,8 @@ try {
   assert.equal((await fetch(base+'/api/studio/pain-report?case=..%2Falpha')).status,400);
   const noCase=await fetch(base+'/api/studio/pain-report');
   assert.equal(noCase.status,400);
-  const deniedHost=await fetch(base+'/api/studio/pain-report?case=alpha',{headers:{Host:'example.com'}});
-  assert.equal(deniedHost.status,403);
+  const deniedOrigin=await fetch(base+'/api/studio/pain-report?case=alpha',{headers:{origin:'http://evil.example'}});
+  assert.equal(deniedOrigin.status,403);
   const after=await (await fetch(base+'/api/config')).json();
   assert.equal(after.paidApiBudget.paidAttempts,0);
   console.log('Studio saved Pain Discovery: good report, scoped access, tamper/URL/symlink rejection, local HTTP and zero paid calls: ok');
