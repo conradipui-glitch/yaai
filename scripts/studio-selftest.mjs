@@ -39,8 +39,8 @@ try {
   const html = await fs.readFile('public/studio.html', 'utf8');
   const script = await fs.readFile('public/studio.js', 'utf8');
   assert.match(html, /lang="ru"/);
-  assert.match(html, /Карта проблем клиентов/);
-  assert.match(html, /ШАБЛОН/);
+  assert.match(html, /Карта потенциальных проблем/);
+  assert.match(html, /НЕТ ДАННЫХ/);
   assert.match(html, /Нет фоновых платных запусков/);
   assert.match(script, /\/api\/studio\/overview/);
   assert.doesNotMatch(script, /\/api\/batch|\/api\/test/);

@@ -1,3 +1,4 @@
+import {renderPainReport} from './studio-pain.js';
 const byId = id => document.getElementById(id);
 const VIEWS = new Map([
   ['home', 'Обзор'],
@@ -5,14 +6,6 @@ const VIEWS = new Map([
   ['agent', 'ИИ-агент'],
   ['models', 'Модели и API'],
 ]);
-const TOPICS = {
-  booking: ['Запись и расписание', 'Здесь будут подтверждённые сложности с бронированием, календарём и пропущенными записями — со ссылками на конкретные источники.'],
-  prices: ['Цены и выручка', 'Будущие цитаты о ценовой политике, подписках и измерении доходности. На данный момент источники не подключены.'],
-  marketing: ['Маркетинг и рост', 'Будущие проблемы привлечения и удержания клиентов. Приоритет нельзя определить без реальных наблюдений.'],
-  service: ['Клиентский опыт', 'Будущая группировка отзывов об обслуживании, обратной связи и повторных обращениях.'],
-  team: ['Команда и процессы', 'Будущие затруднения с сотрудниками, адаптацией и ежедневными задачами.'],
-  business: ['Управление бизнесом', 'Будущие вопросы операционного контроля и аналитики. Никаких выводов без проверенных данных.'],
-};
 const STATUSES = {
   draft: 'Черновик', result_linked: 'Связан с результатом',
   running: 'Выполняется локально', succeeded: 'Завершена',
@@ -134,10 +127,21 @@ async function refresh() {
     byId('budget-stat').textContent = Number.isInteger(attempts) && Number.isInteger(cap)
       ? attempts + ' из ' + cap : 'нет данных';
     renderTasks(overview);
+    if (chosen) {
+      try {
+        const painResult = await fetchJson('/api/studio/pain-report?case=' + encodeURIComponent(chosen));
+        renderPainReport(painResult);
+      } catch (err) {
+        renderPainReport(null);
+        byId('pain-state').textContent = 'Отчёт найден, но его нельзя безопасно прочитать, либо он повреждён (' +
+          (err?.message || 'ошибка') + '). Проверьте Evidence Report v1 для выбранного проекта.';
+      }
+    } else renderPainReport(null);
     byId('server-state').textContent = 'ЛОКАЛЬНО · подключено';
   } catch (error) {
     resetMetrics();
     byId('task-list').replaceChildren();
+    renderPainReport(null);
     const msg = 'Не удалось прочитать данные: ' + (error?.message || 'неизвестная ошибка');
     byId('error').textContent = msg + '. Проверьте, что открыли Studio через npm start, а не как отдельный HTML-файл.';
     byId('error').hidden = false;
@@ -160,15 +164,6 @@ byId('case-select').addEventListener('change', () => {
   refresh();
 });
 byId('refresh').addEventListener('click', refresh);
-for (const button of document.querySelectorAll('[data-topic]')) {
-  button.addEventListener('click', () => {
-    document.querySelectorAll('[data-topic]').forEach(b => b.classList.toggle('selected', b === button));
-    const selected = TOPICS[button.dataset.topic];
-    if (!selected) return;
-    byId('topic-title').textContent = selected[0];
-    byId('topic-description').textContent = selected[1];
-  });
-}
 const theme = safePreference('yaai-studio-theme', 'light') === 'dark' ? 'dark' : 'light';
 document.documentElement.dataset.theme = theme;
 byId('theme').addEventListener('click', () => {
