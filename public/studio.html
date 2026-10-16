@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>YAAI Studio — рабочее пространство</title>
+  <link rel="stylesheet" href="/studio.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <a class="brand" href="/studio.html" aria-label="YAAI Studio — главная">
+      <span class="brand-mark">Y</span><span><strong>YAAI</strong><small>Studio</small></span>
+    </a>
+    <div class="workspace">
+      <span class="workspace-icon">◈</span>
+      <span class="workspace-fields"><label for="case-select">Текущий проект</label><select id="case-select" aria-label="Выберите проект"><option>Загрузка…</option></select></span>
+    </div>
+    <div class="side-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+    <nav class="navigation" aria-label="Основное меню">
+      <button class="nav-btn active" data-view="home" aria-current="page"><span class="nav-icon">▦</span>Обзор</button>
+      <button class="nav-btn" data-view="pain"><span class="nav-icon">◎</span>Проблемы клиентов</button>
+      <button class="nav-btn" data-view="agent"><span class="nav-icon">✳</span>ИИ-агент</button>
+      <button class="nav-btn" data-view="models"><span class="nav-icon">◈</span>Модели и API</button>
+    </nav>
+    <div class="side-label">ИНСТРУМЕНТЫ</div>
+    <a class="nav-link" href="/"><span class="nav-icon">⌁</span>Исследование Wordstat <span aria-hidden="true">↗</span></a>
+    <a class="nav-link" href="https://github.com/conradipui-glitch/yaai/blob/main/docs/pain-discovery.md" target="_blank" rel="noopener noreferrer"><span class="nav-icon">◉</span>Документация Pain Discovery <span aria-hidden="true">↗</span></a>
+    <div class="side-bottom">
+      <div class="local-note"><span class="dot"></span><strong>Локальное пространство</strong><small>Нет фоновых платных запусков</small></div>
+      <small class="side-foot">Studio · первый интеграционный этап</small>
+    </div>
+  </aside>
+
+  <div class="layout">
+    <header class="topbar">
+      <div class="crumbs">Рабочее пространство <span>/</span> <strong id="crumb-current">Обзор</strong></div>
+      <div class="header-actions">
+        <span id="server-state" class="server-state" role="status">Подключаемся…</span>
+        <button id="refresh" class="icon-button" type="button" aria-label="Обновить данные" title="Обновить данные">↻</button>
+        <button id="theme" class="icon-button" type="button" aria-label="Переключить тему" title="Переключить тему">☼</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="error" class="error-banner" role="alert" hidden></div>
+
+      <section id="home" class="view">
+        <div class="eyebrow"><span class="dot"></span> ИССЛЕДОВАТЕЛЬСКОЕ ПРОСТРАНСТВО</div>
+        <div class="title-row">
+          <div><h1>От рыночных сигналов — к решениям.</h1><p class="intro">Сохраняем исследования, задачи и проверяемые результаты в одном месте.</p></div>
+          <a class="primary" href="/">Открыть Wordstat <span>↗</span></a>
+        </div>
+        <div class="kpis">
+          <article class="card metric"><span class="tile blue">▤</span><div class="metric-label">Проектов в пространстве</div><strong id="case-count">—</strong><small>Реальные конфигурации проектов</small></article>
+          <article class="card metric"><span class="tile mint">▣</span><div class="metric-label">Задач выбранного проекта</div><strong id="task-count">—</strong><small>Сохранённые задания, не обещания агента</small></article>
+          <article class="card metric"><span class="tile lilac">⌁</span><div class="metric-label">Доступ к Wordstat</div><strong id="wordstat-ready" class="status-value">—</strong><small>Ключ и папка проверены лишь на наличие</small></article>
+          <article class="card metric"><span class="tile mint">✓</span><div class="metric-label">Платных обращений процесса</div><strong id="api-calls">—</strong><small>Счётчик текущего запуска сервера</small></article>
+        </div>
+        <div class="home-grid">
+          <article class="card panel">
+            <div class="panel-heading"><div><h2>Недавние задачи</h2><p>Состояние существующих заданий из вашего проекта</p></div><span class="quiet-label">ТОЛЬКО ЧТЕНИЕ</span></div>
+            <div id="task-list" class="task-list"><div class="empty">Подключаемся к рабочему пространству…</div></div>
+          </article>
+          <article class="card panel workflow-panel">
+            <div class="panel-heading"><div><h2>Путь от вопроса к результату</h2><p>Части исследовательского процесса</p></div></div>
+            <ol class="steps">
+              <li><span>01</span><div><strong>Собрать источники</strong><small>Wordstat, файлы и доступные исследовательские инструменты</small></div></li>
+              <li><span>02</span><div><strong>Проверить данные</strong><small>Сохранить происхождение и неизвестные значения</small></div></li>
+              <li><span>03</span><div><strong>Найти проблемы и возможности</strong><small>Работать с подтверждёнными сигналами, не с догадками</small></div></li>
+              <li><span>04</span><div><strong>Подготовить решение</strong><small>Получить отчёт и план действий для проверки</small></div></li>
+            </ol>
+            <button type="button" class="text-action" data-go="pain">Посмотреть карту проблем <span>→</span></button>
+          </article>
+        </div>
+      </section>
+
+      <section id="pain" class="view" hidden>
+        <div class="eyebrow"><span class="dot"></span> АНАЛИЗ АУДИТОРИИ</div>
+        <div class="title-row"><div><h1>Исследуйте проблемы клиентов.</h1><p class="intro">В будущем здесь появятся кластеры с цитатами, источниками и проверяемыми выводами.</p></div><a class="secondary" href="https://github.com/conradipui-glitch/yaai/blob/main/docs/pain-discovery.md" target="_blank" rel="noopener noreferrer">Как запустить исследование ↗</a></div>
+        <div class="notice"><strong>Пока нет подключённых результатов Pain Discovery.</strong> Ниже — интерактивная схема интерфейса, а не результаты исследования. Числа, приоритеты и отзывы не подменяются выдуманными данными.</div>
+        <div class="pain-grid">
+          <article class="card panel map-panel">
+            <div class="panel-heading"><div><h2>Карта проблем клиентов</h2><p>Шаблон группировки будущих сигналов · нажмите на категорию</p></div><span class="quiet-label">ШАБЛОН</span></div>
+            <div class="mindmap" aria-label="Пример структуры будущей карты проблем">
+              <svg class="mind-links" viewBox="0 0 780 410" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M390 205 Q300 130 195 85 M390 205 Q480 130 585 85 M390 205 L180 205 M390 205 L600 205 M390 205 Q300 275 195 325 M390 205 Q480 275 585 325" />
+              </svg>
+              <div class="center-node"><span class="center-symbol">✧</span><strong>Проблемы клиентов</strong><small>Ожидают результатов</small></div>
+              <button class="topic topic-a" data-topic="booking" type="button"><span>▦</span><strong>Запись и расписание</strong><small>Пример категории</small></button>
+              <button class="topic topic-b" data-topic="prices" type="button"><span>◈</span><strong>Цены и выручка</strong><small>Пример категории</small></button>
+              <button class="topic topic-c" data-topic="marketing" type="button"><span>✦</span><strong>Маркетинг и рост</strong><small>Пример категории</small></button>
+              <button class="topic topic-d" data-topic="service" type="button"><span>♡</span><strong>Клиентский опыт</strong><small>Пример категории</small></button>
+              <button class="topic topic-e" data-topic="team" type="button"><span>♧</span><strong>Команда и процессы</strong><small>Пример категории</small></button>
+              <button class="topic topic-f" data-topic="business" type="button"><span>▥</span><strong>Управление бизнесом</strong><small>Пример категории</small></button>
+            </div>
+          </article>
+          <article class="card panel evidence-panel">
+            <div class="panel-heading"><div><h2>Доказательства из источников</h2><p>Место для реальных цитат и ссылок</p></div></div>
+            <div class="source-empty"><span class="source-symbol">⌕</span><h3>Источники не загружены</h3><p>Здесь будут оригинальные цитаты с датой, платформой и переходом к первоисточнику — когда загрузим сохранённый отчёт.</p></div>
+          </article>
+          <article class="card panel problems-panel">
+            <div class="panel-heading"><div><h2>Проблемы клиентов</h2><p>Подтверждённые формулировки и связанные кластеры</p></div></div>
+            <div class="empty big-empty">Пока нет достоверных данных. Таблица появится после подключения сохранённого результата исследования.</div>
+          </article>
+          <article class="card panel details-panel">
+            <div class="panel-heading"><div><h2>Детали категории</h2><p>Структура будущего анализа</p></div></div>
+            <h3 id="topic-title">Запись и расписание</h3>
+            <p id="topic-description" class="details-description">Здесь будут выявленные затруднения при записи, связанные цитаты и оценка спроса — только после проверки источников.</p>
+            <div class="details-foot">Подтверждённых выводов: <strong>нет данных</strong><br>Доказательств: <strong>не подключены</strong></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="agent" class="view" hidden>
+        <div class="eyebrow"><span class="dot"></span> ИИ-АГЕНТ · ПОДКЛЮЧЕНИЕ ИНСТРУМЕНТОВ</div>
+        <div class="title-row"><div><h1>Работайте через агента — или без него.</h1><p class="intro">YAAI предоставляет исследовательские инструменты через MCP и CLI; отдельный чат пока не подключён.</p></div></div>
+        <div class="home-grid">
+          <article class="card panel"><div class="panel-heading"><div><h2>Существующее подключение</h2><p>Без фиктивной переписки и автозапусков</p></div><span class="pill good">CLI / MCP</span></div>
+            <p class="body-copy">Внешний агент может обращаться к доступным инструментам и читать сохранённые задачи. Запуск новых платных исследований через MCP сейчас не открыт.</p>
+            <div class="terminal-head">Команда для локального MCP <button type="button" id="copy-mcp">Скопировать</button></div>
+            <pre class="terminal"><code>npm run mcp</code></pre>
+            <a class="text-action" href="https://github.com/conradipui-glitch/yaai/blob/main/docs/mcp.md" target="_blank" rel="noopener noreferrer">Инструкция по подключению MCP ↗</a>
+          </article>
+          <article class="card panel"><div class="panel-heading"><div><h2>Что уже доступно</h2><p>Реальные границы текущего движка</p></div></div>
+            <div class="capability"><span class="cap-dot"></span><div><strong>Исследования через CLI</strong><small>Существующие команды и сценарии</small></div></div>
+            <div class="capability"><span class="cap-dot"></span><div><strong>Чтение сохранённых задач</strong><small>Видны на главной странице Studio</small></div></div>
+            <div class="capability"><span class="cap-dot muted-dot"></span><div><strong>Чат с выбором любой модели</strong><small>Ещё не интегрирован — следующий этап</small></div></div>
+            <div class="capability"><span class="cap-dot muted-dot"></span><div><strong>Удалённые команды и Telegram</strong><small>Отдельная разработка с авторизацией</small></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="models" class="view" hidden>
+        <div class="eyebrow"><span class="dot"></span> НАСТРОЙКИ ПОДКЛЮЧЕНИЙ</div>
+        <div class="title-row"><div><h1>Модели, API и контроль затрат.</h1><p class="intro">Показываем только подтверждённое локальным сервером состояние, без сохранения ключей в браузере.</p></div></div>
+        <div class="home-grid">
+          <article class="card panel"><div class="panel-heading"><div><h2>Yandex Wordstat</h2><p>Доступность по конфигурации локального процесса</p></div><span class="pill" id="provider-pill">Проверяем…</span></div>
+            <div class="setting-row"><span>API-ключ задан</span><strong id="has-api-key">—</strong></div>
+            <div class="setting-row"><span>Folder ID задан</span><strong id="has-folder">—</strong></div>
+            <div class="setting-row"><span>Попытки платных обращений</span><strong id="budget-stat">—</strong></div>
+            <p class="supporting">Наличие ключа ещё не означает успешную авторизацию. Проверка доступности Wordstat происходит отдельно и может обратиться к API.</p>
+            <a class="text-action" href="/">Перейти к Wordstat ↗</a>
+          </article>
+          <article class="card panel"><div class="panel-heading"><div><h2>Jev и другие модели</h2><p>Подключения задаются для конкретного проекта</p></div><span class="quiet-label">ВНЕ БРАУЗЕРА</span></div>
+            <p class="body-copy">Общий каталог LLM и безопасный ввод всех API-ключей через Studio ещё не реализованы. Уже есть CLI-настройка Jev и локальная диагностика провайдера.</p>
+            <div class="terminal-head">Проверка провайдера <button type="button" id="copy-jev">Скопировать</button></div>
+            <pre class="terminal"><code>npm run jev:provider</code></pre>
+            <a class="text-action" href="https://github.com/conradipui-glitch/yaai/blob/main/docs/jev-providers.md" target="_blank" rel="noopener noreferrer">Как устроены провайдеры ↗</a>
+          </article>
+        </div>
+      </section>
+      <footer class="footer">YAAI Studio · Локальная оболочка · Данные из рабочего пространства, без демонстрационных метрик</footer>
+    </main>
+  </div>
+</div>
+<script type="module" src="/studio.js"></script>
+</body>
+</html>

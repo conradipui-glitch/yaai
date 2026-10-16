@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import { studioOverview } from '../lib/studio-overview.mjs';
+import { createTask } from '../lib/task-registry.mjs';
+
+const workspaceRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'yaai-studio-'));
+try {
+  const casesDir = path.join(workspaceRoot, 'cases');
+  await fs.mkdir(casesDir);
+  const before = await studioOverview({ workspaceRoot });
+  assert.deepEqual(before.cases, []);
+  assert.equal(before.taskCount, 0);
+  const caseJson = id => JSON.stringify({ id, name: 'Проект ' + id });
+  await fs.writeFile(path.join(casesDir, 'alpha.json'), caseJson('alpha'));
+  await fs.writeFile(path.join(casesDir, 'beta.json'), caseJson('beta'));
+  const cases = await studioOverview({ workspaceRoot });
+  assert.deepEqual(cases.cases.map(item => item.id), ['alpha', 'beta']);
+  assert.deepEqual(cases.tasks, []);
+  assert.equal(cases.activeCaseId, null);
+  await createTask({ workspaceRoot, caseId: 'alpha', title: 'Проверить сохранённые источники' });
+  const selected = await studioOverview({ workspaceRoot, caseId: 'alpha' });
+  assert.equal(selected.taskCount, 1);
+  assert.equal(selected.tasks[0].status, 'draft');
+  assert.equal(selected.tasks[0].title, 'Проверить сохранённые источники');
+  assert.equal(selected.tasks[0].executionStatus, null);
+  assert.equal('policy' in selected.tasks[0], false);
+  assert.equal('description' in selected.tasks[0], false);
+  const other = await studioOverview({ workspaceRoot, caseId: 'beta' });
+  assert.equal(other.taskCount, 0);
+  await assert.rejects(studioOverview({ workspaceRoot, caseId: '../alpha' }), /Invalid case id/);
+  await assert.rejects(studioOverview({ workspaceRoot, caseId: 'absent' }), /Проект не найден/);
+  await fs.writeFile(path.join(casesDir, 'beta.json'), caseJson('wrong'));
+  await assert.rejects(studioOverview({ workspaceRoot }), /Некорректный идентификатор/);
+  await fs.rm(path.join(casesDir, 'beta.json'));
+  await fs.symlink(path.join(casesDir, 'alpha.json'), path.join(casesDir, 'beta.json'));
+  await assert.rejects(studioOverview({ workspaceRoot }), /Небезопасный файл/);
+  const html = await fs.readFile('public/studio.html', 'utf8');
+  const script = await fs.readFile('public/studio.js', 'utf8');
+  assert.match(html, /lang="ru"/);
+  assert.match(html, /Карта проблем клиентов/);
+  assert.match(html, /ШАБЛОН/);
+  assert.match(html, /Нет фоновых платных запусков/);
+  assert.match(script, /\/api\/studio\/overview/);
+  assert.doesNotMatch(script, /\/api\/batch|\/api\/test/);
+  console.log('Studio read-only overview and Russian UI selftest: ok');
+} finally {
+  await fs.rm(workspaceRoot, { recursive: true, force: true });
+}
