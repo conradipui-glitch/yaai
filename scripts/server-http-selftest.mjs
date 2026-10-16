@@ -28,6 +28,14 @@ async function ready(){
 }
 try{
   const config=await ready();
+  const studioPage=await fetch(base+'/studio.html');
+  assert.equal(studioPage.status,200);
+  assert.match(await studioPage.text(),/Исследуйте проблемы клиентов/);
+  const studioOverview=await fetch(base+'/api/studio/overview');
+  assert.equal(studioOverview.status,200);
+  const studioData=await studioOverview.json();
+  assert.ok(Array.isArray(studioData.cases));
+  assert.ok(Array.isArray(studioData.tasks));
   assert.match(config.localRequestToken,/^[a-f0-9]{64}$/);
   assert.equal(config.paidApiBudget.paidRequestsRemaining,2);
   const request=async(headers={})=>fetch(base+'/api/analyze',{
