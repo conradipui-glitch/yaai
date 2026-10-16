@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyzeRows } from './lib/analyze.mjs';
 import { studioOverview } from './lib/studio-overview.mjs';
+import { studioPainReport } from './lib/studio-pain-report.mjs';
 import { createLocalHttpGuard } from './lib/http-guard.mjs';
 import { resolveWorkspaceRoot, safeConfigId, workspacePaths } from './lib/workspace.mjs';
 
@@ -366,6 +367,14 @@ const server = http.createServer(async (req, res) => {
         workspaceRoot: WORKSPACE_ROOT,
         casesDir: WORKSPACE.cases,
         caseId: url.searchParams.get('case') || '',
+      }));
+    }
+
+    if (req.method === 'GET' && url.pathname === '/api/studio/pain-report') {
+      return json(res, 200, await studioPainReport({
+        workspaceRoot: WORKSPACE_ROOT,
+        casesDir: WORKSPACE.cases,
+        caseId: url.searchParams.get('case'),
       }));
     }
 
