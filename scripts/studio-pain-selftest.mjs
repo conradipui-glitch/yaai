@@ -102,6 +102,7 @@ try {
   await fs.writeFile(files.alpha,JSON.stringify(report));
   await fs.symlink(path.join(root,'results','alpha'),path.join(root,'results','beta'));
   await assert.rejects(studioPainReport({workspaceRoot:root,caseId:'beta'}),/небезопасная папка/);
+  await fs.unlink(path.join(root,'results','beta'));
 
   const js=await fs.readFile('public/studio-pain.js','utf8');
   const html=await fs.readFile('public/studio.html','utf8');
