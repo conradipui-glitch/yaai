@@ -1,0 +1,4 @@
+﻿intent_id,intent_title,cluster,region_id,region_name,business_priority,relative_demand_band,relative_rank,phrase_count,max_count,strongest_phrase,dominant_query_type,next_action,commercial_phrases,informational_phrases,unmapped_phrases,top_phrases
+"HF06","Ремонт ноутбуков и компьютеров","Компьютеры","11175","Тобольск","P2","high","1","1","24","ремонт ноутбуков тобольск","commercial","landing","1","0","0","ремонт ноутбуков тобольск:24:commercial:landing"
+"HF10","Магнитолы, роботы-пылесосы, увлажнители","Бытовая техника","11175","Тобольск","P3","medium","2","2","11","ремонт робота пылесоса","commercial","landing","2","0","0","ремонт робота пылесоса:11:commercial:landing|ремонт робота пылесоса okami:2:commercial:landing"
+"HF09","Ремонт аудиотехники","Аудио","11175","Тобольск","P3","low","3","1","1","ремонт усилителя сотовой связи","commercial","landing","1","0","0","ремонт усилителя сотовой связи:1:commercial:landing"

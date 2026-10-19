@@ -1,0 +1,32 @@
+{
+  "generatedAt": null,
+  "queryTypes": null,
+  "intents": [],
+  "pages": [
+    {
+      "rank": 1,
+      "band": "now",
+      "decision": "create",
+      "path": "/remont-kompyuterov/",
+      "strongest": "ремонт ноутбуков тобольск",
+      "maxCount": 24
+    },
+    {
+      "rank": 2,
+      "band": "now",
+      "decision": "create",
+      "path": "/remont-bytovoy-tekhniki/",
+      "strongest": "ремонт робота пылесоса",
+      "maxCount": 11
+    },
+    {
+      "rank": 3,
+      "band": "now",
+      "decision": "create",
+      "path": "/remont-audiotekhniki/",
+      "strongest": "ремонт усилителя сотовой связи",
+      "maxCount": 1
+    }
+  ],
+  "note": "Wordstat frequencies are observed query counts, not summed market size, visits or leads."
+}

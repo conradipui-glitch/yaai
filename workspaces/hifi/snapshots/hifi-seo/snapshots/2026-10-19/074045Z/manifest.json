@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "caseId": "hifi-seo",
+  "caseName": "Мастерская «Хай-Фай», Тобольск",
+  "generatedAt": "2026-10-19T07:40:45.516Z",
+  "date": "2026-10-19",
+  "run": "074045Z",
+  "engineVersion": "0.6.0",
+  "caseFingerprint": "db31421ff2c3cde0",
+  "source": {
+    "resultPrefix": "hifi",
+    "numPhrases": 30,
+    "regions": [
+      {
+        "id": "11175",
+        "name": "Тобольск"
+      }
+    ],
+    "seeds": [
+      "оцифровка кассет тобольск",
+      "оцифровка minidv",
+      "оцифровка digital8",
+      "оцифровка видеокассет",
+      "установка windows тобольск",
+      "ремонт ноутбуков тобольск",
+      "сборка пк тобольск",
+      "восстановление данных тобольск",
+      "ремонт магнитолы тобольск",
+      "ремонт усилителя",
+      "ремонт робота пылесоса",
+      "ремонт увлажнителя"
+    ],
+    "rowCount": 31
+  },
+  "files": {
+    "wordstatJson": "wordstat.json",
+    "wordstatCsv": "queries.csv",
+    "wordstatSummary": "wordstat-summary.md",
+    "intentsJson": "intents.json",
+    "intentsCsv": "intents.csv",
+    "intentsSummary": "intents-summary.md",
+    "queryActionsCsv": "query-actions.csv",
+    "pagePlanJson": "page-plan.json",
+    "pagePlanCsv": "page-plan.csv",
+    "pagePlanSummary": "page-plan-summary.md"
+  }
+}

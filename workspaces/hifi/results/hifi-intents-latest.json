@@ -1,0 +1,1107 @@
+{
+  "meta": {
+    "presetId": "hifi",
+    "presetName": "Хай-Фай — интенты мастерской",
+    "includeTop": true,
+    "includeAssociations": false,
+    "minCount": 0,
+    "generatedAt": "2026-10-19T07:40:45.796Z",
+    "note": "Query type и nextAction — рабочая классификация для контентной архитектуры. maxCount и relativeDemandBand — сигналы внутри текущей выборки; частотности связанных запросов не суммируются в рынок.",
+    "inputRows": 31,
+    "eligibleRows": 9,
+    "assignedRows": 4,
+    "unassignedRows": 5,
+    "negativeRows": 0,
+    "filteredByType": 22,
+    "filteredByCount": 0,
+    "queryTypeCounts": {
+      "commercial": 4,
+      "informational": 0,
+      "unmapped": 5,
+      "noise": 0
+    },
+    "nextActionCounts": {
+      "landing": 4,
+      "guide": 0,
+      "hold": 5
+    }
+  },
+  "summary": [
+    {
+      "intentId": "HF06",
+      "intentTitle": "Ремонт ноутбуков и компьютеров",
+      "cluster": "Компьютеры",
+      "businessPriority": "P2",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 1,
+      "maxCount": 24,
+      "strongestPhrase": "ремонт ноутбуков тобольск",
+      "strongestQueryType": "commercial",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 1,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "high",
+      "relativeRank": 1,
+      "dominantQueryType": "commercial",
+      "nextAction": "landing",
+      "topPhrases": [
+        {
+          "phrase": "ремонт ноутбуков тобольск",
+          "count": 24,
+          "confidence": "medium",
+          "types": [
+            "top"
+          ],
+          "score": 4,
+          "queryType": "commercial",
+          "nextAction": "landing"
+        }
+      ]
+    },
+    {
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 2,
+      "maxCount": 11,
+      "strongestPhrase": "ремонт робота пылесоса",
+      "strongestQueryType": "commercial",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 2,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 2,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "medium",
+      "relativeRank": 2,
+      "dominantQueryType": "commercial",
+      "nextAction": "landing",
+      "topPhrases": [
+        {
+          "phrase": "ремонт робота пылесоса",
+          "count": 11,
+          "confidence": "medium",
+          "types": [
+            "top"
+          ],
+          "score": 6,
+          "queryType": "commercial",
+          "nextAction": "landing"
+        },
+        {
+          "phrase": "ремонт робота пылесоса okami",
+          "count": 2,
+          "confidence": "medium",
+          "types": [
+            "top"
+          ],
+          "score": 6,
+          "queryType": "commercial",
+          "nextAction": "landing"
+        }
+      ]
+    },
+    {
+      "intentId": "HF09",
+      "intentTitle": "Ремонт аудиотехники",
+      "cluster": "Аудио",
+      "businessPriority": "P3",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 1,
+      "maxCount": 1,
+      "strongestPhrase": "ремонт усилителя сотовой связи",
+      "strongestQueryType": "commercial",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 1,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "low",
+      "relativeRank": 3,
+      "dominantQueryType": "commercial",
+      "nextAction": "landing",
+      "topPhrases": [
+        {
+          "phrase": "ремонт усилителя сотовой связи",
+          "count": 1,
+          "confidence": "medium",
+          "types": [
+            "top"
+          ],
+          "score": 4,
+          "queryType": "commercial",
+          "nextAction": "landing"
+        }
+      ]
+    },
+    {
+      "intentId": "HF01",
+      "intentTitle": "Оцифровка MiniDV",
+      "cluster": "Оцифровка",
+      "businessPriority": "P1",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF02",
+      "intentTitle": "Оцифровка Digital8 / Hi8 / Video8",
+      "cluster": "Оцифровка",
+      "businessPriority": "P1",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF03",
+      "intentTitle": "Оцифровка видеокассет без уточнения формата",
+      "cluster": "Оцифровка",
+      "businessPriority": "P1",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF04",
+      "intentTitle": "Установка и переустановка Windows",
+      "cluster": "Компьютеры",
+      "businessPriority": "P1",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF05",
+      "intentTitle": "Драйверы, антивирус, Office и настройка",
+      "cluster": "Компьютеры",
+      "businessPriority": "P2",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF07",
+      "intentTitle": "Сборка и подбор компьютера",
+      "cluster": "Компьютеры",
+      "businessPriority": "P2",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF08",
+      "intentTitle": "Восстановление данных",
+      "cluster": "Данные",
+      "businessPriority": "P2",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF11",
+      "intentTitle": "Сколько стоит оцифровка и установка Windows",
+      "cluster": "Оцифровка",
+      "businessPriority": "P1",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    },
+    {
+      "intentId": "HF12",
+      "intentTitle": "Как понять формат кассеты (информационный срез)",
+      "cluster": "Оцифровка",
+      "businessPriority": "P2",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "phraseCount": 0,
+      "maxCount": null,
+      "strongestPhrase": "",
+      "strongestQueryType": "",
+      "confidenceCounts": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      },
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 0,
+        "unmapped": 0
+      },
+      "relativeDemandBand": "none",
+      "relativeRank": null,
+      "dominantQueryType": "unmapped",
+      "nextAction": "hold",
+      "topPhrases": []
+    }
+  ],
+  "assignedRows": [
+    {
+      "phrase": "ремонт ноутбуков тобольск",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ],
+      "status": "assigned",
+      "intentId": "HF06",
+      "intentTitle": "Ремонт ноутбуков и компьютеров",
+      "cluster": "Компьютеры",
+      "businessPriority": "P2",
+      "score": 4,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт ноутбук*"
+      ],
+      "queryType": "commercial",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 5,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [
+          "тобольск*"
+        ],
+        "informational": [],
+        "commercialHead": [
+          "ремонт ноутбук*"
+        ]
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт робота пылесоса",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "status": "assigned",
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "score": 6,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт робота пылесоса*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт робота пылесоса okami",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "status": "assigned",
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "score": 6,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт робота пылесоса*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "status": "assigned",
+      "intentId": "HF09",
+      "intentTitle": "Ремонт аудиотехники",
+      "cluster": "Аудио",
+      "businessPriority": "P3",
+      "score": 4,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт усилителя*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    }
+  ],
+  "classifiedRows": [
+    {
+      "phrase": "ремонт ноутбуков тобольск",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ],
+      "status": "assigned",
+      "intentId": "HF06",
+      "intentTitle": "Ремонт ноутбуков и компьютеров",
+      "cluster": "Компьютеры",
+      "businessPriority": "P2",
+      "score": 4,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт ноутбук*"
+      ],
+      "queryType": "commercial",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 5,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [
+          "тобольск*"
+        ],
+        "informational": [],
+        "commercialHead": [
+          "ремонт ноутбук*"
+        ]
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт робота пылесоса",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "status": "assigned",
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "score": 6,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт робота пылесоса*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт робота пылесоса okami",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "status": "assigned",
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "score": 6,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт робота пылесоса*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "status": "assigned",
+      "intentId": "HF09",
+      "intentTitle": "Ремонт аудиотехники",
+      "cluster": "Аудио",
+      "businessPriority": "P3",
+      "score": 4,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт усилителя*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    }
+  ],
+  "reviewRows": [
+    {
+      "phrase": "ремонт робота пылесоса",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "status": "assigned",
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "score": 6,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт робота пылесоса*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт робота пылесоса okami",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "status": "assigned",
+      "intentId": "HF10",
+      "intentTitle": "Магнитолы, роботы-пылесосы, увлажнители",
+      "cluster": "Бытовая техника",
+      "businessPriority": "P3",
+      "score": 6,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт робота пылесоса*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "status": "assigned",
+      "intentId": "HF09",
+      "intentTitle": "Ремонт аудиотехники",
+      "cluster": "Аудио",
+      "businessPriority": "P3",
+      "score": 4,
+      "confidence": "medium",
+      "matchedKeywords": [
+        "ремонт усилителя*"
+      ],
+      "queryType": "commercial",
+      "querySource": "intent-default",
+      "queryConfidence": "low",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "analysisStatus": "assigned"
+    }
+  ],
+  "source": {
+    "generatedAt": "2026-10-19T07:40:45.516Z",
+    "numPhrases": 30,
+    "seeds": [
+      "оцифровка кассет тобольск",
+      "оцифровка minidv",
+      "оцифровка digital8",
+      "оцифровка видеокассет",
+      "установка windows тобольск",
+      "ремонт ноутбуков тобольск",
+      "сборка пк тобольск",
+      "восстановление данных тобольск",
+      "ремонт магнитолы тобольск",
+      "ремонт усилителя",
+      "ремонт робота пылесоса",
+      "ремонт увлажнителя"
+    ],
+    "regions": [
+      {
+        "id": "11175",
+        "name": "Тобольск"
+      }
+    ],
+    "rawRows": 31
+  }
+}

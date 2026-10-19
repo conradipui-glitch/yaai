@@ -1,0 +1,4 @@
+﻿rank,priority_band,decision,page_kind,title,path,business_priority,planner_score,phrase_count,max_count,strongest_phrase,strongest_region,regions,intent_ids,top_queries,note
+"1","now","create","landing","Ремонт ноутбуков и компьютеров","/remont-kompyuterov/","P2","52","1","24","ремонт ноутбуков тобольск","Тобольск","Тобольск:24","HF06","ремонт ноутбуков тобольск:24",""
+"2","now","create","landing","Ремонт бытовой техники","/remont-bytovoy-tekhniki/","P3","33.6","2","11","ремонт робота пылесоса","Тобольск","Тобольск:11","HF10","ремонт робота пылесоса:11|ремонт робота пылесоса okami:2",""
+"3","now","create","landing","Ремонт аудиотехники","/remont-audiotekhniki/","P3","18","1","1","ремонт усилителя сотовой связи","Тобольск","Тобольск:1","HF09","ремонт усилителя сотовой связи:1",""

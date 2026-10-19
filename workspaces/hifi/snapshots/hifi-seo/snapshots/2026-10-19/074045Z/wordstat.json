@@ -1,0 +1,510 @@
+{
+  "generatedAt": "2026-10-19T07:40:45.516Z",
+  "folderId": "b1gfllt28aev9insu589",
+  "numPhrases": 30,
+  "seeds": [
+    "оцифровка кассет тобольск",
+    "оцифровка minidv",
+    "оцифровка digital8",
+    "оцифровка видеокассет",
+    "установка windows тобольск",
+    "ремонт ноутбуков тобольск",
+    "сборка пк тобольск",
+    "восстановление данных тобольск",
+    "ремонт магнитолы тобольск",
+    "ремонт усилителя",
+    "ремонт робота пылесоса",
+    "ремонт увлажнителя"
+  ],
+  "regions": [
+    {
+      "id": "11175",
+      "name": "Тобольск"
+    }
+  ],
+  "calls": [
+    {
+      "seed": "оцифровка кассет тобольск",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "оцифровка minidv",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "оцифровка digital8",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "оцифровка видеокассет",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "установка windows тобольск",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "ремонт ноутбуков тобольск",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 1,
+      "associationsCount": 8
+    },
+    {
+      "seed": "сборка пк тобольск",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "восстановление данных тобольск",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "ремонт магнитолы тобольск",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    },
+    {
+      "seed": "ремонт усилителя",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 5,
+      "associationsCount": 8
+    },
+    {
+      "seed": "ремонт робота пылесоса",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 3,
+      "associationsCount": 6
+    },
+    {
+      "seed": "ремонт увлажнителя",
+      "region": {
+        "id": "11175",
+        "name": "Тобольск"
+      },
+      "resultsCount": 0,
+      "associationsCount": 0
+    }
+  ],
+  "rowCount": 31,
+  "rows": [
+    {
+      "phrase": "тобольское патп",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1668,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "тобольское патп расписание",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 583,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "тобольский драматический театр",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 384,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "тобольский многопрофильный техникум",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 359,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "тобольские новости",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 109,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "тобольская губерния",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 106,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "тобольский многопрофильный техникум официальный сайт",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 47,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "пылесос для химчистки",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 31,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "ремонт ноутбуков тобольск",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "точка восстановления",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 20,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "шум пылесоса",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 17,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "пылесос дрими",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 13,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "ремкомплект гидроцилиндра",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 13,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "ремонт робота пылесоса",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "усилить звук",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 10,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "как почистить пылесос",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 8,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "как починить молнию",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 4,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "окисление и восстановление",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "арт кафе тбдт тюмень афиша",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт ноутбуков тобольск"
+      ]
+    },
+    {
+      "phrase": "как работает моющий пылесос",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "ремонт робота пылесоса okami",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "роборокс пылесос",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ]
+    },
+    {
+      "phrase": "усиление звука",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "усиление сигнала сотовой связи",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    },
+    {
+      "phrase": "усиление синоним",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "association"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "schema": "yaai-seo-evidence-report",
+  "version": 1,
+  "source": {
+    "kind": "Yandex Wordstat TopRequests",
+    "generatedAt": "2026-10-19T07:40:45.516Z",
+    "regions": [
+      "Тобольск"
+    ],
+    "seeds": [
+      "оцифровка кассет тобольск",
+      "оцифровка minidv",
+      "оцифровка digital8",
+      "оцифровка видеокассет",
+      "установка windows тобольск",
+      "ремонт ноутбуков тобольск",
+      "сборка пк тобольск",
+      "восстановление данных тобольск",
+      "ремонт магнитолы тобольск",
+      "ремонт усилителя",
+      "ремонт робота пылесоса",
+      "ремонт увлажнителя"
+    ]
+  },
+  "analysis": {
+    "presetId": "hifi",
+    "presetName": "Хай-Фай — интенты мастерской"
+  },
+  "summary": {
+    "requests": 12,
+    "rawRows": 31,
+    "topRows": 9,
+    "eligible": 9,
+    "assigned": 4,
+    "unassigned": 5,
+    "pages": 3,
+    "review": 5
+  },
+  "pages": [
+    {
+      "title": "Ремонт ноутбуков и компьютеров",
+      "path": "/remont-kompyuterov/",
+      "decision": "create",
+      "priority": "P2",
+      "strongestPhrase": "ремонт ноутбуков тобольск",
+      "strongestRegion": "Тобольск",
+      "maxCount": 24,
+      "regions": [
+        {
+          "name": "Тобольск",
+          "count": 24
+        }
+      ]
+    },
+    {
+      "title": "Ремонт бытовой техники",
+      "path": "/remont-bytovoy-tekhniki/",
+      "decision": "create",
+      "priority": "P3",
+      "strongestPhrase": "ремонт робота пылесоса",
+      "strongestRegion": "Тобольск",
+      "maxCount": 11,
+      "regions": [
+        {
+          "name": "Тобольск",
+          "count": 11
+        }
+      ]
+    },
+    {
+      "title": "Ремонт аудиотехники",
+      "path": "/remont-audiotekhniki/",
+      "decision": "create",
+      "priority": "P3",
+      "strongestPhrase": "ремонт усилителя сотовой связи",
+      "strongestRegion": "Тобольск",
+      "maxCount": 1,
+      "regions": [
+        {
+          "name": "Тобольск",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "phrase": "ремонт ноутбуков тобольск",
+      "region": "Тобольск",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса",
+      "region": "Тобольск",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "region": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт робота пылесоса okami",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    }
+  ],
+  "limitations": [
+    "Частотности Wordstat пересекаются; суммировать фразы и регионы как объём рынка нельзя.",
+    "Intent и Page Planner — эвристические рекомендации, не подтверждённые продажи или конверсии.",
+    "SERP, Jev, отзывы, цены, лиды и выручка этим отчётом не проверялись.",
+    "Дата относится к исходному исследованию, повторная генерация не обновляет данные."
+  ]
+}

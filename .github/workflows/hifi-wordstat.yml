@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm_paid:
-        description: "Authorize 12 Yandex Wordstat TopRequests for the Hi-Fi case"
+        description: "Authorize 24 Yandex Wordstat TopRequests for the Hi-Fi case"
         required: true
         type: boolean
         default: false
@@ -58,10 +58,10 @@ jobs:
           node --input-type=module - <<'NODE'
           import fs from 'node:fs';
           const c = JSON.parse(fs.readFileSync('workspaces/hifi/cases/hifi-seo.json', 'utf8'));
-          if (c.seeds.length !== 12 || c.regions.length !== 1) {
+          if (c.seeds.length !== 12 || c.regions.length !== 2) {
             throw new Error('Unexpected seed/region count for the Hi-Fi case');
           }
-          console.log(JSON.stringify({ caseId: c.id, regions: c.regions, meteredTopRequests: 12 }, null, 2));
+          console.log(JSON.stringify({ caseId: c.id, regions: c.regions, meteredTopRequests: 24 }, null, 2));
           NODE
 
       - name: Fetch Wordstat TopRequests
@@ -69,6 +69,11 @@ jobs:
 
       - name: Classify intents and build the page plan
         run: node scripts/build-page-plan.mjs --workspace workspaces/hifi --case hifi-seo
+
+      - name: Save dated snapshot and compare with the previous wave
+        run: |
+          node scripts/snapshot-results.mjs --workspace workspaces/hifi --case hifi-seo
+          node scripts/compare-snapshots.mjs --workspace workspaces/hifi --case hifi-seo
 
       - name: Render standalone SEO report
         run: |
@@ -85,15 +90,21 @@ jobs:
           const intents = JSON.parse(fs.readFileSync('workspaces/hifi/results/hifi-intents-latest.json', 'utf8'));
           const plan = JSON.parse(fs.readFileSync('workspaces/hifi/results/hifi-page-plan-latest.json', 'utf8'));
           const summary = {
-            generatedAt: intents.generatedAt || null,
-            queryTypes: intents.stats?.queryTypeCounts || null,
-            intents: (intents.intents || []).map((i) => ({
-              id: i.id,
-              title: i.title,
-              priority: i.priority,
-              phrases: i.phraseCount ?? i.phrases?.length ?? null,
+            generatedAt: intents.meta?.generatedAt || null,
+            inputRows: intents.meta?.inputRows ?? null,
+            eligibleRows: intents.meta?.eligibleRows ?? null,
+            queryTypes: intents.meta?.queryTypeCounts || null,
+            nextActions: intents.meta?.nextActionCounts || null,
+            intents: (intents.summary || []).map((i) => ({
+              id: i.intentId,
+              title: i.intentTitle,
+              priority: i.businessPriority,
+              region: i.regionName,
+              phrases: i.phraseCount ?? null,
               strongest: i.strongestPhrase ?? null,
               maxCount: i.maxCount ?? null,
+              band: i.relativeDemandBand ?? null,
+              action: i.nextAction ?? null,
             })),
             pages: (plan.pages || []).map((p) => ({
               rank: p.priorityRank,
@@ -116,6 +127,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hifi-wordstat
-          path: workspaces/hifi/results/*
+          path: |
+            workspaces/hifi/results/*
+            workspaces/hifi/snapshots/**
           if-no-files-found: warn
           retention-days: 14
