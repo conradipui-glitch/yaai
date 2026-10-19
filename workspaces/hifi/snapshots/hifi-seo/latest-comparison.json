@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "caseId": "hifi-seo",
+  "caseName": "Мастерская «Хай-Фай», Тобольск",
+  "comparable": false,
+  "warning": "case_definition_changed",
+  "previous": {
+    "generatedAt": "2026-10-19T07:40:45.516Z",
+    "fingerprint": "db31421ff2c3cde0"
+  },
+  "current": {
+    "generatedAt": "2026-10-19T07:43:14.197Z",
+    "fingerprint": "fbb181bd1472ea91"
+  },
+  "counts": {
+    "shared": 9,
+    "new": 435,
+    "lost": 0,
+    "growth": 0,
+    "decline": 0
+  },
+  "growth": [],
+  "decline": [],
+  "newQueries": [
+    {
+      "phrase": "установка windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1735,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 1735
+    },
+    {
+      "phrase": "сборка пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1670,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 1670
+    },
+    {
+      "phrase": "восстановление данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 668,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 668
+    },
+    {
+      "phrase": "ремонт ноутбуков",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 599,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "previousCount": 0,
+      "currentCount": 599
+    },
+    {
+      "phrase": "установка windows 11",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 571,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 571
+    },
+    {
+      "phrase": "установка windows 10",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 383,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 383
+    },
+    {
+      "phrase": "ремонт ноутбуков тюмень",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 254,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "previousCount": 0,
+      "currentCount": 254
+    },
+    {
+      "phrase": "программы восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 142,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 142
+    },
+    {
+      "phrase": "сборка пк тюмень",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 140,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 140
+    },
+    {
+      "phrase": "сборка пк 2026",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 138,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 138
+    },
+    {
+      "phrase": "установка windows 7",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 137,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 137
+    },
+    {
+      "phrase": "ремонт робота пылесоса",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 132,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "previousCount": 0,
+      "currentCount": 132
+    },
+    {
+      "phrase": "сборка игрового пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 131,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 131
+    },
+    {
+      "phrase": "днс сборка пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 127,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 127
+    },
+    {
+      "phrase": "программа для восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 117,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 117
+    },
+    {
+      "phrase": "ошибка при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 109,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 109
+    },
+    {
+      "phrase": "сборка пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 102,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 102
+    },
+    {
+      "phrase": "готовые сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 100,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 100
+    },
+    {
+      "phrase": "сборка для слабых пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 100,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 100
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 96,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "previousCount": 0,
+      "currentCount": 96
+    },
+    {
+      "phrase": "установка windows с флешки",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 94,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 94
+    },
+    {
+      "phrase": "восстановление данных с диска",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 86,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 86
+    },
+    {
+      "phrase": "ремонт магнитол",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 80,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "previousCount": 0,
+      "currentCount": 80
+    },
+    {
+      "phrase": "восстановление данных с жесткого",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 77,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 77
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 77,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 77
+    },
+    {
+      "phrase": "оцифровка видеокассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 76,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "previousCount": 0,
+      "currentCount": 76
+    },
+    {
+      "phrase": "после установки windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 76,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 76
+    },
+    {
+      "phrase": "сборка пк онлайн",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 70,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 70
+    },
+    {
+      "phrase": "восстановление данных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 68,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 68
+    },
+    {
+      "phrase": "лучшая сборка пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 68,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 68
+    },
+    {
+      "phrase": "установка windows на компьютер",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 68,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 68
+    },
+    {
+      "phrase": "сборка пк игра",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 65,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 65
+    },
+    {
+      "phrase": "установка драйверов на windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 62,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 62
+    },
+    {
+      "phrase": "помощник по установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 59,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 59
+    },
+    {
+      "phrase": "бюджетная сборка пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 58,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "previousCount": 0,
+      "currentCount": 58
+    },
+    {
+      "phrase": "установка windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 58,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 58
+    },
+    {
+      "phrase": "восстановление данных бесплатно",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 54,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "previousCount": 0,
+      "currentCount": 54
+    },
+    {
+      "phrase": "помощник по установке windows 11",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 53,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 53
+    },
+    {
+      "phrase": "программа для установки windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 50,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "previousCount": 0,
+      "currentCount": 50
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 48,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "previousCount": 0,
+      "currentCount": 48
+    }
+  ],
+  "lostQueries": []
+}

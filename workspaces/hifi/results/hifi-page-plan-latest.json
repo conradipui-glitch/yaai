@@ -1,20 +1,375 @@
 {
   "meta": {
     "presetId": "hifi",
-    "generatedAt": "2026-10-19T07:40:45.927Z",
-    "inputClassifiedRows": 9,
-    "pageCandidates": 3,
+    "generatedAt": "2026-10-19T07:43:14.855Z",
+    "inputClassifiedRows": 444,
+    "pageCandidates": 8,
     "decisionCounts": {
       "expand": 0,
-      "create": 3,
+      "create": 8,
       "merge": 0,
-      "hold": 5
+      "hold": 233
     },
     "nowCount": 3,
-    "nextCount": 3,
+    "nextCount": 6,
     "note": "Page Planner группирует запросы в страницы и не суммирует Wordstat count. Приоритет — рабочая эвристика по strongest query, бизнес-приоритету, фокусу проекта и трудоёмкости действия."
   },
   "pages": [
+    {
+      "planId": "hifi-windows",
+      "title": "Установка Windows, драйверов и программ",
+      "path": "/ustanovka-windows/",
+      "pageKind": "landing",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P1",
+      "focusWeight": 3,
+      "plannerScore": 100.8,
+      "phraseCount": 29,
+      "rowCount": 41,
+      "maxCount": 1735,
+      "strongestPhrase": "установка windows",
+      "strongestRegion": "Тюменская область",
+      "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 24,
+          "maxCount": 1735,
+          "strongestPhrase": "установка windows"
+        },
+        {
+          "regionId": "11175",
+          "regionName": "Тобольск",
+          "phraseCount": 17,
+          "maxCount": 58,
+          "strongestPhrase": "установка windows"
+        }
+      ],
+      "intentIds": [
+        "HF04",
+        "HF05"
+      ],
+      "queryTypeCounts": {
+        "commercial": 41,
+        "informational": 0,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "установка windows",
+          "count": 1735,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows 11",
+          "count": 571,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows 10",
+          "count": 383,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows 7",
+          "count": 137,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows с флешки",
+          "count": 94,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows на компьютер",
+          "count": 68,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка драйверов на windows",
+          "count": 62,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF05"
+        },
+        {
+          "phrase": "установка windows",
+          "count": 58,
+          "regionName": "Тобольск",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows по сети",
+          "count": 47,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        },
+        {
+          "phrase": "установка windows xp",
+          "count": 43,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF04"
+        }
+      ],
+      "note": "",
+      "priorityRank": 1,
+      "priorityBand": "now"
+    },
+    {
+      "planId": "hifi-build",
+      "title": "Сборка и подбор компьютера",
+      "path": "/sborka-pk/",
+      "pageKind": "landing",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P2",
+      "focusWeight": 2,
+      "plannerScore": 88.5,
+      "phraseCount": 38,
+      "rowCount": 50,
+      "maxCount": 1670,
+      "strongestPhrase": "сборка пк",
+      "strongestRegion": "Тюменская область",
+      "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 24,
+          "maxCount": 1670,
+          "strongestPhrase": "сборка пк"
+        },
+        {
+          "regionId": "11175",
+          "regionName": "Тобольск",
+          "phraseCount": 26,
+          "maxCount": 102,
+          "strongestPhrase": "сборка пк"
+        }
+      ],
+      "intentIds": [
+        "HF07"
+      ],
+      "queryTypeCounts": {
+        "commercial": 50,
+        "informational": 0,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "сборка пк",
+          "count": 1670,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "сборка пк тюмень",
+          "count": 140,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "сборка пк 2026",
+          "count": 138,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "днс сборка пк",
+          "count": 127,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "сборка пк",
+          "count": 102,
+          "regionName": "Тобольск",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "сборка пк онлайн",
+          "count": 70,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "лучшая сборка пк",
+          "count": 68,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "сборка пк игра",
+          "count": 65,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "бюджетная сборка пк",
+          "count": 58,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        },
+        {
+          "phrase": "сборка пк самому",
+          "count": 35,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF07"
+        }
+      ],
+      "note": "",
+      "priorityRank": 2,
+      "priorityBand": "now"
+    },
+    {
+      "planId": "hifi-data",
+      "title": "Восстановление данных",
+      "path": "/vosstanovlenie-dannyh/",
+      "pageKind": "landing",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P2",
+      "focusWeight": 2,
+      "plannerScore": 80.5,
+      "phraseCount": 28,
+      "rowCount": 39,
+      "maxCount": 668,
+      "strongestPhrase": "восстановление данных",
+      "strongestRegion": "Тюменская область",
+      "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 25,
+          "maxCount": 668,
+          "strongestPhrase": "восстановление данных"
+        },
+        {
+          "regionId": "11175",
+          "regionName": "Тобольск",
+          "phraseCount": 14,
+          "maxCount": 68,
+          "strongestPhrase": "восстановление данных"
+        }
+      ],
+      "intentIds": [
+        "HF08"
+      ],
+      "queryTypeCounts": {
+        "commercial": 39,
+        "informational": 0,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "восстановление данных",
+          "count": 668,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных с диска",
+          "count": 86,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных с жесткого",
+          "count": 77,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных с жесткого диска",
+          "count": 77,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных",
+          "count": 68,
+          "regionName": "Тобольск",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных приложение",
+          "count": 45,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных с флешки",
+          "count": 34,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных с ssd",
+          "count": 16,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "восстановление данных цена",
+          "count": 12,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        },
+        {
+          "phrase": "срочное восстановление данных",
+          "count": 12,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF08"
+        }
+      ],
+      "note": "",
+      "priorityRank": 3,
+      "priorityBand": "now"
+    },
     {
       "planId": "hifi-repair",
       "title": "Ремонт ноутбуков и компьютеров",
@@ -26,42 +381,230 @@
       "generated": false,
       "businessPriority": "P2",
       "focusWeight": 2,
-      "plannerScore": 52,
-      "phraseCount": 1,
-      "rowCount": 1,
-      "maxCount": 24,
-      "strongestPhrase": "ремонт ноутбуков тобольск",
-      "strongestRegion": "Тобольск",
+      "plannerScore": 79.6,
+      "phraseCount": 29,
+      "rowCount": 34,
+      "maxCount": 599,
+      "strongestPhrase": "ремонт ноутбуков",
+      "strongestRegion": "Тюменская область",
       "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 28,
+          "maxCount": 599,
+          "strongestPhrase": "ремонт ноутбуков"
+        },
         {
           "regionId": "11175",
           "regionName": "Тобольск",
-          "phraseCount": 1,
-          "maxCount": 24,
-          "strongestPhrase": "ремонт ноутбуков тобольск"
+          "phraseCount": 6,
+          "maxCount": 35,
+          "strongestPhrase": "ремонт ноутбуков"
         }
       ],
       "intentIds": [
         "HF06"
       ],
       "queryTypeCounts": {
-        "commercial": 1,
+        "commercial": 34,
         "informational": 0,
         "unmapped": 0,
         "noise": 0
       },
       "topQueries": [
         {
+          "phrase": "ремонт ноутбуков",
+          "count": 599,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков тюмень",
+          "count": 254,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "сколько стоит ремонт ноутбука",
+          "count": 39,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков",
+          "count": 35,
+          "regionName": "Тобольск",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков тобольск",
+          "count": 31,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков ишим",
+          "count": 28,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков тюмень адреса",
+          "count": 25,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
           "phrase": "ремонт ноутбуков тобольск",
           "count": 24,
           "regionName": "Тобольск",
           "queryType": "commercial",
           "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков цены",
+          "count": 14,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
+        },
+        {
+          "phrase": "ремонт ноутбуков hp",
+          "count": 13,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF06"
         }
       ],
       "note": "",
-      "priorityRank": 1,
-      "priorityBand": "now"
+      "priorityRank": 4,
+      "priorityBand": "next"
+    },
+    {
+      "planId": "hifi-digitize",
+      "title": "Оцифровка кассет MiniDV и Digital8",
+      "path": "/ocifrovka-kasset/",
+      "pageKind": "landing",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": false,
+      "businessPriority": "P1",
+      "focusWeight": 3,
+      "plannerScore": 73.7,
+      "phraseCount": 12,
+      "rowCount": 13,
+      "maxCount": 76,
+      "strongestPhrase": "оцифровка видеокассет",
+      "strongestRegion": "Тюменская область",
+      "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 12,
+          "maxCount": 76,
+          "strongestPhrase": "оцифровка видеокассет"
+        },
+        {
+          "regionId": "11175",
+          "regionName": "Тобольск",
+          "phraseCount": 1,
+          "maxCount": 1,
+          "strongestPhrase": "оцифровка кассет"
+        }
+      ],
+      "intentIds": [
+        "HF03"
+      ],
+      "queryTypeCounts": {
+        "commercial": 13,
+        "informational": 0,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "оцифровка видеокассет",
+          "count": 76,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет тюмень",
+          "count": 29,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка кассет",
+          "count": 29,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка кассет тюмень",
+          "count": 9,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет vhs",
+          "count": 4,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет цена",
+          "count": 3,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет в домашних условиях",
+          "count": 2,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет воронеж",
+          "count": 2,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет в екатеринбурге",
+          "count": 1,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        },
+        {
+          "phrase": "оцифровка видеокассет сургут",
+          "count": 1,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF03"
+        }
+      ],
+      "note": "",
+      "priorityRank": 5,
+      "priorityBand": "next"
     },
     {
       "planId": "hifi-appliances",
@@ -74,13 +617,20 @@
       "generated": false,
       "businessPriority": "P3",
       "focusWeight": 1,
-      "plannerScore": 33.6,
-      "phraseCount": 2,
-      "rowCount": 2,
-      "maxCount": 11,
+      "plannerScore": 54.5,
+      "phraseCount": 20,
+      "rowCount": 22,
+      "maxCount": 132,
       "strongestPhrase": "ремонт робота пылесоса",
-      "strongestRegion": "Тобольск",
+      "strongestRegion": "Тюменская область",
       "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 20,
+          "maxCount": 132,
+          "strongestPhrase": "ремонт робота пылесоса"
+        },
         {
           "regionId": "11175",
           "regionName": "Тобольск",
@@ -93,12 +643,26 @@
         "HF10"
       ],
       "queryTypeCounts": {
-        "commercial": 2,
+        "commercial": 22,
         "informational": 0,
         "unmapped": 0,
         "noise": 0
       },
       "topQueries": [
+        {
+          "phrase": "ремонт робота пылесоса",
+          "count": 132,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт робота пылесоса xiaomi",
+          "count": 12,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
         {
           "phrase": "ремонт робота пылесоса",
           "count": 11,
@@ -107,16 +671,58 @@
           "intentId": "HF10"
         },
         {
-          "phrase": "ремонт робота пылесоса okami",
-          "count": 2,
-          "regionName": "Тобольск",
+          "phrase": "ремонт робота пылесоса roborock",
+          "count": 10,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт робота пылесоса roborock в тюмени",
+          "count": 9,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт увлажнителя воздуха",
+          "count": 7,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт робота пылесоса polaris",
+          "count": 6,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт робота пылесоса сяоми",
+          "count": 4,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт робота пылесоса polaris 5001",
+          "count": 4,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF10"
+        },
+        {
+          "phrase": "ремонт магнитолы не включается",
+          "count": 3,
+          "regionName": "Тюменская область",
           "queryType": "commercial",
           "intentId": "HF10"
         }
       ],
       "note": "",
-      "priorityRank": 2,
-      "priorityBand": "now"
+      "priorityRank": 6,
+      "priorityBand": "next"
     },
     {
       "planId": "hifi-audio",
@@ -129,50 +735,2008 @@
       "generated": false,
       "businessPriority": "P3",
       "focusWeight": 1,
-      "plannerScore": 18,
-      "phraseCount": 1,
-      "rowCount": 1,
-      "maxCount": 1,
-      "strongestPhrase": "ремонт усилителя сотовой связи",
-      "strongestRegion": "Тобольск",
+      "plannerScore": 51.7,
+      "phraseCount": 10,
+      "rowCount": 11,
+      "maxCount": 96,
+      "strongestPhrase": "ремонт усилителей",
+      "strongestRegion": "Тюменская область",
       "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 10,
+          "maxCount": 96,
+          "strongestPhrase": "ремонт усилителей"
+        },
         {
           "regionId": "11175",
           "regionName": "Тобольск",
           "phraseCount": 1,
-          "maxCount": 1,
-          "strongestPhrase": "ремонт усилителя сотовой связи"
+          "maxCount": 4,
+          "strongestPhrase": "ремонт усилителей"
         }
       ],
       "intentIds": [
         "HF09"
       ],
       "queryTypeCounts": {
-        "commercial": 1,
+        "commercial": 11,
         "informational": 0,
         "unmapped": 0,
         "noise": 0
       },
       "topQueries": [
         {
-          "phrase": "ремонт усилителя сотовой связи",
-          "count": 1,
+          "phrase": "ремонт усилителей",
+          "count": 96,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителей тюмень",
+          "count": 16,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителей автозвука",
+          "count": 7,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителей звука",
+          "count": 6,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителей",
+          "count": 4,
           "regionName": "Тобольск",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителя руля",
+          "count": 4,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителя бриг",
+          "count": 2,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителя вега",
+          "count": 1,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителя звука автомобильного",
+          "count": 1,
+          "regionName": "Тюменская область",
+          "queryType": "commercial",
+          "intentId": "HF09"
+        },
+        {
+          "phrase": "ремонт усилителя пионер",
+          "count": 1,
+          "regionName": "Тюменская область",
           "queryType": "commercial",
           "intentId": "HF09"
         }
       ],
       "note": "",
-      "priorityRank": 3,
-      "priorityBand": "now"
+      "priorityRank": 7,
+      "priorityBand": "later"
+    },
+    {
+      "planId": "generated-guide-HF03",
+      "title": "Оцифровка видеокассет без уточнения формата",
+      "path": "/guides/ocifrovka-videokasset-bez-utochneniya-formata/",
+      "pageKind": "guide",
+      "decision": "create",
+      "status": "planned",
+      "mode": "primary",
+      "generated": true,
+      "businessPriority": "P1",
+      "focusWeight": 1,
+      "plannerScore": 26,
+      "phraseCount": 1,
+      "rowCount": 1,
+      "maxCount": 1,
+      "strongestPhrase": "как происходит оцифровка видеокассет",
+      "strongestRegion": "Тюменская область",
+      "regions": [
+        {
+          "regionId": "11176",
+          "regionName": "Тюменская область",
+          "phraseCount": 1,
+          "maxCount": 1,
+          "strongestPhrase": "как происходит оцифровка видеокассет"
+        }
+      ],
+      "intentIds": [
+        "HF03"
+      ],
+      "queryTypeCounts": {
+        "commercial": 0,
+        "informational": 1,
+        "unmapped": 0,
+        "noise": 0
+      },
+      "topQueries": [
+        {
+          "phrase": "как происходит оцифровка видеокассет",
+          "count": 1,
+          "regionName": "Тюменская область",
+          "queryType": "informational",
+          "intentId": "HF03"
+        }
+      ],
+      "note": "Автоматический кандидат: intent есть, но в preset ещё нет явного page target.",
+      "priorityRank": 8,
+      "priorityBand": "later"
     }
   ],
   "holdRows": [
     {
-      "phrase": "ремонт усилителей",
-      "regionId": "11175",
-      "regionName": "Тобольск",
-      "count": 4,
+      "phrase": "программы восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 142,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка игрового пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 131,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 117,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "ошибка при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 109,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "готовые сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 100,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка для слабых пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 100,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 80,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "после установки windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 76,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "помощник по установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 59,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление данных бесплатно",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 54,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "помощник по установке windows 11",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 53,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для установки windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 50,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 48,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "бесплатная программа для восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 46,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа установки windows 11",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 45,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа установки windows 10",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 40,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "windows без установки",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 39,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "адреса ремонта ноутбуков",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 38,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "купить сборку пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 37,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка мощного пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 37,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ошибка при установке windows 11",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 36,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка игрового пк 2026",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 36,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление удаленных данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 34,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "калькулятор сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 33,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "совместимость сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 32,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка windows 11 скачать",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 28,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "скачать",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "бюджетные сборки пк 2026",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 27,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сравнение сборок пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 27,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "онлайн калькулятор сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для установки драйверов на windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "сборки майнкрафт для слабых пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "recuva бесплатная программа для восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "сравнение сборок пк онлайн",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 25,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "не видит диск при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборки майнкрафт на пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ошибка при установке windows 10",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 23,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для восстановления данных с диска",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа для восстановления данных с жесткого диска",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "командная строка при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 20,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "после установки windows 11",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборки пк 2026 для игр",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка обновлений windows 10",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для установки драйверов windows 10",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "готовые сборки пк днс",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "как пропустить учетную запись при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "как *"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "скачать сборку для слабых пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "скачать",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "windows 11 подключение к сети при установке",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "дата установки windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт андроид магнитол",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол тюмень",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "собрать сборку пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка приложений на windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "проверить сборку пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для восстановления данных с флешки",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "сборка самп для слабых пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "mbr в gpt при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "лучшие сборки пк 2026",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "пропустить подключение к сети при установке windows",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт клавиатуры ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установки по сети uefi windows 7",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "что нужно для сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление данных скачать",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "скачать",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "какие комплектующие нужны для сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "оцифровка видео кассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка кассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "работа сборка пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "работа ",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт автомобильных усилителей",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 13,
       "types": [
         "top"
       ],
@@ -195,6 +2759,2808 @@
       },
       "nextAction": "hold",
       "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска бесплатно",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска программа бесплатно",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "драйвера после установки windows 10",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "проверка сборки пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка мощного игрового пк",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "windows ошибка при установке как исправить",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "как *"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "тормозов",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт увлажнителей",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт увлажнителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "центр восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ноутбук ремонт стекол",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для оцифровки видеокассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программы восстановления данных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов для бассейна",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка для слабых пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сколько стоит ремонт стекла на ноутбуке",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "commercial",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 2,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [
+          "сколько*"
+        ],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "plannerReason": "commercial-unmapped-needs-target"
+    },
+    {
+      "phrase": "ремонт зарядки ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени xiaomi",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "центр восстановления данных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ноутбук 1 ремонт",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для восстановления данных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа для восстановления удаленных данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "ремонт петель ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт разъема ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка игрового пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "лаборатория восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для восстановления данных с диска",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа для восстановления данных с жесткого диска",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "ремонт андроид магнитол в тюмени",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт клавиатуры ноутбука msi",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт клавиши ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт робот пылесос dreame",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "усилитель клубовский беренжер ep1000 ремонт",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "набор для ремонта ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "попытка восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "приложение для сборки пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт блока питания ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт крышки ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "купить сборку пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "мастер по ремонту ноутбуков",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт автомобильных усилителей автозвук тюмень",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт гнезда зарядки ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт гнезда ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт зарядного устройства для ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка самп для слабых пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "центр восстановления данных в тюмени",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "центр восстановления данных в тюмени",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "цифровая оцифровка видео кассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка кассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ultdata for android для восстановления удаленных данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление данных бесплатно",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "выбери данные для восстановления из корзины",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "мастерская по ремонту роботов пылесосов",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "commercial",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 2,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [
+          "мастерская*"
+        ],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "landing",
+      "plannerReason": "commercial-unmapped-needs-target"
+    },
+    {
+      "phrase": "набор для ремонта ноутбуков и телефонов",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт матрицы ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт шарнира ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт экрана ноутбука",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "бесплатная программа для установки драйверов на windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "бюджетные сборки пк 2026",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление системы без потери данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "восстановление windows 11 без потери данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "готовые сборки пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "лаборатория по восстановлению данных с жесткого диска",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "лучшая программа для восстановления данных",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "ошибка установки 0x800f0991 windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ошибка установки windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ошибки установки windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "помощник по установке windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "помощник по установке windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "попытка восстановления данных айфон",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для установки драйверов на windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа для установки драйверов на windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа для установки windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа установки windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программы для восстановления удаленных данных с андроида",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт аккумулятора робота пылесоса",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт аудио усилителей",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя газель",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов газель",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "тормозов",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт клавиатуры ноутбука hp",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт штатных магнитол",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка игрового пк 2026",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборки майнкрафт для слабых пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборки пк 2026 для игр",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "скачать сборку для слабых пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "скачать",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "скачать сборку самп для слабых пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "скачать",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "0x80070570 при установке windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "бесплатная программа для восстановления данных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска бесплатно",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска программа бесплатно",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "долго идет установка обновлений windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "идет установка обновлений не выключайте компьютер windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "набор для ремонта ноутбука",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "набор для ремонта ноутбуков и телефонов",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт ноутбуков"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "не найдены драйвера при установке windows 10",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "оцифровка vhs кассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка кассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "оцифровки vhs видеокассет из воронежа",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для оцифровки видеокассеты на компьютер",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
     },
     {
       "phrase": "ремонт вакуумного усилителя",
@@ -235,6 +5601,90 @@
       "seeds": [
         "ремонт усилителя"
       ],
+      "analysisStatus": "negative",
+      "negativeReason": "тормозов",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "тормозов",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "тормозов",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт лидара робота пылесоса",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
       "analysisStatus": "unassigned",
       "bestScore": 0,
       "queryType": "unmapped",
@@ -253,15 +5703,71 @@
       "plannerReason": "hold-by-query-classifier"
     },
     {
-      "phrase": "ремонт вакуумного усилителя тормозов приора",
-      "regionId": "11175",
-      "regionName": "Тобольск",
+      "phrase": "ремонт робота пылесоса своими руками",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
       "count": 2,
       "types": [
         "top"
       ],
       "seeds": [
-        "ремонт усилителя"
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "своими руками",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт робота пылесоса xiaomi своими руками",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "своими руками",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в москве",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
       ],
       "analysisStatus": "unassigned",
       "bestScore": 0,
@@ -290,6 +5796,1668 @@
       ],
       "seeds": [
         "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка аризона для слабых пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборка комплектующих для пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "систем ремонт контроль на магнитоле пионер",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "iuvcr для оцифровки видеокассет скачать бесплатно",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "бесплатно",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "windows 11 установка и настройка",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "windows без установки",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "драйвера intel rst для установки windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "игра про сборку пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "как отменить установку обновления на windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "как *"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "как отменить установку обновления на windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "как *"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "как продолжить установку windows 11 без интернета",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "medium",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 2
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "как *"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "какие комплектующие нужны для сборки пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "компании по сборке пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "конвертер для оцифровки видеокассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "мастер по ремонту роботов пылесосов",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "оборудование для оцифровки видеокассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "онлайн проверка сборки пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "отменить установку windows 11",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "оцифровка видеокассет своими руками",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "своими руками",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "оцифровка видеокассет своими руками на компьютере",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "своими руками",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "помощник по установке windows 10",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "попытка восстановления данных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "восстановление данных"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "после сборки пк не запускается",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "проверка сборки пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "программа для оцифровки кассет",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка кассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программа для оцифровки кассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка кассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "informational",
+      "querySource": "signals",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 4
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [
+          "программа для*"
+        ],
+        "commercialHead": []
+      },
+      "nextAction": "guide",
+      "plannerReason": "no-page-target"
+    },
+    {
+      "phrase": "программы для оцифровки видеокассет в домашних условиях",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов тойота",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "тормозов",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт кассетных магнитол",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт кнопок магнитолы вольво хс90",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт кнопок магнитолы вольво хс90",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт ламповых усилителей",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных рядом со мной",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных рядом со мной",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол в нижнем новгороде",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт магнитол teyes",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в смоленске",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов dreame в москве",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов ilife",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт сенсорной магнитолы",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт сенсорной магнитолы",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "сотовой связи",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт усилителя"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "сотовой связи",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "сборка на майнкрафт зомби апокалипсис на пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборки майнкрафт на пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сборки пк смотреть",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "сервис по ремонту роботов пылесосов",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт робота пылесоса"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка и настройка windows linux",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка и ремонт магнитол pioneer и teyes",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка обновлений windows 10",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка git на windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка pip windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка python на windows",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка rdp windows server 2019",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "установка windows 11 скачать",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "установка windows"
+      ],
+      "analysisStatus": "negative",
+      "negativeReason": "скачать",
+      "queryType": "noise",
+      "querySource": "negative-rule",
+      "queryConfidence": "high",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "noise"
+    },
+    {
+      "phrase": "что надо для сборки пк",
+      "regionId": "11175",
+      "regionName": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "сборка пк"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "что нужно для оцифровки видеокассет",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "оцифровка видеокассет"
+      ],
+      "analysisStatus": "unassigned",
+      "bestScore": 0,
+      "queryType": "unmapped",
+      "querySource": "none",
+      "queryConfidence": "none",
+      "queryScores": {
+        "commercial": 0,
+        "informational": 0
+      },
+      "querySignals": {
+        "commercial": [],
+        "informational": [],
+        "commercialHead": []
+      },
+      "nextAction": "hold",
+      "plannerReason": "hold-by-query-classifier"
+    },
+    {
+      "phrase": "android магнитола нет звука ремонт",
+      "regionId": "11176",
+      "regionName": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "seeds": [
+        "ремонт магнитолы"
       ],
       "analysisStatus": "unassigned",
       "bestScore": 0,

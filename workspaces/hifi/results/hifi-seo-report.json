@@ -3,20 +3,21 @@
   "version": 1,
   "source": {
     "kind": "Yandex Wordstat TopRequests",
-    "generatedAt": "2026-10-19T07:40:45.516Z",
+    "generatedAt": "2026-10-19T07:43:14.197Z",
     "regions": [
-      "Тобольск"
+      "Тобольск",
+      "Тюменская область"
     ],
     "seeds": [
-      "оцифровка кассет тобольск",
+      "оцифровка кассет",
       "оцифровка minidv",
       "оцифровка digital8",
       "оцифровка видеокассет",
-      "установка windows тобольск",
-      "ремонт ноутбуков тобольск",
-      "сборка пк тобольск",
-      "восстановление данных тобольск",
-      "ремонт магнитолы тобольск",
+      "установка windows",
+      "ремонт ноутбуков",
+      "сборка пк",
+      "восстановление данных",
+      "ремонт магнитолы",
       "ремонт усилителя",
       "ремонт робота пылесоса",
       "ремонт увлажнителя"
@@ -27,28 +28,108 @@
     "presetName": "Хай-Фай — интенты мастерской"
   },
   "summary": {
-    "requests": 12,
-    "rawRows": 31,
-    "topRows": 9,
-    "eligible": 9,
-    "assigned": 4,
-    "unassigned": 5,
-    "pages": 3,
-    "review": 5
+    "requests": 24,
+    "rawRows": 655,
+    "topRows": 444,
+    "eligible": 444,
+    "assigned": 211,
+    "unassigned": 207,
+    "pages": 8,
+    "review": 233
   },
   "pages": [
+    {
+      "title": "Установка Windows, драйверов и программ",
+      "path": "/ustanovka-windows/",
+      "decision": "create",
+      "priority": "P1",
+      "strongestPhrase": "установка windows",
+      "strongestRegion": "Тюменская область",
+      "maxCount": 1735,
+      "regions": [
+        {
+          "name": "Тюменская область",
+          "count": 1735
+        },
+        {
+          "name": "Тобольск",
+          "count": 58
+        }
+      ]
+    },
+    {
+      "title": "Сборка и подбор компьютера",
+      "path": "/sborka-pk/",
+      "decision": "create",
+      "priority": "P2",
+      "strongestPhrase": "сборка пк",
+      "strongestRegion": "Тюменская область",
+      "maxCount": 1670,
+      "regions": [
+        {
+          "name": "Тюменская область",
+          "count": 1670
+        },
+        {
+          "name": "Тобольск",
+          "count": 102
+        }
+      ]
+    },
+    {
+      "title": "Восстановление данных",
+      "path": "/vosstanovlenie-dannyh/",
+      "decision": "create",
+      "priority": "P2",
+      "strongestPhrase": "восстановление данных",
+      "strongestRegion": "Тюменская область",
+      "maxCount": 668,
+      "regions": [
+        {
+          "name": "Тюменская область",
+          "count": 668
+        },
+        {
+          "name": "Тобольск",
+          "count": 68
+        }
+      ]
+    },
     {
       "title": "Ремонт ноутбуков и компьютеров",
       "path": "/remont-kompyuterov/",
       "decision": "create",
       "priority": "P2",
-      "strongestPhrase": "ремонт ноутбуков тобольск",
-      "strongestRegion": "Тобольск",
-      "maxCount": 24,
+      "strongestPhrase": "ремонт ноутбуков",
+      "strongestRegion": "Тюменская область",
+      "maxCount": 599,
       "regions": [
         {
+          "name": "Тюменская область",
+          "count": 599
+        },
+        {
           "name": "Тобольск",
-          "count": 24
+          "count": 35
+        }
+      ]
+    },
+    {
+      "title": "Оцифровка кассет MiniDV и Digital8",
+      "path": "/ocifrovka-kasset/",
+      "decision": "create",
+      "priority": "P1",
+      "strongestPhrase": "оцифровка видеокассет",
+      "strongestRegion": "Тюменская область",
+      "maxCount": 76,
+      "regions": [
+        {
+          "name": "Тюменская область",
+          "count": 76
+        },
+        {
+          "name": "Тобольск",
+          "count": 1
         }
       ]
     },
@@ -58,9 +139,13 @@
       "decision": "create",
       "priority": "P3",
       "strongestPhrase": "ремонт робота пылесоса",
-      "strongestRegion": "Тобольск",
-      "maxCount": 11,
+      "strongestRegion": "Тюменская область",
+      "maxCount": 132,
       "regions": [
+        {
+          "name": "Тюменская область",
+          "count": 132
+        },
         {
           "name": "Тобольск",
           "count": 11
@@ -72,12 +157,31 @@
       "path": "/remont-audiotekhniki/",
       "decision": "create",
       "priority": "P3",
-      "strongestPhrase": "ремонт усилителя сотовой связи",
-      "strongestRegion": "Тобольск",
+      "strongestPhrase": "ремонт усилителей",
+      "strongestRegion": "Тюменская область",
+      "maxCount": 96,
+      "regions": [
+        {
+          "name": "Тюменская область",
+          "count": 96
+        },
+        {
+          "name": "Тобольск",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "title": "Оцифровка видеокассет без уточнения формата",
+      "path": "/guides/ocifrovka-videokasset-bez-utochneniya-formata/",
+      "decision": "create",
+      "priority": "P1",
+      "strongestPhrase": "как происходит оцифровка видеокассет",
+      "strongestRegion": "Тюменская область",
       "maxCount": 1,
       "regions": [
         {
-          "name": "Тобольск",
+          "name": "Тюменская область",
           "count": 1
         }
       ]
@@ -85,9 +189,1692 @@
   ],
   "queries": [
     {
+      "phrase": "установка windows",
+      "region": "Тюменская область",
+      "count": 1735,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк",
+      "region": "Тюменская область",
+      "count": 1670,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных",
+      "region": "Тюменская область",
+      "count": 668,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков",
+      "region": "Тюменская область",
+      "count": 599,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11",
+      "region": "Тюменская область",
+      "count": 571,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 10",
+      "region": "Тюменская область",
+      "count": 383,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков тюмень",
+      "region": "Тюменская область",
+      "count": 254,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "программы восстановления данных",
+      "region": "Тюменская область",
+      "count": 142,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк тюмень",
+      "region": "Тюменская область",
+      "count": 140,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк 2026",
+      "region": "Тюменская область",
+      "count": 138,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 7",
+      "region": "Тюменская область",
+      "count": 137,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса",
+      "region": "Тюменская область",
+      "count": 132,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка игрового пк",
+      "region": "Тюменская область",
+      "count": 131,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "днс сборка пк",
+      "region": "Тюменская область",
+      "count": 127,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "программа для восстановления данных",
+      "region": "Тюменская область",
+      "count": 117,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "ошибка при установке windows",
+      "region": "Тюменская область",
+      "count": 109,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк",
+      "region": "Тобольск",
+      "count": 102,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "готовые сборки пк",
+      "region": "Тюменская область",
+      "count": 100,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка для слабых пк",
+      "region": "Тюменская область",
+      "count": 100,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "region": "Тюменская область",
+      "count": 96,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows с флешки",
+      "region": "Тюменская область",
+      "count": 94,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с диска",
+      "region": "Тюменская область",
+      "count": 86,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт магнитол",
+      "region": "Тюменская область",
+      "count": 80,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных с жесткого",
+      "region": "Тюменская область",
+      "count": 77,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска",
+      "region": "Тюменская область",
+      "count": 77,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассет",
+      "region": "Тюменская область",
+      "count": 76,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "после установки windows",
+      "region": "Тюменская область",
+      "count": 76,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк онлайн",
+      "region": "Тюменская область",
+      "count": 70,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных",
+      "region": "Тобольск",
+      "count": 68,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "лучшая сборка пк",
+      "region": "Тюменская область",
+      "count": 68,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows на компьютер",
+      "region": "Тюменская область",
+      "count": 68,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк игра",
+      "region": "Тюменская область",
+      "count": 65,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка драйверов на windows",
+      "region": "Тюменская область",
+      "count": 62,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "помощник по установке windows",
+      "region": "Тюменская область",
+      "count": 59,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "бюджетная сборка пк",
+      "region": "Тюменская область",
+      "count": 58,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows",
+      "region": "Тобольск",
+      "count": 58,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных бесплатно",
+      "region": "Тюменская область",
+      "count": 54,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "помощник по установке windows 11",
+      "region": "Тюменская область",
+      "count": 53,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для установки windows",
+      "region": "Тюменская область",
+      "count": 50,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени",
+      "region": "Тюменская область",
+      "count": 48,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows по сети",
+      "region": "Тюменская область",
+      "count": 47,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "бесплатная программа для восстановления данных",
+      "region": "Тюменская область",
+      "count": 46,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "восстановление данных приложение",
+      "region": "Тюменская область",
+      "count": 45,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "программа установки windows 11",
+      "region": "Тюменская область",
+      "count": 45,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows xp",
+      "region": "Тюменская область",
+      "count": 43,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "программа установки windows 10",
+      "region": "Тюменская область",
+      "count": 40,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows 7 по сети",
+      "region": "Тюменская область",
+      "count": 40,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "сколько стоит ремонт ноутбука",
+      "region": "Тюменская область",
+      "count": 39,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "windows без установки",
+      "region": "Тюменская область",
+      "count": 39,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "адреса ремонта ноутбуков",
+      "region": "Тюменская область",
+      "count": 38,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "купить сборку пк",
+      "region": "Тюменская область",
+      "count": 37,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка мощного пк",
+      "region": "Тюменская область",
+      "count": 37,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows server",
+      "region": "Тюменская область",
+      "count": 37,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "ошибка при установке windows 11",
+      "region": "Тюменская область",
+      "count": 36,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка игрового пк 2026",
+      "region": "Тюменская область",
+      "count": 36,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows 10 с флешки",
+      "region": "Тюменская область",
+      "count": 36,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows на данный диск невозможна",
+      "region": "Тюменская область",
+      "count": 36,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков",
+      "region": "Тобольск",
+      "count": 35,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк самому",
+      "region": "Тюменская область",
+      "count": 35,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с флешки",
+      "region": "Тюменская область",
+      "count": 34,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление удаленных данных",
+      "region": "Тюменская область",
+      "count": 34,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "калькулятор сборки пк",
+      "region": "Тюменская область",
+      "count": 33,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "совместимость сборки пк",
+      "region": "Тюменская область",
+      "count": 32,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка драйверов на windows 10",
+      "region": "Тюменская область",
+      "count": 32,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков тобольск",
+      "region": "Тюменская область",
+      "count": 31,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассет тюмень",
+      "region": "Тюменская область",
+      "count": 29,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка кассет",
+      "region": "Тюменская область",
+      "count": 29,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков ишим",
+      "region": "Тюменская область",
+      "count": 28,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11",
+      "region": "Тобольск",
+      "count": 28,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11 скачать",
+      "region": "Тюменская область",
+      "count": 28,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "gpt диск установка windows",
+      "region": "Тюменская область",
+      "count": 28,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "бюджетные сборки пк 2026",
+      "region": "Тюменская область",
+      "count": 27,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сравнение сборок пк",
+      "region": "Тюменская область",
+      "count": 27,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "онлайн калькулятор сборки пк",
+      "region": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для установки драйверов на windows",
+      "region": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "сборки майнкрафт для слабых пк",
+      "region": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "recuva бесплатная программа для восстановления данных",
+      "region": "Тюменская область",
+      "count": 26,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "ремонт ноутбуков тюмень адреса",
+      "region": "Тюменская область",
+      "count": 25,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "сравнение сборок пк онлайн",
+      "region": "Тюменская область",
+      "count": 25,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "не видит диск при установке windows",
+      "region": "Тюменская область",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
       "phrase": "ремонт ноутбуков тобольск",
       "region": "Тобольск",
       "count": 24,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборки майнкрафт на пк",
+      "region": "Тюменская область",
+      "count": 24,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ошибка при установке windows 10",
+      "region": "Тюменская область",
+      "count": 23,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк за 80 к",
+      "region": "Тюменская область",
+      "count": 23,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк фпс",
+      "region": "Тюменская область",
+      "count": 23,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "программа для восстановления данных с диска",
+      "region": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа для восстановления данных с жесткого диска",
+      "region": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "сборка пк за 100к",
+      "region": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows на ноутбук",
+      "region": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows с диска",
+      "region": "Тюменская область",
+      "count": 22,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11 на компьютер",
+      "region": "Тюменская область",
+      "count": 21,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11 с флешки",
+      "region": "Тюменская область",
+      "count": 21,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "командная строка при установке windows",
+      "region": "Тюменская область",
+      "count": 20,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк видео",
+      "region": "Тюменская область",
+      "count": 20,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "после установки windows 11",
+      "region": "Тюменская область",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборки пк 2026 для игр",
+      "region": "Тюменская область",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка обновлений windows 10",
+      "region": "Тюменская область",
+      "count": 19,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для установки драйверов windows 10",
+      "region": "Тюменская область",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "сколько стоит сборка пк",
+      "region": "Тюменская область",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка драйверов на windows 11",
+      "region": "Тюменская область",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 8.1",
+      "region": "Тюменская область",
+      "count": 18,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "готовые сборки пк днс",
+      "region": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "как пропустить учетную запись при установке windows",
+      "region": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "самая мощная сборка пк",
+      "region": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "скачать сборку для слабых пк",
+      "region": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "msi сборка пк",
+      "region": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "windows 11 подключение к сети при установке",
+      "region": "Тюменская область",
+      "count": 17,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "бюджетная сборка пк для игр",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с ssd",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "дата установки windows",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт андроид магнитол",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол тюмень",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт усилителей тюмень",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк дешево",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк конфигуратор",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк цена",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "собрать сборку пк",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка приложений на windows",
+      "region": "Тюменская область",
+      "count": 16,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "проверить сборку пк",
+      "region": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для восстановления данных с флешки",
+      "region": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "сборка самп для слабых пк",
+      "region": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows сервер",
+      "region": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "mbr в gpt при установке windows",
+      "region": "Тюменская область",
+      "count": 15,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "бюджетная сборка пк 2026 для игр",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "лучшие сборки пк 2026",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "пропустить подключение к сети при установке windows",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт клавиатуры ноутбука",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков цены",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "установки по сети uefi windows 7",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "что нужно для сборки пк",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "dns сборка пк",
+      "region": "Тюменская область",
+      "count": 14,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных скачать",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "какие комплектующие нужны для сборки пк",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "локальная установка windows 11",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "недорогая сборка пк",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видео кассет",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "работа сборка пк",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт автомобильных усилителей",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков hp",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "postgresql установка windows",
+      "region": "Тюменская область",
+      "count": 13,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска бесплатно",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска программа бесплатно",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных цена",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "драйвера после установки windows 10",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "проверка сборки пк",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт робота пылесоса xiaomi",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка мощного игрового пк",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк за 40к",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "срочное восстановление данных",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "windows ошибка при установке как исправить",
+      "region": "Тюменская область",
+      "count": 12,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов",
+      "region": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных",
+      "region": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков в тюмени адреса и цены",
+      "region": "Тюменская область",
+      "count": 11,
       "types": [
         "top"
       ],
@@ -107,7 +1894,1063 @@
       "action": "landing"
     },
     {
-      "phrase": "ремонт усилителей",
+      "phrase": "ремонт увлажнителей",
+      "region": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "центр восстановления данных",
+      "region": "Тюменская область",
+      "count": 11,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "днс сборка пк",
+      "region": "Тобольск",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "ноутбук ремонт стекол",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для оцифровки видеокассет",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программы восстановления данных",
+      "region": "Тобольск",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков челябинск",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков lenovo",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков msi",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса roborock",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов для бассейна",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка для слабых пк",
+      "region": "Тобольск",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк 2026",
+      "region": "Тобольск",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сколько стоит ремонт стекла на ноутбуке",
+      "region": "Тюменская область",
+      "count": 10,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": null,
+      "action": "landing"
+    },
+    {
+      "phrase": "4ddig восстановление данных windows",
+      "region": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с диска",
+      "region": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого",
+      "region": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска",
+      "region": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка кассет тюмень",
+      "region": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт зарядки ноутбука",
+      "region": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт робота пылесоса roborock в тюмени",
+      "region": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в тюмени xiaomi",
+      "region": "Тюменская область",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows 10",
+      "region": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "центр восстановления данных",
+      "region": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "dns сборка пк",
+      "region": "Тобольск",
+      "count": 9,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска тюмень",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "ноутбук 1 ремонт",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для восстановления данных",
+      "region": "Тобольск",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа для восстановления удаленных данных",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "резервное копирование и восстановление данных",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков видео",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков и телефонов",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков asus",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт петель ноутбука",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт пк и ноутбуков",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт разъема ноутбука",
+      "region": "Тюменская область",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка игрового пк",
+      "region": "Тобольск",
+      "count": 8,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных виндовс 10",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с телефона",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "лаборатория восстановления данных",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для восстановления данных с диска",
+      "region": "Тобольск",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа для восстановления данных с жесткого диска",
+      "region": "Тобольск",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "ремонт андроид магнитол в тюмени",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт клавиатуры ноутбука msi",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт клавиши ноутбука",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков на московском в тюмени",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков отзывы",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робот пылесос dreame",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт увлажнителя воздуха",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителей автозвука",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк сайт",
+      "region": "Тобольск",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "усилитель клубовский беренжер ep1000 ремонт",
+      "region": "Тюменская область",
+      "count": 7,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "бюджетная сборка пк",
+      "region": "Тобольск",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с ссд",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление флешки без потери данных",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "набор для ремонта ноутбука",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "попытка восстановления данных",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "приложение для сборки пк",
+      "region": "Тобольск",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт блока питания ноутбука",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт крышки ноутбука",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбука недорого",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков тюмень недорого",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса polaris",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителей звука",
+      "region": "Тюменская область",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк игра",
+      "region": "Тобольск",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк конфигуратор",
+      "region": "Тобольск",
+      "count": 6,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "бюджетная сборка пк для игр",
+      "region": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "купить сборку пк",
+      "region": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "мастер по ремонту ноутбуков",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт автомобильных усилителей автозвук тюмень",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт гнезда зарядки ноутбука",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт гнезда ноутбука",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт зарядного устройства для ноутбука",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков асус",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков в заводоуковске адрес",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков воскресенск",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк онлайн",
+      "region": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка самп для слабых пк",
+      "region": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка драйверов на windows",
+      "region": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "центр восстановления данных в тюмени",
+      "region": "Тобольск",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "центр восстановления данных в тюмени",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "цифровая оцифровка видео кассет",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "r studio восстановление данных",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "ultdata for android для восстановления удаленных данных",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "vos servis ремонт пк и ноутбуков воскресенск",
+      "region": "Тюменская область",
+      "count": 5,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "бесплатное восстановление данных с флешки",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных бесплатно",
+      "region": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных на http www rzd ru",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска екатеринбург",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с поврежденного жесткого диска",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с флешки бесплатная программа",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "выбери данные для восстановления из корзины",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "мастерская по ремонту роботов пылесосов",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": null,
+      "action": "landing"
+    },
+    {
+      "phrase": "набор для ремонта ноутбуков и телефонов",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оцифровка видеокассет vhs",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт компьютеров и ноутбуков",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт магнитол",
       "region": "Тобольск",
       "count": 4,
       "types": [
@@ -116,6 +2959,765 @@
       "queryType": "unmapped",
       "intent": null,
       "action": "hold"
+    },
+    {
+      "phrase": "ремонт матрицы ноутбука",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ноутбуков huawei",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса сяоми",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса polaris 5001",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителей",
+      "region": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителя руля",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт шарнира ноутбука",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт экрана ноутбука",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows с флешки",
+      "region": "Тобольск",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "rstudio восстановление данных",
+      "region": "Тюменская область",
+      "count": 4,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "бесплатная программа для установки драйверов на windows",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "ближайший ремонт ноутбуков",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "бюджетная сборка пк 2026 для игр",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "бюджетные сборки пк 2026",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных россия",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с поврежденного жесткого диска",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с телефона",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление системы без потери данных",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление windows 11 без потери данных",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "готовые сборки пк",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "лаборатория по восстановлению данных с жесткого диска",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "лучшая программа для восстановления данных",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "лучшая сборка пк",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассет цена",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "ошибка установки 0x800f0991 windows 11",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ошибка установки windows 11",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ошибки установки windows",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "помощник по установке windows",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "помощник по установке windows 11",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "попытка восстановления данных айфон",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для установки драйверов на windows",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа для установки драйверов на windows 11",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа для установки windows",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа установки windows 11",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программы для восстановления удаленных данных с андроида",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт аккумулятора робота пылесоса",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт аудио усилителей",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя газель",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов газель",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт клавиатуры ноутбука hp",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитолы не включается",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт штатных магнитол",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка игрового пк 2026",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк до 120к 2026",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборки майнкрафт для слабых пк",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборки пк 2026 для игр",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "скачать сборку для слабых пк",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "скачать сборку самп для слабых пк",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сколько будет стоить ремонт ноутбука",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка драйверов на windows 11",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 7",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "dns сборка пк конфигуратор",
+      "region": "Тобольск",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "r studio восстановление данных с жесткого диска",
+      "region": "Тюменская область",
+      "count": 3,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "0x80070570 при установке windows",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "бесплатная программа для восстановления данных",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "восстановление данных на пк",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска бесплатно",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных с жесткого диска программа бесплатно",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "восстановление данных с ssd",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "долго идет установка обновлений windows 11",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "идет установка обновлений не выключайте компьютер windows",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "набор для ремонта ноутбука",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "набор для ремонта ноутбуков и телефонов",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "не найдены драйвера при установке windows 10",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оцифровка видеокассет в домашних условиях",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассет воронеж",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка vhs кассет",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оцифровки vhs видеокассет из воронежа",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для оцифровки видеокассеты на компьютер",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
     },
     {
       "phrase": "ремонт вакуумного усилителя",
@@ -135,7 +3737,7 @@
       "types": [
         "top"
       ],
-      "queryType": "unmapped",
+      "queryType": "noise",
       "intent": null,
       "action": "hold"
     },
@@ -146,9 +3748,97 @@
       "types": [
         "top"
       ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов приора",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт лидара робота пылесоса",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
       "queryType": "unmapped",
       "intent": null,
       "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитолы пионер",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт магнитолы maks bmw",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков и телефонов",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса ксиоми",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса своими руками",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт робота пылесоса lg",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
     },
     {
       "phrase": "ремонт робота пылесоса okami",
@@ -162,6 +3852,39 @@
       "action": "landing"
     },
     {
+      "phrase": "ремонт робота пылесоса okami",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса xiaomi своими руками",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в москве",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
       "phrase": "ремонт роботов пылесосов в тюмени",
       "region": "Тобольск",
       "count": 2,
@@ -173,8 +3896,822 @@
       "action": "hold"
     },
     {
-      "phrase": "ремонт усилителя сотовой связи",
+      "phrase": "ремонт усилителя бриг",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка аризона для слабых пк",
       "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка комплектующих для пк",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк за 60 к",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк за 70 к",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк с монитором",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "систем ремонт контроль на магнитоле пионер",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "срочное восстановление данных",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 10 с флешки",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11 без интернета",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11 с флешки",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows без интернета",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows на компьютер",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "iuvcr для оцифровки видеокассет скачать бесплатно",
+      "region": "Тюменская область",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "windows 11 установка и настройка",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "windows без установки",
+      "region": "Тобольск",
+      "count": 2,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "4ddig восстановление данных windows",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "ближайший ремонт ноутбуков",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных 24",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных приложение",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных россия",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "восстановление данных ссд",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Восстановление данных",
+      "action": "landing"
+    },
+    {
+      "phrase": "драйвера intel rst для установки windows",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "игра про сборку пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "как отменить установку обновления на windows",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "как отменить установку обновления на windows 11",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "как продолжить установку windows 11 без интернета",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "как происходит оцифровка видеокассет",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "guide"
+    },
+    {
+      "phrase": "какие комплектующие нужны для сборки пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "картинка сборка пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "компании по сборке пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "конвертер для оцифровки видеокассет",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "мастер по ремонту роботов пылесосов",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оборудование для оцифровки видеокассет",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "онлайн проверка сборки пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "онлайн сборка пк с проверкой совместимости",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "отменить установку windows 11",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оцифровка видеокассет в екатеринбурге",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассет своими руками",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оцифровка видеокассет своими руками на компьютере",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "оцифровка видеокассет сургут",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассет челябинск",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка видеокассета vhs видеомир",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "оцифровка кассет",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Оцифровка видеокассет без уточнения формата",
+      "action": "landing"
+    },
+    {
+      "phrase": "помощник по установке windows 10",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "попытка восстановления данных",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "порно ремонт ноутбука",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "после сборки пк не запускается",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "проверка сборки пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "программа для оцифровки кассет",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программа для оцифровки кассет",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "informational",
+      "intent": null,
+      "action": "guide"
+    },
+    {
+      "phrase": "программы для оцифровки видеокассет в домашних условиях",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт вакуумного усилителя тормозов тойота",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт кассетных магнитол",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт кнопок магнитолы вольво хс90",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт кнопок магнитолы вольво хс90",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт ламповых усилителей",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных рядом со мной",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол автомобильных рядом со мной",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол в нижнем новгороде",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитол teyes",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт магнитолы pioneer",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт ноутбуков отзывы",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт ноутбуков и компьютеров",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса в химках",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса поларис",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса тефаль",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса dream",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт робота пылесоса mi",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Магнитолы, роботы-пылесосы, увлажнители",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов в смоленске",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов dreame в москве",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт роботов пылесосов ilife",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт сенсорной магнитолы",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт сенсорной магнитолы",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт усилителя вега",
+      "region": "Тюменская область",
       "count": 1,
       "types": [
         "top"
@@ -182,6 +4719,358 @@
       "queryType": "commercial",
       "intent": "Ремонт аудиотехники",
       "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителя звука автомобильного",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителя пионер",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителя руля калина",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Ремонт аудиотехники",
+      "action": "landing"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "ремонт усилителя сотовой связи",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "самая слабая сборка пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка на майнкрафт зомби апокалипсис на пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборка пк за 50000",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк за 70к",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк набережные челны",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк с проверкой совместимости",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк самому",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборка пк челны",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Сборка и подбор компьютера",
+      "action": "landing"
+    },
+    {
+      "phrase": "сборки майнкрафт на пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сборки пк смотреть",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "сервис по ремонту роботов пылесосов",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка драйверов звука windows 10",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка драйверов на windows 10",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Драйверы, антивирус, Office и настройка",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка и настройка windows linux",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка и ремонт магнитол pioneer и teyes",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка обновлений windows 10",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка git на windows",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка pip windows",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка python на windows",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка rdp windows server 2019",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows 10 решения и советы",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows 11 скачать",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "noise",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "установка windows server",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "установка windows server 2019",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "commercial",
+      "intent": "Установка и переустановка Windows",
+      "action": "landing"
+    },
+    {
+      "phrase": "что надо для сборки пк",
+      "region": "Тобольск",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "что нужно для оцифровки видеокассет",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
+    },
+    {
+      "phrase": "android магнитола нет звука ремонт",
+      "region": "Тюменская область",
+      "count": 1,
+      "types": [
+        "top"
+      ],
+      "queryType": "unmapped",
+      "intent": null,
+      "action": "hold"
     }
   ],
   "limitations": [

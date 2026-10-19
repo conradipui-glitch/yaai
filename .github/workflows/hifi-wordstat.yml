@@ -77,6 +77,7 @@ jobs:
 
       - name: Render standalone SEO report
         run: |
+          rm -f workspaces/hifi/results/hifi-seo-report.html workspaces/hifi/results/hifi-seo-report.json
           node scripts/render-seo-report.mjs \
             --wordstat workspaces/hifi/results/hifi-wordstat-latest.json \
             --intents workspaces/hifi/results/hifi-intents-latest.json \
