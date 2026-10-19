@@ -1,0 +1,121 @@
+name: Hi-Fi Tobolsk — Yandex Wordstat research
+
+# Paid Wordstat collection is opt-in. 12 seeds × 1 region = 12 metered calls.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_paid:
+        description: "Authorize 12 Yandex Wordstat TopRequests for the Hi-Fi case"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordstat-batch
+  cancel-in-progress: false
+
+jobs:
+  research:
+    if: inputs.confirm_paid == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      YAIS_API: ${{ secrets.YAIS_API }}
+      YAIS_ID: ${{ secrets.YAIS_ID }}
+      YAIS_FOLDER_ID: ${{ secrets.YAIS_FOLDER_ID }}
+      REQUEST_DELAY_MS: '650'
+    steps:
+      - name: Checkout yaai engine
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Resolve Yandex folder using repository Secrets
+        shell: bash
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          import { discoverYandexFolderId } from './lib/yandex-folder.mjs';
+          const folder = await discoverYandexFolderId({
+            apiKey: process.env.YAIS_API || process.env.YANDEX_API_KEY,
+            keyId: process.env.YAIS_ID,
+            folderId: process.env.YAIS_FOLDER_ID || process.env.YANDEX_FOLDER_ID,
+          });
+          if (!folder) throw new Error('Wordstat folder not resolved; check repository Secrets');
+          fs.appendFileSync(process.env.GITHUB_ENV, 'YAIS_FOLDER_ID=' + folder + '\n');
+          console.log('Wordstat folder resolved. Identifiers and API secrets are not printed.');
+          NODE
+
+      - name: Validate case shape before any paid call
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const c = JSON.parse(fs.readFileSync('workspaces/hifi/cases/hifi-seo.json', 'utf8'));
+          if (c.seeds.length !== 12 || c.regions.length !== 1) {
+            throw new Error('Unexpected seed/region count for the Hi-Fi case');
+          }
+          console.log(JSON.stringify({ caseId: c.id, regions: c.regions, meteredTopRequests: 12 }, null, 2));
+          NODE
+
+      - name: Fetch Wordstat TopRequests
+        run: node scripts/batch.mjs --workspace workspaces/hifi --case hifi-seo
+
+      - name: Classify intents and build the page plan
+        run: node scripts/build-page-plan.mjs --workspace workspaces/hifi --case hifi-seo
+
+      - name: Render standalone SEO report
+        run: |
+          node scripts/render-seo-report.mjs \
+            --wordstat workspaces/hifi/results/hifi-wordstat-latest.json \
+            --intents workspaces/hifi/results/hifi-intents-latest.json \
+            --plan workspaces/hifi/results/hifi-page-plan-latest.json \
+            --html workspaces/hifi/results/hifi-seo-report.html
+
+      - name: Print observed summary only
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from 'node:fs';
+          const intents = JSON.parse(fs.readFileSync('workspaces/hifi/results/hifi-intents-latest.json', 'utf8'));
+          const plan = JSON.parse(fs.readFileSync('workspaces/hifi/results/hifi-page-plan-latest.json', 'utf8'));
+          const summary = {
+            generatedAt: intents.generatedAt || null,
+            queryTypes: intents.stats?.queryTypeCounts || null,
+            intents: (intents.intents || []).map((i) => ({
+              id: i.id,
+              title: i.title,
+              priority: i.priority,
+              phrases: i.phraseCount ?? i.phrases?.length ?? null,
+              strongest: i.strongestPhrase ?? null,
+              maxCount: i.maxCount ?? null,
+            })),
+            pages: (plan.pages || []).map((p) => ({
+              rank: p.priorityRank,
+              band: p.priorityBand,
+              decision: p.decision,
+              path: p.path,
+              strongest: p.strongestPhrase,
+              maxCount: p.maxCount,
+            })),
+            note: 'Wordstat frequencies are observed query counts, not summed market size, visits or leads.',
+          };
+          fs.writeFileSync('workspaces/hifi/results/hifi-run-summary.json', JSON.stringify(summary, null, 2));
+          console.log('HIFI_SUMMARY_BEGIN');
+          console.log(JSON.stringify(summary, null, 2));
+          console.log('HIFI_SUMMARY_END');
+          NODE
+
+      - name: Upload research outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hifi-wordstat
+          path: workspaces/hifi/results/*
+          if-no-files-found: warn
+          retention-days: 14

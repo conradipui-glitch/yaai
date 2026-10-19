@@ -1,0 +1,117 @@
+{
+  "defaultFocusWeight": 1,
+  "nowCount": 3,
+  "nextCount": 6,
+  "genericGuidePath": "/guides/{slug}/",
+  "genericLandingPath": "/{slug}/",
+  "targets": [
+    {
+      "id": "hifi-home",
+      "title": "Мастерская «Хай-Фай» — главная",
+      "kind": "landing",
+      "status": "existing",
+      "mode": "primary",
+      "path": "/",
+      "priority": "P1",
+      "focusWeight": 3,
+      "intentIds": [],
+      "keywords": ["хай фай тобольск*", "мастерская тобольск*"]
+    },
+    {
+      "id": "hifi-digitize",
+      "title": "Оцифровка кассет MiniDV и Digital8",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "primary",
+      "path": "/ocifrovka-kasset/",
+      "priority": "P1",
+      "focusWeight": 3,
+      "intentIds": ["HF01", "HF02", "HF03"],
+      "keywords": ["оцифровка кассет*", "оцифровка minidv*", "оцифровка digital8*"]
+    },
+    {
+      "id": "hifi-windows",
+      "title": "Установка Windows, драйверов и программ",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "primary",
+      "path": "/ustanovka-windows/",
+      "priority": "P1",
+      "focusWeight": 3,
+      "intentIds": ["HF04", "HF05"],
+      "keywords": ["установка windows*", "переустановка windows*", "установка драйверов*"]
+    },
+    {
+      "id": "hifi-repair",
+      "title": "Ремонт ноутбуков и компьютеров",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "primary",
+      "path": "/remont-kompyuterov/",
+      "priority": "P2",
+      "focusWeight": 2,
+      "intentIds": ["HF06"],
+      "keywords": ["ремонт ноутбук*", "ремонт компьютер*"]
+    },
+    {
+      "id": "hifi-build",
+      "title": "Сборка и подбор компьютера",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "primary",
+      "path": "/sborka-pk/",
+      "priority": "P2",
+      "focusWeight": 2,
+      "intentIds": ["HF07"],
+      "keywords": ["сборка пк*", "сборка компьютера*"]
+    },
+    {
+      "id": "hifi-data",
+      "title": "Восстановление данных",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "primary",
+      "path": "/vosstanovlenie-dannyh/",
+      "priority": "P2",
+      "focusWeight": 2,
+      "intentIds": ["HF08"],
+      "keywords": ["восстановление данных*", "восстановление флешки*"]
+    },
+    {
+      "id": "hifi-audio",
+      "title": "Ремонт аудиотехники",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "secondary",
+      "path": "/remont-audiotekhniki/",
+      "priority": "P3",
+      "focusWeight": 1,
+      "intentIds": ["HF09"],
+      "keywords": ["ремонт усилителя*", "ремонт музыкального центра*"]
+    },
+    {
+      "id": "hifi-appliances",
+      "title": "Ремонт бытовой техники",
+      "kind": "landing",
+      "status": "planned",
+      "mode": "secondary",
+      "path": "/remont-bytovoy-tekhniki/",
+      "priority": "P3",
+      "focusWeight": 1,
+      "intentIds": ["HF10"],
+      "keywords": ["ремонт магнитолы*", "ремонт робота пылесоса*"]
+    },
+    {
+      "id": "hifi-guide-format",
+      "title": "Как отличить MiniDV от Digital8",
+      "kind": "guide",
+      "status": "planned",
+      "mode": "secondary",
+      "path": "/guides/kak-otlichit-minidv-ot-digital8/",
+      "priority": "P2",
+      "focusWeight": 1,
+      "intentIds": ["HF12"],
+      "keywords": ["чем отличается minidv*", "как отличить minidv*"]
+    }
+  ]
+}
