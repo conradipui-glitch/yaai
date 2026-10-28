@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "source": "yaai-playbook-test-fixtures",
+  "playbookId": "operator-local-smb-diagnostic",
+  "playbookVersion": "0.1.0",
+  "purpose": "P0-B.3 manual methodology spot-check; synthetic cases only; not market data or model benchmark",
+  "scenarios": [
+    {
+      "id": "actionable",
+      "synthetic": true,
+      "caseId": "test-actionable",
+      "niche": "Ремонт бытовой техники",
+      "region": "Омск",
+      "prospect": {
+        "id": "co-a",
+        "name": "Мастерская А (вымышленная)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "src-a-site",
+          "url": "https://fixture.example/a/request",
+          "kind": "public_site",
+          "publisher": "Демонстрационный сайт А",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "region": "Омск",
+          "rightsStatus": "synthetic_test_only",
+          "accessStatus": "archived"
+        },
+        {
+          "id": "src-a-check",
+          "url": "https://fixture.example/a/request-form",
+          "kind": "site_http",
+          "publisher": "Демонстрационная проверка ссылки",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "region": "Омск",
+          "rightsStatus": "synthetic_test_only",
+          "accessStatus": "archived"
+        },
+        {
+          "id": "src-b-site",
+          "url": "https://fixture.example/b/request",
+          "kind": "public_site",
+          "publisher": "Сайт конкурента Б",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "region": "Омск",
+          "rightsStatus": "synthetic_test_only",
+          "accessStatus": "archived"
+        }
+      ],
+      "observations": [
+        {
+          "id": "obs-a-cta",
+          "sourceId": "src-a-site",
+          "kind": "site_content",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "statement": "На сохранённой главной странице есть ссылка «Оставить заявку».",
+          "evidenceType": "observed",
+          "confidenceLimit": "Only this specific archived source/URL",
+          "targetBusinessId": "co-a",
+          "signal": "contact_cta_present",
+          "pathRole": "contact_cta"
+        },
+        {
+          "id": "obs-a-404",
+          "sourceId": "src-a-check",
+          "kind": "site_http",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "statement": "Сохранённый HTTP-ответ целевой страницы заявки — 404.",
+          "evidenceType": "observed",
+          "confidenceLimit": "Only this specific archived source/URL",
+          "targetBusinessId": "co-a",
+          "signal": "broken_contact_cta",
+          "pathRole": "contact_cta",
+          "httpStatus": 404
+        },
+        {
+          "id": "obs-b-works",
+          "sourceId": "src-b-site",
+          "kind": "site_content",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "statement": "На сайте Б видна работающая форма заявки (видимость не доказывает конверсию).",
+          "evidenceType": "observed",
+          "confidenceLimit": "Only this specific archived source/URL",
+          "targetBusinessId": "co-b",
+          "signal": "competitor_approach"
+        }
+      ],
+      "expected": {
+        "status": "propose_draft",
+        "evidenceIds": [
+          "obs-a-cta",
+          "obs-a-404"
+        ],
+        "proposition": "Проверить и исправить неработающую ссылку заявки",
+        "limits": [
+          "Не доказано, что обращения терялись",
+          "Нет данных о посещаемости и продажах"
+        ],
+        "sendAllowed": false
+      }
+    },
+    {
+      "id": "contested",
+      "synthetic": true,
+      "caseId": "test-contested",
+      "niche": "Ремонт техники",
+      "region": "Омск",
+      "prospect": {
+        "id": "co-c",
+        "name": "Мастерская В (вымышленная)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "src-c-serp",
+          "url": "https://fixture.example/serp?q=co-c",
+          "kind": "serp_snippet",
+          "publisher": "Синтетический источник",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "region": "Омск",
+          "rightsStatus": "synthetic_test_only",
+          "accessStatus": "archived"
+        },
+        {
+          "id": "src-c-official",
+          "url": "https://fixture.example/c/",
+          "kind": "public_site",
+          "publisher": "Демонстрационный официальный сайт В",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "region": "Омск",
+          "rightsStatus": "synthetic_test_only",
+          "accessStatus": "archived"
+        }
+      ],
+      "observations": [
+        {
+          "id": "obs-c-serp",
+          "sourceId": "src-c-serp",
+          "kind": "serp_snippet",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "statement": "В ограниченном наборе поисковых результатов самостоятельный сайт не показан.",
+          "evidenceType": "observed",
+          "confidenceLimit": "Only this specific archived source/URL",
+          "targetBusinessId": "co-c",
+          "signal": "site_not_observed_in_serp"
+        },
+        {
+          "id": "obs-c-site",
+          "sourceId": "src-c-official",
+          "kind": "site_content",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "statement": "В сохранённом источнике есть действующий адрес официального сайта В.",
+          "evidenceType": "observed",
+          "confidenceLimit": "Only this specific archived source/URL",
+          "targetBusinessId": "co-c",
+          "signal": "official_site_observed"
+        }
+      ],
+      "expected": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "obs-c-serp",
+          "obs-c-site"
+        ],
+        "proposition": null,
+        "limits": [
+          "Отсутствие в SERP не означает отсутствие сайта",
+          "Нужна дополнительная проверка контекста и дат"
+        ],
+        "sendAllowed": false
+      }
+    },
+    {
+      "id": "insufficient",
+      "synthetic": true,
+      "caseId": "test-insufficient",
+      "niche": "Ремонт техники",
+      "region": "Омск",
+      "prospect": {
+        "id": "co-d",
+        "name": "Мастерская Г (вымышленная)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "src-d-wordstat",
+          "url": null,
+          "kind": "wordstat_phrase",
+          "publisher": "Синтетическая Wordstat-выгрузка",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "region": "Омск",
+          "rightsStatus": "synthetic_test_only",
+          "accessStatus": "archived"
+        }
+      ],
+      "observations": [
+        {
+          "id": "obs-d-query",
+          "sourceId": "src-d-wordstat",
+          "kind": "wordstat_phrase",
+          "observedAt": "2026-10-20T10:00:00Z",
+          "statement": "Фраза «ремонт ноутбуков Омск» имеет неназванную частотность; фирма Г не идентифицирована в этом источнике.",
+          "evidenceType": "observed",
+          "confidenceLimit": "Only this specific archived source/URL",
+          "targetBusinessId": null,
+          "signal": "search_interest",
+          "observedCount": null,
+          "unit": "search_queries"
+        }
+      ],
+      "expected": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "proposition": null,
+        "limits": [
+          "Wordstat не доказывает наличие спроса конкретно у фирмы",
+          "Не хватает публичных данных о сайте и оффере кандидата"
+        ],
+        "sendAllowed": false
+      }
+    }
+  ]
+}
