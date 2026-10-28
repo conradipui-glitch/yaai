@@ -4,6 +4,9 @@ Status: **active, staged delivery**. The [YAAI Product Blueprint v2](yaai-produc
 now defines the user experience, shared knowledge model and **next dependency
 order**. This document remains the technical history, safety contract and
 record of already shipped stages; its original stage numbering is historical.
+The [Opportunity Radar design](yaai-opportunity-radar.md) expands the future
+product from reactive marketing research into local-first entrepreneurial
+opportunity discovery; it is **not a working market watcher**.
 The earlier [Studio roadmap](yaai-studio-roadmap.md) is design history.
 No deadlines, costs, target market or external access are assumed.
 
@@ -39,10 +42,12 @@ previous artifact formats. Reference: [Product Blueprint v2](yaai-product-bluepr
    and chat hierarchy, evidence-knowledge-content connections (documented
    in Blueprint v2). Not a new working chat.
 2. **P0-B — methodology audit:** inspect existing and external marketing,
-   research, SEO, audience and Agent Skills; review instructions,
+   research, SEO, audience and Agent Skills, including trend discovery,
+   source evaluation and adjacent opportunities; review instructions,
    scripts, licenses and evidence of effectiveness; benchmark one chosen
    vertical playbook; do not copy or execute unreviewed community code.
-3. **P0-C — evidence-first persistence:** source snapshots, observations,
+3. **P0-C — evidence-first persistence:** source profiles, snapshots,
+   a minimal BusinessCapabilityProfile, observations,
    claims, replies/contradictions, timestamps and change status, with a
    *small* case-scoped real-data import and conversion into the current
    Evidence Report v1 projection. Don't turn a report into the only database.
@@ -53,10 +58,14 @@ previous artifact formats. Reference: [Product Blueprint v2](yaai-product-bluepr
    choice of packages, visible results and source traceability. UI and
    external agent use one task/approval engine; no duplicated business code.
 6. **P0-F — audience/research pack:** research findings, segmented personas
+   and one offline, source-linked OpportunityCandidate (or an honest
+   «insufficient evidence» state)
    with evidence vs illustrative details, prioritized site-content briefs
    and missing-data list. No unsupported claims or auto publishing.
-7. **P1/P2:** versioned articles/SEO/GEO drafts, reviewed site publish,
-   analytics snapshots, pedagogical A/B with proper experimental
+7. **P1/P2:** first a read-only business briefing / on-demand trend
+   comparison from real comparable snapshots; then versioned articles/SEO/GEO
+   drafts, reviewed site publish,
+   later opt-in bounded collection, analytics snapshots, pedagogical A/B with proper experimental
    design, VPS/Telegram and progressively expanded skill library.
 
 ### Gate for the first useful product
@@ -76,7 +85,8 @@ case task read models, read-only saved Evidence Report v1 Pain Discovery
 mind map (PR #64–65), first contextual Knowledge Layer, CLI/MCP,
 TypeSafe provider support and offline task execution. **Not present:**
 universal chat/orchestrator/consumer-friendly "one click research pack",
-verified full-source review and reply tracking, a universal knowledge DB,
+verified full-source review and reply tracking, an Opportunity Radar,
+full-source trend discovery and a universal knowledge DB,
 complete model router, safe publish, live Metrika, production VPS agent,
 Telegram bot or online A/B platform. Preserve compatibility and
 test each slice. The "Reality check" table below reflects the original
