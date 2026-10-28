@@ -1,7 +1,10 @@
-# YA AI — delivery plan (2026-10-13)
+# YA AI — delivery plan (started 2026-10-13; product direction updated 2026-10-28)
 
-Status: **active, staged delivery**. This plan supersedes the order in
-`docs/yaai-studio-roadmap.md`, while preserving its safety boundaries.
+Status: **active, staged delivery**. The [YAAI Product Blueprint v2](yaai-product-blueprint-v2.md)
+now defines the user experience, shared knowledge model and **next dependency
+order**. This document remains the technical history, safety contract and
+record of already shipped stages; its original stage numbering is historical.
+The earlier [Studio roadmap](yaai-studio-roadmap.md) is design history.
 No deadlines, costs, target market or external access are assumed.
 
 ## Product definition and constraints
@@ -24,6 +27,60 @@ accounts or other consequential mutations always require explicit scoped
 authorization. Preserve evidence and cost provenance; nothing is
 implicitly resumed at billable cost. Local-only workflows must not
 silently expose an unauthenticated network service.
+
+## Current next-work sequence — ratified 2026-10-28
+
+**Principle:** one plain-language entry point with optional "one task" or
+"full marketing package", not a manual catalog of tools. Preserve the
+headless-first engine, case isolation, existing CLI/MCP clients and all
+previous artifact formats. Reference: [Product Blueprint v2](yaai-product-blueprint-v2.md).
+
+1. **P0-A — architecture/UX contract:** brief, human-readable plans, project
+   and chat hierarchy, evidence-knowledge-content connections (documented
+   in Blueprint v2). Not a new working chat.
+2. **P0-B — methodology audit:** inspect existing and external marketing,
+   research, SEO, audience and Agent Skills; review instructions,
+   scripts, licenses and evidence of effectiveness; benchmark one chosen
+   vertical playbook; do not copy or execute unreviewed community code.
+3. **P0-C — evidence-first persistence:** source snapshots, observations,
+   claims, replies/contradictions, timestamps and change status, with a
+   *small* case-scoped real-data import and conversion into the current
+   Evidence Report v1 projection. Don't turn a report into the only database.
+4. **P0-D — smallest end-to-end orchestrator:** a niche brief determines
+   tool/source selection; preview and permission gate; one bounded
+   research run; saved results + graceful restart and reusable knowledge.
+5. **P0-E — simple Studio + MCP:** project/chat entry, single prompt,
+   choice of packages, visible results and source traceability. UI and
+   external agent use one task/approval engine; no duplicated business code.
+6. **P0-F — audience/research pack:** research findings, segmented personas
+   with evidence vs illustrative details, prioritized site-content briefs
+   and missing-data list. No unsupported claims or auto publishing.
+7. **P1/P2:** versioned articles/SEO/GEO drafts, reviewed site publish,
+   analytics snapshots, pedagogical A/B with proper experimental
+   design, VPS/Telegram and progressively expanded skill library.
+
+### Gate for the first useful product
+
+A novice can create a project, type a niche and objective, choose one
+module or a relevant "full package", review estimated cost/unknown
+costs, approve narrowly, receive **one real research-to-report run**
+that persists without recollection, inspect the citations and disputed
+evidence, and reuse the results in the project (also from MCP).
+All real spend and external writes remain opt-in. Site publication
+and true A/B experimentation are later stages, not prerequisites.
+
+### Current implementation caveats
+
+Already present in `main` as limited slices: light Russian local Studio,
+case task read models, read-only saved Evidence Report v1 Pain Discovery
+mind map (PR #64–65), first contextual Knowledge Layer, CLI/MCP,
+TypeSafe provider support and offline task execution. **Not present:**
+universal chat/orchestrator/consumer-friendly "one click research pack",
+verified full-source review and reply tracking, a universal knowledge DB,
+complete model router, safe publish, live Metrika, production VPS agent,
+Telegram bot or online A/B platform. Preserve compatibility and
+test each slice. The "Reality check" table below reflects the original
+2026-10-13 audit and is not a fresh current inventory.
 
 ## Reality check from current main
 

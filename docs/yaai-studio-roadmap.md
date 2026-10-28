@@ -1,9 +1,12 @@
 # YA AI Studio — concept and design history
 
-**Current execution plan:** [YA AI delivery plan](yaai-delivery-plan.md) (2026-10-13).
-Stage 1A (draft tasks for CLI/MCP) is active. This earlier roadmap is retained
-for historical context; its implementation sequence is superseded by the
-staged headless-first plan. No UI, VPS worker or remote auth is claimed ready.
+**Current product direction:** [YAAI Product Blueprint v2](yaai-product-blueprint-v2.md) (2026-10-28).
+**Safety and shipped milestones:** [YA AI delivery plan](yaai-delivery-plan.md).
+This is a **historical** concept document, not a current feature inventory.
+Since it was drafted, local Studio Light and the saved Pain Map view were
+implemented (PR #64–65); a universal agent chat, secure public service and
+persistent VPS worker have **not** been delivered. The v2 blueprint supersedes
+this document's planned implementation order.
 
 ## Product concept
 
