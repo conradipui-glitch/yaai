@@ -1,5 +1,12 @@
 # yaai — reusable market and SEO research engine
 
+**Product direction (2026-10-28):** [YAAI Product Blueprint v2](docs/yaai-product-blueprint-v2.md) —
+a natural-language marketing workbench: one simple prompt, scoped research plans,
+source-linked knowledge, reusable audience/SEO/content outputs and later reviewed
+publishing/measurement. This is a roadmap, **not an implemented universal chat or
+full marketing automation**. Shipped phases and constraints:
+[delivery plan](docs/yaai-delivery-plan.md).
+
 `yaai` is a client-neutral engine. Client cases, presets, planner profiles, result files and dated snapshots live in external project workspaces.
 
 The engine provides:
