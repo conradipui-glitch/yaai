@@ -45,8 +45,10 @@ changed, but does **not** alone establish successful user or end-to-end testing.
 No move to the next step when an applicable test is missing or failed.
 The [YAAI Iteration Tracker](yaai-iteration-tracker.md) is the single
 source of truth for **the current named substep, next deliverable, evidence
-of completion and transition**. Current stage is **P0-B**, next iteration
-is **P0-B.3 — write the operator-local-smb-diagnostic-v0 PlaybookManifest**.
+of completion and transition**. Current stage is **P0-B**: **P0-B.3 accepted as a versioned methodology**
+([QA evidence](acceptance/P0-B.3.md)); next iteration is **P0-B.4 — independently
+labelled scenarios and expected decisions**. The entire P0-B stage is
+not yet accepted; actual prospect research/Studio/MCP remain later steps.
 The prospect → public audit → offer scenario is a *vertical use case* for
 P0-B methodology and P0-C/D/E implementation, not a newly inserted phase.
 Never mark all of P0-B done after just an inventory/audit.
