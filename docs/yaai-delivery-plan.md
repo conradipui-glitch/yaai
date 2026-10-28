@@ -35,6 +35,16 @@ authorization. Preserve evidence and cost provenance; nothing is
 implicitly resumed at billable cost. Local-only workflows must not
 silently expose an unauthenticated network service.
 
+## Navigation: current iteration and completion gate
+
+The [YAAI Iteration Tracker](yaai-iteration-tracker.md) is the single
+source of truth for **the current named substep, next deliverable, evidence
+of completion and transition**. Current stage is **P0-B**, next iteration
+is **P0-B.3 — write the operator-local-smb-diagnostic-v0 PlaybookManifest**.
+The prospect → public audit → offer scenario is a *vertical use case* for
+P0-B methodology and P0-C/D/E implementation, not a newly inserted phase.
+Never mark all of P0-B done after just an inventory/audit.
+
 ## Current next-work sequence — ratified 2026-10-28
 
 **Principle:** one plain-language entry point with optional "one task" or
