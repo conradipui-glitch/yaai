@@ -5,7 +5,8 @@ a local-first entrepreneur's workbench: one simple prompt, scoped research plans
 source-linked knowledge, reusable audience/SEO/content outputs and later reviewed
 publishing/measurement, plus a future [Opportunity Radar](docs/yaai-opportunity-radar.md)
 for source-linked emerging trends, adjacent business ideas and an optional
-quiet owner's briefing. This is a roadmap, **not an implemented universal chat or
+quiet owner's briefing. First use case: [founder-led Operator Mode](docs/yaai-operator-service-mode.md) and [P0-B methodology audit](docs/yaai-p0b-skills-audit.md).
+This is a roadmap, **not an implemented universal chat or
 full marketing automation**. Shipped phases and constraints:
 [delivery plan](docs/yaai-delivery-plan.md).
 
