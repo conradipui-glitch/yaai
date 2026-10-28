@@ -4,6 +4,10 @@ Status: **active, staged delivery**. The [YAAI Product Blueprint v2](yaai-produc
 now defines the user experience, shared knowledge model and **next dependency
 order**. This document remains the technical history, safety contract and
 record of already shipped stages; its original stage numbering is historical.
+[Operator Mode](yaai-operator-service-mode.md) adds a founder-led service workflow:
+public SMB diagnosis and personalized offer, followed by authorized client work.
+The [first P0-B audit](yaai-p0b-skills-audit.md) reviews internal and external
+skills; comparative tests are still required before calling P0-B complete.
 The [Opportunity Radar design](yaai-opportunity-radar.md) expands the future
 product from reactive marketing research into local-first entrepreneurial
 opportunity discovery; it is **not a working market watcher**.
