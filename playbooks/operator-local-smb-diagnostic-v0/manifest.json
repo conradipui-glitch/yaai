@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "source": "yaai-playbook-manifest",
+  "id": "operator-local-smb-diagnostic",
+  "version": "0.1.0",
+  "iteration": "P0-B.3",
+  "lifecycle": "methodology_only",
+  "locale": "ru-RU",
+  "purpose": "Только предварительная диагностика локального малого предприятия по сохранённым/законно доступным публичным наблюдениям; без контакта, новых платных запросов и вывода о доходах.",
+  "applicability": {
+    "businessTypes": [
+      "local_service",
+      "local_retail",
+      "local_manufacturer"
+    ],
+    "market": "RU",
+    "firstPassMaxProspects": 5,
+    "firstPassMaxComparators": 3,
+    "excluded": [
+      "internal_revenue_audit",
+      "private_analytics_without_authorization",
+      "regulated_advice",
+      "automatic_outreach",
+      "unreviewed_website_scraping"
+    ]
+  },
+  "inputContract": {
+    "required": [
+      "caseId",
+      "niche",
+      "region",
+      "prospect",
+      "sources",
+      "observations"
+    ],
+    "optional": [
+      "ownerGoal",
+      "competitors",
+      "savedWordstat",
+      "savedSerp",
+      "budget",
+      "researchDate"
+    ],
+    "caseIdPolicy": "Use existing YAAI workspace safeConfigId; do not construct raw paths from user text.",
+    "budgetDefault": "zero_external_calls",
+    "sourceIds": "Nonempty unique IDs within case; sourceId is a pointer to permitted archived/public observation, never a proof of truth.",
+    "observationRequirements": [
+      "id",
+      "sourceId",
+      "kind",
+      "observedAt",
+      "statement",
+      "evidenceType",
+      "confidenceLimit"
+    ],
+    "evidenceTypes": [
+      "observed",
+      "inferred",
+      "unknown",
+      "disputed"
+    ],
+    "kinds": [
+      "site_http",
+      "site_content",
+      "business_listing",
+      "serp_snippet",
+      "wordstat_phrase",
+      "public_review",
+      "public_response"
+    ],
+    "sourceFields": [
+      "id",
+      "url",
+      "kind",
+      "publisher",
+      "observedAt",
+      "region",
+      "rightsStatus",
+      "accessStatus"
+    ],
+    "limits": "All metrics require period, region, unit; null is unknown, not zero."
+  },
+  "steps": [
+    {
+      "id": "scope",
+      "intent": "Record niche, geography, target buyer, ICP and disqualifiers.",
+      "input": [
+        "caseId",
+        "niche",
+        "region",
+        "prospect"
+      ],
+      "output": [
+        "scope",
+        "exclusions"
+      ],
+      "qualityGate": "T0"
+    },
+    {
+      "id": "verify_business",
+      "intent": "Verify prospect identity/activity via permitted business/site sources; separate absence in a query from absence in reality.",
+      "input": [
+        "sources",
+        "observations"
+      ],
+      "output": [
+        "identityClaims",
+        "missingFields"
+      ],
+      "qualityGate": "T1"
+    },
+    {
+      "id": "public_site_scan",
+      "intent": "Only cite observed accessible pages, navigation, offering, contact funnel, broken elements and timestamps. No private conversion claims.",
+      "input": [
+        "observations"
+      ],
+      "output": [
+        "siteObservations",
+        "unknowns"
+      ],
+      "qualityGate": "T1"
+    },
+    {
+      "id": "competitive_context",
+      "intent": "Contrast same region/date/service type with 0–3 relevant direct businesses; distinguish marketplace, directory and SEO rival.",
+      "input": [
+        "competitors",
+        "savedSerp",
+        "savedWordstat"
+      ],
+      "output": [
+        "comparableFindings",
+        "nonComparableReasons"
+      ],
+      "qualityGate": "T3"
+    },
+    {
+      "id": "counter_evidence",
+      "intent": "Search archived evidence for contradicting observations, newer revisions, company replies and material context; mark unresolved issues.",
+      "input": [
+        "sources",
+        "observations"
+      ],
+      "output": [
+        "contradictions",
+        "reviewFlags"
+      ],
+      "qualityGate": "T7"
+    },
+    {
+      "id": "decision",
+      "intent": "Pick smallest source-grounded opportunity or explicitly abstain; hypothetical examples must not become business facts.",
+      "input": [
+        "siteObservations",
+        "comparableFindings",
+        "contradictions"
+      ],
+      "output": [
+        "status",
+        "reasonCodes",
+        "evidenceIds",
+        "limitations"
+      ],
+      "qualityGate": "T7"
+    },
+    {
+      "id": "draft_offer",
+      "intent": "If status is propose_draft: write one specific low-risk, reviewed offer based on existing public observations; do not contact.",
+      "input": [
+        "status",
+        "evidenceIds"
+      ],
+      "output": [
+        "offerDraft",
+        "validationPlan"
+      ],
+      "qualityGate": "T5"
+    },
+    {
+      "id": "preserve",
+      "intent": "Link every finding to case/source/snapshot/time/playbook version for eventual P0-C persistence; no writes in P0-B.3.",
+      "input": [
+        "status",
+        "evidenceIds"
+      ],
+      "output": [
+        "provenanceTrace",
+        "futureDataMapping"
+      ],
+      "qualityGate": "T2"
+    }
+  ],
+  "decisionRules": {
+    "propose_draft": "At least one observable and reproducible actionable finding with a valid source/date; material contradictions resolved; suggested improvement does not depend on private revenue or speculative traffic. All claims cited. Independently contextualized comparisons preferred but not mandatory to fix an observed broken element.",
+    "hold_for_review": "Material contradictions, doubtful source freshness or attribution, or uncertain business identity invalidate decisive claim; no sales diagnosis or outreach proposal.",
+    "insufficient_evidence": "No verifiable actionable observation tied to prospect; only SERP absence, general Wordstat intent, or missing data; do not invent a weakness."
+  },
+  "outputs": {
+    "prospectAudit": {
+      "fields": [
+        "caseId",
+        "playbookId",
+        "playbookVersion",
+        "prospectId",
+        "region",
+        "status",
+        "observed",
+        "inferred",
+        "unknown",
+        "contradictions",
+        "recommendation",
+        "evidenceIds",
+        "sourceLinks",
+        "nextCheck"
+      ],
+      "artifactType": "proposed-contract-not-yet-implemented"
+    },
+    "offerDraft": {
+      "fields": [
+        "recipientBusiness",
+        "specificObservation",
+        "sourceIds",
+        "oneProposedService",
+        "whyItMightHelp",
+        "limitations",
+        "pilotScope",
+        "metricToCheck",
+        "approvalRequired"
+      ],
+      "onlyForStatus": "propose_draft",
+      "sendAllowed": false
+    },
+    "qualityDecision": {
+      "states": [
+        "propose_draft",
+        "hold_for_review",
+        "insufficient_evidence"
+      ],
+      "invariant": "No auto-contact, no false 'confirmed conversion losses' and no unsupported numerical benefits"
+    }
+  },
+  "access": {
+    "allowedOffline": [
+      "read_saved_case_files",
+      "compare_saved_evidence",
+      "prepare_unsigned_offer_draft"
+    ],
+    "gated": [
+      "read_new_external_source",
+      "spend_api_budget",
+      "write_case_artifacts_in_future_phase"
+    ],
+    "forbidden": [
+      "send_outreach",
+      "modify_external_site",
+      "infer_private_revenue",
+      "read_other_case",
+      "execute_external_skill_scripts"
+    ]
+  },
+  "provenance": {
+    "sourceIdentity": "caseId + sourceId + URL or archive reference + observedAt",
+    "observationIdentity": "caseId + observationId + sourceId",
+    "claimIdentity": "caseId + claimId + evidenceIds",
+    "playbookIdentity": "id + version",
+    "semantics": {
+      "wordstat_phrase": "search phrase, NOT customers",
+      "serp_snippet": "search excerpt, NOT a full review",
+      "public_review": "author's allegation, NOT established fact",
+      "inferred": "human/model hypothesis, NOT observation"
+    }
+  },
+  "compatibility": {
+    "reuse": [
+      ".agents/skills/competitor-evidence/SKILL.md",
+      ".agents/skills/pain-discovery/SKILL.md",
+      ".agents/skills/seo-report/SKILL.md",
+      "lib/evidence-report.mjs",
+      "lib/workspace.mjs"
+    ],
+    "evidenceReportV1": "Only for source='yaai-evidence-report' AND reportType='pain-discovery'; operator audit is a distinct future data type, never masquerade as Pain Discovery report.",
+    "MCP": "No new MCP method in P0-B.3; P0-D/E will reuse persisted task contracts.",
+    "studio": "No new Studio endpoint in P0-B.3."
+  },
+  "upstreamMethodology": [
+    {
+      "repo": "coreyhaines31/marketingskills",
+      "revision": "0cd9b3a0ef4c",
+      "skills": [
+        "prospecting",
+        "competitor-profiling",
+        "customer-research"
+      ],
+      "license": "MIT",
+      "usage": "Adapt general structure, not API calls or formula thresholds"
+    },
+    {
+      "repo": "every-app/open-seo",
+      "revision": "99d9a49c8cb7",
+      "skills": [
+        "competitive-landscape",
+        "keyword-research"
+      ],
+      "license": "MIT",
+      "usage": "Reuse context/log/observed-versus-inferred pattern only"
+    },
+    {
+      "repo": "conradipui-glitch/yaai",
+      "revision": "main 2026-10-28",
+      "skills": [
+        "competitor-evidence",
+        "pain-discovery",
+        "seo-report"
+      ],
+      "usage": "Preserve existing semantic and provenance guardrails"
+    }
+  ],
+  "testPolicy": {
+    "reference": "docs/yaai-quality-gates.md",
+    "scenarios": [
+      "actionable",
+      "contested",
+      "insufficient"
+    ],
+    "futureBenchmark": "P0-B.4: 10–20 human-labelled examples; P0-B.5: baseline comparison",
+    "manualReview": true
+  }
+}
