@@ -10,7 +10,7 @@ This is a roadmap, **not an implemented universal chat or
 full marketing automation**. Shipped phases and constraints:
 [delivery plan](docs/yaai-delivery-plan.md).
 
-**Current named iteration:** [P0-B.3 and full phase/iteration tracker](docs/yaai-iteration-tracker.md) — one explicit task, acceptance gate, and next step.
+**Current named iteration:** [P0-B.4 and full phase/iteration tracker](docs/yaai-iteration-tracker.md) — P0-B.3 versioned [Playbook v0.1.0](playbooks/operator-local-smb-diagnostic-v0/PLAYBOOK.md) is accepted as methodology, not as an implemented client-research pipeline; see [QA record](docs/acceptance/P0-B.3.md).
 **Quality rule:** [cross-tool consistency and acceptance gates](docs/yaai-quality-gates.md) — do not advance without documented applicable tests and integration checks.
 
 `yaai` is a client-neutral engine. Client cases, presets, planner profiles, result files and dated snapshots live in external project workspaces.
