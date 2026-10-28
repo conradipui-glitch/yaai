@@ -10,6 +10,8 @@ This is a roadmap, **not an implemented universal chat or
 full marketing automation**. Shipped phases and constraints:
 [delivery plan](docs/yaai-delivery-plan.md).
 
+**Current named iteration:** [P0-B.3 and full phase/iteration tracker](docs/yaai-iteration-tracker.md) — one explicit task, acceptance gate, and next step.
+
 `yaai` is a client-neutral engine. Client cases, presets, planner profiles, result files and dated snapshots live in external project workspaces.
 
 The engine provides:
