@@ -1,9 +1,11 @@
 # yaai — reusable market and SEO research engine
 
 **Product direction (2026-10-28):** [YAAI Product Blueprint v2](docs/yaai-product-blueprint-v2.md) —
-a natural-language marketing workbench: one simple prompt, scoped research plans,
+a local-first entrepreneur's workbench: one simple prompt, scoped research plans,
 source-linked knowledge, reusable audience/SEO/content outputs and later reviewed
-publishing/measurement. This is a roadmap, **not an implemented universal chat or
+publishing/measurement, plus a future [Opportunity Radar](docs/yaai-opportunity-radar.md)
+for source-linked emerging trends, adjacent business ideas and an optional
+quiet owner's briefing. This is a roadmap, **not an implemented universal chat or
 full marketing automation**. Shipped phases and constraints:
 [delivery plan](docs/yaai-delivery-plan.md).
 
