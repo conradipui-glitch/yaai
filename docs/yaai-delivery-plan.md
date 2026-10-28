@@ -58,15 +58,15 @@ previous artifact formats. Reference: [Product Blueprint v2](yaai-product-bluepr
    choice of packages, visible results and source traceability. UI and
    external agent use one task/approval engine; no duplicated business code.
 6. **P0-F — audience/research pack:** research findings, segmented personas
-   and one offline, source-linked OpportunityCandidate (or an honest
-   «insufficient evidence» state)
-   with evidence vs illustrative details, prioritized site-content briefs
-   and missing-data list. No unsupported claims or auto publishing.
-7. **P1/P2:** first a read-only business briefing / on-demand trend
-   comparison from real comparable snapshots; then versioned articles/SEO/GEO
-   drafts, reviewed site publish,
-   later opt-in bounded collection, analytics snapshots, pedagogical A/B with proper experimental
-   design, VPS/Telegram and progressively expanded skill library.
+   with evidence vs illustrative details, one offline source-linked
+   OpportunityCandidate (or an honest «insufficient evidence» state),
+   prioritized site-content briefs and missing-data list. No unsupported
+   claims or auto publishing.
+7. **P1/P2:** first a read-only business briefing and on-demand trend
+   comparison from comparable snapshots; then versioned SEO/GEO articles,
+   reviewed site publishing, optional bounded source collection, analytics
+   snapshots, pedagogical and real A/B with proper experimental design,
+   VPS/Telegram and progressively expanded Skills.
 
 ### Gate for the first useful product
 
