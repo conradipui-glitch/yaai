@@ -11,6 +11,7 @@ full marketing automation**. Shipped phases and constraints:
 [delivery plan](docs/yaai-delivery-plan.md).
 
 **Current named iteration:** [P0-B.3 and full phase/iteration tracker](docs/yaai-iteration-tracker.md) — one explicit task, acceptance gate, and next step.
+**Quality rule:** [cross-tool consistency and acceptance gates](docs/yaai-quality-gates.md) — do not advance without documented applicable tests and integration checks.
 
 `yaai` is a client-neutral engine. Client cases, presets, planner profiles, result files and dated snapshots live in external project workspaces.
 
