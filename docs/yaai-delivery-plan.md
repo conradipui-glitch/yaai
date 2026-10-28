@@ -37,6 +37,12 @@ silently expose an unauthenticated network service.
 
 ## Navigation: current iteration and completion gate
 
+The [YAAI Quality Gates](yaai-quality-gates.md) are **mandatory** for each
+iteration: verified local behavior, backward-compatible contracts, affected
+cross-tool paths, reproducibility, security/budget guards and a recorded
+ACCEPT/REWORK/BLOCK decision. Passing GitHub CI is necessary where code
+changed, but does **not** alone establish successful user or end-to-end testing.
+No move to the next step when an applicable test is missing or failed.
 The [YAAI Iteration Tracker](yaai-iteration-tracker.md) is the single
 source of truth for **the current named substep, next deliverable, evidence
 of completion and transition**. Current stage is **P0-B**, next iteration
