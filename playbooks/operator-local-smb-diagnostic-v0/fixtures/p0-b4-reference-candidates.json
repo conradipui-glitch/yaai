@@ -33,7 +33,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "http",
@@ -44,7 +47,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -54,7 +60,10 @@
           "kind": "site_content",
           "statement": "На официальной странице есть ссылка на запись.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s01",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -62,7 +71,10 @@
           "kind": "site_http",
           "statement": "Целевой адрес ссылки на запись зафиксирован как 404.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s01",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -111,7 +123,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "desktop",
@@ -122,7 +137,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -132,7 +150,10 @@
           "kind": "site_content",
           "statement": "В сохранённой мобильной версии отсутствует ссылка на контакты.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s02",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "d",
@@ -140,7 +161,10 @@
           "kind": "site_content",
           "statement": "Десктопная версия имеет явный контактный блок.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s02",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -189,7 +213,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "competition",
@@ -200,7 +227,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -210,7 +240,10 @@
           "kind": "site_content",
           "statement": "В каталоге есть деревянные игрушки и цены.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s03",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -218,7 +251,10 @@
           "kind": "site_content",
           "statement": "Конкурент отдельно описывает гарантию, но о гарантийных условиях фабрики данных нет.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "competitor",
+          "targetBusinessId": null,
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -264,7 +300,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "official",
@@ -275,7 +314,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -285,7 +327,10 @@
           "kind": "serp_snippet",
           "statement": "В исследованном TOP-10 сайта предприятия не обнаружено.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s04",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -293,7 +338,10 @@
           "kind": "site_content",
           "statement": "Официальная страница компании доступна и описывает услуги.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s04",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -342,7 +390,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "new",
@@ -353,7 +404,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -364,7 +418,10 @@
           "statement": "В старой версии товара цена 1500 ₽.",
           "observedAt": "2026-10-29T09:40:00Z",
           "evidenceType": "observed",
-          "eventDate": "2024-05-01"
+          "eventDate": "2024-05-01",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s05",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -373,7 +430,10 @@
           "statement": "В текущей версии товара цена 1800 ₽.",
           "observedAt": "2026-10-29T09:40:00Z",
           "evidenceType": "observed",
-          "eventDate": "2026-10-29"
+          "eventDate": "2026-10-29",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s05",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -419,7 +479,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "new",
@@ -430,7 +493,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -441,7 +507,10 @@
           "statement": "Ранее URL заказа отвечал 404.",
           "observedAt": "2026-10-29T09:40:00Z",
           "evidenceType": "observed",
-          "eventDate": "2026-09-01"
+          "eventDate": "2026-09-01",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s06",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -450,7 +519,10 @@
           "statement": "После исправления URL заказа отвечает 200.",
           "observedAt": "2026-10-29T09:40:00Z",
           "evidenceType": "observed",
-          "eventDate": "2026-10-25"
+          "eventDate": "2026-10-25",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s06",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -499,7 +571,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "response",
@@ -510,7 +585,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -520,7 +598,10 @@
           "kind": "public_review",
           "statement": "Автор отзыва утверждает, что ремонт занял неделю.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s07",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -528,7 +609,10 @@
           "kind": "public_response",
           "statement": "Компания отвечает, что согласованный срок был семь рабочих дней.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s07",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -578,7 +662,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -588,7 +675,10 @@
           "kind": "public_review",
           "statement": "Несколько очень похожих отзывов опубликованы в один день.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s08",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -636,7 +726,10 @@
           "region": "Москва",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "different_region_requires_review"
         }
       ],
       "observations": [
@@ -648,7 +741,10 @@
           "observedAt": "2026-10-29T09:40:00Z",
           "evidenceType": "observed",
           "frequency": 100,
-          "frequencyUnit": "phrases/month"
+          "frequencyUnit": "phrases/month",
+          "entityRole": "market",
+          "targetBusinessId": null,
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -694,7 +790,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "market",
@@ -705,7 +804,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -715,7 +817,10 @@
           "kind": "site_content",
           "statement": "У магазина есть сайт и информация о покупке.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s10",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -723,7 +828,10 @@
           "kind": "serp_snippet",
           "statement": "В выдаче рядом присутствует карточка маркетплейса, не локального самостоятельного конкурента.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "competitor",
+          "targetBusinessId": null,
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -769,7 +877,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -779,7 +890,10 @@
           "kind": "site_content",
           "statement": "На B2B-сайте есть корпоративный email и телефон, онлайн-кнопки заказа нет.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s11",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -825,7 +939,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "link",
@@ -836,7 +953,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "tel",
@@ -847,7 +967,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -857,7 +980,10 @@
           "kind": "site_content",
           "statement": "На странице написано «Контакты» со ссылкой на внутреннюю страницу.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s12",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -865,7 +991,10 @@
           "kind": "site_http",
           "statement": "Ссылка «Контакты» возвращает 404.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s12",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "c",
@@ -873,7 +1002,10 @@
           "kind": "site_content",
           "statement": "Телефон указан отдельно и доступен для прочтения.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s12",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -922,7 +1054,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "external",
@@ -933,7 +1068,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -943,7 +1081,10 @@
           "kind": "site_content",
           "statement": "Производство предлагает упаковку из дерева.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s13",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -951,7 +1092,10 @@
           "kind": "serp_snippet",
           "statement": "Новость утверждает, что цены сырья в регионе вырастут на 30%, первоисточник не найден.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "market",
+          "targetBusinessId": null,
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -999,7 +1143,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         },
         {
           "id": "b",
@@ -1010,7 +1157,10 @@
           "region": "Омск",
           "accessStatus": "synthetic_fixture",
           "rightsStatus": "synthetic_test_only",
-          "origin": "synthetic"
+          "origin": "synthetic",
+          "publisher": "Вымышленный источник контрольного сценария",
+          "captureMethod": "fictional_case_for_testing",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -1020,7 +1170,10 @@
           "kind": "business_listing",
           "statement": "В карточке указан адрес ул. Лесная, 1.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s14",
+          "confidenceLimit": "Fictional example; no real-world inference"
         },
         {
           "id": "b",
@@ -1028,7 +1181,10 @@
           "kind": "site_content",
           "statement": "На официальном сайте указан адрес ул. Лесная, 10.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-s14",
+          "confidenceLimit": "Fictional example; no real-world inference"
         }
       ],
       "referenceDecision": {
@@ -1077,7 +1233,10 @@
           "region": "Омск",
           "accessStatus": "public_page_checked",
           "rightsStatus": "public_paraphrase_only",
-          "origin": "public_web"
+          "origin": "public_web",
+          "publisher": "www.ritmservice.ru",
+          "captureMethod": "public_web_text_open_review_2026-10-29",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -1087,7 +1246,10 @@
           "kind": "site_content",
           "statement": "На странице цена диагностики 2000 ₽, при заказе ремонта диагностика бесплатна.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r01",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         },
         {
           "id": "b",
@@ -1095,7 +1257,10 @@
           "kind": "site_content",
           "statement": "На той же странице есть перечень работ, гарантии и порядок контакта.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r01",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         }
       ],
       "referenceDecision": {
@@ -1141,7 +1306,10 @@
           "region": "Омск",
           "accessStatus": "public_page_checked",
           "rightsStatus": "public_paraphrase_only",
-          "origin": "public_web"
+          "origin": "public_web",
+          "publisher": "www.omsk.ditell.ru",
+          "captureMethod": "public_web_text_open_review_2026-10-29",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -1151,7 +1319,10 @@
           "kind": "site_content",
           "statement": "В извлечённом содержимом страницы alt-текст изображения упоминает 27000 гаджетов.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r02",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         },
         {
           "id": "b",
@@ -1159,7 +1330,10 @@
           "kind": "site_content",
           "statement": "Рядом основной текст страницы указывает 51000 единиц; различается также часть формулировок о сроках работы.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r02",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         }
       ],
       "referenceDecision": {
@@ -1208,7 +1382,10 @@
           "region": "Омск",
           "accessStatus": "public_page_checked",
           "rightsStatus": "public_paraphrase_only",
-          "origin": "public_web"
+          "origin": "public_web",
+          "publisher": "oms.re-device.ru",
+          "captureMethod": "public_web_text_open_review_2026-10-29",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -1218,7 +1395,10 @@
           "kind": "site_content",
           "statement": "В шапке локальной страницы указан сервис и адрес в Омске.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r03",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         },
         {
           "id": "b",
@@ -1226,7 +1406,10 @@
           "kind": "site_content",
           "statement": "В одном FAQ/описании на той же странице указаны Москва и Новослободская улица.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r03",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         }
       ],
       "referenceDecision": {
@@ -1275,7 +1458,10 @@
           "region": "Омск",
           "accessStatus": "public_page_checked",
           "rightsStatus": "public_paraphrase_only",
-          "origin": "public_web"
+          "origin": "public_web",
+          "publisher": "ok-omsk.ru",
+          "captureMethod": "public_web_text_open_review_2026-10-29",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -1285,7 +1471,10 @@
           "kind": "site_content",
           "statement": "В верхней части страницы показана скидка с формулировкой «только до 28.10».",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r04",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         },
         {
           "id": "b",
@@ -1293,7 +1482,10 @@
           "kind": "site_content",
           "statement": "На той же странице указаны город Омск, контакты и прайс ремонтных услуг.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r04",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         }
       ],
       "referenceDecision": {
@@ -1341,7 +1533,10 @@
           "region": "Омск",
           "accessStatus": "public_page_checked",
           "rightsStatus": "public_paraphrase_only",
-          "origin": "public_web"
+          "origin": "public_web",
+          "publisher": "www.rss.ru",
+          "captureMethod": "public_web_text_open_review_2026-10-29",
+          "sourceScope": "same_region"
         }
       ],
       "observations": [
@@ -1351,7 +1546,10 @@
           "kind": "site_content",
           "statement": "Региональная страница содержит омский адрес и рабочие часы.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r05",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         },
         {
           "id": "b",
@@ -1359,7 +1557,10 @@
           "kind": "site_content",
           "statement": "На ней же есть телефон и ссылки на направления ремонта/статус заказа.",
           "observedAt": "2026-10-29T09:40:00Z",
-          "evidenceType": "observed"
+          "evidenceType": "observed",
+          "entityRole": "prospect",
+          "targetBusinessId": "firm-r05",
+          "confidenceLimit": "Only source text observed on 2026-10-29; business claims, visibility and customer impact unverified"
         }
       ],
       "referenceDecision": {
