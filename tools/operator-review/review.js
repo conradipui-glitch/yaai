@@ -230,6 +230,8 @@ if(embedded){
     $('review-input').disabled=false;$('save-review').disabled=false;
     $('workspace').hidden=false;$('finish').hidden=false;
     showCase();
+    $('loader-heading').textContent='1. Случаи для проверки уже загружены';
+    $('loader-subtitle').textContent='19 наблюдений · без предварительных решений YAAI';
     setStatus('Загружены 19 контрольных случаев. Предварительные решения скрыты.');
     $('blind-input').closest('.upload')?.setAttribute('hidden','');
   }catch(err){setStatus('Ошибка встроенного слепого пакета: '+err.message,true);}
