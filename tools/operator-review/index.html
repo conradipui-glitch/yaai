@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YAAI · Независимая оценка P0-B.4</title>
+<link rel="stylesheet" href="./review.css">
+<script defer src="./review.js"></script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar"><div class="brand"><span class="logo">Y</span><div><strong>YAAI <span>Research QA</span></strong><small>Независимая оценка · P0-B.4</small></div></div><span class="status">Локальный режим · без API</span></header>
+  <main>
+    <section class="intro">
+      <div><span class="eyebrow">Quality Gate · P0-B.4</span><h1>Проверка выводов без подсказок</h1><p>19 случаев. Прочитайте исходные наблюдения, оцените их самостоятельно и сохраните результат. Предварительные решения YAAI здесь не показываются.</p></div>
+      <div class="progress"><span id="progress-count">0 / 19</span><small>Проверено</small><div class="progress-track"><div id="progress-fill"></div></div></div>
+    </section>
+    <section class="notice" role="note"><strong>Важное правило:</strong> не отмечайте «проверил актуальный сайт», пока действительно не открыли его. Запись результата не доказывает сама по себе независимость рецензента. Сохранённые файлы не отправляются на сервер и не сохраняются браузером автоматически.</section>
+    <section class="loader">
+      <div class="loader-title"><strong>1. Загрузите пакет для независимой проверки</strong><span>Только blind.json, не исходный файл с ответами</span></div>
+      <div class="inputs">
+        <label class="upload"><span>Открыть слепой пакет .json</span><input id="blind-input" type="file" accept=".json,application/json"></label>
+        <label class="upload subtle"><span>Продолжить из review.json</span><input id="review-input" type="file" accept=".json,application/json" disabled></label>
+        <button id="save-review" type="button" disabled>Сохранить ответы .json</button>
+      </div>
+      <div id="load-status" class="message" role="status">Сначала создайте blind.json командой из документа REVIEW-WORKFLOW.md.</div>
+    </section>
+    <section id="workspace" class="workspace" hidden>
+      <aside class="left">
+        <h2>Сценарии</h2><p>Выберите случай для проверки. Жёлтая отметка означает сохранённое решение, а не автоматически подтверждённый вывод.</p>
+        <div id="case-list" class="case-list"></div>
+      </aside>
+      <section class="review-panel" aria-labelledby="case-title">
+        <div class="panel-top"><span id="case-index" class="eyebrow">Сценарий</span><span id="case-type" class="type"></span></div>
+        <h2 id="case-title">—</h2><p id="case-details" class="subline"></p>
+        <h3>Исходные источники</h3><div id="sources" class="sources"></div>
+        <h3>Наблюдения</h3><div id="observations" class="observations"></div>
+        <fieldset><legend>Ваше независимое решение</legend>
+          <div id="decision-choices" class="choices"></div>
+        </fieldset>
+        <div class="form-grid">
+          <label>Проверка источника
+            <select id="source-check"></select>
+          </label>
+          <label>Какое конкретное действие предлагаете? <small>Только если есть доказательства</small>
+            <input type="text" id="proposed-action" placeholder="Например: проверить и исправить ссылку">
+          </label>
+        </div>
+        <label>Почему вы сделали такой вывод?<textarea id="reason" rows="3" placeholder="Факты, логика, ограничения и ID наблюдений"></textarea></label>
+        <label>Как ещё можно объяснить наблюдение?<textarea id="alternative" rows="2" placeholder="Контраргумент или альтернативная причина"></textarea></label>
+        <label>Что нужно проверить следующим?<textarea id="next-check" rows="2" placeholder="Конкретный следующий шаг"></textarea></label>
+        <div id="case-error" class="error" role="alert" hidden></div>
+        <div class="actions"><button id="prev-case" type="button" class="secondary">← Предыдущий</button><button id="save-case" type="button">Сохранить решение</button><button id="next-case" type="button" class="secondary">Следующий →</button></div>
+      </section>
+    </section>
+    <section id="finish" class="finish" hidden>
+      <h2>Финальная декларация рецензента</h2><p>Отмечайте пункты только если они действительно соответствуют вашей работе. Отсутствие декларации не мешает сохранить черновик, но блокирует независимую приёмку в CLI.</p>
+      <label>Псевдоним рецензента<input id="reviewer-alias" type="text" autocomplete="off" placeholder="Без личных данных"></label>
+      <label class="tick"><input id="human" type="checkbox"> Я человек и самостоятельно проверил(а) материалы</label>
+      <label class="tick"><input id="independent" type="checkbox"> Я не составлял(а) исходные предварительные оценки</label>
+      <label class="tick"><input id="blind-confirm" type="checkbox"> Я не видел(а) предварительных ответов до фиксации своих</label>
+      <div class="finish-actions"><button id="export-review" type="button">Экспортировать review.json</button><span id="finish-status" role="status"></span></div>
+      <p class="hint">После экспорта запустите <code>npm run playbook:operator:blind -- verify --blind ПУТЬ/blind.json --review ПУТЬ/review.json</code>. Команда сравнения доступна только при полной принятой разметке. Непроверенные и спорные случаи не маскируются.</p>
+    </section>
+  </main>
+  <footer>YAAI · Независимая методологическая проверка · Не является аудитом бизнеса или автоматическим решением о клиенте.</footer>
+</div>
+</body>
+</html>

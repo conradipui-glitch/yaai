@@ -78,6 +78,10 @@ compared, no automatic overwriting of an existing review is allowed.
 The CLI makes the human review process reproducible **without** contacting
 any outside company or incurring API cost.
 
+- [Friendly local reviewer interface](../../tools/operator-review/index.html) —
+  step-by-step offline UI that imports a blind package, displays sources,
+  permits independent entry, exports/imports private review JSON;
+  no API requests and no model-supplied candidate answers.
 - [Offline reviewer procedure](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/REVIEW-WORKFLOW.md)
   explains private export, independent labelling, data source dates and
   post-review comparison.
@@ -87,8 +91,10 @@ any outside company or incurring API cost.
 - CI output explicitly states `Human labels: NOT COLLECTED;` therefore
   no claim of final P0-B.4 acceptance.
 
-**Boundary:** source verification and independent human decisions
-remain **NOT RUN**. The new CLI cannot prove its reviewer is truly
+**Boundary:** independent human decisions, real browser visual QA and
+source-by-source final adjudication remain **NOT RUN**. The source recheck
+[found a material discrepancy in case r03](P0-B.4-source-recheck-events.json)
+and did not rewrite the historical original. The new CLI cannot prove its reviewer is truly
 a human; attestation is self-reported. The original candidate labels
 remain unchanged and P0-B.5 stays blocked.
 
@@ -102,7 +108,7 @@ remain unchanged and P0-B.5 stays blocked.
 | T3 — cross-tool consistency | PASS as contract-only; live runtime NOT RUN/N/A | Maintains reference to Playbook v0.1.0 and same project-scoped source/observation semantics; full Prospect→Audit→MCP→Studio pipeline not yet implemented |
 | T4 — reproducibility | PASS for case IDs/metadata; true re-fetch NOT RUN | Validator reprocesses identical fixtures; does not collect websites in CI |
 | T5 — security/cost | PASS for current offline scope | Fixture-only; no paid API; no mailing, publication, admin writes or external source fetch in tests |
-| T6 — live UI | N/A | No UI built in this iteration |
+| T6 — live UI | **Partial PASS:** [Node DOM smoke CI](https://github.com/conradipui-glitch/yaai/actions/runs/40871803247); **rendered browser QA NOT RUN** | Local HTML reviewer now exists. Tested blind import, save/export/reopen and keyboard-reachable native controls in mock DOM, but genuine browser visual/accessibility verification remains pending |
 | T7 — methodological quality | **BLOCK / NOT RUN** | No independent human has read and signed blind reference decisions. Proposed gold statuses are still candidates. Cannot legitimately calculate accuracy or move to P0-B.5 comparison. |
 
 **Acceptance criterion still outstanding:** independent reviewer supplies
