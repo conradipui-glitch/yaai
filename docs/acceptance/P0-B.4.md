@@ -64,8 +64,8 @@ verification event; past observations stay historical.
 | Gate | Status | Evidence / blocker |
 | --- | --- | --- |
 | T0 — scope and constraints | PASS | 19 cases (10–20), prescribed sectors, three decision types, explicit source provenance and review requirement |
-| T1 — schema / unit / negative tests | **Check CI run** | Offline validation of source/observation IDs, uncertainty, URLs, attribution, dates, case isolation and mutations; **does not prove factual correctness** |
-| T2 — backward compatibility | **Check CI run** | No code changes to other business paths; `npm run check` includes old P0-B.3 tests and prior YAAI regression tests |
+| T1 — schema / unit / negative tests | **PASS** — [CI run](https://github.com/conradipui-glitch/yaai/actions/runs/40852543430) | Offline validation of source/observation IDs, uncertainty, URLs, attribution, dates, case isolation and mutations; **does not prove factual correctness** |
+| T2 — backward compatibility | **PASS** — [CI run](https://github.com/conradipui-glitch/yaai/actions/runs/40852543430) | No code changes to other business paths; `npm run check` includes old P0-B.3 tests and prior YAAI regression tests |
 | T3 — cross-tool consistency | PASS as contract-only; live runtime NOT RUN/N/A | Maintains reference to Playbook v0.1.0 and same project-scoped source/observation semantics; full Prospect→Audit→MCP→Studio pipeline not yet implemented |
 | T4 — reproducibility | PASS for case IDs/metadata; true re-fetch NOT RUN | Validator reprocesses identical fixtures; does not collect websites in CI |
 | T5 — security/cost | PASS for current offline scope | Fixture-only; no paid API; no mailing, publication, admin writes or external source fetch in tests |
@@ -84,7 +84,7 @@ approval record for this, not a boolean changed without proof.
 
 ## Decision
 
-- **Candidate set / QA harness:** prepared, subject to CI.
+- **Candidate set / QA harness:** prepared; CI verified 19 cases, 31 source records, 36 observations, 10 negative mutations. `npm run check` and encoding selftest PASS ([run 40852543430](https://github.com/conradipui-glitch/yaai/actions/runs/40852543430)).
 - **Independent gold labels:** NOT REVIEWED.
 - **P0-B.4:** NOT ACCEPTED, awaiting independent manual review.
 - **P0-B.5:** NOT STARTED.
