@@ -12,8 +12,11 @@ const base=new URL('../playbooks/operator-local-smb-diagnostic-v0/fixtures/p0-b4
 const raw=await fs.readFile(base,'utf8'),dataset=JSON.parse(raw);
 const blind=makeBlindPack(dataset,raw);
 assert.equal(blind.cases.length,19);
-assert.ok(!JSON.stringify(blind).includes('"referenceDecision"'));
-assert.ok(!JSON.stringify(blind).includes('"review"'));
+const containsForbiddenKey=value=>value && typeof value==='object' && (
+  Object.keys(value).some(k=>k==='referenceDecision'||k==='review') ||
+  Object.values(value).some(containsForbiddenKey)
+);
+assert.ok(!containsForbiddenKey(blind),'Candidate labels/review metadata leaked');
 assert.ok(!JSON.stringify(blind).includes('model_authored_case_analysis'));
 const template=makeReviewTemplate(blind);
 const empty=inspectReview(blind,template);
