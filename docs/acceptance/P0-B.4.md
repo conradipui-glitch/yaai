@@ -16,6 +16,14 @@ the versioned Operator Playbook on the same adjudicated samples).
   alternative explanations, next check, prohibited claims, no outbound.
 - [Blind reviewer worksheet](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/P0-B.4-blind-review.md):
   deliberately hides expected statuses until external review is recorded.
+- [Practical blind-review workflow](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/REVIEW-WORKFLOW.md)
+  and offline `scripts/operator-blind-review.mjs`: export **only** source observations,
+  generate private review template, validate all entries and allow comparison
+  only after full self-attested independent human review. A CLI flag cannot prove
+  a real human took part.
+- [Dated recheck of five public pages](P0-B.4-source-recheck.md):
+  links were revisited through public **text** pages on 2026-10-29; this is
+  not independent verification and not a browser UX test.
 - [Offline QA script](../../scripts/operator-golden-set-selftest.mjs):
   validates IDs, source metadata, observation attribution, timestamps,
   rights, region flags, linked evidence, reason codes, fail-closed
@@ -58,6 +66,31 @@ Public content may be updated or have layout-dependent text.
 Before operational use a reviewer must re-open URL, verify dates,
 context and page visibility. A source missing later gets a new
 verification event; past observations stay historical.
+
+## Blind-review gate implementation (2026-10-29)
+
+[GitHub Actions PR run #40864722289](https://github.com/conradipui-glitch/yaai/actions/runs/40864722289)
+confirmed `npm run check` and `encoding-selftest` both PASS after fixing an
+over-broad label-leak check. The new blind reviewer suite passed for
+**19 cases**; negative tests ensure no preliminary solution key leaks,
+wrong/cross-case evidence is rejected, incomplete reviews cannot be
+compared, no automatic overwriting of an existing review is allowed.
+The CLI makes the human review process reproducible **without** contacting
+any outside company or incurring API cost.
+
+- [Offline reviewer procedure](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/REVIEW-WORKFLOW.md)
+  explains private export, independent labelling, data source dates and
+  post-review comparison.
+- [Five-source recheck](P0-B.4-source-recheck.md)
+  was done using public text views, **not** browser UI or independent
+  human adjudication.
+- CI output explicitly states `Human labels: NOT COLLECTED;` therefore
+  no claim of final P0-B.4 acceptance.
+
+**Boundary:** source verification and independent human decisions
+remain **NOT RUN**. The new CLI cannot prove its reviewer is truly
+a human; attestation is self-reported. The original candidate labels
+remain unchanged and P0-B.5 stays blocked.
 
 ## Quality Gates T0–T7
 
