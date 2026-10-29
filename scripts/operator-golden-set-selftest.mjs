@@ -27,7 +27,10 @@ function validateScenario(c) {
     ready(src.id && !sourceMap.has(src.id),'Duplicate source ID '+c.id+'/'+src.id);
     ready(validSourceKinds.has(src.kind),'Unknown source kind '+c.id+'/'+src.kind);
     ready(Number.isFinite(Date.parse(src.observedAt)),'Invalid date '+c.id+'/'+src.id);
-    ready(src.accessStatus && src.summary && src.rightsStatus,'Missing source context '+c.id+'/'+src.id);
+    ready(src.accessStatus && src.summary && src.rightsStatus && src.publisher && src.captureMethod,
+      'Missing source context/publisher '+c.id+'/'+src.id);
+    ready(src.sourceScope===(src.region===c.region?'same_region':'different_region_requires_review'),
+      'Source scope does not match declared region '+c.id+'/'+src.id);
     ready(src.origin === (c.origin==='synthetic'?'synthetic':'public_web'),
       'Origin flag mismatch '+c.id+'/'+src.id);
     if(src.origin==='public_web')ready(src.rightsStatus==='public_paraphrase_only',
@@ -46,7 +49,12 @@ function validateScenario(c) {
     ready(ob.id&&!observations.has(ob.id),'Duplicate observation ID '+c.id);
     ready(sourceMap.has(ob.sourceId),'Unbound source '+c.id+'/'+ob.id);
     ready(ob.evidenceType==='observed','Claim masquerades as observed evidence '+c.id+'/'+ob.id);
-    ready(ob.statement.length>=12,'Missing observation context '+c.id+'/'+ob.id);
+    ready(ob.statement.length>=12 && ob.confidenceLimit?.length>12,
+      'Missing observation context/uncertainty '+c.id+'/'+ob.id);
+    ready(['prospect','competitor','market'].includes(ob.entityRole),
+      'Missing observation attribution '+c.id+'/'+ob.id);
+    ready(ob.entityRole==='prospect' ? ob.targetBusinessId===c.prospect.id : ob.targetBusinessId===null,
+      'Observation attributed to wrong business '+c.id+'/'+ob.id);
     ready(Number.isFinite(Date.parse(ob.observedAt)),'Invalid observation date '+c.id+'/'+ob.id);
     const src=sourceMap.get(ob.sourceId);
     ready(ob.observedAt===src.observedAt,'Observation date/source snapshot drift '+c.id+'/'+ob.id);
@@ -66,6 +74,8 @@ function validateScenario(c) {
     'No contradictions or guardrails '+c.id);
   if(g.status==='propose_draft'){
     ready(g.evidenceIds.length>=2,'Positive candidate needs linked corroborating observations');
+    ready(g.evidenceIds.every(id=>observations.get(id).entityRole==='prospect'),
+      'Cannot base a prospect-specific offer on another business/market observation');
     ready(g.proposal?.length>12,'Positive candidate lacks a proposal');
     ready(c.origin==='synthetic','Live-company recommendation needs more than web excerpts + no review');
   } else {
@@ -118,10 +128,19 @@ assert.throws(()=>validateScenario(drift),/date\/source snapshot drift/);
 const allegedHuman=structuredClone(set.cases[0]);
 allegedHuman.review.independentHumanReview='passed';
 assert.throws(()=>validateScenario(allegedHuman),/independent human review/);
+const badOwner=structuredClone(set.cases[0]);
+badOwner.observations[0].targetBusinessId='firm-another-case';
+assert.throws(()=>validateScenario(badOwner),/attributed to wrong business/);
+const missingLimit=structuredClone(set.cases[0]);
+delete missingLimit.observations[0].confidenceLimit;
+assert.throws(()=>validateScenario(missingLimit),/Missing observation context/uncertainty/);
+const wrongRegion=structuredClone(casesMap.get('s09'));
+wrongRegion.sources[0].sourceScope='same_region';
+assert.throws(()=>validateScenario(wrongRegion),/Source scope/);
 const inventedOffer=structuredClone(casesMap.get('s09'));
 inventedOffer.referenceDecision.proposal='Срочно переписать сайт';
 assert.throws(()=>validateScenario(inventedOffer),/Do not create an offer/);
 const promoted=false; // No independent human adjudication exists in this dataset.
 ready(promoted===false,'Candidate set cannot be marked accepted');
 console.log('P0-B.4 candidate dataset structural and cross-contract checks: PASS');
-console.log(JSON.stringify({count:set.cases.length,origins,decisions:counts,sources:sourceTotal,observations:obsTotal,negativeMutationTests:7,independentHumanReview:'NOT RUN',acceptance:'PENDING_REVIEW',paidCalls:0,siteWrites:0,contactWrites:0},null,2));
+console.log(JSON.stringify({count:set.cases.length,origins,decisions:counts,sources:sourceTotal,observations:obsTotal,negativeMutationTests:10,independentHumanReview:'NOT RUN',acceptance:'PENDING_REVIEW',paidCalls:0,siteWrites:0,contactWrites:0},null,2));
