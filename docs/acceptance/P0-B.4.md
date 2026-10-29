@@ -16,6 +16,14 @@ the versioned Operator Playbook on the same adjudicated samples).
   alternative explanations, next check, prohibited claims, no outbound.
 - [Blind reviewer worksheet](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/P0-B.4-blind-review.md):
   deliberately hides expected statuses until external review is recorded.
+- [Practical blind-review workflow](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/REVIEW-WORKFLOW.md)
+  and offline `scripts/operator-blind-review.mjs`: export **only** source observations,
+  generate private review template, validate all entries and allow comparison
+  only after full self-attested independent human review. A CLI flag cannot prove
+  a real human took part.
+- [Dated recheck of five public pages](P0-B.4-source-recheck.md):
+  links were revisited through public **text** pages on 2026-10-29; this is
+  not independent verification and not a browser UX test.
 - [Offline QA script](../../scripts/operator-golden-set-selftest.mjs):
   validates IDs, source metadata, observation attribution, timestamps,
   rights, region flags, linked evidence, reason codes, fail-closed
