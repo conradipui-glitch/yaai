@@ -45,7 +45,10 @@ changed, but does **not** alone establish successful user or end-to-end testing.
 No move to the next step when an applicable test is missing or failed.
 The [YAAI Iteration Tracker](yaai-iteration-tracker.md) is the single
 source of truth for **the current named substep, next deliverable, evidence
-of completion and transition**. Current stage is **P0-B**: **P0-B.3 accepted as a versioned methodology**
+of completion and transition**. Current stage is **P0-B**: **P0-B.4 candidate set constructed and automated
+QA passed; [independent human adjudication remains pending](acceptance/P0-B.4.md)**.
+Do not move to P0-B.5 or P0-C before the relevant gates pass.
+**P0-B.3 accepted as a versioned methodology**
 ([QA evidence](acceptance/P0-B.3.md)); next iteration is **P0-B.4 — independently
 labelled scenarios and expected decisions**. The entire P0-B stage is
 not yet accepted; actual prospect research/Studio/MCP remain later steps.
