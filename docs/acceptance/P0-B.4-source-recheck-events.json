@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "source": "yaai-p0-b4-source-recheck",
+  "iteration": "P0-B.4",
+  "recheckDate": "2026-10-29",
+  "method": "public_web_text_review",
+  "visualBrowserTested": false,
+  "independentHumanAdjudication": false,
+  "message": "Supplemental source-context reconciliation. Historical preliminary candidate snapshots remain unchanged. None of these findings establishes customer losses or a website defect.",
+  "records": [
+    {
+      "id": "r01",
+      "url": "https://www.ritmservice.ru/direction/remont-i-diagnostika-pk/",
+      "status": "text_confirmed_no_defect_inferred",
+      "textSupport": "Standalone diagnosis 2000 RUB; free when repair is ordered.",
+      "recommendedReviewerAction": "Verify terms, avoid interpreting differentiated terms as price conflict",
+      "referenceCandidateChanged": false
+    },
+    {
+      "id": "r02",
+      "url": "https://www.omsk.ditell.ru/",
+      "status": "text_context_confirmed_not_visual",
+      "textSupport": "Alt image description mentions 27000 devices; surrounding textual body mentions 51000 units.",
+      "recommendedReviewerAction": "Inspect visual render/DOM and real current context before claiming inconsistent customer-visible metrics",
+      "referenceCandidateChanged": false
+    },
+    {
+      "id": "r03",
+      "url": "https://oms.re-device.ru/",
+      "status": "material_candidate_observation_unconfirmed",
+      "textSupport": "Omsk contact address is visible; Moscow appears in city-navigation/network FAQ. Text search did not substantiate Novoslobodskaya address in currently retrieved page.",
+      "recommendedReviewerAction": "Do not infer erroneous Moscow logistics from city selector; re-open and inspect source sections; if absence remains document unsupported preliminary observation",
+      "referenceCandidateChanged": false
+    },
+    {
+      "id": "r04",
+      "url": "https://ok-omsk.ru/remont-kompyuterov/",
+      "status": "text_confirmed_conditions_unclear",
+      "textSupport": "Promotional banner includes 'только до 28.10' without explicit year in retrieved content.",
+      "recommendedReviewerAction": "Verify year, applicable offer and display before treating as expired or misleading",
+      "referenceCandidateChanged": false
+    },
+    {
+      "id": "r05",
+      "url": "https://www.rss.ru/regions/omsk",
+      "status": "text_confirmed_no_defect_inferred",
+      "textSupport": "Page includes Omsk service address, working hours and contacts.",
+      "recommendedReviewerAction": "Keep insufficiency decision unless further grounded issue established",
+      "referenceCandidateChanged": false
+    }
+  ],
+  "reviewGate": "HUMAN_BLIND_REVIEW_PENDING"
+}
