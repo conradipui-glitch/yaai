@@ -219,6 +219,23 @@ $('prev-case').addEventListener('click',()=>go(state.activeIndex-1));
 $('next-case').addEventListener('click',()=>go(state.activeIndex+1));
 $('export-review').addEventListener('click',exportFile);
 $('save-review').addEventListener('click',exportFile);
+// A self-contained build embeds the *blind* data only, after validation at build
+// time. Normal index.html retains the manual file-upload flow.
+const embedded=document.getElementById('embedded-blind-pack');
+if(embedded){
+  try{
+    const blind=JSON.parse(embedded.textContent);
+    assertBlind(blind);
+    state.blind=blind;state.saved.clear();state.drafts.clear();state.activeIndex=0;
+    $('review-input').disabled=false;$('save-review').disabled=false;
+    $('workspace').hidden=false;$('finish').hidden=false;
+    showCase();
+    $('loader-heading').textContent='1. Случаи для проверки уже загружены';
+    $('loader-subtitle').textContent='19 наблюдений · без предварительных решений YAAI';
+    setStatus('Загружены 19 контрольных случаев. Предварительные решения скрыты.');
+    $('blind-input').closest('.upload')?.setAttribute('hidden','');
+  }catch(err){setStatus('Ошибка встроенного слепого пакета: '+err.message,true);}
+}
 window.addEventListener('beforeunload',event=>{
   if(state.blind&&(state.saved.size||state.drafts.size)){
     event.preventDefault();event.returnValue='';

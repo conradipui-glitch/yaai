@@ -1,0 +1,49 @@
+name: P0-B.4 real browser reviewer QA
+
+on:
+  pull_request:
+    paths:
+      - 'tools/operator-review/**'
+      - 'scripts/operator-review-browser-selftest.mjs'
+      - 'scripts/build-operator-review-standalone.mjs'
+      - 'lib/operator-blind-review.mjs'
+      - 'playbooks/operator-local-smb-diagnostic-v0/fixtures/p0-b4-reference-candidates.json'
+      - 'package.json'
+      - '.github/workflows/p0b4-reviewer-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-reviewer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install temporary Playwright browser driver
+        run: npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1
+      - name: Build standalone blind reviewer (no candidate answers)
+        run: npm run playbook:operator:bundle -- dist/P0-B.4-offline-review.html
+      - name: Verify actual Chromium desktop and mobile flows
+        run: |
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || true)"
+          if [ -z "$CHROME_PATH" ]; then
+            echo "Chromium/Chrome not installed on runner; cannot claim browser QA." >&2
+            exit 1
+          fi
+          export CHROME_PATH
+          node scripts/operator-review-browser-selftest.mjs dist/P0-B.4-offline-review.html dist/reviewer-browser-qa
+      - name: Publish downloadable single-file reviewer and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: P0-B.4-offline-reviewer-and-browser-QA
+          path: |
+            dist/P0-B.4-offline-review.html
+            dist/reviewer-browser-qa/*.png
+          if-no-files-found: warn
+          retention-days: 30

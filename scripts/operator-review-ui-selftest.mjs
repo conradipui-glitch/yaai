@@ -64,7 +64,7 @@ class Node {
 const ids=new Map([...html.matchAll(/id="([^"]+)"/g)].map(x=>[x[1],new Node()]));
 const downloaded=[],blobs=new Map();let nextUrl=0;
 const document={
- getElementById:id=>{assert.ok(ids.has(id),'No HTML element '+id);return ids.get(id)},
+ getElementById:id=>ids.get(id)||null,
  createElement:tag=>new Node(tag),
  body:new Node('body')
 };
