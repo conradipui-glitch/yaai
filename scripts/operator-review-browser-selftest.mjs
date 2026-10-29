@@ -65,7 +65,7 @@ try{
   await page.locator('#review-input').setInputFiles(savedPath);
   assert.equal(await page.locator('#progress-count').innerText(),'1 / 19');
   await page.locator('#case-list button').nth(18).click();
-  assert.match(await page.locator('#case-index').innerText(),/19 из 19/);
+  assert.match(await page.locator('#case-index').innerText(),/19 из 19/i);
   assert.equal(await page.locator('#sources a').count(),1);
   const publicURL=await page.locator('#sources a').first().getAttribute('href');
   assert.match(publicURL,/^https:/);
