@@ -1,0 +1,1388 @@
+{
+  "schemaVersion": 1,
+  "source": "yaai-p0-b4-reference-candidate-set",
+  "playbook": {
+    "id": "operator-local-smb-diagnostic",
+    "version": "0.1.0"
+  },
+  "iteration": "P0-B.4",
+  "createdAt": "2026-10-29T09:40:00Z",
+  "description": "19 candidate benchmark cases: 14 synthetic, 5 public-web paraphrases",
+  "sourcePolicy": "Synthetic scenarios are fictional. Public cases paraphrase captured pages for fact/absence/rebuttal testing; URLs are not a license to scrape/reuse personal data.",
+  "humanGoldStatus": "unverified_pending_independent_human_review",
+  "reviewMethod": "Model-authored preliminary expected decisions, never 'human validated'; no model score/ROI claim",
+  "cases": [
+    {
+      "id": "s01",
+      "origin": "synthetic",
+      "caseId": "p0b4-s01",
+      "niche": "Ремонт бытовой техники",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s01",
+        "name": "Мастерская А (учебная)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "site",
+          "kind": "public_site",
+          "url": "https://fixture.example/s01/",
+          "summary": "Архив главной со ссылкой Записаться",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "http",
+          "kind": "site_http",
+          "url": "https://fixture.example/s01/book",
+          "summary": "Архив response HTTP 404",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "site",
+          "kind": "site_content",
+          "statement": "На официальной странице есть ссылка на запись.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "http",
+          "kind": "site_http",
+          "statement": "Целевой адрес ссылки на запись зафиксирован как 404.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "propose_draft",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Observed reproducible broken booking URL",
+        "proposal": "Проверить и восстановить переход к записи",
+        "recommendedNextCheck": "Проверить страницу в настоящем браузере и повторить результат",
+        "alternativeExplanations": [
+          "Возможно, другой канал записи работает, поэтому число потерянных клиентов неизвестно"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Конкретный дефект перехода допустим для узкого предложения; статистика дохода недоступна.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s02",
+      "origin": "synthetic",
+      "caseId": "p0b4-s02",
+      "niche": "Магазин игрушек",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s02",
+        "name": "Магазин Б (учебный)",
+        "businessType": "local_retail"
+      },
+      "sources": [
+        {
+          "id": "mobile",
+          "kind": "public_site",
+          "url": "https://fixture.example/s02/mobile",
+          "summary": "Снимок мобильной страницы",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "desktop",
+          "kind": "public_site",
+          "url": "https://fixture.example/s02/desktop",
+          "summary": "Снимок десктопной версии",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "m",
+          "sourceId": "mobile",
+          "kind": "site_content",
+          "statement": "В сохранённой мобильной версии отсутствует ссылка на контакты.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "d",
+          "sourceId": "desktop",
+          "kind": "site_content",
+          "statement": "Десктопная версия имеет явный контактный блок.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "m",
+          "d"
+        ],
+        "reason": "Apparent mobile navigation gap needs live viewport verification",
+        "proposal": null,
+        "recommendedNextCheck": "Повторить на нескольких разрешениях и проверить меню; отсутствие на скриншоте не доказывает отсутствие на сайте",
+        "alternativeExplanations": [
+          "Мобильный контакт может быть в скрываемом меню или фиксированной кнопке"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Не диагностировать дефект UX из одного скриншота.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s03",
+      "origin": "synthetic",
+      "caseId": "p0b4-s03",
+      "niche": "Производство деревянных игрушек",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s03",
+        "name": "Фабрика В (учебная)",
+        "businessType": "local_manufacturer"
+      },
+      "sources": [
+        {
+          "id": "products",
+          "kind": "public_site",
+          "url": "https://fixture.example/s03/products",
+          "summary": "Публичный каталог",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "competition",
+          "kind": "public_site",
+          "url": "https://fixture.example/s03/competitor",
+          "summary": "Каталог соперника",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "products",
+          "kind": "site_content",
+          "statement": "В каталоге есть деревянные игрушки и цены.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "competition",
+          "kind": "site_content",
+          "statement": "Конкурент отдельно описывает гарантию, но о гарантийных условиях фабрики данных нет.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "Competitor feature alone does not establish missing own terms",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить соглашение, карточки и ответы предприятия, затем решать о рекомендации",
+        "alternativeExplanations": [
+          "Условия гарантии могут быть оформлены в другом разделе или документе"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Не утверждать отсутствие гарантии, если её не увидели на одной странице.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s04",
+      "origin": "synthetic",
+      "caseId": "p0b4-s04",
+      "niche": "Ремонт ноутбуков",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s04",
+        "name": "Ремонт Г (учебный)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "serp",
+          "kind": "serp_snippet",
+          "url": "https://fixture.example/s04/serp",
+          "summary": "Сохранённая ограниченная выдача",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "official",
+          "kind": "public_site",
+          "url": "https://fixture.example/s04/official",
+          "summary": "Верифицированная официальная страница",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "serp",
+          "kind": "serp_snippet",
+          "statement": "В исследованном TOP-10 сайта предприятия не обнаружено.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "official",
+          "kind": "site_content",
+          "statement": "Официальная страница компании доступна и описывает услуги.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "SERP nonappearance conflicts with inferred no-website narrative",
+        "proposal": null,
+        "recommendedNextCheck": "Сопоставить домен, регион и дату, переформулировать как ограниченную видимость",
+        "alternativeExplanations": [
+          "Сайт может быть новым, не в TOP-10, запрос нерелевантен"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Нельзя продавать разработку сайта как отсутствующего на основании ТОП-10.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s05",
+      "origin": "synthetic",
+      "caseId": "p0b4-s05",
+      "niche": "Магазин бытовых товаров",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s05",
+        "name": "Магазин Д (учебный)",
+        "businessType": "local_retail"
+      },
+      "sources": [
+        {
+          "id": "old",
+          "kind": "public_site",
+          "url": "https://fixture.example/s05/archive-2024",
+          "summary": "Цены 2024",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "new",
+          "kind": "public_site",
+          "url": "https://fixture.example/s05/current-2026",
+          "summary": "Новая публичная цена 2026",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "old",
+          "kind": "site_content",
+          "statement": "В старой версии товара цена 1500 ₽.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed",
+          "eventDate": "2024-05-01"
+        },
+        {
+          "id": "b",
+          "sourceId": "new",
+          "kind": "site_content",
+          "statement": "В текущей версии товара цена 1800 ₽.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed",
+          "eventDate": "2026-10-29"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "Price change across dated revisions is not necessarily an error",
+        "proposal": null,
+        "recommendedNextCheck": "Уточнить SKU, условия и актуальность перед рекомендациями",
+        "alternativeExplanations": [
+          "Нормальное изменение прайса или комплектации"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Риск: ложная жалоба на несогласованность при нормальной смене цен.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s06",
+      "origin": "synthetic",
+      "caseId": "p0b4-s06",
+      "niche": "Ремонт телефонов",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s06",
+        "name": "Сервис Е (учебный)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "old",
+          "kind": "site_http",
+          "url": "https://fixture.example/s06/old",
+          "summary": "Старый архивный 404",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "new",
+          "kind": "site_http",
+          "url": "https://fixture.example/s06/new",
+          "summary": "Повторная проверка 200",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "old",
+          "kind": "site_http",
+          "statement": "Ранее URL заказа отвечал 404.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed",
+          "eventDate": "2026-09-01"
+        },
+        {
+          "id": "b",
+          "sourceId": "new",
+          "kind": "site_http",
+          "statement": "После исправления URL заказа отвечает 200.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed",
+          "eventDate": "2026-10-25"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Outdated defect may already be repaired",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить текущий клик пользователя и не предлагать исправлять уже устранённое",
+        "alternativeExplanations": [
+          "Успешный HTTP 200 не всегда означает работающий UX"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Критический случай обновления данных: старое наблюдение не удаляем.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s07",
+      "origin": "synthetic",
+      "caseId": "p0b4-s07",
+      "niche": "Ремонт стиральных машин",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s07",
+        "name": "Сервис Ж (учебный)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "review",
+          "kind": "public_review",
+          "url": "https://fixture.example/s07/review",
+          "summary": "Архив отзыва",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "response",
+          "kind": "public_response",
+          "url": "https://fixture.example/s07/reply",
+          "summary": "Ответ компании в той же ветке",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "review",
+          "kind": "public_review",
+          "statement": "Автор отзыва утверждает, что ремонт занял неделю.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "response",
+          "kind": "public_response",
+          "statement": "Компания отвечает, что согласованный срок был семь рабочих дней.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Customer allegation and company rebuttal require context",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить опубликованный контекст, не объявлять доказанный срыв срока",
+        "alternativeExplanations": [
+          "Недопонимание между календарными и рабочими днями",
+          "Ответ компании тоже требует проверки"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Подозрения в репутационном ущербе нельзя делать без верификации.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s08",
+      "origin": "synthetic",
+      "caseId": "p0b4-s08",
+      "niche": "Продажа инструментов",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s08",
+        "name": "Магазин З (учебный)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "reviews",
+          "kind": "public_review",
+          "url": "https://fixture.example/s08/reviews",
+          "summary": "Набор коротких похожих отзывов",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "reviews",
+          "kind": "public_review",
+          "statement": "Несколько очень похожих отзывов опубликованы в один день.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a"
+        ],
+        "reason": "Cluster alone is not proof of fraudulent reviews",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить распределение по времени, площадке, возражения и обычную активность",
+        "alternativeExplanations": [
+          "Покупатели реагировали на одну акцию или событие"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Не обвинять фирму в накрутке на основании одного паттерна.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s09",
+      "origin": "synthetic",
+      "caseId": "p0b4-s09",
+      "niche": "Ремонт компьютеров",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s09",
+        "name": "Мастерская И (учебная)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "ws",
+          "kind": "wordstat_phrase",
+          "url": null,
+          "summary": "Частотность общего запроса из Москвы",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Москва",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "ws",
+          "kind": "wordstat_phrase",
+          "statement": "Сохранена поисковая фраза «ремонт ПК» с московским регионом, без связи с мастерской.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed",
+          "frequency": 100,
+          "frequencyUnit": "phrases/month"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "Query volume is neither candidate-specific nor region-compatible",
+        "proposal": null,
+        "recommendedNextCheck": "Найти сведения о мастерской и при необходимости сравнимый Омск Wordstat",
+        "alternativeExplanations": [
+          "Частотность относится к иной географии и не отражает клиентов компании"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Проверка на перенос спроса между городами и подмену понятия покупателя.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s10",
+      "origin": "synthetic",
+      "caseId": "p0b4-s10",
+      "niche": "Магазин бытовых товаров",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s10",
+        "name": "Розница К (учебная)",
+        "businessType": "local_retail"
+      },
+      "sources": [
+        {
+          "id": "own",
+          "kind": "public_site",
+          "url": "https://fixture.example/s10/",
+          "summary": "Наблюдение магазина",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "market",
+          "kind": "serp_snippet",
+          "url": "https://fixture.example/s10/serp",
+          "summary": "Маркетплейс в выдаче",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "own",
+          "kind": "site_content",
+          "statement": "У магазина есть сайт и информация о покупке.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "market",
+          "kind": "serp_snippet",
+          "statement": "В выдаче рядом присутствует карточка маркетплейса, не локального самостоятельного конкурента.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "Marketplace is not by itself a comparable direct operator",
+        "proposal": null,
+        "recommendedNextCheck": "Найти сопоставимые магазины по ассортименту, территории и ценовому диапазону",
+        "alternativeExplanations": [
+          "Маркетплейс может конкурировать за внимание, но не совпадает с бизнес-моделью"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Кросс-проверка семантики конкурента.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s11",
+      "origin": "synthetic",
+      "caseId": "p0b4-s11",
+      "niche": "Ремонт промышленного оборудования",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s11",
+        "name": "Сервис Л (учебный)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "site",
+          "kind": "public_site",
+          "url": "https://fixture.example/s11/",
+          "summary": "B2B сайт с email и телефоном",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "site",
+          "kind": "site_content",
+          "statement": "На B2B-сайте есть корпоративный email и телефон, онлайн-кнопки заказа нет.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "No order form is not necessarily a business flaw",
+        "proposal": null,
+        "recommendedNextCheck": "Уточнить способ сделки и реальные каналы клиентов до проектирования формы",
+        "alternativeExplanations": [
+          "Для B2B сделок контакт по телефону может быть оптимальным"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Не универсализировать конверсионные советы B2C.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s12",
+      "origin": "synthetic",
+      "caseId": "p0b4-s12",
+      "niche": "Ремонт компьютеров",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s12",
+        "name": "Мастерская М (учебная)",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "landing",
+          "kind": "public_site",
+          "url": "https://fixture.example/s12/",
+          "summary": "Действующая кнопка адреса",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "link",
+          "kind": "site_http",
+          "url": "https://fixture.example/s12/contact",
+          "summary": "404 выбранной кнопки",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "tel",
+          "kind": "public_site",
+          "url": "https://fixture.example/s12/phone",
+          "summary": "Рабочий номер телефона",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "landing",
+          "kind": "site_content",
+          "statement": "На странице написано «Контакты» со ссылкой на внутреннюю страницу.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "link",
+          "kind": "site_http",
+          "statement": "Ссылка «Контакты» возвращает 404.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "c",
+          "sourceId": "tel",
+          "kind": "site_content",
+          "statement": "Телефон указан отдельно и доступен для прочтения.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "propose_draft",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Specific broken internal navigation despite alternate channel",
+        "proposal": "Починить ссылку на контакты после повторной проверки",
+        "recommendedNextCheck": "Открыть страницу в браузере и повторно проверить статус",
+        "alternativeExplanations": [
+          "Телефон работает, поэтому непроверено, что пользователи не связываются"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Узкий оффер без оценки потерянных продаж.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s13",
+      "origin": "synthetic",
+      "caseId": "p0b4-s13",
+      "niche": "Производство упаковки",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s13",
+        "name": "Производство Н (учебное)",
+        "businessType": "local_manufacturer"
+      },
+      "sources": [
+        {
+          "id": "offer",
+          "kind": "public_site",
+          "url": "https://fixture.example/s13/products",
+          "summary": "Публичный каталог",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "external",
+          "kind": "serp_snippet",
+          "url": "https://fixture.example/s13/news",
+          "summary": "Поисковый сниппет новостей",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "offer",
+          "kind": "site_content",
+          "statement": "Производство предлагает упаковку из дерева.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "external",
+          "kind": "serp_snippet",
+          "statement": "Новость утверждает, что цены сырья в регионе вырастут на 30%, первоисточник не найден.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "b"
+        ],
+        "reason": "Unverified future raw-material shock in snippet",
+        "proposal": null,
+        "recommendedNextCheck": "Найти первоисточник, дату вступления и реальные закупочные цены",
+        "alternativeExplanations": [
+          "Новость может быть старой или обобщать другой материал"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Не рекомендовать перестройку производства на основании непроверенного заголовка.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "s14",
+      "origin": "synthetic",
+      "caseId": "p0b4-s14",
+      "niche": "Магазин запчастей",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-s14",
+        "name": "Магазин О (учебный)",
+        "businessType": "local_retail"
+      },
+      "sources": [
+        {
+          "id": "a",
+          "kind": "business_listing",
+          "url": "https://fixture.example/s14/card",
+          "summary": "Публичная карточка организации",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        },
+        {
+          "id": "b",
+          "kind": "public_site",
+          "url": "https://fixture.example/s14/contact",
+          "summary": "Официальный сайт, иной адрес",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "synthetic_fixture",
+          "rightsStatus": "synthetic_test_only",
+          "origin": "synthetic"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "a",
+          "kind": "business_listing",
+          "statement": "В карточке указан адрес ул. Лесная, 1.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "b",
+          "kind": "site_content",
+          "statement": "На официальном сайте указан адрес ул. Лесная, 10.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Address disagreement may indicate branch or stale listing",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить филиал, дату и официальный контакт, затем предложить корректировку",
+        "alternativeExplanations": [
+          "Возможно два адреса или переезд"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Искажение адреса может быть реальной задачей, но сначала надо установить актуальный.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "r01",
+      "origin": "public_web_paraphrase",
+      "caseId": "p0b4-r01",
+      "niche": "Ремонт компьютеров",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-r01",
+        "name": "РИТМсервис",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "page",
+          "kind": "public_site",
+          "url": "https://www.ritmservice.ru/direction/remont-i-diagnostika-pk/",
+          "summary": "РИТМсервис: публичная страница, краткий пересказ элементов",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "public_page_checked",
+          "rightsStatus": "public_paraphrase_only",
+          "origin": "public_web"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "На странице цена диагностики 2000 ₽, при заказе ремонта диагностика бесплатна.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "На той же странице есть перечень работ, гарантии и порядок контакта.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "Paid standalone diagnosis and free with repair are consistent conditions",
+        "proposal": null,
+        "recommendedNextCheck": "Нельзя предлагать исправление прайса без иной проблемы",
+        "alternativeExplanations": [
+          "Ни один наблюдённый пункт не подтверждает ошибку цены или плохую конверсию"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Источник прочитан публично 29.10.2026. Условия цены непротиворечивы. Повторно проверить дату при практической продаже.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "r02",
+      "origin": "public_web_paraphrase",
+      "caseId": "p0b4-r02",
+      "niche": "Ремонт смартфонов",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-r02",
+        "name": "Ditell Омск",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "page",
+          "kind": "public_site",
+          "url": "https://www.omsk.ditell.ru/",
+          "summary": "Ditell Омск: публичная страница, краткий пересказ элементов",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "public_page_checked",
+          "rightsStatus": "public_paraphrase_only",
+          "origin": "public_web"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "В извлечённом содержимом страницы alt-текст изображения упоминает 27000 гаджетов.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "Рядом основной текст страницы указывает 51000 единиц; различается также часть формулировок о сроках работы.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Text/alt-content inconsistency could be artifact of CMS; do not diagnose without visual DOM verification",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить видимую версию на мобильном/десктопе и актуальные показатели",
+        "alternativeExplanations": [
+          "ALT или устаревший медиа-атрибут может не быть видим пользователям"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Источник проверен публично 29.10.2026. Числа не означают фактическое количество ремонтов.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "r03",
+      "origin": "public_web_paraphrase",
+      "caseId": "p0b4-r03",
+      "niche": "Ремонт бытовой техники",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-r03",
+        "name": "re:device Омск",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "page",
+          "kind": "public_site",
+          "url": "https://oms.re-device.ru/",
+          "summary": "re:device Омск: публичная страница, краткий пересказ элементов",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "public_page_checked",
+          "rightsStatus": "public_paraphrase_only",
+          "origin": "public_web"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "В шапке локальной страницы указан сервис и адрес в Омске.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "В одном FAQ/описании на той же странице указаны Москва и Новослободская улица.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a",
+          "b"
+        ],
+        "reason": "Possible local-page copy mismatch; must check viewport/context and intended service region",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить страницу, структуру FAQ и возможные региональные переключатели перед предложением исправления",
+        "alternativeExplanations": [
+          "Возможно общий сетевой FAQ или техническая ошибка рендеринга"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Публичный HTML проверен 29.10.2026; не делаем заявлений о качестве самого ремонта.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "r04",
+      "origin": "public_web_paraphrase",
+      "caseId": "p0b4-r04",
+      "niche": "Ремонт техники",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-r04",
+        "name": "ОК-центр Омск",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "page",
+          "kind": "public_site",
+          "url": "https://ok-omsk.ru/remont-kompyuterov/",
+          "summary": "ОК-центр Омск: публичная страница, краткий пересказ элементов",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "public_page_checked",
+          "rightsStatus": "public_paraphrase_only",
+          "origin": "public_web"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "В верхней части страницы показана скидка с формулировкой «только до 28.10».",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "На той же странице указаны город Омск, контакты и прайс ремонтных услуг.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "hold_for_review",
+        "evidenceIds": [
+          "a"
+        ],
+        "reason": "Offer date is earlier than observation date but year and visibility conditions uncertain",
+        "proposal": null,
+        "recommendedNextCheck": "Проверить год акции, видимость баннера и действует ли предложение",
+        "alternativeExplanations": [
+          "Скидка может быть периодической или шаблонной, год не указан"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Источник публично проверен 29.10.2026. Не утверждаем, что акция вводит в заблуждение.",
+        "verifiedByCi": false
+      }
+    },
+    {
+      "id": "r05",
+      "origin": "public_web_paraphrase",
+      "caseId": "p0b4-r05",
+      "niche": "Ремонт компьютеров",
+      "region": "Омск",
+      "prospect": {
+        "id": "firm-r05",
+        "name": "RSS Омск",
+        "businessType": "local_service"
+      },
+      "sources": [
+        {
+          "id": "page",
+          "kind": "public_site",
+          "url": "https://www.rss.ru/regions/omsk",
+          "summary": "RSS Омск: публичная страница, краткий пересказ элементов",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "region": "Омск",
+          "accessStatus": "public_page_checked",
+          "rightsStatus": "public_paraphrase_only",
+          "origin": "public_web"
+        }
+      ],
+      "observations": [
+        {
+          "id": "a",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "Региональная страница содержит омский адрес и рабочие часы.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        },
+        {
+          "id": "b",
+          "sourceId": "page",
+          "kind": "site_content",
+          "statement": "На ней же есть телефон и ссылки на направления ремонта/статус заказа.",
+          "observedAt": "2026-10-29T09:40:00Z",
+          "evidenceType": "observed"
+        }
+      ],
+      "referenceDecision": {
+        "status": "insufficient_evidence",
+        "evidenceIds": [],
+        "reason": "Presence of address and contacts does not imply any actionable deficiency",
+        "proposal": null,
+        "recommendedNextCheck": "Найти воспроизводимый пользовательский сценарий и реальные сравнимые источники",
+        "alternativeExplanations": [
+          "Без проверки UX, спроса и конверсии нельзя объявлять точку роста"
+        ],
+        "prohibitedClaims": [
+          "Нельзя утверждать потерю выручки, покупателей или конверсии без подтверждения"
+        ]
+      },
+      "review": {
+        "method": "model_authored_case_analysis",
+        "independentHumanReview": "pending",
+        "reviewerIdentity": null,
+        "reviewedAt": null,
+        "notes": "Проверена публичная страница 29.10.2026. Это отрицательный контроль, а не бизнес-аудит.",
+        "verifiedByCi": false
+      }
+    }
+  ]
+}
