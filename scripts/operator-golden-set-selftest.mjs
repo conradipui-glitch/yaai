@@ -133,7 +133,7 @@ badOwner.observations[0].targetBusinessId='firm-another-case';
 assert.throws(()=>validateScenario(badOwner),/attributed to wrong business/);
 const missingLimit=structuredClone(set.cases[0]);
 delete missingLimit.observations[0].confidenceLimit;
-assert.throws(()=>validateScenario(missingLimit),/Missing observation context/uncertainty/);
+assert.throws(()=>validateScenario(missingLimit),/Missing observation context\/uncertainty/);
 const wrongRegion=structuredClone(casesMap.get('s09'));
 wrongRegion.sources[0].sourceScope='same_region';
 assert.throws(()=>validateScenario(wrongRegion),/Source scope/);
