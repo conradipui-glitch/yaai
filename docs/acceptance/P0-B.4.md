@@ -67,6 +67,29 @@ Before operational use a reviewer must re-open URL, verify dates,
 context and page visibility. A source missing later gets a new
 verification event; past observations stay historical.
 
+## Single-file reviewer and genuine browser tests (2026-10-29)
+
+A self-contained **offline HTML review page** is built from the existing
+19-case blind projection with **no candidate answers**. A human can use it
+without installing Node or fetching an additional JSON file; data are
+embedded in the HTML, not sent to a server. [Builder](../../scripts/build-operator-review-standalone.mjs),
+[Chromium test](../../scripts/operator-review-browser-selftest.mjs) and
+[dedicated Actions workflow](https://github.com/conradipui-glitch/yaai/actions/workflows/p0b4-reviewer-browser.yml)
+provide reproducible build, desktop/mobile functional QA and downloadable
+artifact with screenshots.
+
+Checked in actual headless Chromium: desktop first/last scenarios,
+mobile first scenario, 19 entries, evidence selections, export, review
+import after reload, zero default human-attestation flags, no network
+requests, no page errors, mobile scrollWidth 390 = viewport 390. I also
+inspected the generated screenshots for readable layout and no evident
+clipping on these three surfaces. This is **not** an independent human
+usability/accessibility certification.
+
+**Quality boundary stays closed:** A complete human-blind evaluation of
+all 19 cases, with individually justified source checks, still has NOT
+happened. Test automation must not mark P0-B.4 accepted or open P0-B.5.
+
 ## Blind-review gate implementation (2026-10-29)
 
 [GitHub Actions PR run #40864722289](https://github.com/conradipui-glitch/yaai/actions/runs/40864722289)
@@ -108,7 +131,7 @@ remain unchanged and P0-B.5 stays blocked.
 | T3 — cross-tool consistency | PASS as contract-only; live runtime NOT RUN/N/A | Maintains reference to Playbook v0.1.0 and same project-scoped source/observation semantics; full Prospect→Audit→MCP→Studio pipeline not yet implemented |
 | T4 — reproducibility | PASS for case IDs/metadata; true re-fetch NOT RUN | Validator reprocesses identical fixtures; does not collect websites in CI |
 | T5 — security/cost | PASS for current offline scope | Fixture-only; no paid API; no mailing, publication, admin writes or external source fetch in tests |
-| T6 — live UI | **Partial PASS:** [Node DOM smoke CI](https://github.com/conradipui-glitch/yaai/actions/runs/40871803247); **rendered browser QA NOT RUN** | Local HTML reviewer now exists. Tested blind import, save/export/reopen and keyboard-reachable native controls in mock DOM, but genuine browser visual/accessibility verification remains pending |
+| T6 — live UI | **PASS within tested desktop/mobile scope:** Node DOM smoke, **real Chromium** at 1365×900 and 390×844, blind import, save/export/reopen and source links; visual screenshot inspection. **Independent human accessibility/usability study NOT RUN** | [Dedicated browser workflow](https://github.com/conradipui-glitch/yaai/actions/workflows/p0b4-reviewer-browser.yml) also verifies no JavaScript errors, HTTP requests or horizontal overflow. Three screenshots and standalone reviewer are downloadable as workflow artifacts. |
 | T7 — methodological quality | **BLOCK / NOT RUN** | No independent human has read and signed blind reference decisions. Proposed gold statuses are still candidates. Cannot legitimately calculate accuracy or move to P0-B.5 comparison. |
 
 **Acceptance criterion still outstanding:** independent reviewer supplies
