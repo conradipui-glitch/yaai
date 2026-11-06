@@ -7,6 +7,18 @@ automated structural tests are not independent golden labels.
 the versioned Operator Playbook on the same adjudicated samples).
 **Do not start P0-C while P0-B.4 or P0-B.5 is pending.**
 
+## Additional assistant-driven pilot — 6 November 2026
+
+A [19-case functional and analytical AI trial](P0-B.4-ai-trial-2026-11-06.md)
+was completed in Chromium, with all 19 decisions exported and restored.
+The non-independent review matched 18 of 19 preliminary labels; the
+remaining case `r03` was changed to `cannot_adjudicate` because the claimed
+Moscow street reference lacks a reproducible timestamped source snapshot.
+This is **not** model accuracy, not blinded external review and not
+independent human sign-off. Public-source provenance gaps remain.
+
+**P0-B.4 is still BLOCKED; P0-B.5 remains NOT STARTED.**
+
 ## Deliverables
 
 - [Reference candidates (JSON)](../../playbooks/operator-local-smb-diagnostic-v0/fixtures/p0-b4-reference-candidates.json):
