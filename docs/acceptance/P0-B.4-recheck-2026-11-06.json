@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "source": "yaai-p0-b4-public-source-recheck-ledger",
+  "iteration": "P0-B.4",
+  "datasetGitBlobSha": "1d63569bace42349252f684f44027fc224bb1aca",
+  "firstSourceObservationDate": "2026-10-29",
+  "reviewDate": "2026-11-06",
+  "authorRole": "AI_assisted_research_not_independent_human",
+  "independentHumanReview": "NOT_RUN",
+  "recordPolicy": "Append-only evidence observations; never replace or revise 2026-10-29 source/observation records. These are search-index or cached-page TEXT summaries, not archived original HTML or live DOM screenshots.",
+  "records": [
+    {
+      "eventId": "r03-home-index-2026-11-06",
+      "caseId": "r03",
+      "originalSourceId": "page",
+      "originalObservationIds": [
+        "a",
+        "b"
+      ],
+      "originalUrl": "https://oms.re-device.ru/",
+      "evidenceUrl": "https://oms.re-device.ru/",
+      "retrievedOn": "2026-11-06",
+      "captureSurface": "search_index_text",
+      "crawlerAgeAtRetrieval": "approximately last week",
+      "httpBodySaved": false,
+      "rawHtmlSha256": null,
+      "briefParaphrase": "Поисковое представление омской главной одновременно содержит омский адрес, московскую улицу, метро и доставку в Москве.",
+      "supportClass": "later_text_corrobates_wording",
+      "historicalObservationProved": false,
+      "reviewQuestion": "Увидит ли омский посетитель эти общие блоки и являются ли они ошибкой шаблона? Проверить живой DOM и исходный датированный снимок.",
+      "caution": "Позднее индексирование не подтверждает исходное состояние 29 октября и не доказывает потерю заявок."
+    },
+    {
+      "eventId": "r03-contacts-context-2026-11-06",
+      "caseId": "r03",
+      "originalSourceId": "page",
+      "originalObservationIds": [
+        "a",
+        "b"
+      ],
+      "originalUrl": "https://oms.re-device.ru/",
+      "evidenceUrl": "https://oms.re-device.ru/contacts",
+      "retrievedOn": "2026-11-06",
+      "captureSurface": "search_index_text",
+      "crawlerAgeAtRetrieval": "approximately three months",
+      "httpBodySaved": false,
+      "rawHtmlSha256": null,
+      "briefParaphrase": "Страница контактов отдельно перечисляет омский адрес и московский филиал на Новослободской улице.",
+      "supportClass": "alternative_context_not_same_page",
+      "historicalObservationProved": false,
+      "reviewQuestion": "Отделить справочник филиалов от пользовательского пути обслуживания в Омске.",
+      "caution": "Страница контактов не является той же страницей, что исходное наблюдение; это объяснение, не подтверждение ошибки."
+    },
+    {
+      "eventId": "r04-original-page-cache-2026-11-06",
+      "caseId": "r04",
+      "originalSourceId": "page",
+      "originalObservationIds": [
+        "a"
+      ],
+      "originalUrl": "https://ok-omsk.ru/remont-kompyuterov/",
+      "evidenceUrl": "https://ok-omsk.ru/remont-kompyuterov/",
+      "retrievedOn": "2026-11-06",
+      "captureSurface": "cached_page_text",
+      "crawlerAgeAtRetrieval": "approximately four months",
+      "httpBodySaved": false,
+      "rawHtmlSha256": null,
+      "briefParaphrase": "Старая кэшированная версия исходной страницы показывает акцию с июльским сроком вместо октябрьского.",
+      "supportClass": "different_cached_version",
+      "historicalObservationProved": false,
+      "reviewQuestion": "Найти датированный первичный снимок исходной версии 29 октября и проверить сроки в ней.",
+      "caution": "Кэшированная версия с июльской датой не опровергает и не подтверждает дату другого снимка."
+    },
+    {
+      "eventId": "r04-home-index-2026-11-06",
+      "caseId": "r04",
+      "originalSourceId": "page",
+      "originalObservationIds": [
+        "a"
+      ],
+      "originalUrl": "https://ok-omsk.ru/remont-kompyuterov/",
+      "evidenceUrl": "https://ok-omsk.ru/",
+      "retrievedOn": "2026-11-06",
+      "captureSurface": "search_index_text",
+      "crawlerAgeAtRetrieval": "approximately two weeks",
+      "httpBodySaved": false,
+      "rawHtmlSha256": null,
+      "briefParaphrase": "Главная страница содержит октябрьский срок акции, но это другой URL, а не исходная страница ремонта компьютеров.",
+      "supportClass": "different_url_same_business",
+      "historicalObservationProved": false,
+      "reviewQuestion": "Не переносить срок с главной страницы на страницу ремонта без проверки идентичности рекламного блока и даты.",
+      "caution": "Разные URL не доказывают временную эволюцию одной и той же страницы."
+    },
+    {
+      "eventId": "r04-laptop-index-2026-11-06",
+      "caseId": "r04",
+      "originalSourceId": "page",
+      "originalObservationIds": [
+        "a"
+      ],
+      "originalUrl": "https://ok-omsk.ru/remont-kompyuterov/",
+      "evidenceUrl": "https://ok-omsk.ru/remont-noutbukov/",
+      "retrievedOn": "2026-11-06",
+      "captureSurface": "search_index_text",
+      "crawlerAgeAtRetrieval": "approximately two weeks",
+      "httpBodySaved": false,
+      "rawHtmlSha256": null,
+      "briefParaphrase": "Страница ремонта ноутбуков в индексе содержит иной октябрьский срок акции и относится к другой услуге.",
+      "supportClass": "different_url_same_business",
+      "historicalObservationProved": false,
+      "reviewQuestion": "Проверить, объединён ли акционный баннер общим шаблоном сайта и совпадает ли период.",
+      "caution": "Сроки на разных страницах нельзя автоматически считать ошибкой исходного наблюдения."
+    }
+  ],
+  "blockingIssues": [
+    {
+      "caseId": "r03",
+      "issue": "original_2026_10_29_html_unarchived",
+      "next": "Слепой независимый эксперт должен подтвердить текущую видимость блока и статус исходного датированного доказательства."
+    },
+    {
+      "caseId": "r04",
+      "issue": "original_2026_10_29_html_unarchived_and_mixed_cache_dates",
+      "next": "Сохранить явный датированный DOM/text snapshot для точного URL; не выводить диагноз из разных кэшированных URL."
+    }
+  ],
+  "reviewGate": "INDEPENDENT_HUMAN_ADJUDICATION_PENDING",
+  "nextPhase": "P0-B.4_ONLY"
+}
