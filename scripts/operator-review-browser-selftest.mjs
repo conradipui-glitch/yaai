@@ -63,6 +63,8 @@ try{
   assert.equal(await page.locator('#progress-count').innerText(),'0 / 19',
     'Nothing must persist in browser storage');
   await page.locator('#review-input').setInputFiles(savedPath);
+  // FileReader/file.text() completes asynchronously; wait for the UI state.
+  await page.waitForFunction(()=>document.getElementById('progress-count').textContent.trim()==='1 / 19');
   assert.equal(await page.locator('#progress-count').innerText(),'1 / 19');
   await page.locator('#case-list button').nth(18).click();
   assert.match(await page.locator('#case-index').innerText(),/19 из 19/i);
