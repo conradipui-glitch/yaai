@@ -52,7 +52,7 @@ assert.throws(()=>validateP0B4EvidenceLedger(ledger,corruptedDataset,raw),/Parse
 const modifiedRaw=raw.replace('Novoslobodskaya','Changed'); // may be absent: guarantee mutation
 assert.notEqual(modifiedRaw===raw?raw+' ':modifiedRaw,raw);
 assert.throws(()=>validateP0B4EvidenceLedger(ledger,dataset,raw+' '),
-  /Parsed case data differs|original candidate set changed/);
+  /Parsed case data differs|Original candidate set changed/i);
 const again=validateP0B4EvidenceLedger(structuredClone(ledger),JSON.parse(raw),raw);
 assert.deepEqual(result,again,'Same fixed inputs must give reproducible evidence summary');
 console.log('P0-B.4 append-only source provenance ledger: PASS');
