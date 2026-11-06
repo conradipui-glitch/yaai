@@ -42,7 +42,7 @@ bad(x=>{x.records[0].rawHtmlSha256='invented';},/Do not invent an HTML digest/);
 bad(x=>{x.records[0].httpBodySaved=true;},/No raw HTTP response was saved/);
 bad(x=>{x.records[0].retrievedOn='2025-01-01';},/retrieval date/);
 bad(x=>{x.records[2].captureSurface='search_index_text';},/Version divergence/);
-bad(x=>{x.records.push(structuredClone(x.records[0]));},/Duplicate\/missing event ID/);
+bad(x=>{x.records[1].eventId=x.records[0].eventId;},/Duplicate\/missing event ID/);
 bad(x=>{x.blockingIssues=[];},/original snapshots must remain explicit blockers/);
 bad(x=>{x.records[3].evidenceUrl=x.records[3].originalUrl;},/genuinely different URL path/);
 bad(x=>{x.records[1].briefParaphrase='';},/Source summary/);
