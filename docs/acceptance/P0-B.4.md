@@ -7,6 +7,29 @@ automated structural tests are not independent golden labels.
 the versioned Operator Playbook on the same adjudicated samples).
 **Do not start P0-C while P0-B.4 or P0-B.5 is pending.**
 
+## P0-B.4 source-provenance reconciliation — 6 November 2026
+
+The [five-event follow-up source ledger](P0-B.4-recheck-2026-11-06.json)
+connects **r03 and r04** to the original case/source/observation IDs,
+with a clear distinction between later search-index text, old cached pages,
+and the **missing original 29 October HTML/DOM snapshot**.
+See the [evidence reconciliation report](P0-B.4-provenance-reconciliation-2026-11-06.md).
+Offline [regression/negative test](../../scripts/p0b4-source-ledger-selftest.mjs)
+and [validator](../../lib/p0b4-source-ledger.mjs) bind the original 19 cases
+to the exact Git blob hash and reject false historical proof, wrong source
+links, source drift and forged independent acceptance. Added new event records
+without changing the initial dataset or preliminary candidate labels.
+
+Later indexed text now **supports that Moscow/Novoslobodskaya words can occur
+on the Omsk site**, contrary to the prior broad suggestion that the words
+were unsupported everywhere. It does **not** verify the 29 October version
+or prove a localization defect. For r04 the divergent promotional dates are
+from different URL paths and/or aged cache, so we do not conflate them.
+
+**Current acceptance blocker remains:** independently reviewed 19 cases
+and historical source provenance/explicit inability to adjudicate.
+**P0-B.4 NOT ACCEPTED; P0-B.5 NOT STARTED.**
+
 ## Additional assistant-driven pilot — 6 November 2026
 
 A [19-case functional and analytical AI trial](P0-B.4-ai-trial-2026-11-06.md)
